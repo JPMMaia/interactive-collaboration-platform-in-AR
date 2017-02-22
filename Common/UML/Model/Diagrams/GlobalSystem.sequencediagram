@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/dsltools/UseCaseModel" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" dslVersion="1.0.0.0" Id="2d1a3bd9-5826-4107-8fa1-69f4e4bd0c66" name="GlobalSystem" linkedPackageId="90ee0c9e-8f0a-41a3-a7b4-acdbff8c6580" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="c9fbf533-bf0e-487d-96dc-a3240cbe0817">
+      <profileInstance Id="c03dc3f9-9e45-4dbe-b892-c857ac603d90" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="cfb87a4c-c1fc-4672-b0cd-81026fd346a1">
+      <profileInstance Id="3bf3a84a-0044-4de2-8b94-b3c6c7ca6bd5" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <interaction Id="ad6000c6-c505-4346-ba96-b22891de7a9d" name="GlobalSystem" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
+        <elementDefinition Id="a41d9cbf-9968-4ff9-bf35-4e3a79db2f5c" />
+        <fragments>
+          <interactionUse Id="be5a7314-98a1-471e-ab47-a57aca450e99" name="Reconnaissance" referredToFile="Reconnaissance">
+            <referencesInternal>
+              <reference Id="ec299638-13db-48f3-a546-5b24257e09c6" handle="backplane://Backplane/Microsoft.VisualStudio.TeamArchitect.SequenceDesigner.ToolAdapter.SequenceServiceManager/a3e6a754-9d6b-447a-bceb-477b57a38635\Diagrams\Reconnaissance.sequencediagram" tag="Definition Reference">
+                <elementDefinition Id="bf08c02b-e042-42d6-971f-1dadf992f4a4" />
+              </reference>
+            </referencesInternal>
+            <elementDefinition Id="e524dc17-153b-4355-98bd-b88bd899e361" />
+            <coveredLifelines>
+              <lifelineMoniker Id="c891dcd9-cc38-46f8-877a-84b8c1f3cd81" LastKnownName="Server" />
+              <lifelineMoniker Id="a3a05742-9e87-42b4-a579-2e0c0d242d8e" LastKnownName="Client" />
+            </coveredLifelines>
+            <interactionUseOccurrenceSpecifications>
+              <interactionUseOccurrenceSpecificationMoniker Id="dc600c26-3176-40e8-aa81-a1a96c5cb697" LastKnownName="InteractionUseOccurrenceSpecification4" />
+              <interactionUseOccurrenceSpecificationMoniker Id="776ffcc1-5ed9-4857-9e48-b70bd241cdd1" LastKnownName="InteractionUseOccurrenceSpecification5" />
+            </interactionUseOccurrenceSpecifications>
+          </interactionUse>
+          <interactionUseOccurrenceSpecification Id="dc600c26-3176-40e8-aa81-a1a96c5cb697" name="InteractionUseOccurrenceSpecification4">
+            <elementDefinition Id="dd561567-ef44-4abd-a3aa-9ef47ac2ecca" />
+            <covered>
+              <lifelineMoniker Id="c891dcd9-cc38-46f8-877a-84b8c1f3cd81" LastKnownName="Server" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUseOccurrenceSpecification Id="776ffcc1-5ed9-4857-9e48-b70bd241cdd1" name="InteractionUseOccurrenceSpecification5">
+            <elementDefinition Id="cf2bf4a3-27f6-418f-907a-c4746f23c6ad" />
+            <covered>
+              <lifelineMoniker Id="a3a05742-9e87-42b4-a579-2e0c0d242d8e" LastKnownName="Client" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUse Id="1245e082-7267-412d-a31b-effba31f7095" name="Mentor Interaction" referredToFile="Mentor Interaction">
+            <referencesInternal>
+              <reference Id="8d467e49-7dcc-4678-8499-cb814171dbc5" handle="backplane://Backplane/Microsoft.VisualStudio.TeamArchitect.SequenceDesigner.ToolAdapter.SequenceServiceManager/a3e6a754-9d6b-447a-bceb-477b57a38635\Diagrams\MentorInteraction.sequencediagram" tag="Definition Reference">
+                <elementDefinition Id="989694c5-6027-45a4-8ce5-49ffcc69a3d9" />
+              </reference>
+            </referencesInternal>
+            <elementDefinition Id="de196fa9-2ea2-42bc-b604-cdb7ddb3ee43" />
+            <coveredLifelines>
+              <lifelineMoniker Id="4ddba0e1-8fa0-421e-869d-11d0058a4335" LastKnownName="Mentor" />
+              <lifelineMoniker Id="c891dcd9-cc38-46f8-877a-84b8c1f3cd81" LastKnownName="Server" />
+              <lifelineMoniker Id="a3a05742-9e87-42b4-a579-2e0c0d242d8e" LastKnownName="Client" />
+            </coveredLifelines>
+            <interactionUseOccurrenceSpecifications>
+              <interactionUseOccurrenceSpecificationMoniker Id="419d0902-8814-4f1e-9fe9-d7bab0c1ec7a" LastKnownName="InteractionUseOccurrenceSpecification6" />
+              <interactionUseOccurrenceSpecificationMoniker Id="bb545b78-bc1f-473e-a759-075590073d32" LastKnownName="InteractionUseOccurrenceSpecification7" />
+              <interactionUseOccurrenceSpecificationMoniker Id="59999734-339b-4e32-9216-f498b2eac66b" LastKnownName="InteractionUseOccurrenceSpecification8" />
+            </interactionUseOccurrenceSpecifications>
+          </interactionUse>
+          <interactionUseOccurrenceSpecification Id="419d0902-8814-4f1e-9fe9-d7bab0c1ec7a" name="InteractionUseOccurrenceSpecification6">
+            <elementDefinition Id="94b962f2-3e9b-49ac-afdf-33506433b3ef" />
+            <covered>
+              <lifelineMoniker Id="4ddba0e1-8fa0-421e-869d-11d0058a4335" LastKnownName="Mentor" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUseOccurrenceSpecification Id="bb545b78-bc1f-473e-a759-075590073d32" name="InteractionUseOccurrenceSpecification7">
+            <elementDefinition Id="6dc70ffb-af61-4f0d-a674-44f640bd98cf" />
+            <covered>
+              <lifelineMoniker Id="c891dcd9-cc38-46f8-877a-84b8c1f3cd81" LastKnownName="Server" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUseOccurrenceSpecification Id="59999734-339b-4e32-9216-f498b2eac66b" name="InteractionUseOccurrenceSpecification8">
+            <elementDefinition Id="a3235165-8304-4d92-81b4-94d17d18e5a0" />
+            <covered>
+              <lifelineMoniker Id="a3a05742-9e87-42b4-a579-2e0c0d242d8e" LastKnownName="Client" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline Id="4ddba0e1-8fa0-421e-869d-11d0058a4335" name="Mentor" isActor="true" lifelineDisplayName="Mentor">
+            <elementDefinition Id="38609233-842d-48e3-a6ba-dad15a5a9d20" />
+            <represents>
+              <propertyMoniker Id="6b673f0f-4dc8-4462-b026-f9c1826a81ec" />
+            </represents>
+            <topLevelOccurrences>
+              <interactionUseOccurrenceSpecificationMoniker Id="419d0902-8814-4f1e-9fe9-d7bab0c1ec7a" LastKnownName="InteractionUseOccurrenceSpecification6" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="c891dcd9-cc38-46f8-877a-84b8c1f3cd81" name="Server" isActor="false" lifelineDisplayName="Server">
+            <elementDefinition Id="18b6a09a-b088-48db-9411-1868ff266b6d" />
+            <represents>
+              <propertyMoniker Id="d7e00442-72d2-489e-8495-a2ae9193f10e" />
+            </represents>
+            <topLevelOccurrences>
+              <interactionUseOccurrenceSpecificationMoniker Id="dc600c26-3176-40e8-aa81-a1a96c5cb697" LastKnownName="InteractionUseOccurrenceSpecification4" />
+              <interactionUseOccurrenceSpecificationMoniker Id="bb545b78-bc1f-473e-a759-075590073d32" LastKnownName="InteractionUseOccurrenceSpecification7" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline Id="a3a05742-9e87-42b4-a579-2e0c0d242d8e" name="Client" isActor="false" lifelineDisplayName="Client">
+            <elementDefinition Id="4bdd9e22-c9bc-4eb5-9b2c-fb143de950fe" />
+            <represents>
+              <propertyMoniker Id="ed4dd856-b02c-46e1-87c5-f9ab5073616e" />
+            </represents>
+            <topLevelOccurrences>
+              <interactionUseOccurrenceSpecificationMoniker Id="776ffcc1-5ed9-4857-9e48-b70bd241cdd1" LastKnownName="InteractionUseOccurrenceSpecification5" />
+              <interactionUseOccurrenceSpecificationMoniker Id="59999734-339b-4e32-9216-f498b2eac66b" LastKnownName="InteractionUseOccurrenceSpecification8" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <ownedAttributesInternal>
+          <property Id="6b673f0f-4dc8-4462-b026-f9c1826a81ec" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="ec83315a-3d03-4c31-a7cc-4961819c8859" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="71628494-9df5-454c-a5d0-d840066d9392" LastKnownName="Mentor" />
+            </type_NamedElement>
+          </property>
+          <property Id="d7e00442-72d2-489e-8495-a2ae9193f10e" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2bcf72a0-3fcd-4d6c-a140-6008874a70db" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="253b7d97-d087-402b-93d5-65ea74d90951" LastKnownName="Server" />
+            </type_NamedElement>
+          </property>
+          <property Id="ed4dd856-b02c-46e1-87c5-f9ab5073616e" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="951869fa-afd3-4f07-9880-485143b6b173" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="971d7223-e75e-4750-acb3-8e5758e598dc" LastKnownName="Client" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="71628494-9df5-454c-a5d0-d840066d9392" name="Mentor" isAbstract="false" isLeaf="false" cachedFullName="Dissertation::Mentor">
+        <elementDefinition Id="b2e7edf7-0aad-41b7-b917-56893aec8a98" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="253b7d97-d087-402b-93d5-65ea74d90951" name="Server" isAbstract="false" isLeaf="false" cachedFullName="Dissertation::Server">
+        <elementDefinition Id="e6092f03-5adc-47a8-948c-6fb9c14274f3" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="971d7223-e75e-4750-acb3-8e5758e598dc" name="Client" isAbstract="false" isLeaf="false" cachedFullName="Dissertation::Client">
+        <elementDefinition Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="90ee0c9e-8f0a-41a3-a7b4-acdbff8c6580" name="Dissertation">
+    <elementDefinition Id="975918c6-7186-4cbe-8a1f-09e7240abd3f" />
+  </package>
+</SequenceDesignerModel>

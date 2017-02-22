@@ -1,0 +1,3467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner"
+  dslVersion="1.0.0.0"
+  Id="975918c6-7186-4cbe-8a1f-09e7240abd3f"
+  name="Dissertation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <actor
+        Id="b2e7edf7-0aad-41b7-b917-56893aec8a98"
+        name="Mentor"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="e0ed244e-cb98-4408-8852-da6325d5d309"
+            isDerived="false"
+            sourceEndRoleName="Mentor"
+            targetEndRoleName="Accept Client Connection"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="3dda2035-fad0-47ba-aa43-701ed1733b6e"
+              LastKnownName="Accept Client Connection"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e2cc520d-69b4-4b4a-910a-bd85e1796e17"
+                  name="Mentor"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="750e8c97-9218-4abd-8486-f93ed535835e"
+                  name="Accept Client Connection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="0e178c39-cda4-4c4b-bf2a-9bda87ecb4d0"
+            isDerived="false"
+            sourceEndRoleName="Mentor"
+            targetEndRoleName="End Client Connection"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="8ab76b9f-43c8-47c6-8306-d00f36480f50"
+              LastKnownName="End Client Connection"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="01799f32-0053-4551-989c-7f69a5a9ee35"
+                  name="Mentor"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f1e2c519-54e8-4c1a-8b00-c9fa08a0aa26"
+                  name="End Client Connection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="1a3556ac-30bd-4f33-ac7a-fce03f8fbb7f"
+            isDerived="false"
+            sourceEndRoleName="Mentor"
+            targetEndRoleName="Create virtual instruction"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="fa338f0b-e58e-4447-8b26-94123ff1685f"
+              LastKnownName="Create virtual instruction"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cc5d7314-65d2-4b52-8d36-9618f1e0742c"
+                  name="Mentor"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b51872db-f219-4f4c-a2f1-8b9d398a2a4b"
+                  name="Create virtual instruction"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="04fae7ad-3ae1-4158-a71b-402496531d33"
+            isDerived="false"
+            sourceEndRoleName="Mentor"
+            targetEndRoleName="Delete virtual instruction"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e75a3aae-6676-4295-8f03-202f0073412c"
+              LastKnownName="Delete virtual instruction"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e7cc935f-9218-4c2c-a608-00037d3ae30a"
+                  name="Mentor"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="79467042-e2d5-4b2b-ae05-10f0e41a439d"
+                  name="Delete virtual instruction"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="8bd11eb1-e241-4171-85e8-e6cdb0a98110"
+            isDerived="false"
+            sourceEndRoleName="Mentor"
+            targetEndRoleName="Navigate through virtual scene"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="1c75d830-a878-41fb-b334-dec1b3c45813"
+              LastKnownName="Navigate through virtual scene"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="81aaa232-ccae-4ee5-aed5-e3a49979ec74"
+                  name="Mentor"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="01c9b37e-0577-47f5-bec7-2aa281f9ff66"
+                  name="Navigate through virtual scene"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4f98a584-b951-4c41-9d36-b58d7137d556"
+            isDerived="false"
+            sourceEndRoleName="Mentor"
+            targetEndRoleName="Edit Virtual Instruction"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="5e28c8d7-fa4c-49dd-8235-bc96515e60fd"
+              LastKnownName="Edit Virtual Instruction"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="232056da-e09e-46bb-8f65-0aeb78cba96b"
+                  name="Mentor"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="481e5d28-8cac-4d7d-8746-78f3cc748ac3"
+                  name="Edit Virtual Instruction"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="fb67e411-1b09-48ef-823f-52d17c1123c5"
+        name="Apprentice"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="84833ab1-ea80-48dc-9490-394ed001b3d1"
+            isDerived="false"
+            sourceEndRoleName="Apprentice"
+            targetEndRoleName="Create Server Connection"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="3d826510-3a78-4acd-919b-f77c1761e330"
+              LastKnownName="Create Server Connection"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fc936f69-85fe-42b0-83df-27c4b3570ff0"
+                  name="Apprentice"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3f98fe23-6a2a-4dfa-a509-7b948a89130d"
+                  name="Create Server Connection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="0f296a84-5bef-4266-98ef-6b579ef89a70"
+            isDerived="false"
+            sourceEndRoleName="Apprentice"
+            targetEndRoleName="End Server Connection"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="3d6de001-4107-4461-bdf8-79048e859fd8"
+              LastKnownName="End Server Connection"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="09095166-5edc-4f89-9799-51ae0d21d0f5"
+                  name="Apprentice"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="de70cbdb-4e85-47fe-8735-395e8b987d96"
+                  name="End Server Connection"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="024c9bec-8ca2-4026-9775-3705ea2c7cef"
+            isDerived="false"
+            sourceEndRoleName="Apprentice"
+            targetEndRoleName="Do World Operation"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="d96c7102-ce05-4055-863b-d72f5eff644e"
+              LastKnownName="Do World Operation"
+              LastKnownLocation="Dissertation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e04cc82a-5dd7-478b-ad7e-3c914d5ca0fd"
+                  name="Apprentice"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e066a6ce-4c1d-4bf7-aac0-3c9e8530eac1"
+                  name="Do World Operation"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+        name="Server"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+        name="Client"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="fa338f0b-e58e-4447-8b26-94123ff1685f"
+        name="Create virtual instruction"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+            LastKnownName="Server"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="d0fb6a40-0892-43cd-9fd7-4baacd6f19b2"
+        name="Mentor Interaction"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <combinedFragment
+            Id="6789c9bc-3cc1-4c2e-80ac-ab744ebc9db0"
+            name="CombinedFragment1"
+            interactionOperator="Loop">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+              <lifelineMoniker
+                Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <operands>
+              <interactionOperand
+                Id="4b36b952-1a3e-43c6-9beb-0768fe822c78"
+                name="InteractionOperand1">
+                <coveredLifelines>
+                  <lifelineMoniker
+                    Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                    LastKnownName="Server"
+                    LastKnownLocation="Dissertation.uml" />
+                  <lifelineMoniker
+                    Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+                    LastKnownName="Client"
+                    LastKnownLocation="Dissertation.uml" />
+                </coveredLifelines>
+                <guard>
+                  <interactionConstraint
+                    Id="af69da2f-d719-4075-8ec6-ccaae4e5571f">
+                    <maxInt>
+                      <literalString
+                        Id="7c515c20-6f1e-4cba-aff0-b10e0e3aabe4"
+                        name="LiteralString1" />
+                    </maxInt>
+                    <minInt>
+                      <literalString
+                        Id="20a9c438-142c-4963-b375-93076c6cd6e2"
+                        name="LiteralString2" />
+                    </minInt>
+                  </interactionConstraint>
+                </guard>
+                <operandOccurrenceSpecifications>
+                  <operandOccurrenceSpecificationMoniker
+                    Id="215eff2e-b0fb-412a-b726-a9d11ad131da"
+                    LastKnownName="OperandOccurrenceSpecification9"
+                    LastKnownLocation="Dissertation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="39ec1cc8-9f0c-4769-a61e-204f934c52a1"
+                    LastKnownName="OperandOccurrenceSpecification10"
+                    LastKnownLocation="Dissertation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="d0e1a01a-371c-4a62-bfba-99b9ce005a11"
+                    LastKnownName="OperandOccurrenceSpecification11"
+                    LastKnownLocation="Dissertation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="94de68f7-b90b-4350-a316-53b80306bb7f"
+                    LastKnownName="OperandOccurrenceSpecification12"
+                    LastKnownLocation="Dissertation.uml" />
+                </operandOccurrenceSpecifications>
+              </interactionOperand>
+            </operands>
+          </combinedFragment>
+          <operandOccurrenceSpecification
+            Id="d0e1a01a-371c-4a62-bfba-99b9ce005a11"
+            name="OperandOccurrenceSpecification11">
+            <covered>
+              <lifelineMoniker
+                Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="215eff2e-b0fb-412a-b726-a9d11ad131da"
+            name="OperandOccurrenceSpecification9">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="ad07bedd-b8ad-4caa-a33a-6efc2f19d2dd"
+            name="BehaviorExecutionSpecification12">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="7a7d5528-8676-4911-8394-574ac9703a88"
+                LastKnownName="ExecutionOccurrenceSpecification24"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="1bcb30dc-c26a-4da9-b57c-206a6969d146"
+                LastKnownName="ExecutionOccurrenceSpecification23"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="cc130608-df16-40ca-8c0a-a9d114e8e82a"
+                LastKnownName="MessageOccurrenceSpecification29"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="7fda6053-19ce-46dd-b75b-e4d9e2145d13"
+                LastKnownName="MessageOccurrenceSpecification30"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="1bcb30dc-c26a-4da9-b57c-206a6969d146"
+            name="ExecutionOccurrenceSpecification23">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="e9e0af51-d92f-4353-a68c-38a3c7d1804b"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="468103cf-62cd-49fb-94cd-2fb3e482999a"
+            name="MessageOccurrenceSpecification28">
+            <covered>
+              <lifelineMoniker
+                Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="cc130608-df16-40ca-8c0a-a9d114e8e82a"
+            name="MessageOccurrenceSpecification29">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="bda8c335-f176-4aaf-aa3a-eef17b49e27a"
+            name="MessageOccurrenceSpecification31">
+            <covered>
+              <lifelineMoniker
+                Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="7fda6053-19ce-46dd-b75b-e4d9e2145d13"
+            name="MessageOccurrenceSpecification30">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="7a7d5528-8676-4911-8394-574ac9703a88"
+            name="ExecutionOccurrenceSpecification24">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="a70e6b68-1aa6-44e3-8fa8-39a8e1d5b6a3"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="94de68f7-b90b-4350-a316-53b80306bb7f"
+            name="OperandOccurrenceSpecification12">
+            <covered>
+              <lifelineMoniker
+                Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="39ec1cc8-9f0c-4769-a61e-204f934c52a1"
+            name="OperandOccurrenceSpecification10">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="307aee78-1040-4096-ad0a-235a4f69f9b0"
+            name="BehaviorExecutionSpecification8">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="869460f5-ab52-4cca-85f9-cad8aea49bf7"
+                LastKnownName="ExecutionOccurrenceSpecification16"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="9ec0e01b-9c4a-47c9-88e3-d18dc55c5c40"
+                LastKnownName="ExecutionOccurrenceSpecification15"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="6854216c-7a95-4ac7-b739-141bf9eeb1f7"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="8b528ca6-6386-4893-ab1b-5a1b9183b45f"
+                LastKnownName="MessageOccurrenceSpecification36"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="a3d17931-3214-461d-bae6-cda401d6be0c"
+                LastKnownName="ExecutionOccurrenceSpecification29"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="3e31dbc1-73c7-4b14-9019-afbd640f3800"
+                LastKnownName="ExecutionOccurrenceSpecification30"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="9ec0e01b-9c4a-47c9-88e3-d18dc55c5c40"
+            name="ExecutionOccurrenceSpecification15">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="c8c89ec1-523d-4e51-9cb4-5f0ac82b50c1"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="6854216c-7a95-4ac7-b739-141bf9eeb1f7"
+            name="MessageOccurrenceSpecification17">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="f4c395d1-e8be-4bae-a7f2-f0a4e5c13ec3"
+            name="MessageOccurrenceSpecification16">
+            <covered>
+              <lifelineMoniker
+                Id="a49ade04-b637-4683-9e7a-603d0520bc98"
+                LastKnownName="Mentor"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="8b528ca6-6386-4893-ab1b-5a1b9183b45f"
+            name="MessageOccurrenceSpecification36">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="b41d5efe-79b0-4e28-876a-7f095edeaa81"
+            name="BehaviorExecutionSpecification15">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="3e31dbc1-73c7-4b14-9019-afbd640f3800"
+                LastKnownName="ExecutionOccurrenceSpecification30"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="a3d17931-3214-461d-bae6-cda401d6be0c"
+                LastKnownName="ExecutionOccurrenceSpecification29"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="fd3f3de7-a1ea-4cf2-90d2-362bd62388f5"
+                LastKnownName="MessageOccurrenceSpecification37"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="a3d17931-3214-461d-bae6-cda401d6be0c"
+            name="ExecutionOccurrenceSpecification29">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="6e6b21c7-1b7a-48bc-924f-d6ca52911717"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="fd3f3de7-a1ea-4cf2-90d2-362bd62388f5"
+            name="MessageOccurrenceSpecification37">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="3e31dbc1-73c7-4b14-9019-afbd640f3800"
+            name="ExecutionOccurrenceSpecification30">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="5bf71cb5-5b04-40b2-bc21-ad5aa914d6a7"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="869460f5-ab52-4cca-85f9-cad8aea49bf7"
+            name="ExecutionOccurrenceSpecification16">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="7e0c8776-6166-436e-bf2e-6c6448a0f109"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="51c6e893-1318-4064-aaef-0ad6d5c20e27"
+            name="BehaviorExecutionSpecification18">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="44523505-83a8-44c5-9d06-4dfae1a15dd7"
+                LastKnownName="ExecutionOccurrenceSpecification36"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="ff2b6fa1-0771-46af-b7fa-60942265dafa"
+                LastKnownName="ExecutionOccurrenceSpecification35"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="55f7446d-af7d-49b7-bd41-cdc8dbdf9c4f"
+                LastKnownName="MessageOccurrenceSpecification43"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="48f5d98c-7550-47a0-85f5-9f7470642b81"
+                LastKnownName="MessageOccurrenceSpecification44"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="2138d02d-2846-4ffa-9fda-bb76d7192660"
+                LastKnownName="ExecutionOccurrenceSpecification37"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="7e5bf482-5082-46e2-a99a-59e40b619245"
+                LastKnownName="ExecutionOccurrenceSpecification38"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="ff2b6fa1-0771-46af-b7fa-60942265dafa"
+            name="ExecutionOccurrenceSpecification35">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="8987e44a-2f8a-44b3-946c-66aae6a8e6c2"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="55f7446d-af7d-49b7-bd41-cdc8dbdf9c4f"
+            name="MessageOccurrenceSpecification43">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="10118f69-51cd-49ce-8cec-af5cfa4db0b2"
+            name="MessageOccurrenceSpecification42">
+            <covered>
+              <lifelineMoniker
+                Id="a49ade04-b637-4683-9e7a-603d0520bc98"
+                LastKnownName="Mentor"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="48f5d98c-7550-47a0-85f5-9f7470642b81"
+            name="MessageOccurrenceSpecification44">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="f89429ab-0e00-4ecd-b22e-a7eea9b66500"
+            name="BehaviorExecutionSpecification19">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="7e5bf482-5082-46e2-a99a-59e40b619245"
+                LastKnownName="ExecutionOccurrenceSpecification38"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="2138d02d-2846-4ffa-9fda-bb76d7192660"
+                LastKnownName="ExecutionOccurrenceSpecification37"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="0eaccac3-b746-4882-a6e8-146c101150ad"
+                LastKnownName="MessageOccurrenceSpecification45"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="2138d02d-2846-4ffa-9fda-bb76d7192660"
+            name="ExecutionOccurrenceSpecification37">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="14572940-2540-4b8c-b4d3-09efdaa521da"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="0eaccac3-b746-4882-a6e8-146c101150ad"
+            name="MessageOccurrenceSpecification45">
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="7e5bf482-5082-46e2-a99a-59e40b619245"
+            name="ExecutionOccurrenceSpecification38">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="ee41344f-6ed9-49cf-a08b-803343534fad"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="44523505-83a8-44c5-9d06-4dfae1a15dd7"
+            name="ExecutionOccurrenceSpecification36">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="822b00f6-bae7-48a5-be7c-fb6e686fb78a"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="a49ade04-b637-4683-9e7a-603d0520bc98"
+            name="Mentor"
+            isActor="true"
+            lifelineDisplayName="Mentor">
+            <represents>
+              <propertyMoniker
+                Id="49892dc0-a6c3-4957-9735-9d19a6c2f478"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="f4c395d1-e8be-4bae-a7f2-f0a4e5c13ec3"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="10118f69-51cd-49ce-8cec-af5cfa4db0b2"
+                LastKnownName="MessageOccurrenceSpecification42"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="e7c66458-9242-47ad-bda5-18a659737f1c"
+            name="Server"
+            isActor="false"
+            lifelineDisplayName="Server">
+            <represents>
+              <propertyMoniker
+                Id="d6a2d4ff-e10d-4565-aafa-edfe4db45921"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <operandOccurrenceSpecificationMoniker
+                Id="215eff2e-b0fb-412a-b726-a9d11ad131da"
+                LastKnownName="OperandOccurrenceSpecification9"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="1bcb30dc-c26a-4da9-b57c-206a6969d146"
+                LastKnownName="ExecutionOccurrenceSpecification23"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="7a7d5528-8676-4911-8394-574ac9703a88"
+                LastKnownName="ExecutionOccurrenceSpecification24"
+                LastKnownLocation="Dissertation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="39ec1cc8-9f0c-4769-a61e-204f934c52a1"
+                LastKnownName="OperandOccurrenceSpecification10"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="9ec0e01b-9c4a-47c9-88e3-d18dc55c5c40"
+                LastKnownName="ExecutionOccurrenceSpecification15"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="869460f5-ab52-4cca-85f9-cad8aea49bf7"
+                LastKnownName="ExecutionOccurrenceSpecification16"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="ff2b6fa1-0771-46af-b7fa-60942265dafa"
+                LastKnownName="ExecutionOccurrenceSpecification35"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="44523505-83a8-44c5-9d06-4dfae1a15dd7"
+                LastKnownName="ExecutionOccurrenceSpecification36"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="a64bdaad-492f-431a-bc5e-4aa20f059c84"
+            name="Client"
+            isActor="false"
+            lifelineDisplayName="Client">
+            <represents>
+              <propertyMoniker
+                Id="835a1c92-13f7-4896-8375-f7a4ce497a8c"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <operandOccurrenceSpecificationMoniker
+                Id="d0e1a01a-371c-4a62-bfba-99b9ce005a11"
+                LastKnownName="OperandOccurrenceSpecification11"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="468103cf-62cd-49fb-94cd-2fb3e482999a"
+                LastKnownName="MessageOccurrenceSpecification28"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="bda8c335-f176-4aaf-aa3a-eef17b49e27a"
+                LastKnownName="MessageOccurrenceSpecification31"
+                LastKnownLocation="Dissertation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="94de68f7-b90b-4350-a316-53b80306bb7f"
+                LastKnownName="OperandOccurrenceSpecification12"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="9f14f4bc-cec9-40a9-9a2c-fb1caeb2857c"
+            name="Synchronize"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="468103cf-62cd-49fb-94cd-2fb3e482999a"
+                LastKnownName="MessageOccurrenceSpecification28"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="cc130608-df16-40ca-8c0a-a9d114e8e82a"
+                LastKnownName="MessageOccurrenceSpecification29"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="4f317d06-2818-4cbb-9404-5b636a39b2b5"
+            name="Synchronization Data"
+            messageKind="Complete"
+            messageSort="Reply"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="7fda6053-19ce-46dd-b75b-e4d9e2145d13"
+                LastKnownName="MessageOccurrenceSpecification30"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="bda8c335-f176-4aaf-aa3a-eef17b49e27a"
+                LastKnownName="MessageOccurrenceSpecification31"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="0a5f08ac-bf26-427e-b62a-f70beec33a21"
+            name="Create Virtual Instruction"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="f4c395d1-e8be-4bae-a7f2-f0a4e5c13ec3"
+                LastKnownName="MessageOccurrenceSpecification16"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="6854216c-7a95-4ac7-b739-141bf9eeb1f7"
+                LastKnownName="MessageOccurrenceSpecification17"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="bde90a77-4e5c-45a4-b259-9d116380dfa3"
+            name="Create Instruction"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="8b528ca6-6386-4893-ab1b-5a1b9183b45f"
+                LastKnownName="MessageOccurrenceSpecification36"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="fd3f3de7-a1ea-4cf2-90d2-362bd62388f5"
+                LastKnownName="MessageOccurrenceSpecification37"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="32ec6e9b-e96f-4145-8b84-e4df4ea621cf"
+            name="Delete Virtual Instruction"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="10118f69-51cd-49ce-8cec-af5cfa4db0b2"
+                LastKnownName="MessageOccurrenceSpecification42"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="55f7446d-af7d-49b7-bd41-cdc8dbdf9c4f"
+                LastKnownName="MessageOccurrenceSpecification43"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="d97c0288-685b-4989-8fa2-846219601936"
+            name="Delete Instruction"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="48f5d98c-7550-47a0-85f5-9f7470642b81"
+                LastKnownName="MessageOccurrenceSpecification44"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="0eaccac3-b746-4882-a6e8-146c101150ad"
+                LastKnownName="MessageOccurrenceSpecification45"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+        <ownedAttributesInternal>
+          <property
+            Id="d6a2d4ff-e10d-4565-aafa-edfe4db45921"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <subsystemMoniker
+                Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="835a1c92-13f7-4896-8375-f7a4ce497a8c"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <subsystemMoniker
+                Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="3bd360c1-d342-4413-a32e-5993d6c13945"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <actorMoniker
+                Id="fb67e411-1b09-48ef-823f-52d17c1123c5"
+                LastKnownName="Apprentice"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="49892dc0-a6c3-4957-9735-9d19a6c2f478"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <actorMoniker
+                Id="b2e7edf7-0aad-41b7-b917-56893aec8a98"
+                LastKnownName="Mentor"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="c8c89ec1-523d-4e51-9cb4-5f0ac82b50c1"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="7e0c8776-6166-436e-bf2e-6c6448a0f109"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="d1e14751-d02e-4b7a-b937-013960267001"
+        name="Features Collecting"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <combinedFragment
+            Id="54ccb4ea-e83e-49a5-bf07-f12fe1284df5"
+            name="CombinedFragment1"
+            interactionOperator="Loop">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <operands>
+              <interactionOperand
+                Id="4f801df7-35fc-4ef6-b48b-f35a3deb2fc0"
+                name="InteractionOperand1">
+                <coveredLifelines>
+                  <lifelineMoniker
+                    Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                    LastKnownName="Server"
+                    LastKnownLocation="Dissertation.uml" />
+                  <lifelineMoniker
+                    Id="64414439-9e2e-4324-b36e-1f3055306096"
+                    LastKnownName="Client"
+                    LastKnownLocation="Dissertation.uml" />
+                </coveredLifelines>
+                <guard>
+                  <interactionConstraint
+                    Id="083f9d5b-bdd0-43a1-87da-cba099d043aa">
+                    <maxInt>
+                      <literalString
+                        Id="d4f84207-999d-4dd7-aa08-e578a72e48f4"
+                        name="LiteralString1" />
+                    </maxInt>
+                    <minInt>
+                      <literalString
+                        Id="17cf559d-b1e8-4be6-89f3-4b76eed9c28f"
+                        name="LiteralString2" />
+                    </minInt>
+                  </interactionConstraint>
+                </guard>
+                <operandOccurrenceSpecifications>
+                  <operandOccurrenceSpecificationMoniker
+                    Id="f322c836-ec63-46e8-b7a9-b62fdd286cdb"
+                    LastKnownName="OperandOccurrenceSpecification1"
+                    LastKnownLocation="Dissertation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="ca40d693-5630-4942-adea-9a790c323a8c"
+                    LastKnownName="OperandOccurrenceSpecification2"
+                    LastKnownLocation="Dissertation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="9cb496d1-4eb8-4945-80f8-4fb93921c928"
+                    LastKnownName="OperandOccurrenceSpecification3"
+                    LastKnownLocation="Dissertation.uml" />
+                  <operandOccurrenceSpecificationMoniker
+                    Id="af6c3303-7ff9-42a9-81d3-da35d2f9b5ee"
+                    LastKnownName="OperandOccurrenceSpecification4"
+                    LastKnownLocation="Dissertation.uml" />
+                </operandOccurrenceSpecifications>
+              </interactionOperand>
+            </operands>
+          </combinedFragment>
+          <operandOccurrenceSpecification
+            Id="f322c836-ec63-46e8-b7a9-b62fdd286cdb"
+            name="OperandOccurrenceSpecification1">
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="9cb496d1-4eb8-4945-80f8-4fb93921c928"
+            name="OperandOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="69ec9f45-077a-41bb-87f5-7db07d6d2552"
+            name="MessageOccurrenceSpecification3">
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="f55fb009-46f0-4d37-9f69-b249975c728d"
+            name="BehaviorExecutionSpecification2">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="ada1b7da-e13a-4375-9cb3-e434aace77e1"
+                LastKnownName="ExecutionOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="3a9a9a61-5882-4a26-a0e2-fe8b751627ed"
+                LastKnownName="ExecutionOccurrenceSpecification3"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="99d291b7-b569-4531-9e92-72ee8e62943a"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="43c0f466-e27d-43ce-af2c-0833bb23449a"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="3a9a9a61-5882-4a26-a0e2-fe8b751627ed"
+            name="ExecutionOccurrenceSpecification3">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="80108808-8a07-4815-8b43-01fc16741b6e"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="99d291b7-b569-4531-9e92-72ee8e62943a"
+            name="MessageOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="108e3ce3-9dcd-4224-b673-d3520f684079"
+            name="BehaviorExecutionSpecification3">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="b0d3e3e2-6c1a-478c-87c1-66429f345893"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="a87ca381-a61a-4853-98c3-d913c39d25b3"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="b0395fce-a22e-4afa-8a34-3dc2c1d34491"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="ac0e539d-eb29-430b-8280-8c5cfb6d4d1b"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="f1ca9e90-0c91-431e-a440-725150d74ecb"
+                LastKnownName="ExecutionOccurrenceSpecification13"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="16939796-994c-4829-afc5-b57a6a0d69b8"
+                LastKnownName="ExecutionOccurrenceSpecification14"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="a87ca381-a61a-4853-98c3-d913c39d25b3"
+            name="ExecutionOccurrenceSpecification5">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="d230bb78-218e-447d-979d-8d1e1b4657f9"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="43c0f466-e27d-43ce-af2c-0833bb23449a"
+            name="MessageOccurrenceSpecification5">
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="b0395fce-a22e-4afa-8a34-3dc2c1d34491"
+            name="MessageOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="ada1b7da-e13a-4375-9cb3-e434aace77e1"
+            name="ExecutionOccurrenceSpecification4">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="d832638a-adc1-425a-ae00-47ab485b12f2"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="ac0e539d-eb29-430b-8280-8c5cfb6d4d1b"
+            name="MessageOccurrenceSpecification14">
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <behaviorExecutionSpecification
+            Id="9e30680b-4e5e-4877-8ca6-f9b0ad4dd05b"
+            name="BehaviorExecutionSpecification7">
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <finish>
+              <executionOccurrenceSpecificationMoniker
+                Id="16939796-994c-4829-afc5-b57a6a0d69b8"
+                LastKnownName="ExecutionOccurrenceSpecification14"
+                LastKnownLocation="Dissertation.uml" />
+            </finish>
+            <start>
+              <executionOccurrenceSpecificationMoniker
+                Id="f1ca9e90-0c91-431e-a440-725150d74ecb"
+                LastKnownName="ExecutionOccurrenceSpecification13"
+                LastKnownLocation="Dissertation.uml" />
+            </start>
+            <nestedOccurrences>
+              <messageOccurrenceSpecificationMoniker
+                Id="9759c288-158b-4728-af7f-cf369a45a23c"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Dissertation.uml" />
+            </nestedOccurrences>
+          </behaviorExecutionSpecification>
+          <executionOccurrenceSpecification
+            Id="f1ca9e90-0c91-431e-a440-725150d74ecb"
+            name="ExecutionOccurrenceSpecification13">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="3e450997-e0f5-4a34-92f5-062a5aab0977"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <messageOccurrenceSpecification
+            Id="9759c288-158b-4728-af7f-cf369a45a23c"
+            name="MessageOccurrenceSpecification15">
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="16939796-994c-4829-afc5-b57a6a0d69b8"
+            name="ExecutionOccurrenceSpecification14">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="8f0d9b65-510a-4a10-a2ab-c0fa7a4cf727"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <executionOccurrenceSpecification
+            Id="b0d3e3e2-6c1a-478c-87c1-66429f345893"
+            name="ExecutionOccurrenceSpecification6">
+            <event>
+              <executionOccurrenceSpecificationReferencesEvent>
+                <executionEventMoniker
+                  Id="53695590-e7a2-4895-aa12-3b0b2827b049"
+                  LastKnownName="ExecutionEvent"
+                  LastKnownLocation="Dissertation.uml" />
+              </executionOccurrenceSpecificationReferencesEvent>
+            </event>
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </executionOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="af6c3303-7ff9-42a9-81d3-da35d2f9b5ee"
+            name="OperandOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification
+            Id="ca40d693-5630-4942-adea-9a790c323a8c"
+            name="OperandOccurrenceSpecification2">
+            <covered>
+              <lifelineMoniker
+                Id="64414439-9e2e-4324-b36e-1f3055306096"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </operandOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="782a352e-f83d-4a55-b6cb-9bfa96ee31d8"
+            name="Server"
+            isActor="false"
+            lifelineDisplayName="Server">
+            <represents>
+              <propertyMoniker
+                Id="70ad568e-bec4-4edd-8456-057fe57ed11c"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <operandOccurrenceSpecificationMoniker
+                Id="9cb496d1-4eb8-4945-80f8-4fb93921c928"
+                LastKnownName="OperandOccurrenceSpecification3"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="a87ca381-a61a-4853-98c3-d913c39d25b3"
+                LastKnownName="ExecutionOccurrenceSpecification5"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="b0d3e3e2-6c1a-478c-87c1-66429f345893"
+                LastKnownName="ExecutionOccurrenceSpecification6"
+                LastKnownLocation="Dissertation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="af6c3303-7ff9-42a9-81d3-da35d2f9b5ee"
+                LastKnownName="OperandOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="64414439-9e2e-4324-b36e-1f3055306096"
+            name="Client"
+            isActor="false"
+            lifelineDisplayName="Client">
+            <represents>
+              <propertyMoniker
+                Id="3096e9eb-12a7-4f80-a7b1-f7aa16438861"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <operandOccurrenceSpecificationMoniker
+                Id="f322c836-ec63-46e8-b7a9-b62fdd286cdb"
+                LastKnownName="OperandOccurrenceSpecification1"
+                LastKnownLocation="Dissertation.uml" />
+              <messageOccurrenceSpecificationMoniker
+                Id="69ec9f45-077a-41bb-87f5-7db07d6d2552"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="3a9a9a61-5882-4a26-a0e2-fe8b751627ed"
+                LastKnownName="ExecutionOccurrenceSpecification3"
+                LastKnownLocation="Dissertation.uml" />
+              <executionOccurrenceSpecificationMoniker
+                Id="ada1b7da-e13a-4375-9cb3-e434aace77e1"
+                LastKnownName="ExecutionOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+              <operandOccurrenceSpecificationMoniker
+                Id="ca40d693-5630-4942-adea-9a790c323a8c"
+                LastKnownName="OperandOccurrenceSpecification2"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <messages>
+          <message
+            Id="a7894c15-7b58-4326-b5a7-571b63825a4a"
+            name="Collect 3D Data"
+            messageKind="Complete"
+            messageSort="CreateMessage"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="69ec9f45-077a-41bb-87f5-7db07d6d2552"
+                LastKnownName="MessageOccurrenceSpecification3"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="99d291b7-b569-4531-9e92-72ee8e62943a"
+                LastKnownName="MessageOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="af6767de-4886-4821-bd7f-af1c984d303b"
+            name="3D Data + Camera Pose"
+            messageKind="Complete"
+            messageSort="AsynchCall"
+            createSelfMessage="false">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="43c0f466-e27d-43ce-af2c-0833bb23449a"
+                LastKnownName="MessageOccurrenceSpecification5"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="b0395fce-a22e-4afa-8a34-3dc2c1d34491"
+                LastKnownName="MessageOccurrenceSpecification6"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+          <message
+            Id="13eae7df-7ad4-4113-8a43-0db01b6cd350"
+            name="3D Mapping"
+            messageKind="Complete"
+            messageSort="SynchCall"
+            createSelfMessage="true">
+            <sendEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="ac0e539d-eb29-430b-8280-8c5cfb6d4d1b"
+                LastKnownName="MessageOccurrenceSpecification14"
+                LastKnownLocation="Dissertation.uml" />
+            </sendEvent>
+            <receiveEvent>
+              <messageOccurrenceSpecificationMoniker
+                Id="9759c288-158b-4728-af7f-cf369a45a23c"
+                LastKnownName="MessageOccurrenceSpecification15"
+                LastKnownLocation="Dissertation.uml" />
+            </receiveEvent>
+          </message>
+        </messages>
+        <ownedAttributesInternal>
+          <property
+            Id="70ad568e-bec4-4edd-8456-057fe57ed11c"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <subsystemMoniker
+                Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="3096e9eb-12a7-4f80-a7b1-f7aa16438861"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <subsystemMoniker
+                Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="80108808-8a07-4815-8b43-01fc16741b6e"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="d832638a-adc1-425a-ae00-47ab485b12f2"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <interaction
+        Id="a41d9cbf-9968-4ff9-bf35-4e3a79db2f5c"
+        name="GlobalSystem"
+        collapseFragmentsFlag="false"
+        isActiveClass="false"
+        isAbstract="false"
+        isLeaf="false"
+        isReentrant="false">
+        <fragments>
+          <interactionUse
+            Id="e524dc17-153b-4355-98bd-b88bd899e361"
+            name="Reconnaissance"
+            referredToFile="Reconnaissance">
+            <referencesInternal>
+              <reference
+                Id="bf08c02b-e042-42d6-971f-1dadf992f4a4"
+                handle="backplane://Backplane/Microsoft.VisualStudio.TeamArchitect.SequenceDesigner.ToolAdapter.SequenceServiceManager/a3e6a754-9d6b-447a-bceb-477b57a38635\Diagrams\Reconnaissance.sequencediagram"
+                tag="Definition Reference" />
+            </referencesInternal>
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="18b6a09a-b088-48db-9411-1868ff266b6d"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+              <lifelineMoniker
+                Id="4bdd9e22-c9bc-4eb5-9b2c-fb143de950fe"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <interactionUseOccurrenceSpecifications>
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="dd561567-ef44-4abd-a3aa-9ef47ac2ecca"
+                LastKnownName="InteractionUseOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="cf2bf4a3-27f6-418f-907a-c4746f23c6ad"
+                LastKnownName="InteractionUseOccurrenceSpecification5"
+                LastKnownLocation="Dissertation.uml" />
+            </interactionUseOccurrenceSpecifications>
+          </interactionUse>
+          <interactionUseOccurrenceSpecification
+            Id="dd561567-ef44-4abd-a3aa-9ef47ac2ecca"
+            name="InteractionUseOccurrenceSpecification4">
+            <covered>
+              <lifelineMoniker
+                Id="18b6a09a-b088-48db-9411-1868ff266b6d"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUseOccurrenceSpecification
+            Id="cf2bf4a3-27f6-418f-907a-c4746f23c6ad"
+            name="InteractionUseOccurrenceSpecification5">
+            <covered>
+              <lifelineMoniker
+                Id="4bdd9e22-c9bc-4eb5-9b2c-fb143de950fe"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUse
+            Id="de196fa9-2ea2-42bc-b604-cdb7ddb3ee43"
+            name="Mentor Interaction"
+            referredToFile="Mentor Interaction">
+            <referencesInternal>
+              <reference
+                Id="989694c5-6027-45a4-8ce5-49ffcc69a3d9"
+                handle="backplane://Backplane/Microsoft.VisualStudio.TeamArchitect.SequenceDesigner.ToolAdapter.SequenceServiceManager/a3e6a754-9d6b-447a-bceb-477b57a38635\Diagrams\MentorInteraction.sequencediagram"
+                tag="Definition Reference" />
+            </referencesInternal>
+            <coveredLifelines>
+              <lifelineMoniker
+                Id="38609233-842d-48e3-a6ba-dad15a5a9d20"
+                LastKnownName="Mentor"
+                LastKnownLocation="Dissertation.uml" />
+              <lifelineMoniker
+                Id="18b6a09a-b088-48db-9411-1868ff266b6d"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+              <lifelineMoniker
+                Id="4bdd9e22-c9bc-4eb5-9b2c-fb143de950fe"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </coveredLifelines>
+            <interactionUseOccurrenceSpecifications>
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="94b962f2-3e9b-49ac-afdf-33506433b3ef"
+                LastKnownName="InteractionUseOccurrenceSpecification6"
+                LastKnownLocation="Dissertation.uml" />
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="6dc70ffb-af61-4f0d-a674-44f640bd98cf"
+                LastKnownName="InteractionUseOccurrenceSpecification7"
+                LastKnownLocation="Dissertation.uml" />
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="a3235165-8304-4d92-81b4-94d17d18e5a0"
+                LastKnownName="InteractionUseOccurrenceSpecification8"
+                LastKnownLocation="Dissertation.uml" />
+            </interactionUseOccurrenceSpecifications>
+          </interactionUse>
+          <interactionUseOccurrenceSpecification
+            Id="94b962f2-3e9b-49ac-afdf-33506433b3ef"
+            name="InteractionUseOccurrenceSpecification6">
+            <covered>
+              <lifelineMoniker
+                Id="38609233-842d-48e3-a6ba-dad15a5a9d20"
+                LastKnownName="Mentor"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUseOccurrenceSpecification
+            Id="6dc70ffb-af61-4f0d-a674-44f640bd98cf"
+            name="InteractionUseOccurrenceSpecification7">
+            <covered>
+              <lifelineMoniker
+                Id="18b6a09a-b088-48db-9411-1868ff266b6d"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+          <interactionUseOccurrenceSpecification
+            Id="a3235165-8304-4d92-81b4-94d17d18e5a0"
+            name="InteractionUseOccurrenceSpecification8">
+            <covered>
+              <lifelineMoniker
+                Id="4bdd9e22-c9bc-4eb5-9b2c-fb143de950fe"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </covered>
+          </interactionUseOccurrenceSpecification>
+        </fragments>
+        <lifelines>
+          <lifeline
+            Id="38609233-842d-48e3-a6ba-dad15a5a9d20"
+            name="Mentor"
+            isActor="true"
+            lifelineDisplayName="Mentor">
+            <represents>
+              <propertyMoniker
+                Id="ec83315a-3d03-4c31-a7cc-4961819c8859"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="94b962f2-3e9b-49ac-afdf-33506433b3ef"
+                LastKnownName="InteractionUseOccurrenceSpecification6"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="18b6a09a-b088-48db-9411-1868ff266b6d"
+            name="Server"
+            isActor="false"
+            lifelineDisplayName="Server">
+            <represents>
+              <propertyMoniker
+                Id="2bcf72a0-3fcd-4d6c-a140-6008874a70db"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="dd561567-ef44-4abd-a3aa-9ef47ac2ecca"
+                LastKnownName="InteractionUseOccurrenceSpecification4"
+                LastKnownLocation="Dissertation.uml" />
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="6dc70ffb-af61-4f0d-a674-44f640bd98cf"
+                LastKnownName="InteractionUseOccurrenceSpecification7"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+          <lifeline
+            Id="4bdd9e22-c9bc-4eb5-9b2c-fb143de950fe"
+            name="Client"
+            isActor="false"
+            lifelineDisplayName="Client">
+            <represents>
+              <propertyMoniker
+                Id="951869fa-afd3-4f07-9880-485143b6b173"
+                LastKnownLocation="Dissertation.uml" />
+            </represents>
+            <topLevelOccurrences>
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="cf2bf4a3-27f6-418f-907a-c4746f23c6ad"
+                LastKnownName="InteractionUseOccurrenceSpecification5"
+                LastKnownLocation="Dissertation.uml" />
+              <interactionUseOccurrenceSpecificationMoniker
+                Id="a3235165-8304-4d92-81b4-94d17d18e5a0"
+                LastKnownName="InteractionUseOccurrenceSpecification8"
+                LastKnownLocation="Dissertation.uml" />
+            </topLevelOccurrences>
+          </lifeline>
+        </lifelines>
+        <ownedAttributesInternal>
+          <property
+            Id="ec83315a-3d03-4c31-a7cc-4961819c8859"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <actorMoniker
+                Id="b2e7edf7-0aad-41b7-b917-56893aec8a98"
+                LastKnownName="Mentor"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="2bcf72a0-3fcd-4d6c-a140-6008874a70db"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <subsystemMoniker
+                Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="951869fa-afd3-4f07-9880-485143b6b173"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <subsystemMoniker
+                Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </interaction>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="dfd13f4c-406a-4309-9a35-ff82ddde8f6f"
+        name="Server"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <part
+            Id="5f894fc3-c599-4b06-b164-47b2e6793250"
+            name="3D Modeler"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <targetNamedElementsInternal>
+              <connector
+                Id="1e6a19d7-fda1-40a3-9ac6-435704ac90b5"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="96876264-987e-47e1-a2d6-cefe3ef699ef"
+                  LastKnownName="Rendering"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="d6eb2f4f-3577-46ce-addc-722232a01a4f">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="44df8594-1352-4533-a889-b15cfa06acf5"
+                          LastKnownName="Port2"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="f793b2cf-3f73-49d8-9b56-619e10068db0">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="2cd0b1a0-d015-4a95-a738-76c6c82a5401"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <componentMoniker
+                Id="54a20f25-6745-4b40-a5f1-75798797dc79"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="1e4ff256-be71-4194-94e9-cdb79a84e94b"
+            name="Network"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <targetNamedElementsInternal>
+              <connector
+                Id="8703b55d-0b5d-415f-bb54-ed3d853d5822"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="5f894fc3-c599-4b06-b164-47b2e6793250"
+                  LastKnownName="3D Modeler"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="8070b139-0bda-42ae-af5d-d44f18ffbf9b">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="e8c4a19e-9b23-4045-87b2-b134e4039a81"
+                          LastKnownName="Port3"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="ca5cc60d-a459-4f90-956b-6e15c786608f">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="fe2aaa32-70cf-4404-b7b5-b673c132318c"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+              <connector
+                Id="6a523480-8c49-41e0-98eb-2e070ff9112f"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="96876264-987e-47e1-a2d6-cefe3ef699ef"
+                  LastKnownName="Rendering"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="8e339adf-15b6-4812-b6d1-1a5cad3f9b00">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="b9dc6a26-f757-4bcd-a15a-a4716d1e1e4b"
+                          LastKnownName="Port4"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="c0d3697d-de56-4657-9bf2-0d6af407fb77">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="75fb9261-4719-48bb-ad30-90d69ae42bfd"
+                          LastKnownName="Port3"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <componentMoniker
+                Id="f5840d36-c77f-4693-8603-ca4bcb4dad86"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="96876264-987e-47e1-a2d6-cefe3ef699ef"
+            name="Rendering"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <type_NamedElement>
+              <componentMoniker
+                Id="7c0a4a81-8464-4c91-b2b7-4a94b52c0d38"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="1fe32d93-b9b8-4d68-a49f-21f2bf501fca"
+            name="Input"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <targetNamedElementsInternal>
+              <connector
+                Id="7036be5a-e877-4c38-88f9-39703ecabe13"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="96876264-987e-47e1-a2d6-cefe3ef699ef"
+                  LastKnownName="Rendering"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="5d491a72-08c9-4ef6-ab15-d424813c6693">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="ce98dabd-9c33-4b57-ae92-e1dff059bec2"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="b7f881ae-cb3e-43ca-a2d4-3466ac6b3ab8">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="b5ef92c8-9775-4688-99f0-d82156534cf3"
+                          LastKnownName="Port2"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+              <connector
+                Id="3410166e-6199-470e-be55-04125d72d6ea"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="96876264-987e-47e1-a2d6-cefe3ef699ef"
+                  LastKnownName="Rendering"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="7d4ce01a-38e8-40f9-a51d-892c3a418a19">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="b3f7a7cc-da38-4475-bf73-1205227b5af7"
+                          LastKnownName="Port2"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="63d9f211-2a60-41d6-9c16-30c64bb9ac27">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="8cd78e02-f3ac-4f96-b280-42035a912e6e"
+                          LastKnownName="Port4"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <componentMoniker
+                Id="fa4d851f-f5c3-409f-921b-8cb2d40ce1c0"
+                LastKnownName="Server"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+          <providedInterface
+            Id="bc136f52-b80e-485e-85db-0f7283176c85"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <targetNamedElementsInternal>
+              <connector
+                Id="2b7dbd8f-6d48-4d56-ba4f-808a11a57f28"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="1e4ff256-be71-4194-94e9-cdb79a84e94b"
+                  LastKnownName="Network"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="3088ce44-4003-4fc8-b009-459308d7af1f" />
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="161f7c20-6fad-4d9b-a145-9406cf539078">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="76ecb5ab-b4ff-4d41-8798-adc58cb7e789"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="73323de3-f061-4ee5-8ef9-b738f48403e5"
+                LastKnownName="Scene Reconstruction"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <providedInterface
+            Id="64ee72d6-d92d-4437-87ec-ee68f63b600b"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <targetNamedElementsInternal>
+              <connector
+                Id="03c26c5a-b2ee-4bf1-a422-57669008ab5f"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="1e4ff256-be71-4194-94e9-cdb79a84e94b"
+                  LastKnownName="Network"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="97e683d1-5c6b-4bcf-b0d0-ed33ab41d0d4" />
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="79452bd3-05cd-46f2-8059-5b7993c53b93">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="bd37dabe-1353-495f-8f69-81a78d8156de"
+                          LastKnownName="Port2"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="a5bfa2eb-9082-4079-83fb-7662fe65dbdd"
+                LastKnownName="Synchronization"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="4a20eaff-16de-42f2-b0a3-628519c7c5dd"
+        name="Client"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <part
+            Id="2319e730-b343-4170-be5c-21ca77656825"
+            name="Network"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <targetNamedElementsInternal>
+              <connector
+                Id="a4533b06-4234-42f1-bfd1-69eae826e132"
+                isLeaf="false"
+                isStatic="false">
+                <requiredInterfaceMoniker
+                  Id="378c8c08-60d9-4522-93b7-a561ef4264d1"
+                  LastKnownName="Port1"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="7a02976c-cf09-41d7-8851-8e7866c5a27a">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="1f55a4a6-cf5d-45c4-b52e-5d199423553e"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="3f2888a4-2bb3-4ecb-b3ef-5c54b4338850" />
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+              <connector
+                Id="93aee035-aa02-4360-8859-9c8f93817abe"
+                isLeaf="false"
+                isStatic="false">
+                <requiredInterfaceMoniker
+                  Id="0219bdaf-4432-42b8-ba40-27f28949067b"
+                  LastKnownName="Port2"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="8470548f-076c-44ad-9026-0c24528b62a8">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="d8a249b9-5b39-4c08-a3ea-caf2dfaadeb4"
+                          LastKnownName="Port2"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="a13237bc-7de5-4ad6-8434-430083e9a587" />
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <componentMoniker
+                Id="41494193-fb5d-41a8-bebb-6b8b255f3bcf"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+          <requiredInterface
+            Id="378c8c08-60d9-4522-93b7-a561ef4264d1"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <suppliersInternal>
+              <dependency
+                Id="72d8ecb4-29b8-4f49-b7bb-996f0dfba628">
+                <providedInterfaceMoniker
+                  Id="bc136f52-b80e-485e-85db-0f7283176c85"
+                  LastKnownName="Port1"
+                  LastKnownLocation="Dissertation.uml" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="516256c8-c2a1-469c-af50-b04eeaa7096e"
+                LastKnownName="Scene Reconstruction"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+          <requiredInterface
+            Id="0219bdaf-4432-42b8-ba40-27f28949067b"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <suppliersInternal>
+              <dependency
+                Id="01a03445-6d6e-45a8-9d86-5b1be13e1f35">
+                <providedInterfaceMoniker
+                  Id="64ee72d6-d92d-4437-87ec-ee68f63b600b"
+                  LastKnownName="Port2"
+                  LastKnownLocation="Dissertation.uml" />
+              </dependency>
+            </suppliersInternal>
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="97c095ef-7621-4edc-ad8b-3f664b51aa49"
+                LastKnownName="Synchronization"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+          <part
+            Id="6b4ca0c6-6745-432f-b52c-e5a4cc51f75e"
+            name="Rendering"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <targetNamedElementsInternal>
+              <connector
+                Id="8e67ac23-4c24-4836-a81c-0fd637c3bf69"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="2319e730-b343-4170-be5c-21ca77656825"
+                  LastKnownName="Network"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="86f40fa0-58ea-4d5d-978c-9112044c4d89">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="a92f59ad-5274-4b0f-9fb0-5ffdf0687047"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="0f1803f2-e2da-4306-a8ad-f415b77f5b5a">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="69770e79-096f-4509-87a0-4403f1d4062a"
+                          LastKnownName="Port4"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <componentMoniker
+                Id="3e5be904-1f8b-4aa6-8997-2b2e4ee5c849"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+          <part
+            Id="f3e98450-dcfe-4e16-9c0e-cd42b67afef7"
+            name="Features Collector"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="Composite"
+            isComposite="true">
+            <targetNamedElementsInternal>
+              <connector
+                Id="724bd4a8-2337-43d5-96e0-03a7fab0c67e"
+                isLeaf="false"
+                isStatic="false">
+                <partMoniker
+                  Id="2319e730-b343-4170-be5c-21ca77656825"
+                  LastKnownName="Network"
+                  LastKnownLocation="Dissertation.uml" />
+                <relationshipOwnedElementsInternal>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="241305c4-3834-4a3c-90b8-1f1303440606">
+                      <portWithPart>
+                        <requiredInterfaceMoniker
+                          Id="a9007b42-24f2-4ea4-8966-94734e01765f"
+                          LastKnownName="Port1"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                  <connectorHasConnectorEnds>
+                    <connectorEnd
+                      Id="c6073c31-76fe-4f7c-89a9-c351c4053413">
+                      <portWithPart>
+                        <providedInterfaceMoniker
+                          Id="73b0c2c1-6083-4a17-8646-bdf4e8e67eb6"
+                          LastKnownName="Port3"
+                          LastKnownLocation="Dissertation.uml" />
+                      </portWithPart>
+                    </connectorEnd>
+                  </connectorHasConnectorEnds>
+                </relationshipOwnedElementsInternal>
+              </connector>
+            </targetNamedElementsInternal>
+            <type_NamedElement>
+              <componentMoniker
+                Id="424eedec-328a-4718-88da-bd217db60595"
+                LastKnownName="Client"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </part>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="1f0cf942-7e78-4000-9b65-9f0abe8080b4"
+        name="Component1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="3a7ac3e6-97c0-494c-9905-f6f2f166d42f"
+        name="3D Modeler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="54a20f25-6745-4b40-a5f1-75798797dc79"
+        name="Server"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <providedInterface
+            Id="fe2aaa32-70cf-4404-b7b5-b673c132318c"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="ed19e821-fbbc-4dcb-93da-ec2a075ae467"
+                LastKnownName="Scene Reconstruction"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <requiredInterface
+            Id="44df8594-1352-4533-a889-b15cfa06acf5"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="bb3b70c8-4ab2-4283-9f12-bdc884fad669"
+                LastKnownName="Scene Operations"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="f5840d36-c77f-4693-8603-ca4bcb4dad86"
+        name="Server"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <providedInterface
+            Id="bd37dabe-1353-495f-8f69-81a78d8156de"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="6d2673de-1aab-42d3-b8cf-66be9d6befc4"
+                LastKnownName="Client Synchronization"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <requiredInterface
+            Id="e8c4a19e-9b23-4045-87b2-b134e4039a81"
+            name="Port3"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="1fd36aa4-15c6-4b25-939d-c757391e322c"
+                LastKnownName="Scene Reconstruction"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+          <providedInterface
+            Id="76ecb5ab-b4ff-4d41-8798-adc58cb7e789"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="b1b43f59-bccb-4f3a-b41f-9f377598e04b"
+                LastKnownName="Scene Reconstruction"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <requiredInterface
+            Id="b9dc6a26-f757-4bcd-a15a-a4716d1e1e4b"
+            name="Port4"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="6d61cfce-36b8-4c4c-beed-a9591bb29b97"
+                LastKnownName="Synchronize Instructions"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="7c0a4a81-8464-4c91-b2b7-4a94b52c0d38"
+        name="Server"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <providedInterface
+            Id="2cd0b1a0-d015-4a95-a738-76c6c82a5401"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="2c5a8ca5-bb16-452a-a445-6063ee0f80f9"
+                LastKnownName="Scene Operations"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <providedInterface
+            Id="b5ef92c8-9775-4688-99f0-d82156534cf3"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="ea6b3451-f7a3-421c-959c-e4af1c811f8d"
+                LastKnownName="Navigation Operations"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <providedInterface
+            Id="8cd78e02-f3ac-4f96-b280-42035a912e6e"
+            name="Port4"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="c454658b-fea0-4c05-9db9-bd52a3349635"
+                LastKnownName="Instructions Operations"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <providedInterface
+            Id="75fb9261-4719-48bb-ad30-90d69ae42bfd"
+            name="Port3"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="2bd60630-11fa-4205-9944-61d822440168"
+                LastKnownName="Synchronize Instructions"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="5a3defd3-f043-4459-98e2-8497c9300965"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="6e6b21c7-1b7a-48bc-924f-d6ca52911717"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="5bf71cb5-5b04-40b2-bc21-ad5aa914d6a7"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="8987e44a-2f8a-44b3-946c-66aae6a8e6c2"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="822b00f6-bae7-48a5-be7c-fb6e686fb78a"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="14572940-2540-4b8c-b4d3-09efdaa521da"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="ee41344f-6ed9-49cf-a08b-803343534fad"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="e9e0af51-d92f-4353-a68c-38a3c7d1804b"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="a70e6b68-1aa6-44e3-8fa8-39a8e1d5b6a3"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="6d2673de-1aab-42d3-b8cf-66be9d6befc4"
+        name="Client Synchronization"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="ed19e821-fbbc-4dcb-93da-ec2a075ae467"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="1fd36aa4-15c6-4b25-939d-c757391e322c"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="b1b43f59-bccb-4f3a-b41f-9f377598e04b"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="2c5a8ca5-bb16-452a-a445-6063ee0f80f9"
+        name="Scene Operations"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="bb3b70c8-4ab2-4283-9f12-bdc884fad669"
+        name="Scene Operations"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="fa4d851f-f5c3-409f-921b-8cb2d40ce1c0"
+        name="Server"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <requiredInterface
+            Id="ce98dabd-9c33-4b57-ae92-e1dff059bec2"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="848054d2-ca97-47e7-afc5-3bd759d5b9c0"
+                LastKnownName="Navigation Operations"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+          <requiredInterface
+            Id="b3f7a7cc-da38-4475-bf73-1205227b5af7"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="47b42961-573f-4d94-a362-56c1551accfe"
+                LastKnownName="Instructions Operations"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="ea6b3451-f7a3-421c-959c-e4af1c811f8d"
+        name="Navigation Operations"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="848054d2-ca97-47e7-afc5-3bd759d5b9c0"
+        name="Navigation Operations"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="47b42961-573f-4d94-a362-56c1551accfe"
+        name="Instructions Operations"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="2bd60630-11fa-4205-9944-61d822440168"
+        name="Synchronize Instructions"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="6d61cfce-36b8-4c4c-beed-a9591bb29b97"
+        name="Synchronize Instructions"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="41494193-fb5d-41a8-bebb-6b8b255f3bcf"
+        name="Client"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <requiredInterface
+            Id="1f55a4a6-cf5d-45c4-b52e-5d199423553e"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="9d76b8a5-4c8b-4755-bca2-786555d583d5"
+                LastKnownName="Scene Reconstruction"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+          <requiredInterface
+            Id="d8a249b9-5b39-4c08-a3ea-caf2dfaadeb4"
+            name="Port2"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="9ff277a7-951a-4c88-a53c-0cf5eea8ccd2"
+                LastKnownName="Synchronization"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+          <providedInterface
+            Id="73b0c2c1-6083-4a17-8646-bdf4e8e67eb6"
+            name="Port3"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="45780b07-569f-436c-92e4-21a61ab9ab06"
+                LastKnownName="Scene Features"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+          <providedInterface
+            Id="69770e79-096f-4509-87a0-4403f1d4062a"
+            name="Port4"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="03b89174-dcc8-42bb-b177-d364d2710277"
+                LastKnownName="Scene Synchronization"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </providedInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="9d76b8a5-4c8b-4755-bca2-786555d583d5"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="516256c8-c2a1-469c-af50-b04eeaa7096e"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="73323de3-f061-4ee5-8ef9-b738f48403e5"
+        name="Scene Reconstruction"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="9ff277a7-951a-4c88-a53c-0cf5eea8ccd2"
+        name="Synchronization"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="c454658b-fea0-4c05-9db9-bd52a3349635"
+        name="Instructions Operations"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="97c095ef-7621-4edc-ad8b-3f664b51aa49"
+        name="Synchronization"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="a5bfa2eb-9082-4079-83fb-7662fe65dbdd"
+        name="Synchronization"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="3e5be904-1f8b-4aa6-8997-2b2e4ee5c849"
+        name="Client"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <requiredInterface
+            Id="a92f59ad-5274-4b0f-9fb0-5ffdf0687047"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="7a18864d-e557-4b38-b165-08e24fd772fe"
+                LastKnownName="Scene Synchronization"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <component
+        Id="424eedec-328a-4718-88da-bd217db60595"
+        name="Client"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <requiredInterface
+            Id="a9007b42-24f2-4ea4-8966-94734e01765f"
+            name="Port1"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false"
+            isService="false"
+            isBehavior="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="ec4a15ac-1786-45f1-8956-dbcf4cf618a9"
+                LastKnownName="Scene Features"
+                LastKnownLocation="Dissertation.uml" />
+            </type_NamedElement>
+          </requiredInterface>
+        </ownedAttributesInternal>
+      </component>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="45780b07-569f-436c-92e4-21a61ab9ab06"
+        name="Scene Features"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="ec4a15ac-1786-45f1-8956-dbcf4cf618a9"
+        name="Scene Features"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="03b89174-dcc8-42bb-b177-d364d2710277"
+        name="Scene Synchronization"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="7a18864d-e557-4b38-b165-08e24fd772fe"
+        name="Scene Synchronization"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e75a3aae-6676-4295-8f03-202f0073412c"
+        name="Delete virtual instruction"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+            LastKnownName="Server"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1c75d830-a878-41fb-b334-dec1b3c45813"
+        name="Navigate through virtual scene"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+            LastKnownName="Server"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3dda2035-fad0-47ba-aa43-701ed1733b6e"
+        name="Accept Client Connection"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+            LastKnownName="Server"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="8ab76b9f-43c8-47c6-8306-d00f36480f50"
+        name="End Client Connection"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+            LastKnownName="Server"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3d826510-3a78-4acd-919b-f77c1761e330"
+        name="Create Server Connection"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+            LastKnownName="Client"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3d6de001-4107-4461-bdf8-79048e859fd8"
+        name="End Server Connection"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+            LastKnownName="Client"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5e28c8d7-fa4c-49dd-8235-bc96515e60fd"
+        name="Edit Virtual Instruction"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="e6092f03-5adc-47a8-948c-6fb9c14274f3"
+            LastKnownName="Server"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d96c7102-ce05-4055-863b-d72f5eff644e"
+        name="Do World Operation"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf"
+            LastKnownName="Client"
+            LastKnownLocation="Dissertation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="d230bb78-218e-447d-979d-8d1e1b4657f9"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="53695590-e7a2-4895-aa12-3b0b2827b049"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="3e450997-e0f5-4a34-92f5-062a5aab0977"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <executionEvent
+        Id="8f0d9b65-510a-4a10-a2ab-c0fa7a4cf727"
+        name="ExecutionEvent" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
