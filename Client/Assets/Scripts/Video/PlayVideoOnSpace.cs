@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayVideoOnSpace : MonoBehaviour
 {
-    public MovieTexture movieTexture;
+#if UNITY_EDITOR
+    /*public MovieTexture movieTexture;
 
     void Update()
     {
@@ -18,6 +19,7 @@ public class PlayVideoOnSpace : MonoBehaviour
         {
             movieTexture.Play();
         }
-    }
+    }*/
+#endif
 }
 
