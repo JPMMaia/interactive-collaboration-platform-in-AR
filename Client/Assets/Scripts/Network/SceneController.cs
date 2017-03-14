@@ -3,6 +3,7 @@ using UnityEngine.Networking;
 
 public class SceneController : NetworkBehaviour
 {
+    public GameObject SceneRoot;
     public GameObject SceneToSpan;
 
     private bool _sceneSpawn = false;
@@ -14,13 +15,23 @@ public class SceneController : NetworkBehaviour
             return;
 
         // Create the scene object locally:
-        var scene = Instantiate(SceneToSpan, this.transform);
+        var scene = Instantiate(SceneToSpan);
+        scene.transform.SetParent(SceneRoot.transform, false);
 
         // Spawn the scene on the client:
         NetworkServer.Spawn(scene);
 
-        Debug.Log("Spawn!");
+        RpcSyncScene(Vector3.zero, Quaternion.identity, scene, SceneRoot);
+
         _sceneSpawn = true;
+    }
+
+    [ClientRpc]
+    public void RpcSyncScene(Vector3 position, Quaternion rotation, GameObject scene, GameObject sceneRoot)
+    {
+        scene.transform.position = position;
+        scene.transform.rotation = rotation;
+        scene.transform.SetParent(SceneRoot.transform, false);
     }
 
     // Update is called once per frame

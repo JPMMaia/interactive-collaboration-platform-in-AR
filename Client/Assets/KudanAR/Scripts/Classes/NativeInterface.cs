@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Kudan.AR
 {
-#if UNITY_EDITOR_WIN || UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_ANDROID || UNITY_IOS || UNITY_EDITOR || UNITY_STANDALONE_OSX
 	public class NativeInterface
 	{
-    #if UNITY_EDITOR_WIN || UNITY_ANDROID || UNITY_EDITOR_OSX
+    #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_ANDROID || UNITY_EDITOR || UNITY_STANDALONE_OSX
         private const string PLUGIN_FILE = "KudanPlugin";
 	#elif UNITY_IOS
 		private const string PLUGIN_FILE = "__Internal";
@@ -80,7 +80,7 @@ namespace Kudan.AR
 		/// <param name="result">Result.</param>
 		public static extern bool GetProjectionMatrix(float nearPlane, float farPlane, float[] result);
 
-        #if UNITY_EDITOR_WIN || UNITY_ANDROID || UNITY_EDITOR_OSX
+        #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_ANDROID || UNITY_EDITOR || UNITY_STANDALONE_OSX
         [DllImport(PLUGIN_FILE)]
 		/// <summary>
 		/// Gets a detected trackable with the specified parameters.
@@ -192,7 +192,7 @@ namespace Kudan.AR
 		/// <param name="depth">Depth.</param>
         public static extern void FloorPlaceGetPose(float[] pose, float depth);
 
-		#if UNITY_EDITOR_OSX || UNITY_EDITOR_WIN
+		#if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_EDITOR || UNITY_STANDALONE_WIN
 		[DllImport(PLUGIN_FILE)]
 		/// <summary>
 		/// Sets the texture ID.

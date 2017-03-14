@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayVideoOnSpace : MonoBehaviour
 {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
     /*public MovieTexture movieTexture;
 
     void Update()

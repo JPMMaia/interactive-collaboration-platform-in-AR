@@ -9,7 +9,7 @@ namespace Kudan.AR
 	public class Tracker : TrackerBase 
 	{
 		#region Variables
-		#if UNITY_EDITOR
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE
 		private int _width = 0; ///< Width component of the camera resolution, in pixels.
 		private int _height = 0; ///< Height component of the camera resolution, in pixels.
 		private List<Trackable> _currentDetected = new List<Trackable> (8); ///< List of all trackables detected in the current frame.
@@ -103,7 +103,7 @@ namespace Kudan.AR
 		/// <param name="background">The Renderer component attached to the background GameObject.</param>
 		public Tracker(Renderer background)
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			#else
 			_cameraBackgroundMeshFilter = background.GetComponent<MeshFilter> ();
 
@@ -121,7 +121,7 @@ namespace Kudan.AR
 		/// <returns><c>true</c>, if the plugin initialised successfully, <c>false</c> otherwise.</returns>
 		public override bool InitPlugin()
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.Init ();
 
 			#elif UNITY_ANDROID
@@ -157,7 +157,7 @@ namespace Kudan.AR
 		/// </summary>
 		public override void DeinitPlugin()
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			NativeInterface.Deinit();
 
 			#elif UNITY_ANDROID
@@ -177,7 +177,7 @@ namespace Kudan.AR
 		/// <returns>The native plugin version number.</returns>
 		public override float GetNativePluginVersion()
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.GetPluginVersion();
 
 			#elif UNITY_ANDROID
@@ -201,7 +201,7 @@ namespace Kudan.AR
 		/// <param name="bundleId">The Bundle ID of your project. This is ignored. </param>
 		public override void SetApiKey (string key, string bundleId)
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			Debug.LogWarning("The Editor uses the Editor Key, not the Native API Key");
 
 			#elif UNITY_IOS
@@ -222,7 +222,7 @@ namespace Kudan.AR
 		/// <returns>The total number of cameras connected to the device. On most smart devices, this number will be 2.</returns>
 		public override int GetNumCameras()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			return WebCamTexture.devices.Length;
 
 			#elif UNITY_IOS
@@ -249,13 +249,13 @@ namespace Kudan.AR
 		{
 			bool allGood = false;
 
-			#if UNITY_EDITOR || UNITY_ANDROID
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
 			// First stop existing input
 			bool wasTracking = _isTrackingRunning;
 			StopInput ();
 			#endif
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_ANDROID
 			// Start new input
@@ -270,7 +270,7 @@ namespace Kudan.AR
 			m_DeviceIndex = -1;
 			#endif
 
-			#if UNITY_EDITOR || UNITY_ANDROID
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
 			// Start new input
 			if (wasTracking) 
 			{
@@ -296,7 +296,7 @@ namespace Kudan.AR
 		{
 			bool allGood = false;
 
-			#if UNITY_EDITOR || UNITY_ANDROID
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
 			bool wasTracking = _isTrackingRunning;
 			int[] resolution = new int[2];
 
@@ -304,7 +304,7 @@ namespace Kudan.AR
 			StopInput ();
 			#endif
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			// Initialise the webcam. Change the argument to specify your webcam ID. Unfortunately this isn't very predictable
 			// on OSX so trial and error is required.
 			if (NativeInterface.WebCamInit (deviceIndex))
@@ -377,14 +377,14 @@ namespace Kudan.AR
 		/// </summary>
 		public override void StopInput()
 		{
-			#if UNITY_EDITOR || UNITY_ANDROID
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
 			if (_isTrackingRunning)
 			{
 				StopTracking ();
 			}
 			#endif
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			NativeInterface.WebCamDeinit ();
 
             #elif UNITY_IOS
@@ -414,7 +414,7 @@ namespace Kudan.AR
 		{
 			bool result = false;
 
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			//result = NativeInterface.AddTrackable (data, id);
 
 			#elif UNITY_ANDROID
@@ -455,7 +455,7 @@ namespace Kudan.AR
 		{
 			bool result = false;
 
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			GCHandle handle = GCHandle.Alloc (data, GCHandleType.Pinned);
 			result = NativeInterface.AddTrackableSet (handle.AddrOfPinnedObject (), data.Length);
 			handle.Free ();
@@ -484,7 +484,7 @@ namespace Kudan.AR
 		{
             if (receivingInput)
             {
-                #if UNITY_EDITOR
+                #if UNITY_EDITOR || UNITY_STANDALONE
                 updateEditorTracking();
                 #elif UNITY_IOS
 			    updateiOSTracking();
@@ -495,7 +495,7 @@ namespace Kudan.AR
 		}
 
 		#region UpdateTracking Methods
-		#if UNITY_EDITOR
+		#if UNITY_EDITOR || UNITY_STANDALONE
 		/// <summary>
 		/// Update Tracking for the Editor platforms.
 		/// </summary>
@@ -630,7 +630,7 @@ namespace Kudan.AR
 
 			_isTrackingRunning = true;
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS
 			BeginTracking();
@@ -656,7 +656,7 @@ namespace Kudan.AR
 
 			_isTrackingRunning = false;
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS
 			EndTracking ();
@@ -676,7 +676,7 @@ namespace Kudan.AR
 		/// <param name="trackingMethodId">ID of the tracking method to enable. Tracking methods are: 0 = Marker, 1 = Markerless. </param>
 		public override bool EnableTrackingMethod(int trackingMethodId)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.EnableTrackingMethod(trackingMethodId);
 
 			#elif UNITY_ANDROID
@@ -698,7 +698,7 @@ namespace Kudan.AR
 		/// <param name="trackingMethodId">ID of the tracking method to disable. Tracking methods are: 0 = Marker, 1 = Markerless. </param>
 		public override bool DisableTrackingMethod(int trackingMethodId)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.DisableTrackingMethod(trackingMethodId);
 
 			#elif UNITY_ANDROID
@@ -719,7 +719,7 @@ namespace Kudan.AR
 		/// <returns><c>true<c>/c>, if Marker Recovery is enabled. <c>false</c> if not.</returns>
 		public override bool GetMarkerRecoveryStatus() 
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.GetMarkerRecoveryStatus();
 
 			#elif UNITY_ANDROID
@@ -744,7 +744,7 @@ namespace Kudan.AR
 		/// <param name="status">Set to true if Marker Recovery should be enabled, false if not.</param>
 		public override void SetMarkerRecoveryStatus (bool status)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			NativeInterface.SetMarkerRecoveryStatus(status);
 
 			#elif UNITY_ANDROID
@@ -762,7 +762,7 @@ namespace Kudan.AR
 		/// <param name="status">Set to true if Automatic Cropping should be enabled, false if not.</param>
 		public override void SetMarkerAutoCropStatus (bool status)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			NativeInterface.SetAutoCropMarkers(status);
 			#elif UNITY_ANDROID
 			if (m_KudanAR_Instance != null)
@@ -778,7 +778,7 @@ namespace Kudan.AR
 		/// <returns><c>true</c>, if marker auto crop status was gotten, <c>false</c> if not.</returns>
 		public override bool GetMarkerAutoCropStatus()
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.GetAutoCropMarkerStatus();
 			#elif UNITY_ANDROID
 			if (m_KudanAR_Instance != null)
@@ -799,7 +799,7 @@ namespace Kudan.AR
 		/// <param name="status">Set to true if Extended Detection and Tracking should be enabled, false if not.</param>
 		public override void SetMarkerExtensibilityStatus(bool status)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			NativeInterface.SetExtensibleMarkers(status);
 			#elif UNITY_ANDROID
 			if (m_KudanAR_Instance != null)
@@ -815,7 +815,7 @@ namespace Kudan.AR
 		/// <returns><c>true</c>, if marker extensibility status was gotten, <c>false</c> otherwise.</returns>
 		public override bool GetMarkerExtensibilityStatus ()
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			return NativeInterface.GetExtensibleMarkersStatus();
 			#elif UNITY_ANDROID
 			if (m_KudanAR_Instance != null)
@@ -842,7 +842,7 @@ namespace Kudan.AR
 		/// <param name="focusStatus">True if the app has gained focus, false if it has lost focus.</param>
 		public override void OnApplicationFocus (bool focusStatus)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 
 			#elif UNITY_ANDROID
 			if ( focusStatus && m_ApplicationPaused)
@@ -870,7 +870,7 @@ namespace Kudan.AR
 		/// <param name="pauseStatus">True if GameObjects have focus, False otherwise.</param>
 		public override void OnApplicationPause (bool pauseStatus)
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 
 			#elif UNITY_ANDROID
 			if (pauseStatus) 
@@ -896,7 +896,7 @@ namespace Kudan.AR
 		/// <param name="orientation">Orientation to start tracking at.</param>
 		public override void ArbiTrackStart (Vector3 position, Quaternion orientation)
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			Debug.LogWarning("ArbiTrack is not supported on this platform");
 
 			#elif UNITY_IOS
@@ -926,7 +926,7 @@ namespace Kudan.AR
 		/// </summary>
 		public override void ArbiTrackStop ()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			Debug.LogWarning("ArbiTrack is not supported on this platform");
 
 			#elif UNITY_IOS
@@ -946,7 +946,7 @@ namespace Kudan.AR
 		/// <returns><c>true<c>/c>, if ArbiTrack is running <c>false</c> if not.</returns>
 		public override bool ArbiTrackIsTracking ()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			return false;
 
 			#elif UNITY_IOS
@@ -971,12 +971,12 @@ namespace Kudan.AR
 		/// <param name="orientation">The orientation of the markerless transform driver.</param>
 		public override void ArbiTrackGetPose (out Vector3 position, out Quaternion orientation)
 		{
-			#if UNITY_EDITOR || UNITY_ANDROID
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
 			position = new Vector3();
 			orientation = new Quaternion();
 			#endif
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS
 			float[] f = new float[7];
@@ -1013,12 +1013,12 @@ namespace Kudan.AR
 		/// <param name="orientation">Orientation of the floor, relative to the camera.</param>
 		public override void FloorPlaceGetPose (out Vector3 position, out Quaternion orientation)
 		{
-			#if UNITY_EDITOR || UNITY_ANDROID
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
 			position = new Vector3();
 			orientation = new Quaternion();
 			#endif
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS
 			float[] f = new float[7];
@@ -1052,7 +1052,7 @@ namespace Kudan.AR
 		/// </summary>
 		public override void PostRender ()
 		{
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 
 			#elif UNITY_ANDROID
 			//Some versions of Unity have a bug on Android where rendering to texture can only happen from OnPostRender
@@ -1072,7 +1072,7 @@ namespace Kudan.AR
 		{
             if (receivingInput)
             {
-                #if UNITY_EDITOR
+                #if UNITY_EDITOR || UNITY_STANDALONE
                 System.IntPtr texturePtr = _clonedTexture.GetNativeTexturePtr();
                 long textureID = (long)texturePtr;
 
@@ -1092,7 +1092,7 @@ namespace Kudan.AR
 		{
 			int num = 0;
 
-			#if UNITY_EDITOR || UNITY_IOS
+			#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 			num = NativeInterface.GetNumberOfDetectedTrackables();
 			#elif UNITY_ANDROID
 			if ( m_KudanAR_Instance != null )
@@ -1108,12 +1108,12 @@ namespace Kudan.AR
 				Trackable trackable = new Trackable();
 				StringBuilder sbName = new StringBuilder(512);
 
-				#if UNITY_EDITOR || UNITY_IOS
+				#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 				int width = 0;
 				int height = 0;
 				int trackingMethod = 0;
 
-				#if UNITY_EDITOR
+				#if UNITY_EDITOR || UNITY_STANDALONE
 				float[] p = new float[7];
 				#elif UNITY_IOS
 				float[] pos = new float[3];
@@ -1122,7 +1122,7 @@ namespace Kudan.AR
 
 				#endif
 
-				#if UNITY_EDITOR
+				#if UNITY_EDITOR || UNITY_STANDALONE
 				NativeInterface.GetDetectedTrackable (i, p, ref width, ref height, ref trackingMethod, sbName);
 				#elif UNITY_IOS
 				GetDetectedTrackable(i, sbName, 512, ref width, ref height, pos, ori);
@@ -1132,7 +1132,7 @@ namespace Kudan.AR
 				AndroidJavaObject thisTrackableOrientation = thisTrackable.Get<AndroidJavaObject>( "m_Orientation" );
 				#endif
 				
-				#if UNITY_EDITOR || UNITY_IOS
+				#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
 				trackable.name = sbName.ToString();
 				trackable.width = width;
 				trackable.height = height;
@@ -1143,7 +1143,7 @@ namespace Kudan.AR
 				trackable.height = thisTrackable.Get<int>( "m_Height" );
 				#endif
 
-				#if UNITY_EDITOR
+				#if UNITY_EDITOR || UNITY_STANDALONE
 				trackable.position = ConvertNativeFloatsToVector3 (p [0], p [1], p [2]);
 				trackable.orientation = ConvertNativeFloatsToQuaternion (p [3], p [4], p [5], p [6]);
 				#elif UNITY_IOS
@@ -1205,7 +1205,7 @@ namespace Kudan.AR
 		/// <param name="z">The z coordinate.</param>
 		protected static Vector3 ConvertNativeFloatsToVector3(float x, float y, float z)
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			return new Vector3 (x, y, -z);
 			#elif UNITY_IOS || UNITY_ANDROID
 			return new Vector3(-x, -y, -z);
@@ -1222,7 +1222,7 @@ namespace Kudan.AR
 		/// <param name="w">The w coefficient.</param>
 		protected static Quaternion ConvertNativeFloatsToQuaternion(float x, float y, float z, float w)
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			return new Quaternion (-x, -y, z, w) * Quaternion.AngleAxis (90f, Vector3.forward) * Quaternion.AngleAxis (90f, Vector3.left);
 			#elif UNITY_IOS || UNITY_ANDROID
 			return new Quaternion(x, y, z, w) * Quaternion.AngleAxis(-90f, Vector3.forward) * Quaternion.AngleAxis(90f, Vector3.left);
@@ -1243,7 +1243,7 @@ namespace Kudan.AR
 		
 			if (_rateTimer >= 1.0f)
 			{
-				#if UNITY_EDITOR
+				#if UNITY_EDITOR || UNITY_STANDALONE
 				_cameraRate = (float)_numFramesGrabbed / _rateTimer;
 				_trackerRate = (float)_numFramesTracked  / _rateTimer;
 
@@ -1273,7 +1273,7 @@ namespace Kudan.AR
 		/// </summary>
 		public void UpdateRotation()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS || UNITY_ANDROID
 			ScreenOrientation currentOrientation = Screen.orientation;
@@ -1335,7 +1335,7 @@ namespace Kudan.AR
 		/// </summary>
 		private void SetYpCbCrMaterialOnBackground()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS
 			Material matYpCbCr = Resources.Load("YpCbCr", typeof(Material)) as Material;
@@ -1366,7 +1366,7 @@ namespace Kudan.AR
 		/// </summary>
 		private void UpdateBackground()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 
 			#elif UNITY_IOS
 			int width = 0, height = 0;

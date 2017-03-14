@@ -141,7 +141,7 @@ namespace Kudan.AR
 			}
 		}
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
 		/// <summary>
 		/// Sets the scale of child objects using the marker size.
 		/// </summary>

@@ -57,7 +57,7 @@ namespace Kudan.AR
 			this.data = data;
 		}
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
 		[Multiline(8)]
 		/// <summary>
 		/// Optional notes to keep track of useful information, such as individual marker names.
@@ -67,12 +67,14 @@ namespace Kudan.AR
 
 #if UNITY_EDITOR
 		[UnityEditor.MenuItem("Assets/Create/Kudan AR Trackable Data")]
-		/// <summary>
-		/// Creates a new trackable asset using KARMarker data from a selected file.
-		/// </summary>
-		public static void EditorCreateIssue()
+#endif
+        /// <summary>
+        /// Creates a new trackable asset using KARMarker data from a selected file.
+        /// </summary>
+        public static void EditorCreateIssue()
 		{
-			string path = UnityEditor.EditorUtility.OpenFilePanel("Kudan AR", "", "KARMarker");
+#if UNITY_EDITOR
+            string path = UnityEditor.EditorUtility.OpenFilePanel("Kudan AR", "", "KARMarker");
 			if (!string.IsNullOrEmpty(path))
 			{
 				TrackableData obj = ScriptableObject.CreateInstance<TrackableData>();
@@ -86,7 +88,7 @@ namespace Kudan.AR
 				UnityEditor.EditorUtility.FocusProjectWindow();
 				UnityEditor.Selection.activeObject = obj;
 			}
-		}
 #endif
+        }
 	}
 }

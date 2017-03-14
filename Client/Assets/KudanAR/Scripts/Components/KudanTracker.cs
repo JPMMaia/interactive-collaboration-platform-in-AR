@@ -2,9 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Kudan.AR
 {
@@ -155,7 +152,7 @@ namespace Kudan.AR
 			get { return _currentTrackingMethod; }
 		}
 
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_STANDALONE
 		/// <summary>
 		/// If you have more than one webcam connected to your machine you can change your prefered webcam ID here.
 		/// NOTE: This only applies to the Unity Editor. To change the camera used on Mobile devices, change "Use Front Facing Camera On Mobile" instead.
@@ -169,17 +166,19 @@ namespace Kudan.AR
 		/// </summary>
 		private void checkLicenseKeyValidity() 
 		{
-			bool result = NativeInterface.CheckAPIKeyIsValid(_APIKey.Trim(), PlayerSettings.bundleIdentifier);
+#if UNITY_EDITOR
+            bool result = NativeInterface.CheckAPIKeyIsValid(_APIKey.Trim(), UnityEditor.PlayerSettings.bundleIdentifier);
 
 			if (result)
             {
-				Debug.Log ("[KudanAR] Your Native API Key Is Valid for Bundle ID: " + PlayerSettings.bundleIdentifier);
+				Debug.Log ("[KudanAR] Your Native API Key Is Valid for Bundle ID: " + UnityEditor.PlayerSettings.bundleIdentifier);
 			}
             else
             {
-				Debug.LogError ("[KudanAR] Your Native API Key is INVALID for Bundle ID: "+ PlayerSettings.bundleIdentifier);
+				Debug.LogError ("[KudanAR] Your Native API Key is INVALID for Bundle ID: "+ UnityEditor.PlayerSettings.bundleIdentifier);
 			}
-		}
+#endif
+        }
 
 		/// <summary>
 		/// Checks that the license key required to use the plugin in the Editor is valid.
@@ -247,7 +246,7 @@ namespace Kudan.AR
 			}
 			else
 			{
-				#if UNITY_EDITOR
+				#if UNITY_EDITOR || UNITY_STANDALONE
 				// Check the Editor API Key and validity of the Native API Key
 				if (!string.IsNullOrEmpty(_EditorAPIKey))
 				{
@@ -298,7 +297,7 @@ namespace Kudan.AR
                 if (_trackerPlugin.GetNumCameras() > 0)
                 {
                     // Start the camera
-                    #if UNITY_EDITOR
+                    #if UNITY_EDITOR || UNITY_STANDALONE
                     if (_trackerPlugin.StartInputFromCamera(_playModeWebcamID, DefaultCameraWidth, DefaultCameraHeight))
                     #else
 				    int cameraIndex = 0;
@@ -555,7 +554,7 @@ namespace Kudan.AR
 		/// </summary>
 		void OnPostRender()
 		{
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || UNITY_STANDALONE
 			#elif UNITY_ANDROID
 			if (_trackerPlugin != null)
 			{
