@@ -5,10 +5,10 @@ using System.ComponentModel;
 
 namespace UnityEngine.Networking
 {
-    [AddComponentMenu("Network/NetworkManagerHUDAndroid")]
+    [AddComponentMenu("Network/NetworkManagerCustomHUD")]
     [RequireComponent(typeof(NetworkManager))]
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public class NetworkManagerHUDAndroid : MonoBehaviour
+    public class NetworkManagerCustomHUD : MonoBehaviour
     {
         public NetworkManager manager;
         [SerializeField] public bool showGUI = true;
@@ -22,38 +22,6 @@ namespace UnityEngine.Networking
         void Awake()
         {
             manager = GetComponent<NetworkManager>();
-        }
-
-        void Update()
-        {
-            if (!showGUI)
-                return;
-
-            if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
-            {
-                if (UnityEngine.Application.platform != RuntimePlatform.WebGLPlayer)
-                {
-                    if (Input.GetKeyDown(KeyCode.S))
-                    {
-                        manager.StartServer();
-                    }
-                    if (Input.GetKeyDown(KeyCode.H))
-                    {
-                        manager.StartHost();
-                    }
-                }
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    manager.StartClient();
-                }
-            }
-            if (NetworkServer.active && manager.IsClientConnected())
-            {
-                if (Input.GetKeyDown(KeyCode.X))
-                {
-                    manager.StopHost();
-                }
-            }
         }
 
         void OnGUI()
