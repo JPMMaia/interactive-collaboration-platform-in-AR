@@ -4,6 +4,10 @@ using System.Collections;
 [AddComponentMenu("Camera-Control/Free Camera")]
 public class FreeCamera : MonoBehaviour
 {
+    public float MovementSensibility = 0.1f;
+    public float RotationSensibility = 1.0f;
+    public float MouseSensibility = 10.0f;
+
     public Vector3 LocalRight
     {
         get
@@ -38,7 +42,7 @@ public class FreeCamera : MonoBehaviour
 
     private void Update()
     {
-        const float movementSensibility = 0.1f;
+        float movementSensibility = MovementSensibility;
         if (Input.GetKey(KeyCode.W))
             MoveForward(movementSensibility);
         if (Input.GetKey(KeyCode.S))
@@ -48,7 +52,7 @@ public class FreeCamera : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
             MoveRight(movementSensibility);
 
-        const float rotationSensibility = 1.0f;
+        float rotationSensibility = RotationSensibility;
         if (Input.GetKey(KeyCode.Q))
             RotateWorldZ(rotationSensibility);
         if (Input.GetKey(KeyCode.E))
@@ -56,7 +60,7 @@ public class FreeCamera : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            const float mouseSensibility = 10.0f;
+            float mouseSensibility = MouseSensibility;
             var mouseDeltaX = Input.GetAxis("Mouse X");
             var mouseDeltaY = Input.GetAxis("Mouse Y");
 

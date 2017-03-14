@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 public class PlayerMove : NetworkBehaviour
 {
     public GameObject bulletPrefab;
+    public GameObject Scene;
 
     public override void OnStartLocalPlayer()
     {
