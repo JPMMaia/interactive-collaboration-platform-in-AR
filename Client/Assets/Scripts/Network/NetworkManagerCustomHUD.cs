@@ -1,86 +1,86 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using UnityEngine;
+using UnityEngine.Networking;
 
 #if ENABLE_UNET
 
-namespace UnityEngine.Networking
+namespace CollaborationEngine.Network
 {
     [AddComponentMenu("Network/NetworkManagerCustomHUD")]
     [RequireComponent(typeof(NetworkManager))]
     [EditorBrowsable(EditorBrowsableState.Never)]
     public class NetworkManagerCustomHUD : MonoBehaviour
     {
-        public NetworkManager manager;
-        [SerializeField] public bool showGUI = true;
-        [SerializeField] public int offsetX;
-        [SerializeField] public int offsetY;
-        [SerializeField] public float sizeMultiplier = 1.0f;
+        public NetworkManager Manager;
+        [SerializeField] public bool ShowGUI = true;
+        [SerializeField] public int OffsetX;
+        [SerializeField] public int OffsetY;
+        [SerializeField] public float SizeMultiplier = 1.0f;
 
         // Runtime variable
-        bool m_ShowServer;
+        bool _showServer;
 
-        void Awake()
+        public void Awake()
         {
-            manager = GetComponent<NetworkManager>();
+            Manager = GetComponent<NetworkManager>();
         }
 
-        void OnGUI()
+        public void OnGUI()
         {
-            if (!showGUI)
+            if (!ShowGUI)
                 return;
 
-            int xpos = 10 + offsetX;
-            int ypos = 40 + offsetY;
-            int spacing = (int)(24.0f * sizeMultiplier);
+            int xpos = 10 + OffsetX;
+            int ypos = 40 + OffsetY;
+            int spacing = (int)(24.0f * SizeMultiplier);
 
-            bool noConnection = (manager.client == null || manager.client.connection == null ||
-                                 manager.client.connection.connectionId == -1);
+            bool noConnection = (Manager.client?.connection == null || Manager.client.connection.connectionId == -1);
 
-            if (!manager.IsClientConnected() && !NetworkServer.active && manager.matchMaker == null)
+            if (!Manager.IsClientConnected() && !NetworkServer.active && Manager.matchMaker == null)
             {
                 if (noConnection)
                 {
-                    if (UnityEngine.Application.platform != RuntimePlatform.WebGLPlayer)
+                    if (Application.platform != RuntimePlatform.WebGLPlayer)
                     {
-                        if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "LAN Host(H)"))
+                        if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "LAN Host(H)"))
                         {
-                            manager.StartHost();
+                            Manager.StartHost();
                         }
                         ypos += spacing;
                     }
 
-                    if (GUI.Button(new Rect(xpos, ypos, 105 * sizeMultiplier, 20 * sizeMultiplier), "LAN Client(C)"))
+                    if (GUI.Button(new Rect(xpos, ypos, 105 * SizeMultiplier, 20 * SizeMultiplier), "LAN Client(C)"))
                     {
-                        manager.StartClient();
+                        Manager.StartClient();
                     }
 
-                    manager.networkAddress = GUI.TextField(new Rect(xpos + 100 * sizeMultiplier, ypos, 95 * sizeMultiplier, 20 * sizeMultiplier), manager.networkAddress);
+                    Manager.networkAddress = GUI.TextField(new Rect(xpos + 100 * SizeMultiplier, ypos, 95 * SizeMultiplier, 20 * SizeMultiplier), Manager.networkAddress);
                     ypos += spacing;
 
-                    if (UnityEngine.Application.platform == RuntimePlatform.WebGLPlayer)
+                    if (Application.platform == RuntimePlatform.WebGLPlayer)
                     {
                         // cant be a server in webgl build
-                        GUI.Box(new Rect(xpos, ypos, 200 * sizeMultiplier, 25 * sizeMultiplier), "(  WebGL cannot be server  )");
+                        GUI.Box(new Rect(xpos, ypos, 200 * SizeMultiplier, 25 * SizeMultiplier), "(  WebGL cannot be server  )");
                         ypos += spacing;
                     }
                     else
                     {
-                        if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "LAN Server Only(S)"))
+                        if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "LAN Server Only(S)"))
                         {
-                            manager.StartServer();
+                            Manager.StartServer();
                         }
                         ypos += spacing;
                     }
                 }
                 else
                 {
-                    GUI.Label(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Connecting to " + manager.networkAddress + ":" + manager.networkPort + "..");
+                    GUI.Label(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Connecting to " + Manager.networkAddress + ":" + Manager.networkPort + "..");
                     ypos += spacing;
 
 
-                    if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Cancel Connection Attempt"))
+                    if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Cancel Connection Attempt"))
                     {
-                        manager.StopClient();
+                        Manager.StopClient();
                     }
                 }
             }
@@ -88,26 +88,26 @@ namespace UnityEngine.Networking
             {
                 if (NetworkServer.active)
                 {
-                    string serverMsg = "Server: port=" + manager.networkPort;
-                    if (manager.useWebSockets)
+                    string serverMsg = "Server: port=" + Manager.networkPort;
+                    if (Manager.useWebSockets)
                     {
                         serverMsg += " (Using WebSockets)";
                     }
-                    GUI.Label(new Rect(xpos, ypos, 300 * sizeMultiplier, 20 * sizeMultiplier), serverMsg);
+                    GUI.Label(new Rect(xpos, ypos, 300 * SizeMultiplier, 20 * SizeMultiplier), serverMsg);
                     ypos += spacing;
                 }
-                if (manager.IsClientConnected())
+                if (Manager.IsClientConnected())
                 {
-                    GUI.Label(new Rect(xpos, ypos, 300 * sizeMultiplier, 20 * sizeMultiplier), "Client: address=" + manager.networkAddress + " port=" + manager.networkPort);
+                    GUI.Label(new Rect(xpos, ypos, 300 * SizeMultiplier, 20 * SizeMultiplier), "Client: address=" + Manager.networkAddress + " port=" + Manager.networkPort);
                     ypos += spacing;
                 }
             }
 
-            if (manager.IsClientConnected() && !ClientScene.ready)
+            if (Manager.IsClientConnected() && !ClientScene.ready)
             {
-                if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Client Ready"))
+                if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Client Ready"))
                 {
-                    ClientScene.Ready(manager.client.connection);
+                    ClientScene.Ready(Manager.client.connection);
 
                     if (ClientScene.localPlayers.Count == 0)
                     {
@@ -117,114 +117,111 @@ namespace UnityEngine.Networking
                 ypos += spacing;
             }
 
-            if (NetworkServer.active || manager.IsClientConnected())
+            if (NetworkServer.active || Manager.IsClientConnected())
             {
-                if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Stop (X)"))
+                if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Stop (X)"))
                 {
-                    manager.StopHost();
+                    Manager.StopHost();
                 }
                 ypos += spacing;
             }
 
-            if (!NetworkServer.active && !manager.IsClientConnected() && noConnection)
+            if (!NetworkServer.active && !Manager.IsClientConnected() && noConnection)
             {
                 ypos += 10;
 
-                if (UnityEngine.Application.platform == RuntimePlatform.WebGLPlayer)
+                if (Application.platform == RuntimePlatform.WebGLPlayer)
                 {
-                    GUI.Box(new Rect(xpos - 5, ypos, 220 * sizeMultiplier, 25 * sizeMultiplier), "(WebGL cannot use Match Maker)");
+                    GUI.Box(new Rect(xpos - 5, ypos, 220 * SizeMultiplier, 25 * SizeMultiplier), "(WebGL cannot use Match Maker)");
                     return;
                 }
 
-                if (manager.matchMaker == null)
+                if (Manager.matchMaker == null)
                 {
-                    if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Enable Match Maker (M)"))
+                    if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Enable Match Maker (M)"))
                     {
-                        manager.StartMatchMaker();
+                        Manager.StartMatchMaker();
                     }
-                    ypos += spacing;
                 }
                 else
                 {
-                    if (manager.matchInfo == null)
+                    if (Manager.matchInfo == null)
                     {
-                        if (manager.matches == null)
+                        if (Manager.matches == null)
                         {
-                            if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Create Internet Match"))
+                            if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Create Internet Match"))
                             {
-                                manager.matchMaker.CreateMatch(manager.matchName, manager.matchSize, true, "", "", "", 0, 0, manager.OnMatchCreate);
+                                Manager.matchMaker.CreateMatch(Manager.matchName, Manager.matchSize, true, "", "", "", 0, 0, Manager.OnMatchCreate);
                             }
                             ypos += spacing;
 
-                            GUI.Label(new Rect(xpos, ypos, 100 * sizeMultiplier, 20 * sizeMultiplier), "Room Name:");
-                            manager.matchName = GUI.TextField(new Rect(xpos + 100, ypos, 100 * sizeMultiplier, 20 * sizeMultiplier), manager.matchName);
+                            GUI.Label(new Rect(xpos, ypos, 100 * SizeMultiplier, 20 * SizeMultiplier), "Room Name:");
+                            Manager.matchName = GUI.TextField(new Rect(xpos + 100, ypos, 100 * SizeMultiplier, 20 * SizeMultiplier), Manager.matchName);
                             ypos += spacing;
 
                             ypos += 10;
 
-                            if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Find Internet Match"))
+                            if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Find Internet Match"))
                             {
-                                manager.matchMaker.ListMatches(0, 20, "", false, 0, 0, manager.OnMatchList);
+                                Manager.matchMaker.ListMatches(0, 20, "", false, 0, 0, Manager.OnMatchList);
                             }
                             ypos += spacing;
                         }
                         else
                         {
-                            for (int i = 0; i < manager.matches.Count; i++)
+                            foreach (var match in Manager.matches)
                             {
-                                var match = manager.matches[i];
-                                if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Join Match:" + match.name))
+                                if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Join Match:" + match.name))
                                 {
-                                    manager.matchName = match.name;
-                                    manager.matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, manager.OnMatchJoined);
+                                    Manager.matchName = match.name;
+                                    Manager.matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, Manager.OnMatchJoined);
                                 }
                                 ypos += spacing;
                             }
 
-                            if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Back to Match Menu"))
+                            if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Back to Match Menu"))
                             {
-                                manager.matches = null;
+                                Manager.matches = null;
                             }
                             ypos += spacing;
                         }
                     }
 
-                    if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Change MM server"))
+                    if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Change MM server"))
                     {
-                        m_ShowServer = !m_ShowServer;
+                        _showServer = !_showServer;
                     }
-                    if (m_ShowServer)
+                    if (_showServer)
                     {
                         ypos += spacing;
-                        if (GUI.Button(new Rect(xpos, ypos, 100 * sizeMultiplier, 20 * sizeMultiplier), "Local"))
+                        if (GUI.Button(new Rect(xpos, ypos, 100 * SizeMultiplier, 20 * SizeMultiplier), "Local"))
                         {
-                            manager.SetMatchHost("localhost", 1337, false);
-                            m_ShowServer = false;
+                            Manager.SetMatchHost("localhost", 1337, false);
+                            _showServer = false;
                         }
                         ypos += spacing;
-                        if (GUI.Button(new Rect(xpos, ypos, 100 * sizeMultiplier, 20 * sizeMultiplier), "Internet"))
+                        if (GUI.Button(new Rect(xpos, ypos, 100 * SizeMultiplier, 20 * SizeMultiplier), "Internet"))
                         {
-                            manager.SetMatchHost("mm.unet.unity3d.com", 443, true);
-                            m_ShowServer = false;
+                            Manager.SetMatchHost("mm.unet.unity3d.com", 443, true);
+                            _showServer = false;
                         }
                         ypos += spacing;
                         if (GUI.Button(new Rect(xpos, ypos, 100, 20), "Staging"))
                         {
-                            manager.SetMatchHost("staging-mm.unet.unity3d.com", 443, true);
-                            m_ShowServer = false;
+                            Manager.SetMatchHost("staging-mm.unet.unity3d.com", 443, true);
+                            _showServer = false;
                         }
                     }
 
                     ypos += spacing;
 
-                    GUI.Label(new Rect(xpos, ypos, 300 * sizeMultiplier, 20 * sizeMultiplier), "MM Uri: " + manager.matchMaker.baseUri);
+                    GUI.Label(new Rect(xpos, ypos, 300 * SizeMultiplier, 20 * SizeMultiplier), "MM Uri: " + Manager.matchMaker.baseUri);
                     ypos += spacing;
 
-                    if (GUI.Button(new Rect(xpos, ypos, 200 * sizeMultiplier, 20 * sizeMultiplier), "Disable Match Maker"))
+                    if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Disable Match Maker"))
                     {
-                        manager.StopMatchMaker();
+                        Manager.StopMatchMaker();
                     }
-                    ypos += spacing;
                 }
             }
         }

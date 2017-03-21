@@ -1,18 +1,17 @@
-﻿using System;
+﻿using CollaborationEngine.Objects;
 using UnityEngine;
-using Assets.Scripts.Scenes;
 
-namespace Assets.Scripts.Assets.Scripts.Server
+namespace CollaborationEngine.Server
 {
     public class ServerController : MonoBehaviour
     {
-        public Camera MainCamera;
+        public UnityEngine.Camera MainCamera;
         public Scene Scene;
 
         public GameObject ArrowPrefab;
         public GameObject RubiksPrefab;
 
-        private void Update()
+        public void Update()
         {
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {

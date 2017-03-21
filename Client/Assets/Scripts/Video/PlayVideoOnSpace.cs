@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayVideoOnSpace : MonoBehaviour
+namespace CollaborationEngine.Video
 {
+    public class PlayVideoOnSpace : MonoBehaviour
+    {
 #if UNITY_EDITOR || UNITY_STANDALONE
-    /*public MovieTexture movieTexture;
+        /*public MovieTexture movieTexture;
 
     void Update()
     {
@@ -21,5 +21,6 @@ public class PlayVideoOnSpace : MonoBehaviour
         }
     }*/
 #endif
+    }
 }
 
