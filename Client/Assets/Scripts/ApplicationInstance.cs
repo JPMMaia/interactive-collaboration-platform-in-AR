@@ -1,6 +1,8 @@
 ﻿using CollaborationEngine.Historic;
+using CollaborationEngine.Scenes;
 using CollaborationEngine.States;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine
 {
@@ -20,23 +22,37 @@ namespace CollaborationEngine
 
         public History History { get; set; }
         public IApplicationState CurrentState { get; private set; }
+        public NetworkManager NetworkManager { get; private set; }
+        public SceneManager SceneManager { get; private set; }
 
-        public void Start()
+        public void Awake()
         {
+            DontDestroyOnLoad(this);
+
+            NetworkManager = GetComponent<NetworkManager>();
             History = new History();
+            SceneManager = new SceneManager();
 
             // Initial state:
             ChangeState(new StartState(), false);
         }
 
+        public void OnApplicationQuit()
+        {
+            if(CurrentState != null)
+                CurrentState.Shutdown();
+        }
+
         public void FixedUpdate()
         {
-            CurrentState?.FixedUpdate();
+            if(CurrentState != null)
+                CurrentState.FixedUpdate();
         }
 
         public void Update()
         {
-            CurrentState?.FrameUpdate();
+            if (CurrentState != null)
+                CurrentState.FrameUpdate();
 
             if (Input.GetKeyDown(KeyCode.P))
                 ChangeToPreviousState();
@@ -52,7 +68,8 @@ namespace CollaborationEngine
                 History.PushAction(CurrentState, state);
 
             // Shutdown previous state:
-            CurrentState?.Shutdown();
+            if (CurrentState != null)
+                CurrentState.Shutdown();
 
             // Set current state:
             CurrentState = state;

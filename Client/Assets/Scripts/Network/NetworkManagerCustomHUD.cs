@@ -34,7 +34,7 @@ namespace CollaborationEngine.Network
             int ypos = 40 + OffsetY;
             int spacing = (int)(24.0f * SizeMultiplier);
 
-            bool noConnection = (Manager.client?.connection == null || Manager.client.connection.connectionId == -1);
+            bool noConnection = (Manager.client == null || Manager.client.connection == null || Manager.client.connection.connectionId == -1);
 
             if (!Manager.IsClientConnected() && !NetworkServer.active && Manager.matchMaker == null)
             {

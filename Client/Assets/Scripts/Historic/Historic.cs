@@ -5,7 +5,7 @@ namespace CollaborationEngine.Historic
 {
     public class History
     {
-        public Stack<Action> Actions { get; }
+        public Stack<Action> Actions { get; private set; }
 
         public History()
         {

@@ -8,7 +8,7 @@ namespace CollaborationEngine.Objects
     {
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
-        public List<IComponent> Components { get; }
+        public List<IComponent> Components { get; private set; }
         public string Name { get; protected set; }
         public bool Rotate { get; set; }
 

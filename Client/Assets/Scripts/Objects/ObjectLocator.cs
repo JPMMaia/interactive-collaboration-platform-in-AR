@@ -4,7 +4,11 @@ namespace CollaborationEngine.Objects
 {
     public class ObjectLocator : MonoBehaviour
     {
-        public Transform SceneRootTransform;
+        public UnityEngine.Camera MainCamera
+        {
+            get { return UnityEngine.Camera.main; }
+        }
+        public GameObject SceneRoot;
         public GameObject StudyObjectPrefab;
 
         private static ObjectLocator _instance;

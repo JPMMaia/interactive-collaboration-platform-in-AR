@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CollaborationEngine.Network
 {
@@ -15,7 +16,7 @@ namespace CollaborationEngine.Network
         //define the event handler that displays the exception on the UI text component 
         private void Application_logMessageReceived(string condition, string stackTrace, LogType type)
         {
-            TextToShow = $"{condition}, {stackTrace}, {type}";
+            TextToShow = string.Format("{0}, {1}, {2}", condition, stackTrace, type);
         }
 
         public void OnGUI()
