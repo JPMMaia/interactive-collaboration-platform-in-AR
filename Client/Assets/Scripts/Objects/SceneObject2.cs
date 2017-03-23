@@ -4,26 +4,52 @@ using UnityEngine;
 
 namespace CollaborationEngine.Objects
 {
-    public class SceneObject2
+    public abstract class SceneObject2
     {
+        public struct Data
+        {
+            public Vector3 Position;
+            public Quaternion Rotation;
+            public Vector3 Scale;
+            public SceneObjectType Type;
+        };
+
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
-        public List<IComponent> Components { get; private set; }
-        public string Name { get; protected set; }
-        public bool Rotate { get; set; }
 
-        protected SceneObject2(GameObject prefab)
+        private readonly List<IComponent> _components = new List<IComponent>();
+        public List<IComponent> Components
         {
+            get
+            {
+                return _components;
+            }
+        }
+        public Data NetworkData { get; private set; }
+
+        protected SceneObject2(GameObject prefab, SceneObjectType type)
+        {
+            NetworkData = new Data
+            {
+                Position = Vector3.zero,
+                Rotation = Quaternion.identity,
+                Scale = Vector3.one,
+                Type = type
+            };
+            Prefab = prefab;   
+        }
+        protected SceneObject2(GameObject prefab, Data networkData)
+        {
+            NetworkData = networkData;
             Prefab = prefab;
-            Components = new List<IComponent>();
         }
 
-        public virtual GameObject Instantiate(Vector3 position, Quaternion rotation, Vector3 scale, Transform parent)
+        public virtual GameObject Instantiate(Transform parent)
         {
-            GameObject = Object.Instantiate(Prefab, position, rotation);
+            GameObject = Object.Instantiate(Prefab, NetworkData.Position, NetworkData.Rotation);
             System.Diagnostics.Debug.Assert(GameObject != null, "GameObject != null");
 
-            GameObject.transform.localScale = scale;
+            GameObject.transform.localScale = NetworkData.Scale;
             GameObject.transform.SetParent(parent, false);
             foreach (var component in Components)
                 component.Instantiate();
@@ -33,8 +59,7 @@ namespace CollaborationEngine.Objects
 
         public virtual void Destroy()
         {
-            foreach (var component in Components)
-                component.Destroy();
+            ClearComponents();
 
             if (GameObject)
             {
@@ -63,6 +88,9 @@ namespace CollaborationEngine.Objects
         }
         public void ClearComponents()
         {
+            foreach (var component in Components)
+                component.Destroy();
+
             Components.Clear();
         }
 

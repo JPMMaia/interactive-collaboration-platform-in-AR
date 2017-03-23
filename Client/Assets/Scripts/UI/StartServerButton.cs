@@ -5,11 +5,11 @@ namespace CollaborationEngine.UI
 {
     public class StartServerButton : MonoBehaviour
     {
-        public void Awake()
+        public void Start()
         {
             ApplicationInstance.Instance.SceneManager.OnSceneLoaded += SceneManager_OnSceneLoaded;
         }
-        public void OnDestroy()
+        public void OnApplicationQuit()
         {
             ApplicationInstance.Instance.SceneManager.OnSceneLoaded -= SceneManager_OnSceneLoaded;
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CollaborationEngine.Objects;
+using CollaborationEngine.Server;
 using UnityEngine;
 
 namespace CollaborationEngine.Scenes
@@ -15,15 +16,28 @@ namespace CollaborationEngine.Scenes
 
             GameObject = gameObject;
             SceneObjects = new List<SceneObject2>();
+
+            ApplicationInstance.Instance.NetworkController.OnSceneObjectAdded += NetworkController_OnSceneObjectAdded;
+            // TODO sync already existing data
         }
 
-        public void Add(SceneObject2 sceneObject)
+        private void NetworkController_OnSceneObjectAdded(NetworkController sender, NetworkController.NetworkEventArgs eventArgs)
         {
-            SceneObjects.Add(sceneObject);
+            Add(eventArgs.Data);
         }
-        public void Remove(SceneObject2 sceneObject)
+
+        public void Add(SceneObject2.Data sceneObjectData)
         {
-            SceneObjects.Remove(sceneObject);
+            if (sceneObjectData.Type == SceneObjectType.Real)
+            {
+                var sceneObject = new RealObject(sceneObjectData);
+                sceneObject.Instantiate(GameObject.transform);
+                SceneObjects.Add(sceneObject);
+            }
+        }
+        public void Remove(SceneObject2.Data sceneObjectData)
+        {
+            // TODO
         }
         public void Clear()
         {

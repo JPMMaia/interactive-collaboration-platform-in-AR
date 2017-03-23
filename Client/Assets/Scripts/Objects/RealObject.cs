@@ -2,8 +2,8 @@
 {
     public class RealObject : SceneObject2
     {
-        public RealObject() :
-            base(ObjectLocator.Instance.StudyObjectPrefab)
+        public RealObject(SceneObject2.Data data) :
+            base(ObjectLocator.Instance.StudyObjectPrefab, data)
         {
         }
     }

@@ -15,8 +15,6 @@ namespace CollaborationEngine.States
         public void Shutdown()
         {
             Scene = null;
-
-            ApplicationInstance.Instance.NetworkManager.StopHost();
         }
 
         public void FixedUpdate()
@@ -35,10 +33,17 @@ namespace CollaborationEngine.States
                 if (Physics.Raycast(ray, out hitInfo))
                 {
                     var worldPosition = hitInfo.point;
-                    //var worldToLocalMatrix = Scene.transform.worldToLocalMatrix;
-                    //var localPosition = worldToLocalMatrix.MultiplyPoint(worldPosition);
+                    var worldToLocalMatrix = Scene.GameObject.transform.worldToLocalMatrix;
+                    var localPosition = worldToLocalMatrix.MultiplyPoint(worldPosition);
 
-                    //Scene.CmdAdd(ArrowPrefab, localPosition, Quaternion.identity, 1, false);
+                    var sceneObjectData = new SceneObject2.Data
+                    {
+                        Position = localPosition,
+                        Rotation = Quaternion.identity,
+                        Scale = Vector3.one,
+                        Type = SceneObjectType.Real
+                    };
+                    applicationInstance.NetworkController.CmdAddSceneObject(sceneObjectData);
                 }
             }
 

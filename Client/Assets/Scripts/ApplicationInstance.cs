@@ -1,5 +1,6 @@
 ﻿using CollaborationEngine.Historic;
 using CollaborationEngine.Scenes;
+using CollaborationEngine.Server;
 using CollaborationEngine.States;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -23,13 +24,15 @@ namespace CollaborationEngine
         public History History { get; set; }
         public IApplicationState CurrentState { get; private set; }
         public NetworkManager NetworkManager { get; private set; }
+        public NetworkController NetworkController { get; private set; }
         public SceneManager SceneManager { get; private set; }
 
         public void Awake()
         {
             DontDestroyOnLoad(this);
 
-            NetworkManager = GetComponent<NetworkManager>();
+            NetworkManager = FindObjectOfType<NetworkManager>();
+            NetworkController = FindObjectOfType<NetworkController>();
             History = new History();
             SceneManager = new SceneManager();
 
