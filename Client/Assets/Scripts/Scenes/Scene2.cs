@@ -18,11 +18,13 @@ namespace CollaborationEngine.Scenes
             SceneObjects = new List<SceneObject2>();
 
             ApplicationInstance.Instance.NetworkController.OnSceneObjectAdded += NetworkController_OnSceneObjectAdded;
+            Debug.LogError("Scene Created");
             // TODO sync already existing data
         }
 
         private void NetworkController_OnSceneObjectAdded(NetworkController sender, NetworkController.NetworkEventArgs eventArgs)
         {
+            Debug.LogError("Object Added");
             Add(eventArgs.Data);
         }
 

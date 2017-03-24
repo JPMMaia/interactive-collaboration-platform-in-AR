@@ -1,4 +1,5 @@
 ﻿using CollaborationEngine.Historic;
+using CollaborationEngine.Objects;
 using CollaborationEngine.Scenes;
 using CollaborationEngine.Server;
 using CollaborationEngine.States;
@@ -21,20 +22,46 @@ namespace CollaborationEngine
             }
         }
 
-        public History History { get; set; }
+        private readonly History _history = new History();
+        public History History
+        {
+            get
+            {
+                return _history;
+            }
+        }
+
         public IApplicationState CurrentState { get; private set; }
-        public NetworkManager NetworkManager { get; private set; }
-        public NetworkController NetworkController { get; private set; }
-        public SceneManager SceneManager { get; private set; }
+
+        private NetworkManager _networkManager;
+        public NetworkManager NetworkManager
+        {
+            get
+            {
+                if (_networkManager == null)
+                    _networkManager = FindObjectOfType<NetworkManager>();
+
+                return _networkManager;
+            }
+        }
+
+        public NetworkController NetworkController
+        {
+            get
+            {
+                return ObjectLocator.Instance.NetworkController;
+            }
+        }
+
+        private readonly SceneManager _sceneManager = new SceneManager();
+        public SceneManager SceneManager
+        {
+            get { return _sceneManager; }
+        }
 
         public void Awake()
         {
             DontDestroyOnLoad(this);
-
-            NetworkManager = FindObjectOfType<NetworkManager>();
-            NetworkController = FindObjectOfType<NetworkController>();
-            History = new History();
-            SceneManager = new SceneManager();
 
             // Initial state:
             ChangeState(new StartState(), false);

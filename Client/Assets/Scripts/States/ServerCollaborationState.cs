@@ -10,6 +10,9 @@ namespace CollaborationEngine.States
 
         public void Initialize()
         {
+            ObjectLocator.Instance.ServerRoot.SetActive(true);
+            ObjectLocator.Instance.ClientRoot.SetActive(false);
+
             Scene = new Scene2(ObjectLocator.Instance.SceneRoot);
         }
         public void Shutdown()

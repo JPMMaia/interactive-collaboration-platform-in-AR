@@ -18,11 +18,6 @@ namespace CollaborationEngine.Server
 
         private List<SceneObject2.Data> _sceneData = new List<SceneObject2.Data>();
 
-        public void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
-
         [Command]
         public void CmdAddSceneObject(SceneObject2.Data sceneObjectData)
         {
