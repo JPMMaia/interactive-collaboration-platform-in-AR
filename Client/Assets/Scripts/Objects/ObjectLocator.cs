@@ -1,4 +1,4 @@
-﻿using CollaborationEngine.Server;
+﻿using CollaborationEngine.Network;
 using UnityEngine;
 
 namespace CollaborationEngine.Objects
@@ -14,7 +14,7 @@ namespace CollaborationEngine.Objects
         public GameObject ClientRoot;
         public GameObject SceneRoot;
         public GameObject StudyObjectPrefab;
-        public NetworkController NetworkController;
+        public ClientController ClientController;
 
         private static ObjectLocator _instance;
         public static ObjectLocator Instance

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CollaborationEngine.Objects;
-using CollaborationEngine.Server;
+using CollaborationEngine.Network;
 using UnityEngine;
 
 namespace CollaborationEngine.Scenes
@@ -17,12 +17,12 @@ namespace CollaborationEngine.Scenes
             GameObject = gameObject;
             SceneObjects = new List<SceneObject2>();
 
-            ApplicationInstance.Instance.NetworkController.OnSceneObjectAdded += NetworkController_OnSceneObjectAdded;
-            Debug.LogError("Scene Created");
-            // TODO sync already existing data
+            var networkController = ClientController.Instance;
+            networkController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
+            //networkController.RequestSceneObjectsData();
         }
 
-        private void NetworkController_OnSceneObjectAdded(NetworkController sender, NetworkController.NetworkEventArgs eventArgs)
+        private void ClientController_OnSceneObjectDataAdded(object sender, ClientController.NetworkEventArgs eventArgs)
         {
             Debug.LogError("Object Added");
             Add(eventArgs.Data);

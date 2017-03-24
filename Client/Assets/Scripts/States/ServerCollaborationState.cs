@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.Objects;
+﻿using CollaborationEngine.Network;
+using CollaborationEngine.Objects;
 using CollaborationEngine.Scenes;
 using UnityEngine;
 
@@ -25,8 +26,6 @@ namespace CollaborationEngine.States
         }
         public void FrameUpdate()
         {
-            var applicationInstance = ApplicationInstance.Instance;
-
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 var camera = ObjectLocator.Instance.MainCamera;
@@ -46,7 +45,7 @@ namespace CollaborationEngine.States
                         Scale = Vector3.one,
                         Type = SceneObjectType.Real
                     };
-                    applicationInstance.NetworkController.CmdAddSceneObject(sceneObjectData);
+                    ClientController.Instance.AddSceneObjectData(sceneObjectData);
                 }
             }
 

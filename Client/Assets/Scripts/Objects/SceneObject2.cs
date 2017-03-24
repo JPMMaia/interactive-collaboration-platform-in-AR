@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine.Objects
 {
     public abstract class SceneObject2
     {
-        public struct Data
+        public class Data : MessageBase
         {
             public Vector3 Position;
             public Quaternion Rotation;

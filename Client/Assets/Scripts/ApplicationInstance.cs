@@ -1,7 +1,5 @@
 ﻿using CollaborationEngine.Historic;
-using CollaborationEngine.Objects;
 using CollaborationEngine.Scenes;
-using CollaborationEngine.Server;
 using CollaborationEngine.States;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -42,14 +40,6 @@ namespace CollaborationEngine
                     _networkManager = FindObjectOfType<NetworkManager>();
 
                 return _networkManager;
-            }
-        }
-
-        public NetworkController NetworkController
-        {
-            get
-            {
-                return ObjectLocator.Instance.NetworkController;
             }
         }
 
