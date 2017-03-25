@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Collections.Generic;
 using CollaborationEngine.Objects;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -22,11 +19,17 @@ namespace CollaborationEngine.Network
         public void OnServerConnect(NetworkConnection clientConnection)
         {
             Debug.LogError("Client connected!");
+
+            var data = new SceneObject2.DataCollection
+            {
+                DataEnumerable = _sceneData
+            };
+            clientConnection.Send(InitializeSceneDataOnClientHandle, data);
         }
 
-        private void OnAddSceneObjectData(NetworkMessage netMsg)
+        private void OnAddSceneObjectData(NetworkMessage networkMessage)
         {
-            var data = netMsg.ReadMessage<SceneObject2.Data>();
+            var data = networkMessage.ReadMessage<SceneObject2.Data>();
 
             lock (_sceneData)
             {
@@ -36,22 +39,6 @@ namespace CollaborationEngine.Network
             // Send to all clients
             NetworkServer.SendToAll(AddSceneObjectDataOnClientHandle, data);
         }
-
-        /*public void CmdRequestSceneObjectsData()
-        {
-            // Create a memory stream:
-            var memoryStream = new MemoryStream();
-
-            // Save scene data on the memory stream:
-            var binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(memoryStream, _sceneData);
-
-            // Convert data to a string:
-            var data = Convert.ToBase64String(memoryStream.GetBuffer());
-
-            // Send data to clients:
-            ClientController.Instance.RpcAddSceneObjectsData(data);
-        }*/
 
         private ServerController()
         {

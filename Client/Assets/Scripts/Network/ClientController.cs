@@ -11,7 +11,7 @@ namespace CollaborationEngine.Network
     {
         public class NetworkEventArgs : EventArgs
         {
-            public SceneObject2.Data Data { get; set; }
+            public IEnumerable<SceneObject2.Data> Data { get; set; }
         }
         public delegate void NetworkEventDelegate(object sender, NetworkEventArgs eventArgs);
 
@@ -31,6 +31,7 @@ namespace CollaborationEngine.Network
         public void Awake()
         {
             _networkClient = NetworkManager.singleton.client;
+            _networkClient.RegisterHandler(ServerController.InitializeSceneDataOnClientHandle, OnInitializeSceneDataOnClientHandle);
             _networkClient.RegisterHandler(ServerController.AddSceneObjectDataOnClientHandle, OnAddSceneObjectData);
         }
 
@@ -39,23 +40,28 @@ namespace CollaborationEngine.Network
             _networkClient.Send(ServerController.AddSceneObjectDataOnServerHandle, sceneObjectData);
         }
 
-        private void OnAddSceneObjectData(NetworkMessage netMsg)
+        private void OnInitializeSceneDataOnClientHandle(NetworkMessage networkMessage)
         {
-            var data = netMsg.ReadMessage<SceneObject2.Data>();
+            var data = networkMessage.ReadMessage<SceneObject2.DataCollection>();
+
+            lock (_sceneData)
+            {
+                _sceneData.AddRange(data.DataEnumerable);
+            }
+
+            NotifySceneObjectDataAdded(data.DataEnumerable);
+        }
+
+        private void OnAddSceneObjectData(NetworkMessage networkMessage)
+        {
+            var data = networkMessage.ReadMessage<SceneObject2.Data>();
 
             lock (_sceneData)
             {
                 _sceneData.Add(data);
             }
 
-            if (OnSceneObjectDataAdded != null)
-            {
-                var eventArgs = new NetworkEventArgs
-                {
-                    Data = data
-                };
-                OnSceneObjectDataAdded(this, eventArgs);
-            }
+            NotifySceneObjectDataAdded(new List<SceneObject2.Data> { data });
         }
 
         public void AddSceneObjectsData(String sceneObjectsData)
@@ -84,6 +90,19 @@ namespace CollaborationEngine.Network
 
         private ClientController()
         {
+        }
+
+        private void NotifySceneObjectDataAdded(IEnumerable<SceneObject2.Data> data)
+        {
+            if (OnSceneObjectDataAdded != null)
+            {
+                var eventArgs = new NetworkEventArgs
+                {
+                    Data = data
+                };
+
+                OnSceneObjectDataAdded(this, eventArgs);
+            }
         }
 
         private static ClientController _instance;

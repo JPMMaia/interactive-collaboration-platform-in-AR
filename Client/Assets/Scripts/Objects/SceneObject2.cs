@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,6 +15,31 @@ namespace CollaborationEngine.Objects
             public Vector3 Scale;
             public SceneObjectType Type;
         };
+
+        public class DataCollection : MessageBase
+        {
+            public IEnumerable<Data> DataEnumerable { get; set; }
+
+            public override void Serialize(NetworkWriter writer)
+            {
+                writer.WritePackedUInt32((uint) DataEnumerable.Count());
+                foreach (var data in DataEnumerable)
+                {
+                    writer.Write(data);
+                }
+            }
+
+            public override void Deserialize(NetworkReader reader)
+            {
+                var count = reader.ReadPackedUInt32();
+
+                var data = new List<Data>((int) count);
+                for (var i = 0; i < count; ++i)
+                    data.Add(reader.ReadMessage<Data>());
+
+                DataEnumerable = data;
+            }
+        }
 
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
