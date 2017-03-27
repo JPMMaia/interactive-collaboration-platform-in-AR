@@ -1,8 +1,8 @@
 ﻿namespace CollaborationEngine.Objects
 {
-    public class RealObject : SceneObject2
+    public class RealObject : SceneObject
     {
-        public RealObject(SceneObject2.Data data) :
+        public RealObject(SceneObject.Data data) :
             base(ObjectLocator.Instance.StudyObjectPrefab, data)
         {
         }

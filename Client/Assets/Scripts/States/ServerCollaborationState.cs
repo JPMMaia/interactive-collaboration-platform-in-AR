@@ -7,14 +7,14 @@ namespace CollaborationEngine.States
 {
     public class ServerCollaborationState : IApplicationState
     {
-        public Scene2 Scene { get; private set; }
+        public Scene Scene { get; private set; }
 
         public void Initialize()
         {
             ObjectLocator.Instance.ServerRoot.SetActive(true);
             ObjectLocator.Instance.ClientRoot.SetActive(false);
 
-            Scene = new Scene2(ObjectLocator.Instance.SceneRoot);
+            Scene = new Scene(ObjectLocator.Instance.SceneRoot);
         }
         public void Shutdown()
         {
@@ -38,20 +38,27 @@ namespace CollaborationEngine.States
                     var worldToLocalMatrix = Scene.GameObject.transform.worldToLocalMatrix;
                     var localPosition = worldToLocalMatrix.MultiplyPoint(worldPosition);
 
-                    var sceneObjectData = new SceneObject2.Data
+                    var sceneObjectData = new SceneObject.Data
                     {
                         Position = localPosition,
                         Rotation = Quaternion.identity,
                         Scale = Vector3.one,
-                        Type = SceneObjectType.Real
+                        Type = SceneObjectType.Indication
                     };
                     ClientController.Instance.AddSceneObjectData(sceneObjectData);
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                //Scene.CmdAdd(RubiksPrefab, Vector3.zero, Quaternion.identity, 8, false);
+                var sceneObjectData = new SceneObject.Data
+                {
+                    Position = Vector3.zero,
+                    Rotation = Quaternion.identity,
+                    Scale = Vector3.one,
+                    Type = SceneObjectType.Real
+                };
+                ClientController.Instance.AddSceneObjectData(sceneObjectData);
             }
         }
     }

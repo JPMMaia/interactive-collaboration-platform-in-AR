@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace CollaborationEngine.Scenes
 {
-    public class Scene2 : IScene
+    public class Scene : IScene
     {
-        public Scene2(GameObject gameObject)
+        public Scene(GameObject gameObject)
         {
             Debug.Assert(gameObject != null, "Scene game object is null");
 
@@ -18,20 +18,33 @@ namespace CollaborationEngine.Scenes
             //networkController.RequestSceneObjectsData();
         }
 
-        public void Add(SceneObject2.Data sceneObjectData)
+        public void Add(SceneObject.Data sceneObjectData)
         {
+            SceneObject sceneObject;
+
             if (sceneObjectData.Type == SceneObjectType.Real)
             {
-                var sceneObject = new RealObject(sceneObjectData);
-                sceneObject.Instantiate(GameObject.transform);
+                sceneObject = new RealObject(sceneObjectData);
+            }
+            else if (sceneObjectData.Type == SceneObjectType.Indication)
+            {
+                sceneObject = new IndicationObject(sceneObjectData);
+            }
+            else
+            {
+                return;
+            }
 
-                lock (_sceneObjects)
-                {
-                    _sceneObjects.Add(sceneObject);
-                }
+            // Instantiate scene object:
+            sceneObject.Instantiate(GameObject.transform);
+
+            // Add to scene objects:
+            lock (_sceneObjects)
+            {
+                _sceneObjects.Add(sceneObject);
             }
         }
-        public void Remove(SceneObject2.Data sceneObjectData)
+        public void Remove(SceneObject.Data sceneObjectData)
         {
             // TODO
         }
@@ -64,14 +77,12 @@ namespace CollaborationEngine.Scenes
 
         private void ClientController_OnSceneObjectDataAdded(object sender, ClientController.NetworkEventArgs eventArgs)
         {
-            Debug.LogError("Object Added");
-
             foreach (var data in eventArgs.Data)
             {
                 Add(data);
             }
         }
 
-        private readonly List<SceneObject2> _sceneObjects = new List<SceneObject2>();
+        private readonly List<SceneObject> _sceneObjects = new List<SceneObject>();
     }
 }

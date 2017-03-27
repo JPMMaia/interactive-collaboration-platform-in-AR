@@ -3,7 +3,7 @@ using CollaborationEngine.Objects.Collision;
 
 namespace CollaborationEngine.Objects.Components
 {
-    public class InputColliderComponent<TGameObjectType> : IComponent where TGameObjectType : SceneObject2
+    public class InputColliderComponent<TGameObjectType> : IComponent where TGameObjectType : SceneObject
     {
         public delegate void InputEvent(InputColliderComponent<TGameObjectType> sender, EventArgs args);
         public event InputEvent OnPressed;

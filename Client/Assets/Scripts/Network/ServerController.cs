@@ -20,7 +20,7 @@ namespace CollaborationEngine.Network
         {
             Debug.LogError("Client connected!");
 
-            var data = new SceneObject2.DataCollection
+            var data = new SceneObject.DataCollection
             {
                 DataEnumerable = _sceneData
             };
@@ -29,7 +29,7 @@ namespace CollaborationEngine.Network
 
         private void OnAddSceneObjectData(NetworkMessage networkMessage)
         {
-            var data = networkMessage.ReadMessage<SceneObject2.Data>();
+            var data = networkMessage.ReadMessage<SceneObject.Data>();
 
             lock (_sceneData)
             {
@@ -45,6 +45,6 @@ namespace CollaborationEngine.Network
         }
 
         private static ServerController _instance;
-        private readonly List<SceneObject2.Data> _sceneData = new List<SceneObject2.Data>();
+        private readonly List<SceneObject.Data> _sceneData = new List<SceneObject.Data>();
     }
 }

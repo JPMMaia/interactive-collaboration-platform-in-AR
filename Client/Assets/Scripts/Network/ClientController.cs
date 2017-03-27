@@ -11,7 +11,7 @@ namespace CollaborationEngine.Network
     {
         public class NetworkEventArgs : EventArgs
         {
-            public IEnumerable<SceneObject2.Data> Data { get; set; }
+            public IEnumerable<SceneObject.Data> Data { get; set; }
         }
         public delegate void NetworkEventDelegate(object sender, NetworkEventArgs eventArgs);
 
@@ -35,14 +35,14 @@ namespace CollaborationEngine.Network
             _networkClient.RegisterHandler(ServerController.AddSceneObjectDataOnClientHandle, OnAddSceneObjectData);
         }
 
-        public void AddSceneObjectData(SceneObject2.Data sceneObjectData)
+        public void AddSceneObjectData(SceneObject.Data sceneObjectData)
         {
             _networkClient.Send(ServerController.AddSceneObjectDataOnServerHandle, sceneObjectData);
         }
 
         private void OnInitializeSceneDataOnClientHandle(NetworkMessage networkMessage)
         {
-            var data = networkMessage.ReadMessage<SceneObject2.DataCollection>();
+            var data = networkMessage.ReadMessage<SceneObject.DataCollection>();
 
             lock (_sceneData)
             {
@@ -54,14 +54,14 @@ namespace CollaborationEngine.Network
 
         private void OnAddSceneObjectData(NetworkMessage networkMessage)
         {
-            var data = networkMessage.ReadMessage<SceneObject2.Data>();
+            var data = networkMessage.ReadMessage<SceneObject.Data>();
 
             lock (_sceneData)
             {
                 _sceneData.Add(data);
             }
 
-            NotifySceneObjectDataAdded(new List<SceneObject2.Data> { data });
+            NotifySceneObjectDataAdded(new List<SceneObject.Data> { data });
         }
 
         public void AddSceneObjectsData(String sceneObjectsData)
@@ -75,7 +75,7 @@ namespace CollaborationEngine.Network
             var memoryStream = new MemoryStream(data);
 
             var binaryFormatter = new BinaryFormatter();
-            var sceneObjectsData2 = (List<SceneObject2.Data>)binaryFormatter.Deserialize(memoryStream);
+            var sceneObjectsData2 = (List<SceneObject.Data>)binaryFormatter.Deserialize(memoryStream);
 
             lock (_sceneData)
             {
@@ -83,7 +83,7 @@ namespace CollaborationEngine.Network
             }
         }
 
-        public List<SceneObject2.Data> SceneData
+        public List<SceneObject.Data> SceneData
         {
             get { return _sceneData; }
         }
@@ -92,7 +92,7 @@ namespace CollaborationEngine.Network
         {
         }
 
-        private void NotifySceneObjectDataAdded(IEnumerable<SceneObject2.Data> data)
+        private void NotifySceneObjectDataAdded(IEnumerable<SceneObject.Data> data)
         {
             if (OnSceneObjectDataAdded != null)
             {
@@ -106,7 +106,7 @@ namespace CollaborationEngine.Network
         }
 
         private static ClientController _instance;
-        private readonly List<SceneObject2.Data> _sceneData = new List<SceneObject2.Data>();
+        private readonly List<SceneObject.Data> _sceneData = new List<SceneObject.Data>();
         private NetworkClient _networkClient;
     }
 }

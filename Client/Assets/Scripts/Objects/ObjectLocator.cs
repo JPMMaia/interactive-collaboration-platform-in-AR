@@ -10,11 +10,14 @@ namespace CollaborationEngine.Objects
             get { return UnityEngine.Camera.main; }
         }
 
+        public ClientController ClientController;
+
         public GameObject ServerRoot;
         public GameObject ClientRoot;
         public GameObject SceneRoot;
+
         public GameObject StudyObjectPrefab;
-        public ClientController ClientController;
+        public GameObject IndicationPrefab;
 
         private static ObjectLocator _instance;
         public static ObjectLocator Instance
