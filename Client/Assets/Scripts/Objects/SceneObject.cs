@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
 using UnityEngine.Networking;
+using Object = UnityEngine.Object;
 
 namespace CollaborationEngine.Objects
 {
@@ -14,6 +16,7 @@ namespace CollaborationEngine.Objects
             public Quaternion Rotation;
             public Vector3 Scale;
             public SceneObjectType Type;
+            public uint Flag;
         };
 
         public class DataCollection : MessageBase

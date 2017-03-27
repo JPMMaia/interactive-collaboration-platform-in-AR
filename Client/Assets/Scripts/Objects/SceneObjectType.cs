@@ -1,6 +1,6 @@
 ﻿namespace CollaborationEngine.Objects
 {
-    public enum SceneObjectType
+    public enum SceneObjectType : byte
     {
         Real,
         Indication,

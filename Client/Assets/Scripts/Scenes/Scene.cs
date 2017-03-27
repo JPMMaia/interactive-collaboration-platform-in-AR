@@ -15,7 +15,6 @@ namespace CollaborationEngine.Scenes
 
             var networkController = ClientController.Instance;
             networkController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
-            //networkController.RequestSceneObjectsData();
         }
 
         public void Add(SceneObject.Data sceneObjectData)

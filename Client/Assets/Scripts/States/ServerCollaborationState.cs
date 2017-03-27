@@ -2,6 +2,7 @@
 using CollaborationEngine.Objects;
 using CollaborationEngine.Scenes;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace CollaborationEngine.States
 {
@@ -36,14 +37,15 @@ namespace CollaborationEngine.States
                 {
                     var worldPosition = hitInfo.point;
                     var worldToLocalMatrix = Scene.GameObject.transform.worldToLocalMatrix;
-                    var localPosition = worldToLocalMatrix.MultiplyPoint(worldPosition);
-
+                    var localPosition = 0.1f * hitInfo.normal + worldToLocalMatrix.MultiplyPoint(worldPosition);
+                    
                     var sceneObjectData = new SceneObject.Data
                     {
                         Position = localPosition,
-                        Rotation = Quaternion.identity,
+                        Rotation = Quaternion.FromToRotation(Vector3.forward, hitInfo.normal),
                         Scale = Vector3.one,
-                        Type = SceneObjectType.Indication
+                        Type = SceneObjectType.Indication,
+                        Flag = (uint) IndicationType.Arrow
                     };
                     ClientController.Instance.AddSceneObjectData(sceneObjectData);
                 }
