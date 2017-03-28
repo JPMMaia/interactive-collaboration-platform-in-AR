@@ -4,5 +4,6 @@
     {
         Real,
         Indication,
+        IndicationTools
     }
 }

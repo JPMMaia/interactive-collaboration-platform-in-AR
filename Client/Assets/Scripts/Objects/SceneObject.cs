@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
@@ -46,6 +45,11 @@ namespace CollaborationEngine.Objects
 
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
+        public bool IsInstanced
+        {
+            get { return _isInstanced; }
+            private set { _isInstanced = value; }
+        }
 
         private readonly List<IComponent> _components = new List<IComponent>();
         public List<IComponent> Components
@@ -84,11 +88,17 @@ namespace CollaborationEngine.Objects
             foreach (var component in Components)
                 component.Instantiate();
 
+            IsInstanced = true;
+
             return GameObject;
         }
-
         public virtual void Destroy()
         {
+            if (!IsInstanced)
+                return;
+
+            IsInstanced = false;
+
             ClearComponents();
 
             if (GameObject)
@@ -110,17 +120,29 @@ namespace CollaborationEngine.Objects
         public void AddComponent(IComponent component)
         {
             if (!Components.Exists(c => c == component))
+            {
                 Components.Add(component);
+
+                if(_isInstanced)
+                    component.Instantiate();
+            }
+                
         }
         public void RemoveComponent(IComponent component)
         {
             Components.Remove(component);
+
+            if(_isInstanced)
+                component.Destroy();
         }
         public void ClearComponents()
         {
-            foreach (var component in Components)
-                component.Destroy();
-
+            if (_isInstanced)
+            {
+                foreach (var component in Components)
+                    component.Destroy();
+            }
+                
             Components.Clear();
         }
 
@@ -128,5 +150,7 @@ namespace CollaborationEngine.Objects
         {
             return GameObject.GetComponent<TComponentType>();
         }
+
+        private bool _isInstanced;
     }
 }

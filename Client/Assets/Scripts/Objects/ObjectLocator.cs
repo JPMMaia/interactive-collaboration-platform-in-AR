@@ -18,6 +18,7 @@ namespace CollaborationEngine.Objects
 
         public GameObject StudyObjectPrefab;
         public GameObject IndicationPrefab;
+        public GameObject IndicationToolsPrefab;
 
         private static ObjectLocator _instance;
         public static ObjectLocator Instance

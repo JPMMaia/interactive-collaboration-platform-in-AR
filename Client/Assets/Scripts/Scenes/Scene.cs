@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Network;
 using UnityEngine;
@@ -7,6 +8,15 @@ namespace CollaborationEngine.Scenes
 {
     public class Scene : IScene
     {
+        public class SceneEventArgs<TSceneObjectType> : EventArgs where TSceneObjectType : SceneObject
+        {
+            public TSceneObjectType SceneObject { get; set; }
+        }
+        public delegate void OnSceneObjectAddedDelegate<TSceneObjectType>(Scene scene, SceneEventArgs<TSceneObjectType> eventArgs) where TSceneObjectType : SceneObject;
+
+        public event OnSceneObjectAddedDelegate<RealObject> OnRealObjectAdded;
+        public event OnSceneObjectAddedDelegate<IndicationObject> OnIndicationObjectAdded;
+
         public Scene(GameObject gameObject)
         {
             Debug.Assert(gameObject != null, "Scene game object is null");
@@ -15,32 +25,20 @@ namespace CollaborationEngine.Scenes
 
             var networkController = ClientController.Instance;
             networkController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
+
+            OnRealObjectAdded += Scene_OnSceneObjectAdded;
+            OnIndicationObjectAdded += Scene_OnSceneObjectAdded;
         }
 
         public void Add(SceneObject.Data sceneObjectData)
         {
-            SceneObject sceneObject;
-
             if (sceneObjectData.Type == SceneObjectType.Real)
             {
-                sceneObject = new RealObject(sceneObjectData);
+                NotifyRealObjectAdded(new RealObject(sceneObjectData));
             }
             else if (sceneObjectData.Type == SceneObjectType.Indication)
             {
-                sceneObject = new IndicationObject(sceneObjectData);
-            }
-            else
-            {
-                return;
-            }
-
-            // Instantiate scene object:
-            sceneObject.Instantiate(GameObject.transform);
-
-            // Add to scene objects:
-            lock (_sceneObjects)
-            {
-                _sceneObjects.Add(sceneObject);
+                NotifyIndicationObjectAdded(new IndicationObject(sceneObjectData));
             }
         }
         public void Remove(SceneObject.Data sceneObjectData)
@@ -74,6 +72,30 @@ namespace CollaborationEngine.Scenes
 
         public GameObject GameObject { get; private set; }
 
+        private void NotifyRealObjectAdded(RealObject sceneObject)
+        {
+            if (OnRealObjectAdded != null)
+                OnRealObjectAdded(this, new SceneEventArgs<RealObject> { SceneObject = sceneObject });
+        }
+        private void NotifyIndicationObjectAdded(IndicationObject sceneObject)
+        {
+            if (OnIndicationObjectAdded != null)
+                OnIndicationObjectAdded(this, new SceneEventArgs<IndicationObject> { SceneObject = sceneObject });
+        }
+
+        private void Scene_OnSceneObjectAdded<TSceneObjectType>(Scene scene, SceneEventArgs<TSceneObjectType> eventArgs) where TSceneObjectType : SceneObject
+        {
+            var sceneObject = eventArgs.SceneObject;
+
+            // Instantiate scene object:
+            sceneObject.Instantiate(GameObject.transform);
+
+            // Add to scene objects:
+            lock (_sceneObjects)
+            {
+                _sceneObjects.Add(sceneObject);
+            }
+        }
         private void ClientController_OnSceneObjectDataAdded(object sender, ClientController.NetworkEventArgs eventArgs)
         {
             foreach (var data in eventArgs.Data)

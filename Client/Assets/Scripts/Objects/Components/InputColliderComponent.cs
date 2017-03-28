@@ -5,7 +5,7 @@ namespace CollaborationEngine.Objects.Components
 {
     public class InputColliderComponent<TGameObjectType> : IComponent where TGameObjectType : SceneObject
     {
-        public delegate void InputEvent(InputColliderComponent<TGameObjectType> sender, EventArgs args);
+        public delegate void InputEvent(InputColliderComponent<TGameObjectType> sender, EventArgs eventArgs);
         public event InputEvent OnPressed;
 
         public TGameObjectType GameObject { get; private set; }
@@ -21,7 +21,7 @@ namespace CollaborationEngine.Objects.Components
         {
             // Susbscribe to collider events:
             Collider = GameObject.GetComponent<InputCollider>();
-            Collider.OnPressed += Collider_OnPressed;
+            Collider.OnPressedEvent += ColliderOnPressedEvent;
         }
 
         public void Destroy()
@@ -29,7 +29,7 @@ namespace CollaborationEngine.Objects.Components
             // Unsubscrive to collider events:
             if (Collider)
             {
-                Collider.OnPressed -= Collider_OnPressed;
+                Collider.OnPressedEvent -= ColliderOnPressedEvent;
                 Collider = null;
             }
         }
@@ -38,7 +38,7 @@ namespace CollaborationEngine.Objects.Components
         {
         }
 
-        private void Collider_OnPressed(object sender, EventArgs args)
+        private void ColliderOnPressedEvent(object sender, EventArgs args)
         {
             if (OnPressed != null)
                 OnPressed.Invoke(this, args);

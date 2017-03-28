@@ -6,12 +6,20 @@ namespace CollaborationEngine.Objects.Collision
     {
         public void Press()
         {
-            Press(this, EventArgs.Empty);
+            NotifyPressed(this, EventArgs.Empty);
         }
 
+        public void OnMouseDown()
+        {
+            NotifyMouseDown(this, EventArgs.Empty);
+        }
         public void OnMouseUpAsButton()
         {
-            Press(this, EventArgs.Empty);
+            NotifyPressed(this, EventArgs.Empty);
+        }
+        public void OnMouseDrag()
+        {
+            NotifyDragged(this, EventArgs.Empty);
         }
     }
 }

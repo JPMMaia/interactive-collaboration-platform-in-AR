@@ -1,6 +1,7 @@
 ﻿using System;
 using CollaborationEngine.Objects;
 using CollaborationEngine.States;
+using CollaborationEngine.States.Server;
 using UnityEngine;
 
 namespace CollaborationEngine.UI
@@ -24,37 +25,37 @@ namespace CollaborationEngine.UI
 
         public void OnArrowClick()
         {
-            State.SelectedIndicationType = IndicationType.Arrow;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.Arrow);
         }
 
         public void OnRotateClockwiseClick()
         {
-            State.SelectedIndicationType = IndicationType.RotateClockwise;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.RotateClockwise);
         }
 
         public void OnRotateCounterclockwiseClick()
         {
-            State.SelectedIndicationType = IndicationType.RotateCounterclockwise;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.RotateCounterclockwise);
         }
 
         public void OnWrenchClick()
         {
-            State.SelectedIndicationType = IndicationType.Wrench;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.Wrench);
         }
 
         public void OnAxeClick()
         {
-            State.SelectedIndicationType = IndicationType.Axe;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.Axe);
         }
 
         public void OnScrewerClick()
         {
-            State.SelectedIndicationType = IndicationType.Screwer;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.Screwer);
         }
 
         public void OnHammerClick()
         {
-            State.SelectedIndicationType = IndicationType.Hammer;
+            State.CurrentState = new IndicationButtonClickedState(State, IndicationType.Hammer);
         }
 
         public ServerCollaborationState State { get; set; }

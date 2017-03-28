@@ -1,64 +1,44 @@
-﻿using CollaborationEngine.Network;
+﻿using System;
 using CollaborationEngine.Objects;
+using CollaborationEngine.Objects.Components;
 using CollaborationEngine.Scenes;
-using UnityEngine;
+using CollaborationEngine.States.Server;
 
 namespace CollaborationEngine.States
 {
     public class ServerCollaborationState : IApplicationState
     {
+        public event InputColliderComponent<IndicationObject>.InputEvent OnIndicationObjectClicked;
+
         public void Initialize()
         {
+            _currentState = new NoneState(this);
+            _currentState.Initialize();
+
             ObjectLocator.Instance.ServerRoot.SetActive(true);
             ObjectLocator.Instance.ClientRoot.SetActive(false);
 
             Scene = new Scene(ObjectLocator.Instance.SceneRoot);
+            Scene.OnIndicationObjectAdded += Scene_OnIndicationObjectAdded;
         }
         public void Shutdown()
         {
             Scene = null;
+
+            if (_currentState != null)
+            {
+                _currentState.Shutdown();
+                _currentState = null;
+            }
         }
 
         public void FixedUpdate()
         {
+            _currentState.FixedUpdate();
         }
         public void FrameUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                var camera = ObjectLocator.Instance.MainCamera;
-                var ray = camera.ScreenPointToRay(Input.mousePosition);
-
-                RaycastHit hitInfo;
-                if (Physics.Raycast(ray, out hitInfo))
-                {
-                    var worldPosition = hitInfo.point;
-                    var worldToLocalMatrix = Scene.GameObject.transform.worldToLocalMatrix;
-                    var localPosition = 0.1f * hitInfo.normal + worldToLocalMatrix.MultiplyPoint(worldPosition);
-                    
-                    var sceneObjectData = new SceneObject.Data
-                    {
-                        Position = localPosition,
-                        Rotation = Quaternion.FromToRotation(Vector3.forward, hitInfo.normal),
-                        Scale = Vector3.one,
-                        Type = SceneObjectType.Indication,
-                        Flag = (uint) SelectedIndicationType
-                    };
-                    ClientController.Instance.AddSceneObjectData(sceneObjectData);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                var sceneObjectData = new SceneObject.Data
-                {
-                    Position = Vector3.zero,
-                    Rotation = Quaternion.identity,
-                    Scale = Vector3.one,
-                    Type = SceneObjectType.Real
-                };
-                ClientController.Instance.AddSceneObjectData(sceneObjectData);
-            }
+            _currentState.FrameUpdate();
         }
 
         public Scene Scene { get; private set; }
@@ -71,6 +51,34 @@ namespace CollaborationEngine.States
             set { _selectedIndicationType = value; }
         }
 
-        private IndicationType _selectedIndicationType = IndicationType.Arrow;
+        public IApplicationState CurrentState
+        {
+            get
+            {
+                return _currentState;
+            }
+            set
+            {
+                _currentState.Shutdown();
+                _currentState = value;
+                _currentState.Initialize();
+            }
+        }
+
+        private void Scene_OnIndicationObjectAdded(Scene scene, Scene.SceneEventArgs<IndicationObject> eventArgs)
+        {
+            var sceneObject = eventArgs.SceneObject;
+
+            var inputCollider = new InputColliderComponent<IndicationObject>(sceneObject);
+            inputCollider.OnPressed += InputCollider_OnPressed;
+        }
+        private void InputCollider_OnPressed(InputColliderComponent<IndicationObject> sender, EventArgs eventArgs)
+        {
+            if (OnIndicationObjectClicked != null)
+                OnIndicationObjectClicked(sender, eventArgs);
+        }
+
+        private IApplicationState _currentState;
+        private IndicationType _selectedIndicationType = IndicationType.None;
     }
 }
