@@ -2,14 +2,11 @@
 using CollaborationEngine.Objects;
 using CollaborationEngine.Scenes;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 namespace CollaborationEngine.States
 {
     public class ServerCollaborationState : IApplicationState
     {
-        public Scene Scene { get; private set; }
-
         public void Initialize()
         {
             ObjectLocator.Instance.ServerRoot.SetActive(true);
@@ -45,7 +42,7 @@ namespace CollaborationEngine.States
                         Rotation = Quaternion.FromToRotation(Vector3.forward, hitInfo.normal),
                         Scale = Vector3.one,
                         Type = SceneObjectType.Indication,
-                        Flag = (uint) IndicationType.Arrow
+                        Flag = (uint) SelectedIndicationType
                     };
                     ClientController.Instance.AddSceneObjectData(sceneObjectData);
                 }
@@ -63,5 +60,17 @@ namespace CollaborationEngine.States
                 ClientController.Instance.AddSceneObjectData(sceneObjectData);
             }
         }
+
+        public Scene Scene { get; private set; }
+        public IndicationType SelectedIndicationType
+        {
+            get
+            {
+                return _selectedIndicationType;
+            }
+            set { _selectedIndicationType = value; }
+        }
+
+        private IndicationType _selectedIndicationType = IndicationType.Arrow;
     }
 }
