@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using CollaborationEngine.Objects;
@@ -16,6 +17,7 @@ namespace CollaborationEngine.Network
         public delegate void NetworkEventDelegate(object sender, NetworkEventArgs eventArgs);
 
         public event NetworkEventDelegate OnSceneObjectDataAdded;
+        public event NetworkEventDelegate OnSceneObjectDataRemoved;
 
         public static ClientController Instance
         {
@@ -33,35 +35,16 @@ namespace CollaborationEngine.Network
             _networkClient = NetworkManager.singleton.client;
             _networkClient.RegisterHandler(ServerController.InitializeSceneDataOnClientHandle, OnInitializeSceneDataOnClientHandle);
             _networkClient.RegisterHandler(ServerController.AddSceneObjectDataOnClientHandle, OnAddSceneObjectData);
+            _networkClient.RegisterHandler(ServerController.RemoveSceneObjectDataOnClientHandle, OnRemoveSceneObjectData);
         }
 
         public void AddSceneObjectData(SceneObject.Data sceneObjectData)
         {
             _networkClient.Send(ServerController.AddSceneObjectDataOnServerHandle, sceneObjectData);
         }
-
-        private void OnInitializeSceneDataOnClientHandle(NetworkMessage networkMessage)
+        public void RemoveSceneObjectData(SceneObject.Data sceneObjectData)
         {
-            var data = networkMessage.ReadMessage<SceneObject.DataCollection>();
-
-            lock (_sceneData)
-            {
-                _sceneData.AddRange(data.DataEnumerable);
-            }
-
-            NotifySceneObjectDataAdded(data.DataEnumerable);
-        }
-
-        private void OnAddSceneObjectData(NetworkMessage networkMessage)
-        {
-            var data = networkMessage.ReadMessage<SceneObject.Data>();
-
-            lock (_sceneData)
-            {
-                _sceneData.Add(data);
-            }
-
-            NotifySceneObjectDataAdded(new List<SceneObject.Data> { data });
+            _networkClient.Send(ServerController.RemoveSceneObjectDataOnServerHandle, sceneObjectData);
         }
 
         public void AddSceneObjectsData(String sceneObjectsData)
@@ -92,6 +75,40 @@ namespace CollaborationEngine.Network
         {
         }
 
+        private void OnInitializeSceneDataOnClientHandle(NetworkMessage networkMessage)
+        {
+            var data = networkMessage.ReadMessage<SceneObject.DataCollection>();
+
+            lock (_sceneData)
+            {
+                _sceneData.AddRange(data.DataEnumerable);
+            }
+
+            NotifySceneObjectDataAdded(data.DataEnumerable);
+        }
+        private void OnAddSceneObjectData(NetworkMessage networkMessage)
+        {
+            var data = networkMessage.ReadMessage<SceneObject.Data>();
+
+            lock (_sceneData)
+            {
+                _sceneData.Add(data);
+            }
+
+            NotifySceneObjectDataAdded(new List<SceneObject.Data> { data });
+        }
+        private void OnRemoveSceneObjectData(NetworkMessage networkMessage)
+        {
+            var data = networkMessage.ReadMessage<SceneObject.Data>();
+
+            lock (_sceneData)
+            {
+                _sceneData.RemoveAll(sceneObject => sceneObject.ID == data.ID);
+            }
+
+            NotifySceneObjectDataRemoved(new List<SceneObject.Data> { data });
+        }
+
         private void NotifySceneObjectDataAdded(IEnumerable<SceneObject.Data> data)
         {
             if (OnSceneObjectDataAdded != null)
@@ -102,6 +119,18 @@ namespace CollaborationEngine.Network
                 };
 
                 OnSceneObjectDataAdded(this, eventArgs);
+            }
+        }
+        private void NotifySceneObjectDataRemoved(IEnumerable<SceneObject.Data> data)
+        {
+            if (OnSceneObjectDataRemoved != null)
+            {
+                var eventArgs = new NetworkEventArgs
+                {
+                    Data = data
+                };
+
+                OnSceneObjectDataRemoved(this, eventArgs);
             }
         }
 

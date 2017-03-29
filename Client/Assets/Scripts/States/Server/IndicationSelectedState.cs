@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.Objects;
+﻿using CollaborationEngine.Network;
+using CollaborationEngine.Objects;
 using CollaborationEngine.UI;
 using UnityEngine;
 
@@ -55,6 +56,8 @@ namespace CollaborationEngine.States.Server
         }
         private void DeleteButton_OnPressedEvent(object sender, System.EventArgs args)
         {
+            ClientController.Instance.RemoveSceneObjectData(_indicationToolsObject.IndicationObject.NetworkData);
+
             _serverState.CurrentState = new NoneState(_serverState);
         }
 

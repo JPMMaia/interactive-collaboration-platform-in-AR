@@ -9,6 +9,7 @@ namespace CollaborationEngine.Objects
             base(ObjectLocator.Instance.IndicationToolsPrefab, SceneObjectType.IndicationTools)
         {
             _indicationObject = indicationObject;
+            NetworkData.Position.z = 1.0f;
         }
 
         public override GameObject Instantiate(Transform parent)
@@ -53,7 +54,6 @@ namespace CollaborationEngine.Objects
         {
             // Destroy object:
             _indicationObject.Destroy();
-            _indicationObject = null;
         }
         private void MoveButton_OnMouseDownEvent(object sender, System.EventArgs args)
         {
@@ -72,12 +72,7 @@ namespace CollaborationEngine.Objects
 
             var hitPoint = ray.origin + t * ray.direction;
 
-            var localPosition = _toolsComponent.MoveButton.gameObject.transform.localPosition;
-            var offset = new Vector3(-localPosition.x, 0.0f, localPosition.y);
-
-            var finalPosition = hitPoint + offset;
-
-            gameObject.transform.position = finalPosition;
+            gameObject.transform.position = hitPoint;
         }
 
         private IndicationObject _indicationObject;

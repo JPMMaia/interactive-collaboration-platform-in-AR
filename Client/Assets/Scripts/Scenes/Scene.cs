@@ -23,8 +23,9 @@ namespace CollaborationEngine.Scenes
 
             GameObject = gameObject;
 
-            var networkController = ClientController.Instance;
-            networkController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
+            var clientController = ClientController.Instance;
+            clientController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
+            clientController.OnSceneObjectDataRemoved += ClientController_OnSceneObjectDataRemoved;
 
             OnRealObjectAdded += Scene_OnSceneObjectAdded;
             OnIndicationObjectAdded += Scene_OnSceneObjectAdded;
@@ -32,6 +33,11 @@ namespace CollaborationEngine.Scenes
 
         public void Add(SceneObject.Data sceneObjectData)
         {
+            Debug.LogError("Add!");
+
+            if(sceneObjectData.ID == 0)
+                throw new Exception("Network Data ID must be different from 0!");
+
             if (sceneObjectData.Type == SceneObjectType.Real)
             {
                 NotifyRealObjectAdded(new RealObject(sceneObjectData));
@@ -43,7 +49,20 @@ namespace CollaborationEngine.Scenes
         }
         public void Remove(SceneObject.Data sceneObjectData)
         {
-            // TODO
+            Debug.LogError("Remove!");
+
+            lock (_sceneObjects)
+            {
+                // Find object:
+                var index = _sceneObjects.FindIndex(element => element.NetworkData.ID == sceneObjectData.ID);
+
+                // Destroy it:
+                var sceneObject = _sceneObjects[index];
+                sceneObject.Destroy();
+
+                // Remove from list:
+                _sceneObjects.RemoveAt(index);
+            }
         }
         public void Clear()
         {
@@ -101,6 +120,13 @@ namespace CollaborationEngine.Scenes
             foreach (var data in eventArgs.Data)
             {
                 Add(data);
+            }
+        }
+        private void ClientController_OnSceneObjectDataRemoved(object sender, ClientController.NetworkEventArgs eventArgs)
+        {
+            foreach (var data in eventArgs.Data)
+            {
+                Remove(data);
             }
         }
 

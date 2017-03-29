@@ -10,6 +10,8 @@ namespace CollaborationEngine.Objects
             get { return UnityEngine.Camera.main; }
         }
 
+        public Shader StandardShader;
+
         public ClientController ClientController;
 
         public GameObject ServerRoot;

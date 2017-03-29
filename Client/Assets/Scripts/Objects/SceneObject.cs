@@ -11,6 +11,9 @@ namespace CollaborationEngine.Objects
     {
         public class Data : MessageBase
         {
+            public static uint SceneObjectCount;
+
+            public uint ID;
             public Vector3 Position;
             public Quaternion Rotation;
             public Vector3 Scale;
@@ -70,7 +73,7 @@ namespace CollaborationEngine.Objects
                 Scale = Vector3.one,
                 Type = type
             };
-            Prefab = prefab;   
+            Prefab = prefab;
         }
         protected SceneObject(GameObject prefab, Data networkData)
         {
