@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using CollaborationEngine.Objects;
@@ -18,6 +17,7 @@ namespace CollaborationEngine.Network
 
         public event NetworkEventDelegate OnSceneObjectDataAdded;
         public event NetworkEventDelegate OnSceneObjectDataRemoved;
+        public event NetworkEventDelegate OnSceneObjectDataUpdated;
 
         public static ClientController Instance
         {
@@ -36,6 +36,7 @@ namespace CollaborationEngine.Network
             _networkClient.RegisterHandler(ServerController.InitializeSceneDataOnClientHandle, OnInitializeSceneDataOnClientHandle);
             _networkClient.RegisterHandler(ServerController.AddSceneObjectDataOnClientHandle, OnAddSceneObjectData);
             _networkClient.RegisterHandler(ServerController.RemoveSceneObjectDataOnClientHandle, OnRemoveSceneObjectData);
+            _networkClient.RegisterHandler(ServerController.UpdateSceneObjectDataOnClientHandle, OnUpdateSceneObjectData);
         }
 
         public void AddSceneObjectData(SceneObject.Data sceneObjectData)
@@ -45,6 +46,10 @@ namespace CollaborationEngine.Network
         public void RemoveSceneObjectData(SceneObject.Data sceneObjectData)
         {
             _networkClient.Send(ServerController.RemoveSceneObjectDataOnServerHandle, sceneObjectData);
+        }
+        public void UpdateSceneObjectData(SceneObject.DataCollection sceneObjectData)
+        {
+            _networkClient.Send(ServerController.UpdateSceneObjectDataOnServerHandle, sceneObjectData);
         }
 
         public void AddSceneObjectsData(String sceneObjectsData)
@@ -108,6 +113,21 @@ namespace CollaborationEngine.Network
 
             NotifySceneObjectDataRemoved(new List<SceneObject.Data> { data });
         }
+        private void OnUpdateSceneObjectData(NetworkMessage networkMessage)
+        {
+            var data = networkMessage.ReadMessage<SceneObject.DataCollection>();
+
+            lock (_sceneData)
+            {
+                foreach (var element in data.DataEnumerable)
+                {
+                    var index = _sceneData.FindIndex(e => e.ID == element.ID);
+                    _sceneData[index] = element;
+                }
+            }
+
+            NotifySceneObjectDataUpdated(data.DataEnumerable);
+        }
 
         private void NotifySceneObjectDataAdded(IEnumerable<SceneObject.Data> data)
         {
@@ -131,6 +151,18 @@ namespace CollaborationEngine.Network
                 };
 
                 OnSceneObjectDataRemoved(this, eventArgs);
+            }
+        }
+        private void NotifySceneObjectDataUpdated(IEnumerable<SceneObject.Data> data)
+        {
+            if (OnSceneObjectDataUpdated != null)
+            {
+                var eventArgs = new NetworkEventArgs
+                {
+                    Data = data
+                };
+
+                OnSceneObjectDataUpdated(this, eventArgs);
             }
         }
 

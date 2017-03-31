@@ -35,7 +35,7 @@ namespace CollaborationEngine.Objects
                 if (meshRenderer.gameObject.CompareTag("Backface"))
                     options = (AssetsUtils.MaterialOptions)((uint)options | (uint)AssetsUtils.MaterialOptions.InvertX);
 
-                AssetsUtils.SetTexturedMaterial(meshRenderer, Textures[(IndicationType) NetworkData.Flag], options);
+                AssetsUtils.SetTexturedMaterial(meshRenderer, Textures[(IndicationType) Flag], options);
             }
 
             return gameObject;

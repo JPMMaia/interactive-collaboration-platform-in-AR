@@ -9,7 +9,11 @@ namespace CollaborationEngine.Objects
             base(ObjectLocator.Instance.IndicationToolsPrefab, SceneObjectType.IndicationTools)
         {
             _indicationObject = indicationObject;
-            NetworkData.Position.z = 1.0f;
+
+            var position = NetworkData.Position;
+            position.z = 1.0f;
+            NetworkData.Position = position;
+            IsDirty = false;
         }
 
         public override GameObject Instantiate(Transform parent)
@@ -72,10 +76,10 @@ namespace CollaborationEngine.Objects
 
             var hitPoint = ray.origin + t * ray.direction;
 
-            gameObject.transform.position = hitPoint;
+            _indicationObject.Position = hitPoint;
         }
 
-        private IndicationObject _indicationObject;
+        private readonly IndicationObject _indicationObject;
         private ToolsWindow _toolsComponent;
     }
 }

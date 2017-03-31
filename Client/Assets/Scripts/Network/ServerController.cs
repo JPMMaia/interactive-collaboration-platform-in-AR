@@ -12,11 +12,14 @@ namespace CollaborationEngine.Network
         public static short AddSceneObjectDataOnClientHandle = MsgType.Highest + 3;
         public static short RemoveSceneObjectDataOnServerHandle = MsgType.Highest + 4;
         public static short RemoveSceneObjectDataOnClientHandle = MsgType.Highest + 5;
+        public static short UpdateSceneObjectDataOnServerHandle = MsgType.Highest + 6;
+        public static short UpdateSceneObjectDataOnClientHandle = MsgType.Highest + 7;
 
         public void Awake()
         {
             NetworkServer.RegisterHandler(AddSceneObjectDataOnServerHandle, OnAddSceneObjectData);
             NetworkServer.RegisterHandler(RemoveSceneObjectDataOnServerHandle, OnRemoveSceneObjectData);
+            NetworkServer.RegisterHandler(UpdateSceneObjectDataOnServerHandle, OnUpdateSceneObjectData);
         }
 
         public void OnServerConnect(NetworkConnection clientConnection)
@@ -60,6 +63,22 @@ namespace CollaborationEngine.Network
 
             // Send to all clients
             NetworkServer.SendToAll(RemoveSceneObjectDataOnClientHandle, data);
+        }
+        private void OnUpdateSceneObjectData(NetworkMessage networkMessage)
+        {
+            var data = networkMessage.ReadMessage<SceneObject.DataCollection>();
+            
+            lock (_sceneData)
+            {
+                foreach (var element in data.DataEnumerable)
+                {
+                    var index = _sceneData.FindIndex(e => e.ID == element.ID);
+                    _sceneData[index] = element;
+                }
+            }
+            
+            // Send to all clients
+            NetworkServer.SendToAll(UpdateSceneObjectDataOnClientHandle, data);
         }
 
         private static ServerController _instance;

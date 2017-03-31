@@ -1,5 +1,6 @@
 ﻿using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
+using CollaborationEngine.RuntimeGizmo;
 using CollaborationEngine.UI;
 using UnityEngine;
 
@@ -17,15 +18,20 @@ namespace CollaborationEngine.States.Server
         {
             Debug.Log("Initialize IndicationSelectedState");
 
-            _indicationToolsObject.Instantiate(_indicationToolsObject.IndicationObject.GameObject.transform);
+            var indicationObjectTranform = _indicationToolsObject.IndicationObject.GameObject.transform;
+            _indicationToolsObject.Instantiate(indicationObjectTranform);
 
             _toolsComponent = _indicationToolsObject.GetComponent<ToolsWindow>();
             _toolsComponent.CloseButton.OnPressedEvent += CloseButton_OnPressedEvent;
             _toolsComponent.DeleteButton.OnPressedEvent += DeleteButton_OnPressedEvent;
+
+            TransformGizmo.Instance.SelectGameObject(indicationObjectTranform);
         }
         public void Shutdown()
         {
             Debug.Log("Shutdown IndicationSelectedState");
+
+            TransformGizmo.Instance.UnselectGameObject();
 
             if (_toolsComponent)
             {

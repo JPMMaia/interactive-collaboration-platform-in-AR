@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Timers;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Network;
 using UnityEngine;
@@ -26,6 +28,7 @@ namespace CollaborationEngine.Scenes
             var clientController = ClientController.Instance;
             clientController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
             clientController.OnSceneObjectDataRemoved += ClientController_OnSceneObjectDataRemoved;
+            clientController.OnSceneObjectDataUpdated += ClientController_OnSceneObjectDataUpdated;
 
             OnRealObjectAdded += Scene_OnSceneObjectAdded;
             OnIndicationObjectAdded += Scene_OnSceneObjectAdded;
@@ -54,7 +57,7 @@ namespace CollaborationEngine.Scenes
             lock (_sceneObjects)
             {
                 // Find object:
-                var index = _sceneObjects.FindIndex(element => element.NetworkData.ID == sceneObjectData.ID);
+                var index = _sceneObjects.FindIndex(element => element.ID == sceneObjectData.ID);
 
                 // Destroy it:
                 var sceneObject = _sceneObjects[index];
@@ -87,6 +90,26 @@ namespace CollaborationEngine.Scenes
                 foreach (var sceneObject in _sceneObjects)
                     sceneObject.FrameUpdate();
             }
+        }
+
+        public void SynchronizeScene()
+        {
+            var dataToUpdate = new List<SceneObject.Data>();
+
+            lock (_sceneObjects)
+            {
+                dataToUpdate.AddRange(
+                    from sceneObject in _sceneObjects
+                    where sceneObject.IsDirty
+                    select sceneObject.NetworkData
+                    );
+            }
+
+            var data = new SceneObject.DataCollection
+            {
+                DataEnumerable = dataToUpdate
+            };
+            ClientController.Instance.UpdateSceneObjectData(data);
         }
 
         public GameObject GameObject { get; private set; }
@@ -127,6 +150,17 @@ namespace CollaborationEngine.Scenes
             foreach (var data in eventArgs.Data)
             {
                 Remove(data);
+            }
+        }
+        private void ClientController_OnSceneObjectDataUpdated(object sender, ClientController.NetworkEventArgs eventArgs)
+        {
+            lock (_sceneObjects)
+            {
+                foreach (var sceneObjectData in eventArgs.Data)
+                {
+                    var index = _sceneObjects.FindIndex(e => e.ID == sceneObjectData.ID);
+                    _sceneObjects[index].UpdateTransform(sceneObjectData);
+                }
             }
         }
 

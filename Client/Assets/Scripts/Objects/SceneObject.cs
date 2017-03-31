@@ -19,6 +19,11 @@ namespace CollaborationEngine.Objects
             public Vector3 Scale;
             public SceneObjectType Type;
             public uint Flag;
+
+            public Data Clone()
+            {
+                return (Data) MemberwiseClone();
+            }
         };
 
         public class DataCollection : MessageBase
@@ -53,6 +58,58 @@ namespace CollaborationEngine.Objects
             get { return _isInstanced; }
             private set { _isInstanced = value; }
         }
+        public uint ID
+        {
+            get
+            {
+                lock (_networkData)
+                {
+                    return _networkData.ID;
+                }
+            }
+        }
+        public Vector3 Position
+        {
+            get
+            {
+                lock (_networkData)
+                {
+                    return _networkData.Position;
+                }
+            }
+            set
+            {
+                lock (_networkData)
+                {
+                    _networkData.Position = value;
+                    if (IsInstanced)
+                        GameObject.transform.position = value;
+
+                    IsDirty = true;
+                }
+            }
+        }
+        public uint Flag
+        {
+            get
+            {
+                lock (_networkData)
+                {
+                    return _networkData.Flag;
+                }
+            }
+        }
+        public Data NetworkData
+        {
+            get
+            {
+                lock (_networkData)
+                {
+                    return _networkData.Clone();
+                }
+            }
+        }
+        public bool IsDirty { get; set; }
 
         private readonly List<IComponent> _components = new List<IComponent>();
         public List<IComponent> Components
@@ -62,11 +119,10 @@ namespace CollaborationEngine.Objects
                 return _components;
             }
         }
-        public Data NetworkData { get; private set; }
 
         protected SceneObject(GameObject prefab, SceneObjectType type)
         {
-            NetworkData = new Data
+            _networkData = new Data
             {
                 Position = Vector3.zero,
                 Rotation = Quaternion.identity,
@@ -77,16 +133,16 @@ namespace CollaborationEngine.Objects
         }
         protected SceneObject(GameObject prefab, Data networkData)
         {
-            NetworkData = networkData;
+            _networkData = networkData;
             Prefab = prefab;
         }
 
         public virtual GameObject Instantiate(Transform parent)
         {
-            GameObject = Object.Instantiate(Prefab, NetworkData.Position, NetworkData.Rotation);
+            GameObject = Object.Instantiate(Prefab, _networkData.Position, _networkData.Rotation);
             System.Diagnostics.Debug.Assert(GameObject != null, "GameObject != null");
 
-            GameObject.transform.localScale = NetworkData.Scale;
+            GameObject.transform.localScale = _networkData.Scale;
             GameObject.transform.SetParent(parent, false);
             foreach (var component in Components)
                 component.Instantiate();
@@ -149,11 +205,23 @@ namespace CollaborationEngine.Objects
             Components.Clear();
         }
 
+        public void UpdateTransform(Data data)
+        {
+            _networkData.Position = data.Position;
+            _networkData.Rotation = data.Rotation;
+            _networkData.Scale = data.Scale;
+
+            GameObject.transform.position = data.Position;
+            GameObject.transform.rotation = data.Rotation;
+            GameObject.transform.localScale = data.Scale;
+        }
+
         public TComponentType GetComponent<TComponentType>()
         {
             return GameObject.GetComponent<TComponentType>();
         }
 
         private bool _isInstanced;
+        private readonly Data _networkData;
     }
 }

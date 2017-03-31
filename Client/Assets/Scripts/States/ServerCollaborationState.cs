@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Objects.Components;
 using CollaborationEngine.Scenes;
@@ -20,9 +21,16 @@ namespace CollaborationEngine.States
 
             Scene = new Scene(ObjectLocator.Instance.SceneRoot);
             Scene.OnIndicationObjectAdded += Scene_OnIndicationObjectAdded;
+
+            _synchronizationTimer.Interval = 200.0;
+            _synchronizationTimer.Elapsed += SynchronizationTimer_Elapsed;
+            _synchronizationTimer.Start();
         }
         public void Shutdown()
         {
+            _synchronizationTimer.Stop();
+            _synchronizationTimer.Elapsed -= SynchronizationTimer_Elapsed;
+
             Scene = null;
 
             if (_currentState != null)
@@ -77,8 +85,13 @@ namespace CollaborationEngine.States
             if (OnIndicationObjectClicked != null)
                 OnIndicationObjectClicked(sender, eventArgs);
         }
+        private void SynchronizationTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Scene.SynchronizeScene();
+        }
 
         private IApplicationState _currentState;
         private IndicationType _selectedIndicationType = IndicationType.None;
+        private readonly Timer _synchronizationTimer = new Timer();
     }
 }
