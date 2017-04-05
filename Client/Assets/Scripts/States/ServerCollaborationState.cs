@@ -4,6 +4,7 @@ using CollaborationEngine.Objects;
 using CollaborationEngine.Objects.Components;
 using CollaborationEngine.Scenes;
 using CollaborationEngine.States.Server;
+using CollaborationEngine.Tasks;
 
 namespace CollaborationEngine.States
 {
@@ -13,7 +14,7 @@ namespace CollaborationEngine.States
 
         public void Initialize()
         {
-            _currentState = new NoneState(this);
+            _currentState = new SelectTaskState(this);
             _currentState.Initialize();
 
             ObjectLocator.Instance.ServerRoot.SetActive(true);
@@ -58,6 +59,13 @@ namespace CollaborationEngine.States
             }
             set { _selectedIndicationType = value; }
         }
+        public TaskManager TaskManager
+        {
+            get
+            {
+                return _taskManager;
+            }
+        }
 
         public IApplicationState CurrentState
         {
@@ -93,5 +101,6 @@ namespace CollaborationEngine.States
         private IApplicationState _currentState;
         private IndicationType _selectedIndicationType = IndicationType.None;
         private readonly Timer _synchronizationTimer = new Timer();
+        private readonly TaskManager _taskManager = new TaskManager();
     }
 }

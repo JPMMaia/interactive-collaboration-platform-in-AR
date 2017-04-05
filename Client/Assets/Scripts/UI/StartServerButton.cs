@@ -23,8 +23,7 @@ namespace CollaborationEngine.UI
                 var newState = new ServerCollaborationState();
                 ServerUIController.Instance.State = newState;
                 ApplicationInstance.Instance.ChangeState(newState, false);
-            }
-                
+            } 
         }
 
         public void OnClick()

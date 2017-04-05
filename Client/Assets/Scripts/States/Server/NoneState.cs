@@ -2,7 +2,6 @@
 using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Objects.Components;
-using CollaborationEngine.RuntimeGizmo;
 using UnityEngine;
 
 namespace CollaborationEngine.States.Server
