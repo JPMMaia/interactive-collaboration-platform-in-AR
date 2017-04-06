@@ -1,11 +1,13 @@
-﻿using CollaborationEngine.States;
+﻿using System.Collections.Generic;
+using CollaborationEngine.States;
+using CollaborationEngine.Tasks;
 using UnityEngine;
 
 namespace CollaborationEngine.UI
 {
     public class TasksPanel : MonoBehaviour
     {
-        public GameObject TaskButtonPrefab;
+        public TaskItem TaskItemPrefab;
         public RectTransform Content;
 
         public void Start()
@@ -15,9 +17,10 @@ namespace CollaborationEngine.UI
             {
                 _serverState = currentState as ServerCollaborationState;
                 _serverState.TaskManager.OnTaskAdded += TaskManager_OnTaskAdded;
+                _serverState.TaskManager.OnTaskRemoved += TaskManager_OnTaskRemoved;
             }
 
-            var taskButtonTransform = TaskButtonPrefab.GetComponent<RectTransform>();
+            var taskButtonTransform = TaskItemPrefab.GetComponent<RectTransform>();
             _taskButtonHeight = taskButtonTransform.rect.size.y;
 
             Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0.0f);
@@ -26,25 +29,49 @@ namespace CollaborationEngine.UI
         {
             if (_serverState != null)
             {
+                _serverState.TaskManager.OnTaskRemoved -= TaskManager_OnTaskRemoved;
                 _serverState.TaskManager.OnTaskAdded -= TaskManager_OnTaskAdded;
+                _serverState = null;
             }
         }
 
         private ServerCollaborationState _serverState;
-        private uint _tasksCount;
+        private readonly List<TaskItem> _taskItems = new List<TaskItem>();
         private float _taskButtonHeight;
 
-        private void TaskManager_OnTaskAdded(Tasks.TaskManager sender, Tasks.TaskManager.TaskEventArgs eventArgs)
+        private void TaskManager_OnTaskAdded(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             // Allocate space for new element:
-            Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (_tasksCount + 1) * _taskButtonHeight);
+            Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (_taskItems.Count + 1) * _taskButtonHeight);
 
             // Add new element:
-            var position = new Vector3(0.0f, -_tasksCount * _taskButtonHeight);
-            var taskButton = Instantiate(TaskButtonPrefab, position, Quaternion.identity);
-            taskButton.transform.SetParent(Content.transform, false);
+            var position = new Vector3(0.0f, -_taskItems.Count * _taskButtonHeight);
+            var taskItem = Instantiate(TaskItemPrefab, position, Quaternion.identity);
+            taskItem.TaskName = eventArgs.Task.Name;
+            taskItem.transform.SetParent(Content.transform, false);
 
-            ++_tasksCount;
+            // Add to list:
+            _taskItems.Add(taskItem);
+        }
+        private void TaskManager_OnTaskRemoved(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
+        {
+            // Return if task item does not exist:
+            if (!_taskItems.Exists(element => element.TaskName == eventArgs.Task.Name))
+                return;
+
+            // Find element:
+            var index = _taskItems.FindIndex(element => element.TaskName == eventArgs.Task.Name);
+            var taskItem = _taskItems[index];
+
+            // Remove from list:
+            _taskItems.RemoveAt(index);
+
+            // Destroy task item:
+            taskItem.transform.SetParent(null);
+            Destroy(taskItem);
+
+            // Deallocate space of deleted element:
+            Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _taskItems.Count * _taskButtonHeight);
         }
     }
 }
