@@ -26,7 +26,7 @@ namespace Kudan.AR
 
 			GUILayout.Space(16f);
 
-			EditorGUILayout.LabelField("App/Bundle ID:", PlayerSettings.bundleIdentifier);
+			EditorGUILayout.LabelField("App/Bundle ID:", PlayerSettings.applicationIdentifier);
 
 			if (GUILayout.Button("Set App/Bundle ID"))
 			{

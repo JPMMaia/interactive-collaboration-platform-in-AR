@@ -167,15 +167,15 @@ namespace Kudan.AR
 		private void checkLicenseKeyValidity() 
 		{
 #if UNITY_EDITOR
-            bool result = NativeInterface.CheckAPIKeyIsValid(_APIKey.Trim(), UnityEditor.PlayerSettings.bundleIdentifier);
+            bool result = NativeInterface.CheckAPIKeyIsValid(_APIKey.Trim(), UnityEditor.PlayerSettings.applicationIdentifier);
 
 			if (result)
             {
-				Debug.Log ("[KudanAR] Your Native API Key Is Valid for Bundle ID: " + UnityEditor.PlayerSettings.bundleIdentifier);
+				Debug.Log ("[KudanAR] Your Native API Key Is Valid for Bundle ID: " + UnityEditor.PlayerSettings.applicationIdentifier);
 			}
             else
             {
-				Debug.LogError ("[KudanAR] Your Native API Key is INVALID for Bundle ID: "+ UnityEditor.PlayerSettings.bundleIdentifier);
+				Debug.LogError ("[KudanAR] Your Native API Key is INVALID for Bundle ID: "+ UnityEditor.PlayerSettings.applicationIdentifier);
 			}
 #endif
         }

@@ -8,7 +8,7 @@ namespace CollaborationEngine.UI
         public GameObject TaskButtonPrefab;
         public RectTransform Content;
 
-        public void Awake()
+        public void Start()
         {
             var currentState = ApplicationInstance.Instance.CurrentState;
             if (currentState is ServerCollaborationState)
@@ -19,6 +19,8 @@ namespace CollaborationEngine.UI
 
             var taskButtonTransform = TaskButtonPrefab.GetComponent<RectTransform>();
             _taskButtonHeight = taskButtonTransform.rect.size.y;
+
+            Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0.0f);
         }
         public void OnApplicationQuit()
         {
@@ -34,7 +36,11 @@ namespace CollaborationEngine.UI
 
         private void TaskManager_OnTaskAdded(Tasks.TaskManager sender, Tasks.TaskManager.TaskEventArgs eventArgs)
         {
-            var position = new Vector3(0.0f, _tasksCount * _taskButtonHeight);
+            // Allocate space for new element:
+            Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (_tasksCount + 1) * _taskButtonHeight);
+
+            // Add new element:
+            var position = new Vector3(0.0f, -_tasksCount * _taskButtonHeight);
             var taskButton = Instantiate(TaskButtonPrefab, position, Quaternion.identity);
             taskButton.transform.SetParent(Content.transform, false);
 

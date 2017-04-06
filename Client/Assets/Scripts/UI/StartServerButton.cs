@@ -21,7 +21,7 @@ namespace CollaborationEngine.UI
             if (currentScene.name == "Multiplayer")
             {
                 var newState = new ServerCollaborationState();
-                ServerUIController.Instance.State = newState;
+                // ServerUIController.Instance.State = newState;
                 ApplicationInstance.Instance.ChangeState(newState, false);
             } 
         }
