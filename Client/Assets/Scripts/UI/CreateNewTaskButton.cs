@@ -12,9 +12,7 @@ namespace CollaborationEngine.UI
             if (currentState is ServerCollaborationState)
             {
                 var serverState = currentState as ServerCollaborationState;
-                serverState.TaskManager.AddTask(new Task("Task 123"));
-
-                // TODO input text from user
+                serverState.TaskManager.AddTask(new Task(Task.GenerateName()));
             }
         }
     }

@@ -23,11 +23,11 @@ namespace CollaborationEngine.Tasks
         public bool AddTask(Task task)
         {
             // Return false if there is already a task with the given name:
-            if (_tasks.ContainsKey(task.Name))
+            if(_tasks.Exists(element => element.Name == task.Name))
                 return false;
 
             // Add task:
-            _tasks.Add(task.Name, task);
+            _tasks.Add(task);
 
             // Raise event:
             if(OnTaskAdded != null)
@@ -35,22 +35,43 @@ namespace CollaborationEngine.Tasks
 
             return true;
         }
-
         public void RemoveTask(String taskName)
         {
-            // Try to get task:
-            Task task;
-            if (!_tasks.TryGetValue(taskName, out task))
+            // Return if there is not any task with the given name:
+            if (!_tasks.Exists(element => element.Name == taskName))
                 return;
 
+            // Find task:
+            var index = _tasks.FindIndex(element => element.Name == taskName);
+            var task = _tasks[index];
+
             // Remove it from the list:
-            _tasks.Remove(taskName);
+            _tasks.RemoveAt(index);
 
             // Raise event:
             if(OnTaskRemoved != null)
                 OnTaskRemoved(this, new TaskEventArgs(task));
         }
+        public Task GetTask(String taskName)
+        {
+            if(!_tasks.Exists(element => element.Name == taskName))
+                throw new Exception("There is not any task with the given name.");
 
-        private readonly IDictionary<String, Task> _tasks = new Dictionary<String, Task>();
+            return _tasks.Find(element => element.Name == taskName);
+        }
+        public bool TryGetTask(String taskName, out Task task)
+        {
+            if (!_tasks.Exists(element => element.Name == taskName))
+            {
+                task = null;
+                return false;
+            }
+
+            task = _tasks.Find(element => element.Name == taskName);
+
+            return true;
+        }
+
+        private readonly List<Task> _tasks = new List<Task>();
     }
 }

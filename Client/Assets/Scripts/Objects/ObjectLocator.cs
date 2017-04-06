@@ -1,4 +1,5 @@
 ﻿using CollaborationEngine.Network;
+using CollaborationEngine.UI;
 using UnityEngine;
 
 namespace CollaborationEngine.Objects
@@ -21,6 +22,9 @@ namespace CollaborationEngine.Objects
         public GameObject StudyObjectPrefab;
         public GameObject IndicationPrefab;
         public GameObject IndicationToolsPrefab;
+        public EditTaskPanel EditTaskPanelPrefab;
+
+        public RectTransform UICanvas;
 
         private static ObjectLocator _instance;
         public static ObjectLocator Instance

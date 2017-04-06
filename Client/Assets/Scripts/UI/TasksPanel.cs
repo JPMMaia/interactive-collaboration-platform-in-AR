@@ -47,7 +47,7 @@ namespace CollaborationEngine.UI
             // Add new element:
             var position = new Vector3(0.0f, -_taskItems.Count * _taskButtonHeight);
             var taskItem = Instantiate(TaskItemPrefab, position, Quaternion.identity);
-            taskItem.TaskName = eventArgs.Task.Name;
+            taskItem.Task = eventArgs.Task;
             taskItem.transform.SetParent(Content.transform, false);
 
             // Add to list:
@@ -56,11 +56,11 @@ namespace CollaborationEngine.UI
         private void TaskManager_OnTaskRemoved(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             // Return if task item does not exist:
-            if (!_taskItems.Exists(element => element.TaskName == eventArgs.Task.Name))
+            if (!_taskItems.Exists(element => element.Task.Name == eventArgs.Task.Name))
                 return;
 
             // Find element:
-            var index = _taskItems.FindIndex(element => element.TaskName == eventArgs.Task.Name);
+            var index = _taskItems.FindIndex(element => element.Task.Name == eventArgs.Task.Name);
             var taskItem = _taskItems[index];
 
             // Remove from list:
