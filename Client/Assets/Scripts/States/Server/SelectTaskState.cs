@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using CollaborationEngine.Objects;
+using CollaborationEngine.UI;
+using UnityEngine;
 
 namespace CollaborationEngine.States.Server
 {
@@ -13,13 +15,20 @@ namespace CollaborationEngine.States.Server
         {
             Debug.Log("Initialize SelectTaskState");
 
-            // TODO Add tasks to panel
+            _taskPanel = Object.Instantiate(ObjectLocator.Instance.ServerTaskPanelPrefab);
+            _taskPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
+            _taskPanel.TaskManager = _serverState.TaskManager;
+            _taskPanel.OnTaskItemClicked += TaskPanel_OnTaskItemClicked;
         }
         public void Shutdown()
         {
             Debug.Log("Shutdown SelectTaskState");
 
-            // TODO Remove tasks from panel
+            if (_taskPanel != null)
+            {
+                Object.Destroy(_taskPanel.gameObject);
+                _taskPanel = null;
+            }
         }
 
         public void FixedUpdate()
@@ -29,6 +38,12 @@ namespace CollaborationEngine.States.Server
         {
         }
 
+        private void TaskPanel_OnTaskItemClicked(TaskItem sender, System.EventArgs eventArgs)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private readonly ServerCollaborationState _serverState;
+        private TasksPanel _taskPanel;
     }
 }

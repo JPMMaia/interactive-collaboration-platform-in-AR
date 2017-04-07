@@ -1,6 +1,5 @@
 ﻿using System;
 using CollaborationEngine.Objects;
-using CollaborationEngine.States;
 using CollaborationEngine.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +8,11 @@ namespace CollaborationEngine.UI
 {
     public class TaskItem : MonoBehaviour
     {
+        public delegate void TaskEventDelegate(TaskItem sender, EventArgs eventArgs);
+
+        public event TaskEventDelegate OnClicked;
+        public event TaskEventDelegate OnDeleted;
+
         public Text TaskNameText;
 
         private Task _task;
@@ -25,13 +29,8 @@ namespace CollaborationEngine.UI
 
         public void OnTaskClick()
         {
-            var currentState = ApplicationInstance.Instance.CurrentState;
-            if (currentState is ServerCollaborationState)
-            {
-                var serverState = currentState as ServerCollaborationState;
-                //serverState.CurrentState = new StepState(serverState, );
-                // TODO
-            }
+            if(OnClicked != null)
+                OnClicked(this, EventArgs.Empty);
         }
 
         public void OnEditClick()
@@ -45,13 +44,8 @@ namespace CollaborationEngine.UI
 
         public void OnDeleteClick()
         {
-            var currentState = ApplicationInstance.Instance.CurrentState;
-            if (currentState is ServerCollaborationState)
-            {
-                var serverState = currentState as ServerCollaborationState;
-                serverState.TaskManager.RemoveTask(Task.Name);
-                Task = null;
-            }
+            if(OnDeleted != null)
+                OnDeleted(this, EventArgs.Empty);
 
             Destroy(gameObject);
         }

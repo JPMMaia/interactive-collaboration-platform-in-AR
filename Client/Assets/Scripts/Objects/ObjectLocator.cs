@@ -22,6 +22,8 @@ namespace CollaborationEngine.Objects
         public GameObject StudyObjectPrefab;
         public GameObject IndicationPrefab;
         public GameObject IndicationToolsPrefab;
+        public TasksPanel ServerTaskPanelPrefab;
+        public TasksPanel ClientTaskPanelPrefab;
         public EditTaskPanel EditTaskPanelPrefab;
 
         public RectTransform UICanvas;
