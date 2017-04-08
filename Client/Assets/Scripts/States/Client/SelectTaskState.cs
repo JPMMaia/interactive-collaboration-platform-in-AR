@@ -24,11 +24,13 @@ namespace CollaborationEngine.States.Client
             _taskPanel = Object.Instantiate(ObjectLocator.Instance.ClientTaskPanelPrefab);
             _taskPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
             _taskPanel.TaskManager = _clientState.TaskManager;
+            _taskPanel.OnTaskItemClicked += TaskPanel_OnTaskItemClicked;
         }
         public void Shutdown()
         {
             if (_taskPanel != null)
             {
+                _taskPanel.OnTaskItemClicked -= TaskPanel_OnTaskItemClicked;
                 Object.Destroy(_taskPanel.gameObject);
                 _taskPanel = null;
             }
@@ -55,6 +57,11 @@ namespace CollaborationEngine.States.Client
         {
             var message = networkMessage.ReadMessage<Task.TaskMesssage>();
             _clientState.TaskManager.UpdateTask(message.Data);
+        }
+
+        private void TaskPanel_OnTaskItemClicked(TaskItem sender, System.EventArgs eventArgs)
+        {
+            _clientState.CurrentState = new StepState(_clientState, sender.Task);
         }
 
         private readonly ClientCollaborationState _clientState;

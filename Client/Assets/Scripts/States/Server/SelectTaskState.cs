@@ -67,7 +67,7 @@ namespace CollaborationEngine.States.Server
 
         private void TaskPanel_OnTaskItemClicked(TaskItem sender, System.EventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            _serverState.CurrentState = new StepState(_serverState, sender.Task);
         }
 
         private readonly ServerCollaborationState _serverState;
