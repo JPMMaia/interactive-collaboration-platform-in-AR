@@ -19,7 +19,7 @@ namespace CollaborationEngine.UI
 
         public void Start()
         {
-            OnEditClick();
+            TaskNameText.text = _task.Name;
         }
         public void OnDestroy()
         {
@@ -37,9 +37,6 @@ namespace CollaborationEngine.UI
         {
             var editTaskPanel = Instantiate(ObjectLocator.Instance.EditTaskPanelPrefab);
             editTaskPanel.Task = Task;
-            editTaskPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
-
-            editTaskPanel.TaskNameInputField.ActivateInputField();
         }
 
         public void OnDeleteClick()

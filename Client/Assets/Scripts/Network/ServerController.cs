@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CollaborationEngine.Objects;
+using CollaborationEngine.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -20,6 +22,9 @@ namespace CollaborationEngine.Network
             NetworkServer.RegisterHandler(AddSceneObjectDataOnServerHandle, OnAddSceneObjectData);
             NetworkServer.RegisterHandler(RemoveSceneObjectDataOnServerHandle, OnRemoveSceneObjectData);
             NetworkServer.RegisterHandler(UpdateSceneObjectDataOnServerHandle, OnUpdateSceneObjectData);
+            NetworkServer.RegisterHandler(NetworkHandles.AddTaskOnServerHandle, OnAddTask);
+            NetworkServer.RegisterHandler(NetworkHandles.RemoveTaskOnServerHandle, OnRemoveTask);
+            NetworkServer.RegisterHandler(NetworkHandles.UpdateTaskOnServerHandle, OnUpdateTask);
         }
 
         public void OnServerConnect(NetworkConnection clientConnection)
@@ -81,7 +86,19 @@ namespace CollaborationEngine.Network
             NetworkServer.SendToAll(UpdateSceneObjectDataOnClientHandle, data);
         }
 
-        private static ServerController _instance;
+        private void OnAddTask(NetworkMessage networkMessage)
+        {
+            NetworkServer.SendToAll(NetworkHandles.AddTaskOnClientHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+        }
+        private void OnRemoveTask(NetworkMessage networkMessage)
+        {
+            NetworkServer.SendToAll(NetworkHandles.RemoveTaskOnClientHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+        }
+        private void OnUpdateTask(NetworkMessage networkMessage)
+        {
+            NetworkServer.SendToAll(NetworkHandles.UpdateTaskOnClientHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+        }
+
         private readonly List<SceneObject.Data> _sceneData = new List<SceneObject.Data>();
     }
 }

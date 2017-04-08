@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.States;
+﻿using CollaborationEngine.Objects;
+using CollaborationEngine.States;
 using CollaborationEngine.Tasks;
 using UnityEngine;
 
@@ -8,12 +9,7 @@ namespace CollaborationEngine.UI
     {
         public void OnClicked()
         {
-            var currentState = ApplicationInstance.Instance.CurrentState;
-            if (currentState is ServerCollaborationState)
-            {
-                var serverState = currentState as ServerCollaborationState;
-                serverState.TaskManager.AddTask(new Task(Task.GenerateName()));
-            }
+            Instantiate(ObjectLocator.Instance.EditTaskPanelPrefab);
         }
     }
 }

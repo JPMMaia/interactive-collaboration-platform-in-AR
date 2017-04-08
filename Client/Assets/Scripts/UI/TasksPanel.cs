@@ -83,7 +83,7 @@ namespace CollaborationEngine.UI
         }
         private void TaskItem_OnDeleted(TaskItem sender, EventArgs eventArgs)
         {
-            TaskManager.RemoveTask(sender.Task.Name);
+            TaskManager.RemoveTask(sender.Task.ID);
         }
     }
 }
