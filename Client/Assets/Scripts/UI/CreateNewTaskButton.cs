@@ -1,6 +1,4 @@
 ﻿using CollaborationEngine.Objects;
-using CollaborationEngine.States;
-using CollaborationEngine.Tasks;
 using UnityEngine;
 
 namespace CollaborationEngine.UI

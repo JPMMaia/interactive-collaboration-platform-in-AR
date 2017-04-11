@@ -14,7 +14,7 @@ namespace CollaborationEngine.Tasks
             {
                 writer.WritePackedUInt32(Data._id);
                 writer.Write(Data._name);
-                writer.WritePackedUInt32((UInt32) Data._steps.Count);
+                writer.WritePackedUInt32((UInt32)Data._steps.Count);
                 foreach (var step in Data._steps)
                 {
                     var stepMessage = new Step.StepMessage { Data = step };
@@ -25,7 +25,7 @@ namespace CollaborationEngine.Tasks
             {
                 Data = new Task { _id = reader.ReadPackedUInt32(), _name = reader.ReadString() };
 
-                var stepLength = (Int32) reader.ReadPackedUInt32();
+                var stepLength = (Int32)reader.ReadPackedUInt32();
                 Data._steps = new List<Step>(stepLength);
                 for (var i = 0; i < stepLength; ++i)
                 {
@@ -39,6 +39,7 @@ namespace CollaborationEngine.Tasks
 
         public event TaskEventDelegate OnNameChanged;
 
+        #region Properties
         public UInt32 ID
         {
             get { return _id; }
@@ -57,6 +58,14 @@ namespace CollaborationEngine.Tasks
                     OnNameChanged(this, EventArgs.Empty);
             }
         }
+        #endregion
+
+        #region Members
+        private static uint _count;
+        private List<Step> _steps = new List<Step>();
+        private UInt32 _id;
+        private string _name;
+        #endregion
 
         private static UInt32 GenerateID()
         {
@@ -77,9 +86,9 @@ namespace CollaborationEngine.Tasks
             Name = task.Name;
         }
 
-        private static uint _count;
-        private List<Step> _steps = new List<Step>();
-        private UInt32 _id;
-        private string _name;
+        public void AddStep(String name)
+        {
+            _steps.Add(new Step(_id, name));
+        }
     }
 }
