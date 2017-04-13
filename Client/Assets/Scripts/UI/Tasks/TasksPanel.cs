@@ -1,16 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
 using UnityEngine;
 
-namespace CollaborationEngine.UI
+namespace CollaborationEngine.UI.Tasks
 {
     public class TasksPanel : MonoBehaviour
     {
+        #region Events
         public event TaskItem.TaskEventDelegate OnTaskItemClicked;
+        #endregion
 
+        #region Unity Editor
         public TaskItem TaskItemPrefab;
         public RectTransform Content;
+        #endregion
+
+        #region Properties
+        public TaskManager TaskManager { get; set; }
+        #endregion
+
+        #region Members
+        private readonly List<TaskItem> _taskItems = new List<TaskItem>();
+        private float _taskButtonHeight;
+        #endregion
 
         public void Start()
         {
@@ -32,11 +46,14 @@ namespace CollaborationEngine.UI
             }
         }
 
-        public TaskManager TaskManager { get; set; }
+        #region Unity UI
+        public void OnCreateNewTaskButtonClicked()
+        {
+            Instantiate(ObjectLocator.Instance.EditTaskPanelPrefab);
+        }
+        #endregion
 
-        private readonly List<TaskItem> _taskItems = new List<TaskItem>();
-        private float _taskButtonHeight;
-
+        #region Event Handlers
         private void TaskManager_OnTaskAdded(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             // Allocate space for new element:
@@ -56,11 +73,11 @@ namespace CollaborationEngine.UI
         private void TaskManager_OnTaskRemoved(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             // Return if task item does not exist:
-            if (!_taskItems.Exists(element => element.Task.Name == eventArgs.Task.Name))
+            if (!_taskItems.Exists(element => element.Task.ID == eventArgs.Task.ID))
                 return;
 
             // Find element:
-            var index = _taskItems.FindIndex(element => element.Task.Name == eventArgs.Task.Name);
+            var index = _taskItems.FindIndex(element => element.Task.ID == eventArgs.Task.ID);
             var taskItem = _taskItems[index];
 
             // Remove from list:
@@ -78,12 +95,13 @@ namespace CollaborationEngine.UI
 
         private void TaskItem_OnClicked(TaskItem sender, EventArgs eventArgs)
         {
-            if(OnTaskItemClicked != null)
+            if (OnTaskItemClicked != null)
                 OnTaskItemClicked(sender, EventArgs.Empty);
         }
         private void TaskItem_OnDeleted(TaskItem sender, EventArgs eventArgs)
         {
             TaskManager.RemoveTask(sender.Task.ID);
         }
+        #endregion
     }
 }

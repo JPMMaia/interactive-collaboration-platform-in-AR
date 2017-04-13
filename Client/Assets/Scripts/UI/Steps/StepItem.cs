@@ -43,8 +43,6 @@ namespace CollaborationEngine.UI.Steps
         {
             if (OnDeleted != null)
                 OnDeleted(this, EventArgs.Empty);
-
-            Destroy(gameObject);
         }
 
         public Step Step

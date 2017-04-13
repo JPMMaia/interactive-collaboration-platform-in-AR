@@ -4,10 +4,18 @@ using CollaborationEngine.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CollaborationEngine.UI
+namespace CollaborationEngine.UI.Tasks
 {
     public class EditTaskPanel : MonoBehaviour
     {
+        #region Unity Editor
+        public InputField TaskNameInputField;
+        #endregion
+
+        #region Properties
+        public Task Task { get; set; }
+        #endregion
+
         public void Start()
         {
             transform.SetParent(ObjectLocator.Instance.UICanvas, false);
@@ -18,6 +26,7 @@ namespace CollaborationEngine.UI
             TaskNameInputField.ActivateInputField();
         }
 
+        #region Unity UI Events
         public void OnOKClick()
         {
             if (Task != null)
@@ -34,18 +43,8 @@ namespace CollaborationEngine.UI
                 }
             }
 
-            Destroy();
-        }
-
-        public Task Task { get; set; }
-
-        public InputField TaskNameInputField;
-
-        private void Destroy()
-        {
-            Task = null;
-
             Destroy(gameObject);
         }
+        #endregion
     }
 }

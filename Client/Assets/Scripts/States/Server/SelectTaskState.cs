@@ -1,7 +1,7 @@
 ﻿using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
-using CollaborationEngine.UI;
+using CollaborationEngine.UI.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,6 +9,11 @@ namespace CollaborationEngine.States.Server
 {
     public class SelectTaskState : IApplicationState
     {
+        #region Members
+        private readonly ServerCollaborationState _serverState;
+        private TasksPanel _taskPanel;
+        #endregion
+
         public SelectTaskState(ServerCollaborationState serverState)
         {
             _serverState = serverState;
@@ -49,6 +54,7 @@ namespace CollaborationEngine.States.Server
         {
         }
 
+        #region Event Handlers
         private void TaskManager_OnTaskAdded(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             var networkClient = NetworkManager.singleton.client;
@@ -69,8 +75,6 @@ namespace CollaborationEngine.States.Server
         {
             _serverState.CurrentState = new StepState(_serverState, sender.Task);
         }
-
-        private readonly ServerCollaborationState _serverState;
-        private TasksPanel _taskPanel;
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CollaborationEngine.Network;
-using CollaborationEngine.UI;
 using CollaborationEngine.UI.Steps;
+using CollaborationEngine.UI.Tasks;
 using UnityEngine;
 
 namespace CollaborationEngine.Objects
@@ -27,6 +27,8 @@ namespace CollaborationEngine.Objects
         public TasksPanel ClientTaskPanelPrefab;
         public EditTaskPanel EditTaskPanelPrefab;
         public EditStepPanel EditStepPanelPrefab;
+        public StepsPanel ServerStepsPanelPrefab;
+        public StepsPanel ClientStepsPanelPrefab;
 
         public RectTransform UICanvas;
 

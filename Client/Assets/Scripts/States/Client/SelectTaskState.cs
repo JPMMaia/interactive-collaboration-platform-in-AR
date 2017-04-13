@@ -1,7 +1,7 @@
 ﻿using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
-using CollaborationEngine.UI;
+using CollaborationEngine.UI.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 

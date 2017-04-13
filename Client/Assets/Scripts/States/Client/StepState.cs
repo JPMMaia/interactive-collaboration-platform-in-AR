@@ -5,6 +5,11 @@ namespace CollaborationEngine.States.Client
 {
     public class StepState : IApplicationState
     {
+        #region Members
+        private readonly ClientCollaborationState _clientState;
+        private readonly Task _task;
+        #endregion
+
         public StepState(ClientCollaborationState clientState, Task task)
         {
             _clientState = clientState;
@@ -26,8 +31,5 @@ namespace CollaborationEngine.States.Client
         public void FrameUpdate()
         {
         }
-
-        private readonly ClientCollaborationState _clientState;
-        private readonly Task _task;
     }
 }

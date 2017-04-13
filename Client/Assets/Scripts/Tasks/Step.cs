@@ -5,6 +5,7 @@ namespace CollaborationEngine.Tasks
 {
     public class Step
     {
+        #region Classes
         public class StepMessage : MessageBase
         {
             public Step Data { get; set; }
@@ -25,18 +26,43 @@ namespace CollaborationEngine.Tasks
                 };
             }
         }
+        #endregion
 
+        #region Delegate
         public delegate void StepEventDelegate(Step sender, EventArgs eventArgs);
+        #endregion
 
+        #region Events
+        public event StepEventDelegate OnOrderChanged;
         public event StepEventDelegate OnNameChanged;
+        public event StepEventDelegate OnUpdated;
+        #endregion
 
+        #region Properties
         public UInt32 ID
         {
             get { return _id; }
         }
         public UInt32 TaskID
         {
-            get { return _taskId; }   
+            get { return _taskId; }
+        }
+        public UInt32 Order
+        {
+            get
+            {
+                return _order;
+            }
+            set
+            {
+                if (_order == value)
+                    return;
+
+                _order = value;
+
+                if (OnOrderChanged != null)
+                    OnOrderChanged(this, EventArgs.Empty);
+            }
         }
         public String Name
         {
@@ -46,36 +72,48 @@ namespace CollaborationEngine.Tasks
             }
             set
             {
+                if (_name == value)
+                    return;
+
                 _name = value;
 
                 if (OnNameChanged != null)
                     OnNameChanged(this, EventArgs.Empty);
             }
         }
+        #endregion
+
+        #region Members
+        private static uint _count;
+        private UInt32 _id;
+        private UInt32 _taskId;
+        private UInt32 _order;
+        private string _name;
+        #endregion
+
+        private Step()
+        {
+        }
+        public Step(UInt32 taskId, UInt32 order, String name)
+        {
+            _id = GenerateID();
+            _taskId = taskId;
+            _order = order;
+            _name = name;
+        }
+
+        public void Update(Step step)
+        {
+            Order = step.Order;
+            Name = step.Name;
+
+            if(OnUpdated != null)
+                OnUpdated(this, EventArgs.Empty);
+        }
 
         private static UInt32 GenerateID()
         {
             return _count++;
         }
-
-        private Step()
-        {
-        }
-        public Step(UInt32 taskId, String name)
-        {
-            _id = GenerateID();
-            _taskId = taskId;
-            _name = name;
-        }
-
-        public void Update(Task task)
-        {
-            Name = task.Name;
-        }
-
-        private static uint _count;
-        private UInt32 _id;
-        private UInt32 _taskId;
-        private string _name;
     }
 }

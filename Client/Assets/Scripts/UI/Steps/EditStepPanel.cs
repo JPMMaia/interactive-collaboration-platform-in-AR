@@ -37,13 +37,6 @@ namespace CollaborationEngine.UI.Steps
                 Task.AddStep(StepNameInputField.text);
             }
 
-            Destroy();
-        }
-
-        private void Destroy()
-        {
-            Step = null;
-
             Destroy(gameObject);
         }
     }
