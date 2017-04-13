@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
@@ -9,109 +10,83 @@ namespace CollaborationEngine.Objects
 {
     public abstract class SceneObject
     {
-        public class Data : MessageBase
+        #region Classes
+        public class Message : MessageBase
         {
-            public static uint SceneObjectCount;
-
-            public uint ID;
-            public Vector3 Position;
-            public Quaternion Rotation;
-            public Vector3 Scale;
-            public SceneObjectType Type;
-            public uint Flag;
-
-            public Data Clone()
-            {
-                return (Data) MemberwiseClone();
-            }
-        };
-
-        public class DataCollection : MessageBase
-        {
-            public IEnumerable<Data> DataEnumerable { get; set; }
+            public SceneObject Data { get; set; }
 
             public override void Serialize(NetworkWriter writer)
             {
-                writer.WritePackedUInt32((uint) DataEnumerable.Count());
+                /*writer.WritePackedUInt32(Data._id);
+                writer.Write(Data._name);
+                writer.WritePackedUInt32((UInt32)Data._steps.Count);
+                foreach (var step in Data._steps)
+                {
+                    var stepMessage = new Step.StepMessage { Data = step };
+                    stepMessage.Serialize(writer);
+                }*/
+            }
+            public override void Deserialize(NetworkReader reader)
+            {
+                /*Data = new Task { _id = reader.ReadPackedUInt32(), _name = reader.ReadString() };
+
+                var stepLength = (Int32)reader.ReadPackedUInt32();
+                Data._steps = new List<Step>(stepLength);
+                for (var i = 0; i < stepLength; ++i)
+                {
+                    var stepMessage = reader.ReadMessage<Step.StepMessage>();
+                    Data._steps.Add(stepMessage.Data);
+                }*/
+            }
+        }
+        public class CollectionMessage : MessageBase
+        {
+            public IEnumerable<SceneObject> DataEnumerable { get; set; }
+
+            public override void Serialize(NetworkWriter writer)
+            {
+                writer.WritePackedUInt32((uint)DataEnumerable.Count());
                 foreach (var data in DataEnumerable)
                 {
-                    writer.Write(data);
+                    writer.Write(new Message() { Data = data });
                 }
             }
-
             public override void Deserialize(NetworkReader reader)
             {
                 var count = reader.ReadPackedUInt32();
 
-                var data = new List<Data>((int) count);
+                var data = new List<SceneObject>((int)count);
                 for (var i = 0; i < count; ++i)
-                    data.Add(reader.ReadMessage<Data>());
+                    data.Add(reader.ReadMessage<Message>().Data);
 
                 DataEnumerable = data;
             }
         }
+        #endregion
 
+        #region Properties
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
-        public bool IsInstanced
-        {
-            get { return _isInstanced; }
-            private set { _isInstanced = value; }
-        }
-        public uint ID
-        {
-            get
-            {
-                lock (_networkData)
-                {
-                    return _networkData.ID;
-                }
-            }
-        }
+        public uint ID { get; private set; }
+        public String Name { get; set; }
         public Vector3 Position
         {
-            get
-            {
-                lock (_networkData)
-                {
-                    return _networkData.Position;
-                }
-            }
-            set
-            {
-                lock (_networkData)
-                {
-                    _networkData.Position = value;
-                    if (IsInstanced)
-                        GameObject.transform.position = value;
-
-                    IsDirty = true;
-                }
-            }
+            get { return _position; }
+            set { _position = value; }
         }
-        public uint Flag
+        public Quaternion Rotation
         {
-            get
-            {
-                lock (_networkData)
-                {
-                    return _networkData.Flag;
-                }
-            }
+            get { return _rotation; }
+            set { _rotation = value; }
         }
-        public Data NetworkData
+        public Vector3 Scale
         {
-            get
-            {
-                lock (_networkData)
-                {
-                    return _networkData.Clone();
-                }
-            }
+            get { return _scale; }
+            set { _scale = value; }
         }
-        public bool IsDirty { get; set; }
-
-        private readonly List<IComponent> _components = new List<IComponent>();
+        public SceneObjectType Type { get; set; }
+        public uint Flag { get; set; }
+        public bool IsInstanced { get; private set; }
         public List<IComponent> Components
         {
             get
@@ -119,30 +94,28 @@ namespace CollaborationEngine.Objects
                 return _components;
             }
         }
+        public bool IsDirty { get; set; }
+        #endregion
+
+        #region Members
+        private readonly List<IComponent> _components = new List<IComponent>();
+        private Vector3 _position = Vector3.zero;
+        private Quaternion _rotation = Quaternion.identity;
+        private Vector3 _scale = Vector3.one;
+        #endregion
 
         protected SceneObject(GameObject prefab, SceneObjectType type)
         {
-            _networkData = new Data
-            {
-                Position = Vector3.zero,
-                Rotation = Quaternion.identity,
-                Scale = Vector3.one,
-                Type = type
-            };
             Prefab = prefab;
-        }
-        protected SceneObject(GameObject prefab, Data networkData)
-        {
-            _networkData = networkData;
-            Prefab = prefab;
+            Type = type;
         }
 
         public virtual GameObject Instantiate(Transform parent)
         {
-            GameObject = Object.Instantiate(Prefab, _networkData.Position, _networkData.Rotation);
+            GameObject = Object.Instantiate(Prefab, Position, Rotation);
             System.Diagnostics.Debug.Assert(GameObject != null, "GameObject != null");
 
-            GameObject.transform.localScale = _networkData.Scale;
+            GameObject.transform.localScale = Scale;
             GameObject.transform.SetParent(parent, false);
             foreach (var component in Components)
                 component.Instantiate();
@@ -182,46 +155,43 @@ namespace CollaborationEngine.Objects
             {
                 Components.Add(component);
 
-                if(_isInstanced)
+                if (IsInstanced)
                     component.Instantiate();
             }
-                
+
         }
         public void RemoveComponent(IComponent component)
         {
             Components.Remove(component);
 
-            if(_isInstanced)
+            if (IsInstanced)
                 component.Destroy();
         }
         public void ClearComponents()
         {
-            if (_isInstanced)
+            if (IsInstanced)
             {
                 foreach (var component in Components)
                     component.Destroy();
             }
-                
+
             Components.Clear();
         }
 
-        public void UpdateTransform(Data data)
+        public void UpdateTransform(Vector3 position, Quaternion rotation, Vector3 scale)
         {
-            _networkData.Position = data.Position;
-            _networkData.Rotation = data.Rotation;
-            _networkData.Scale = data.Scale;
+            Position = position;
+            Rotation = rotation;
+            Scale = scale;
 
-            GameObject.transform.position = data.Position;
-            GameObject.transform.rotation = data.Rotation;
-            GameObject.transform.localScale = data.Scale;
+            GameObject.transform.position = position;
+            GameObject.transform.rotation = rotation;
+            GameObject.transform.localScale = scale;
         }
 
         public TComponentType GetComponent<TComponentType>()
         {
             return GameObject.GetComponent<TComponentType>();
         }
-
-        private bool _isInstanced;
-        private readonly Data _networkData;
     }
 }

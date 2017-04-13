@@ -58,17 +58,17 @@ namespace CollaborationEngine.States.Server
         private void TaskManager_OnTaskAdded(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             var networkClient = NetworkManager.singleton.client;
-            networkClient.Send(NetworkHandles.AddTaskOnServerHandle, new Task.TaskMesssage { Data = eventArgs.Task });
+            networkClient.Send(NetworkHandles.AddTaskHandle, new Task.TaskMesssage { Data = eventArgs.Task });
         }
         private void TaskManager_OnTaskRemoved(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             var networkClient = NetworkManager.singleton.client;
-            networkClient.Send(NetworkHandles.RemoveTaskOnServerHandle, new Task.TaskMesssage { Data = eventArgs.Task });
+            networkClient.Send(NetworkHandles.RemoveTaskHandle, new Task.TaskMesssage { Data = eventArgs.Task });
         }
         private void TaskManager_OnTaskUpdated(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
             var networkClient = NetworkManager.singleton.client;
-            networkClient.Send(NetworkHandles.UpdateTaskOnServerHandle, new Task.TaskMesssage { Data = eventArgs.Task });
+            networkClient.Send(NetworkHandles.UpdateTaskHandle, new Task.TaskMesssage { Data = eventArgs.Task });
         }
 
         private void TaskPanel_OnTaskItemClicked(TaskItem sender, System.EventArgs eventArgs)

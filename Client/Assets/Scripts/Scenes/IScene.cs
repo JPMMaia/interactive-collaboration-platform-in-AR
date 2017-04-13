@@ -4,8 +4,8 @@ namespace CollaborationEngine.Scenes
 {
     public interface IScene
     {
-        void Add(SceneObject.Data sceneObjectData);
-        void Remove(SceneObject.Data sceneObjectData);
+        void Add(SceneObject.Message sceneObject);
+        void Remove(SceneObject.Message sceneObject);
         void Clear();
         void FixedUpdate();
         void FrameUpdate();

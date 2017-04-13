@@ -19,11 +19,32 @@ namespace CollaborationEngine.UI.Steps
 
         #region Properties
         public Task Task { get; set; }
-        public Step SelectedStep { get; private set; }
+
+        public StepItem SelectedStepItem
+        {
+            get
+            {
+                return _selectedStepItem;
+            }
+            private set
+            {
+                if (_selectedStepItem != value)
+                {
+                    if(_selectedStepItem != null)
+                        _selectedStepItem.SetSelectedAppearance(false);
+
+                    _selectedStepItem = value;
+
+                    if (_selectedStepItem != null)
+                        _selectedStepItem.SetSelectedAppearance(true);
+                }
+            }
+        }
         #endregion
 
         #region Members
         private readonly List<StepItem> _stepsItems = new List<StepItem>();
+        private StepItem _selectedStepItem;
         private float _stepButtonHeight;
         #endregion
 
@@ -61,6 +82,8 @@ namespace CollaborationEngine.UI.Steps
 
             // Add to list:
             _stepsItems.Add(stepItem);
+
+            SelectedStepItem = stepItem;
         }
         private void DeleteStepItem(Step step)
         {
@@ -71,6 +94,9 @@ namespace CollaborationEngine.UI.Steps
             // Find element:
             var index = _stepsItems.FindIndex(element => element.Step.ID == step.ID);
             var stepItem = _stepsItems[index];
+
+            if (stepItem == SelectedStepItem)
+                SelectedStepItem = null;
 
             // Remove from list:
             _stepsItems.RemoveAt(index);
@@ -115,7 +141,7 @@ namespace CollaborationEngine.UI.Steps
 
         private void StepItem_OnClicked(StepItem sender, EventArgs eventArgs)
         {
-            SelectedStep = sender.Step;
+            SelectedStepItem = sender;
 
             if (OnStepItemClicked != null)
                 OnStepItemClicked(sender, eventArgs);

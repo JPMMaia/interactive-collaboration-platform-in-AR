@@ -17,9 +17,9 @@ namespace CollaborationEngine.States.Client
         public void Initialize()
         {
             var networkManager = NetworkManager.singleton.client;
-            networkManager.RegisterHandler(NetworkHandles.AddTaskOnClientHandle, OnAddTask);
-            networkManager.RegisterHandler(NetworkHandles.RemoveTaskOnClientHandle, OnRemoveTask);
-            networkManager.RegisterHandler(NetworkHandles.UpdateTaskOnClientHandle, OnUpdateTask);
+            networkManager.RegisterHandler(NetworkHandles.AddTaskHandle, OnAddTask);
+            networkManager.RegisterHandler(NetworkHandles.RemoveTaskHandle, OnRemoveTask);
+            networkManager.RegisterHandler(NetworkHandles.UpdateTaskHandle, OnUpdateTask);
 
             _taskPanel = Object.Instantiate(ObjectLocator.Instance.ClientTaskPanelPrefab);
             _taskPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);

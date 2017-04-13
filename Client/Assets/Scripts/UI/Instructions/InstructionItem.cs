@@ -4,58 +4,43 @@ using CollaborationEngine.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CollaborationEngine.UI.Steps
+namespace CollaborationEngine.UI.Instructions
 {
-    public class StepItem : MonoBehaviour
+    public class InstructionItem : MonoBehaviour
     {
         #region Delegates
-        public delegate void StepEventDelegate(StepItem sender, EventArgs eventArgs);
+        public delegate void IntructionItemEventDelegate(InstructionItem sender, EventArgs eventArgs);
         #endregion
 
         #region Events
-        public event StepEventDelegate OnClicked;
-        public event StepEventDelegate OnDeleted;
+        public event IntructionItemEventDelegate OnClicked;
+        public event IntructionItemEventDelegate OnDeleted;
         #endregion
 
         #region Unity Editor
-        public Text StepNameText;
-        public Image StepButtonImage;
+        public Text IntructionNameText;
+        public Image InstructionButtonImage;
         #endregion
 
         #region Properties
-        public Step Step
-        {
-            get { return _step; }
-            set
-            {
-                if (_step != null)
-                    _step.OnNameChanged -= Step_OnNameChanged;
-
-                _step = value;
-
-                if (_step != null)
-                    _step.OnNameChanged += Step_OnNameChanged;
-            }
-        }
+        public Step Step { get; set; }
         #endregion
 
         #region Members
-        private Step _step;
+
         #endregion
 
         public void Start()
         {
-            StepNameText.text = _step.Name;
+            IntructionNameText.text = Step.Name;
         }
         public void OnDestroy()
         {
-            if (Step != null)
-                Step.OnNameChanged -= Step_OnNameChanged;
         }
 
         public void SetSelectedAppearance(bool enable)
         {
-            StepButtonImage.color = enable ? Color.green : Color.white;
+            InstructionButtonImage.color = enable ? Color.green : Color.white;
         }
 
         #region Unity UI
@@ -66,7 +51,7 @@ namespace CollaborationEngine.UI.Steps
         }
         public void OnEditClick()
         {
-            var editTaskPanel = Instantiate(ObjectLocator.Instance.EditStepPanelPrefab);
+            var editTaskPanel = Instantiate(ObjectLocator.Instance.EditInstructionPanelPrefab);
             editTaskPanel.Step = Step;
         }
         public void OnDeleteClick()
@@ -79,7 +64,7 @@ namespace CollaborationEngine.UI.Steps
         #region Event Handlers
         private void Step_OnNameChanged(Step sender, EventArgs eventArgs)
         {
-            StepNameText.text = _step.Name;
+            IntructionNameText.text = Step.Name;
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using CollaborationEngine.Objects;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Tasks
@@ -109,6 +110,10 @@ namespace CollaborationEngine.Tasks
 
             if(OnUpdated != null)
                 OnUpdated(this, EventArgs.Empty);
+        }
+
+        public void AddInstruction(SceneObject instruction)
+        {
         }
 
         private static UInt32 GenerateID()

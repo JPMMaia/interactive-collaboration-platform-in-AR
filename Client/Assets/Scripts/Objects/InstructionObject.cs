@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace CollaborationEngine.Objects
 {
-    public class IndicationObject : SceneObject
+    public class InstructionObject : SceneObject
     {
         private static readonly Dictionary<IndicationType, String> Textures = new Dictionary<IndicationType, string>();
 
-        static IndicationObject()
+        static InstructionObject()
         {
             Textures.Add(IndicationType.Arrow, "Textures/Arrows/011-right-arrow");
             Textures.Add(IndicationType.RotateClockwise, "Textures/Arrows/007-refresh-button");
@@ -19,8 +19,8 @@ namespace CollaborationEngine.Objects
             Textures.Add(IndicationType.Hammer, "Textures/Tools/007-tool");
         }
 
-        public IndicationObject(Data networkData) : 
-            base(ObjectLocator.Instance.IndicationPrefab, networkData)
+        public InstructionObject() : 
+            base(ObjectLocator.Instance.IndicationPrefab, SceneObjectType.Indication)
         {
         }
 

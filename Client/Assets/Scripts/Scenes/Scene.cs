@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Timers;
 using CollaborationEngine.Objects;
-using CollaborationEngine.Network;
 using UnityEngine;
 
 namespace CollaborationEngine.Scenes
@@ -17,7 +14,7 @@ namespace CollaborationEngine.Scenes
         public delegate void OnSceneObjectAddedDelegate<TSceneObjectType>(Scene scene, SceneEventArgs<TSceneObjectType> eventArgs) where TSceneObjectType : SceneObject;
 
         public event OnSceneObjectAddedDelegate<RealObject> OnRealObjectAdded;
-        public event OnSceneObjectAddedDelegate<IndicationObject> OnIndicationObjectAdded;
+        public event OnSceneObjectAddedDelegate<InstructionObject> OnIndicationObjectAdded;
 
         public Scene(GameObject gameObject)
         {
@@ -25,39 +22,35 @@ namespace CollaborationEngine.Scenes
 
             GameObject = gameObject;
 
-            var clientController = ClientController.Instance;
-            clientController.OnSceneObjectDataAdded += ClientController_OnSceneObjectDataAdded;
-            clientController.OnSceneObjectDataRemoved += ClientController_OnSceneObjectDataRemoved;
-            clientController.OnSceneObjectDataUpdated += ClientController_OnSceneObjectDataUpdated;
 
             OnRealObjectAdded += Scene_OnSceneObjectAdded;
             OnIndicationObjectAdded += Scene_OnSceneObjectAdded;
         }
 
-        public void Add(SceneObject.Data sceneObjectData)
+        public void Add(SceneObject.Message sceneObjectData)
         {
             Debug.LogError("Add!");
 
-            if(sceneObjectData.ID == 0)
+            if(sceneObjectData.Data.ID == 0)
                 throw new Exception("Network Data ID must be different from 0!");
 
-            if (sceneObjectData.Type == SceneObjectType.Real)
+            if (sceneObjectData.Data.Type == SceneObjectType.Real)
             {
-                NotifyRealObjectAdded(new RealObject(sceneObjectData));
+                //NotifyRealObjectAdded(sceneObjectData.Data);
             }
-            else if (sceneObjectData.Type == SceneObjectType.Indication)
+            else if (sceneObjectData.Data.Type == SceneObjectType.Indication)
             {
-                NotifyIndicationObjectAdded(new IndicationObject(sceneObjectData));
+                //NoifyIndicationObjectAdded(new InstructionObject(sceneObjectData));
             }
         }
-        public void Remove(SceneObject.Data sceneObjectData)
+        public void Remove(SceneObject.Message sceneObjectData)
         {
             Debug.LogError("Remove!");
 
             lock (_sceneObjects)
             {
                 // Find object:
-                var index = _sceneObjects.FindIndex(element => element.ID == sceneObjectData.ID);
+                var index = _sceneObjects.FindIndex(element => element.ID == sceneObjectData.Data.ID);
 
                 // Destroy it:
                 var sceneObject = _sceneObjects[index];
@@ -94,7 +87,7 @@ namespace CollaborationEngine.Scenes
 
         public void SynchronizeScene()
         {
-            var dataToUpdate = new List<SceneObject.Data>();
+            /*var dataToUpdate = new List<SceneObject.Message>();
 
             lock (_sceneObjects)
             {
@@ -105,11 +98,11 @@ namespace CollaborationEngine.Scenes
                     );
             }
 
-            var data = new SceneObject.DataCollection
+            var data = new SceneObject.CollectionMessage
             {
                 DataEnumerable = dataToUpdate
             };
-            ClientController.Instance.UpdateSceneObjectData(data);
+            ClientController.Instance.UpdateSceneObjectData(data);*/
         }
 
         public GameObject GameObject { get; private set; }
@@ -119,10 +112,10 @@ namespace CollaborationEngine.Scenes
             if (OnRealObjectAdded != null)
                 OnRealObjectAdded(this, new SceneEventArgs<RealObject> { SceneObject = sceneObject });
         }
-        private void NotifyIndicationObjectAdded(IndicationObject sceneObject)
+        private void NotifyIndicationObjectAdded(InstructionObject sceneObject)
         {
             if (OnIndicationObjectAdded != null)
-                OnIndicationObjectAdded(this, new SceneEventArgs<IndicationObject> { SceneObject = sceneObject });
+                OnIndicationObjectAdded(this, new SceneEventArgs<InstructionObject> { SceneObject = sceneObject });
         }
 
         private void Scene_OnSceneObjectAdded<TSceneObjectType>(Scene scene, SceneEventArgs<TSceneObjectType> eventArgs) where TSceneObjectType : SceneObject
@@ -138,31 +131,7 @@ namespace CollaborationEngine.Scenes
                 _sceneObjects.Add(sceneObject);
             }
         }
-        private void ClientController_OnSceneObjectDataAdded(object sender, ClientController.NetworkEventArgs eventArgs)
-        {
-            foreach (var data in eventArgs.Data)
-            {
-                Add(data);
-            }
-        }
-        private void ClientController_OnSceneObjectDataRemoved(object sender, ClientController.NetworkEventArgs eventArgs)
-        {
-            foreach (var data in eventArgs.Data)
-            {
-                Remove(data);
-            }
-        }
-        private void ClientController_OnSceneObjectDataUpdated(object sender, ClientController.NetworkEventArgs eventArgs)
-        {
-            lock (_sceneObjects)
-            {
-                foreach (var sceneObjectData in eventArgs.Data)
-                {
-                    var index = _sceneObjects.FindIndex(e => e.ID == sceneObjectData.ID);
-                    _sceneObjects[index].UpdateTransform(sceneObjectData);
-                }
-            }
-        }
+
 
         private readonly List<SceneObject> _sceneObjects = new List<SceneObject>();
     }

@@ -1,104 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using CollaborationEngine.Objects;
-using CollaborationEngine.Tasks;
-using UnityEngine;
+﻿using CollaborationEngine.Tasks;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
 {
     public class ServerController : NetworkBehaviour
     {
-        public static short InitializeSceneDataOnClientHandle = MsgType.Highest + 1;
-        public static short AddSceneObjectDataOnServerHandle = MsgType.Highest + 2;
-        public static short AddSceneObjectDataOnClientHandle = MsgType.Highest + 3;
-        public static short RemoveSceneObjectDataOnServerHandle = MsgType.Highest + 4;
-        public static short RemoveSceneObjectDataOnClientHandle = MsgType.Highest + 5;
-        public static short UpdateSceneObjectDataOnServerHandle = MsgType.Highest + 6;
-        public static short UpdateSceneObjectDataOnClientHandle = MsgType.Highest + 7;
-
         public void Awake()
         {
-            NetworkServer.RegisterHandler(AddSceneObjectDataOnServerHandle, OnAddSceneObjectData);
-            NetworkServer.RegisterHandler(RemoveSceneObjectDataOnServerHandle, OnRemoveSceneObjectData);
-            NetworkServer.RegisterHandler(UpdateSceneObjectDataOnServerHandle, OnUpdateSceneObjectData);
-            NetworkServer.RegisterHandler(NetworkHandles.AddTaskOnServerHandle, OnAddTask);
-            NetworkServer.RegisterHandler(NetworkHandles.RemoveTaskOnServerHandle, OnRemoveTask);
-            NetworkServer.RegisterHandler(NetworkHandles.UpdateTaskOnServerHandle, OnUpdateTask);
-        }
-
-        public void OnServerConnect(NetworkConnection clientConnection)
-        {
-            Debug.LogError("Client connected!");
-
-            var data = new SceneObject.DataCollection
-            {
-                DataEnumerable = _sceneData
-            };
-            clientConnection.Send(InitializeSceneDataOnClientHandle, data);
+            NetworkServer.RegisterHandler(NetworkHandles.AddTaskHandle, OnAddTask);
+            NetworkServer.RegisterHandler(NetworkHandles.RemoveTaskHandle, OnRemoveTask);
+            NetworkServer.RegisterHandler(NetworkHandles.UpdateTaskHandle, OnUpdateTask);
         }
 
         private ServerController()
         {
         }
 
-        private void OnAddSceneObjectData(NetworkMessage networkMessage)
-        {
-            var data = networkMessage.ReadMessage<SceneObject.Data>();
-
-            // Assign a network ID to the entity:
-            data.ID = ++SceneObject.Data.SceneObjectCount;
-
-            lock (_sceneData)
-            {
-                _sceneData.Add(data);
-            }
-
-            // Send to all clients
-            NetworkServer.SendToAll(AddSceneObjectDataOnClientHandle, data);
-        }
-        private void OnRemoveSceneObjectData(NetworkMessage networkMessage)
-        {
-            var data = networkMessage.ReadMessage<SceneObject.Data>();
-
-            lock (_sceneData)
-            {
-                _sceneData.RemoveAll(sceneObject => sceneObject.ID == data.ID);
-            }
-
-            // Send to all clients
-            NetworkServer.SendToAll(RemoveSceneObjectDataOnClientHandle, data);
-        }
-        private void OnUpdateSceneObjectData(NetworkMessage networkMessage)
-        {
-            var data = networkMessage.ReadMessage<SceneObject.DataCollection>();
-            
-            lock (_sceneData)
-            {
-                foreach (var element in data.DataEnumerable)
-                {
-                    var index = _sceneData.FindIndex(e => e.ID == element.ID);
-                    _sceneData[index] = element;
-                }
-            }
-            
-            // Send to all clients
-            NetworkServer.SendToAll(UpdateSceneObjectDataOnClientHandle, data);
-        }
-
         private void OnAddTask(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.AddTaskOnClientHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+            NetworkServer.SendToAll(NetworkHandles.AddTaskHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
         }
         private void OnRemoveTask(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.RemoveTaskOnClientHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+            NetworkServer.SendToAll(NetworkHandles.RemoveTaskHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
         }
         private void OnUpdateTask(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.UpdateTaskOnClientHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+            NetworkServer.SendToAll(NetworkHandles.UpdateTaskHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
         }
-
-        private readonly List<SceneObject.Data> _sceneData = new List<SceneObject.Data>();
     }
 }

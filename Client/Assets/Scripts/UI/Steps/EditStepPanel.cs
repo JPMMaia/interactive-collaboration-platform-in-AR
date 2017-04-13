@@ -26,6 +26,7 @@ namespace CollaborationEngine.UI.Steps
             StepNameInputField.ActivateInputField();
         }
 
+        #region Unity UI Events
         public void OnOKClick()
         {
             if (Step != null)
@@ -39,5 +40,6 @@ namespace CollaborationEngine.UI.Steps
 
             Destroy(gameObject);
         }
+        #endregion
     }
 }
