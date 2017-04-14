@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.UI.Instructions;
+﻿using CollaborationEngine.UI.Generic;
+using CollaborationEngine.UI.Instructions;
 using CollaborationEngine.UI.Steps;
 using CollaborationEngine.UI.Tasks;
 using UnityEngine;
@@ -27,9 +28,9 @@ namespace CollaborationEngine.Objects
         public EditStepPanel EditStepPanelPrefab;
         public StepsPanel ServerStepsPanelPrefab;
         public StepsPanel ClientStepsPanelPrefab;
-        public EditInstructionPanel EditInstructionPanelPrefab;
 
         public RectTransform UICanvas;
+        public FixedPanel RightPanel;
 
         private static ObjectLocator _instance;
         public static ObjectLocator Instance

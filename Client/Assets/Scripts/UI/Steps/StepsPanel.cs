@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.UI.Instructions;
 using UnityEngine;
 
 namespace CollaborationEngine.UI.Steps
@@ -14,12 +15,12 @@ namespace CollaborationEngine.UI.Steps
 
         #region Unity Editor
         public StepItem StepItemPrefab;
+        public HierarchyPanel HierarchyPanelPrefab;
         public RectTransform Content;
         #endregion
 
         #region Properties
         public Task Task { get; set; }
-
         public StepItem SelectedStepItem
         {
             get
@@ -30,13 +31,20 @@ namespace CollaborationEngine.UI.Steps
             {
                 if (_selectedStepItem != value)
                 {
-                    if(_selectedStepItem != null)
+                    if (_selectedStepItem != null)
                         _selectedStepItem.SetSelectedAppearance(false);
 
                     _selectedStepItem = value;
 
                     if (_selectedStepItem != null)
+                    {
                         _selectedStepItem.SetSelectedAppearance(true);
+                        CreateHierarchyPanel(value.Step);
+                    }
+                    else
+                    {
+                        DestroyHierarchyPanel();
+                    }
                 }
             }
         }
@@ -46,6 +54,7 @@ namespace CollaborationEngine.UI.Steps
         private readonly List<StepItem> _stepsItems = new List<StepItem>();
         private StepItem _selectedStepItem;
         private float _stepButtonHeight;
+        private HierarchyPanel _hierarchyPanel;
         #endregion
 
         public void Start()
@@ -112,6 +121,24 @@ namespace CollaborationEngine.UI.Steps
         {
             DeleteStepItem(step);
             AddStepItem(step);
+        }
+
+        private void CreateHierarchyPanel(Step step)
+        {
+            DestroyHierarchyPanel();
+
+            _hierarchyPanel = Instantiate(HierarchyPanelPrefab);
+            _hierarchyPanel.Step = step;
+            ObjectLocator.Instance.RightPanel.Add(_hierarchyPanel.GetComponent<RectTransform>());
+        }
+        private void DestroyHierarchyPanel()
+        {
+            if (_hierarchyPanel == null)
+                return;
+
+            ObjectLocator.Instance.RightPanel.Remove(_hierarchyPanel.GetComponent<RectTransform>());
+            Destroy(_hierarchyPanel.gameObject);
+            _hierarchyPanel = null;
         }
 
         #region Unity UI Events

@@ -1,6 +1,7 @@
 ﻿using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.UI.Instructions;
 using CollaborationEngine.UI.Steps;
 using UnityEngine;
 
@@ -12,7 +13,6 @@ namespace CollaborationEngine.States.Server
         private readonly ServerCollaborationState _serverState;
         private readonly Task _task;
         private StepsPanel _stepPanel;
-        
         #endregion
 
         public StepState(ServerCollaborationState serverState, Task task)
@@ -33,13 +33,9 @@ namespace CollaborationEngine.States.Server
 
             {
                 _stepPanel = Object.Instantiate(ObjectLocator.Instance.ServerStepsPanelPrefab);
-                _stepPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
                 _stepPanel.Task = _task;
+                _stepPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
                 _stepPanel.OnStepItemClicked += StepPanel_OnStepItemClicked;
-            }
-
-            {
-
             }
         }
         public void Shutdown()

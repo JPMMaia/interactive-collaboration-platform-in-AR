@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CollaborationEngine.Objects;
 using UnityEngine.Networking;
 
@@ -27,16 +28,23 @@ namespace CollaborationEngine.Tasks
                 };
             }
         }
+        public class InstructionEventArgs : EventArgs
+        {
+            public SceneObject Instruction { get; set; }
+        }
         #endregion
 
         #region Delegate
         public delegate void StepEventDelegate(Step sender, EventArgs eventArgs);
+        public delegate void InstructionEventDelegate(Step sender, InstructionEventArgs eventArgs);
         #endregion
 
         #region Events
         public event StepEventDelegate OnOrderChanged;
         public event StepEventDelegate OnNameChanged;
         public event StepEventDelegate OnUpdated;
+        public event InstructionEventDelegate OnInstructionAdded;
+        public event InstructionEventDelegate OnInstructionRemoved;
         #endregion
 
         #region Properties
@@ -90,6 +98,7 @@ namespace CollaborationEngine.Tasks
         private UInt32 _taskId;
         private UInt32 _order;
         private string _name;
+        private readonly List<SceneObject> _instructions = new List<SceneObject>();
         #endregion
 
         private Step()
@@ -108,12 +117,33 @@ namespace CollaborationEngine.Tasks
             Order = step.Order;
             Name = step.Name;
 
-            if(OnUpdated != null)
+            if (OnUpdated != null)
                 OnUpdated(this, EventArgs.Empty);
         }
 
-        public void AddInstruction(SceneObject instruction)
+        public bool AddInstruction(SceneObject instruction)
         {
+            if (_instructions.Exists(element => element.ID == instruction.ID))
+                return false;
+
+            _instructions.Add(instruction);
+
+            if (OnInstructionAdded != null)
+                OnInstructionAdded(this, new InstructionEventArgs { Instruction = instruction });
+
+            return true;
+        }
+        public void RemoveInstruction(UInt32 instructionID)
+        {
+            var index = _instructions.FindIndex(element => element.ID == instructionID);
+            if (index == -1)
+                return;
+
+            var instruction = _instructions[index];
+            _instructions.RemoveAt(index);
+
+            if (OnInstructionRemoved != null)
+                OnInstructionRemoved(this, new InstructionEventArgs { Instruction = instruction });
         }
 
         private static UInt32 GenerateID()

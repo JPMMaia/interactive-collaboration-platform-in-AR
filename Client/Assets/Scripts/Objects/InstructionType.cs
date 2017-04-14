@@ -1,14 +1,14 @@
 ﻿namespace CollaborationEngine.Objects
 {
-    public enum IndicationType : uint
+    public enum InstructionType : uint
     {
-        None,
         Arrow,
         RotateClockwise,
         RotateCounterclockwise,
         Wrench,
         Axe,
         Screwer,
-        Hammer
+        Hammer,
+        Count
     }
 }

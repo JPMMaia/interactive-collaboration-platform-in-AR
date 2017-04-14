@@ -51,13 +51,13 @@ namespace CollaborationEngine.States
         }
 
         public Scene Scene { get; private set; }
-        public IndicationType SelectedIndicationType
+        public InstructionType SelectedInstructionType
         {
             get
             {
-                return _selectedIndicationType;
+                return _selectedInstructionType;
             }
-            set { _selectedIndicationType = value; }
+            set { _selectedInstructionType = value; }
         }
         public TaskManager TaskManager
         {
@@ -99,7 +99,7 @@ namespace CollaborationEngine.States
         }
 
         private IApplicationState _currentState;
-        private IndicationType _selectedIndicationType = IndicationType.None;
+        private InstructionType _selectedInstructionType = InstructionType.Arrow;
         private readonly Timer _synchronizationTimer = new Timer();
         private readonly TaskManager _taskManager = new TaskManager();
     }

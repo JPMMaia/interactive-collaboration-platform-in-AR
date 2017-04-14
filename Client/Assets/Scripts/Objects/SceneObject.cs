@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CollaborationEngine.Objects.Collision;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -64,11 +65,29 @@ namespace CollaborationEngine.Objects
         }
         #endregion
 
+        #region Delegates
+        public delegate void SceneObjectDelegate(SceneObject sender, EventArgs eventArgs);
+        #endregion
+
+        #region Events
+        public event SceneObjectDelegate OnNameChanged;
+        #endregion
+
         #region Properties
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
         public uint ID { get; private set; }
-        public String Name { get; set; }
+        public String Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+
+                if(OnNameChanged != null)
+                    OnNameChanged(this, EventArgs.Empty);
+            }
+        }
         public Vector3 Position
         {
             get { return _position; }
@@ -95,19 +114,28 @@ namespace CollaborationEngine.Objects
             }
         }
         public bool IsDirty { get; set; }
+        public InputColliderComponent<SceneObject> InputCollider { get; private set; }
         #endregion
 
         #region Members
+        private static uint _count;
         private readonly List<IComponent> _components = new List<IComponent>();
         private Vector3 _position = Vector3.zero;
         private Quaternion _rotation = Quaternion.identity;
         private Vector3 _scale = Vector3.one;
+        private string _name;
         #endregion
 
+        protected SceneObject()
+        {
+        }
         protected SceneObject(GameObject prefab, SceneObjectType type)
         {
+            ID = _count++;
             Prefab = prefab;
             Type = type;
+
+            InputCollider = new InputColliderComponent<SceneObject>(this);
         }
 
         public virtual GameObject Instantiate(Transform parent)

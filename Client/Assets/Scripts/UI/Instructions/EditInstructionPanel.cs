@@ -13,7 +13,6 @@ namespace CollaborationEngine.UI.Instructions
 
         #region Properties
         public Step Step { get; set; }
-        public IndicationType InstructionType { get; set; }
         public SceneObject Instruction { get; set; }
         #endregion
 
