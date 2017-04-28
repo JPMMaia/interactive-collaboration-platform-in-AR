@@ -1,5 +1,4 @@
-﻿using CollaborationEngine.Objects;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CollaborationEngine.Shaders
 {

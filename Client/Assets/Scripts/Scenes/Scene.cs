@@ -14,7 +14,7 @@ namespace CollaborationEngine.Scenes
         public delegate void OnSceneObjectAddedDelegate<TSceneObjectType>(Scene scene, SceneEventArgs<TSceneObjectType> eventArgs) where TSceneObjectType : SceneObject;
 
         public event OnSceneObjectAddedDelegate<RealObject> OnRealObjectAdded;
-        public event OnSceneObjectAddedDelegate<InstructionObject> OnIndicationObjectAdded;
+        public event OnSceneObjectAddedDelegate<TextureInstruction> OnIndicationObjectAdded;
 
         public Scene(GameObject gameObject)
         {
@@ -40,7 +40,7 @@ namespace CollaborationEngine.Scenes
             }
             else if (sceneObjectData.Data.Type == SceneObjectType.Indication)
             {
-                //NoifyIndicationObjectAdded(new InstructionObject(sceneObjectData));
+                //NoifyIndicationObjectAdded(new TextureInstructionObject(sceneObjectData));
             }
         }
         public void Remove(SceneObject.Message sceneObjectData)
@@ -112,10 +112,10 @@ namespace CollaborationEngine.Scenes
             if (OnRealObjectAdded != null)
                 OnRealObjectAdded(this, new SceneEventArgs<RealObject> { SceneObject = sceneObject });
         }
-        private void NotifyIndicationObjectAdded(InstructionObject sceneObject)
+        private void NotifyIndicationObjectAdded(TextureInstruction scene)
         {
             if (OnIndicationObjectAdded != null)
-                OnIndicationObjectAdded(this, new SceneEventArgs<InstructionObject> { SceneObject = sceneObject });
+                OnIndicationObjectAdded(this, new SceneEventArgs<TextureInstruction> { SceneObject = scene });
         }
 
         private void Scene_OnSceneObjectAdded<TSceneObjectType>(Scene scene, SceneEventArgs<TSceneObjectType> eventArgs) where TSceneObjectType : SceneObject

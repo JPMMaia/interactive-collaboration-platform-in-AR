@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.UI.Generic;
+﻿using CollaborationEngine.Objects.Prefabs;
+using CollaborationEngine.UI.Generic;
 using CollaborationEngine.UI.Instructions;
 using CollaborationEngine.UI.Steps;
 using CollaborationEngine.UI.Tasks;
@@ -28,6 +29,7 @@ namespace CollaborationEngine.Objects
         public EditStepPanel EditStepPanelPrefab;
         public StepsPanel ServerStepsPanelPrefab;
         public StepsPanel ClientStepsPanelPrefab;
+        public GameObject TextInstructionPrefab;
 
         public RectTransform UICanvas;
         public FixedPanel RightPanel;

@@ -34,7 +34,7 @@ namespace CollaborationEngine.UI.Instructions
             }
             else
             {
-                Step.AddInstruction(new InstructionObject());
+                Step.AddInstruction(new TextureInstruction());
             }
 
             Destroy(gameObject);

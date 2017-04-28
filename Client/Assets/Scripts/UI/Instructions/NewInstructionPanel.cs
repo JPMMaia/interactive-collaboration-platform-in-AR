@@ -53,11 +53,23 @@ namespace CollaborationEngine.UI.Instructions
             if (NameInputField.text.Length == 0 || SelectedInstructionType == null)
                 return;
 
-            var instruction = new InstructionObject
+            SceneObject instruction;
+            if (SelectedInstructionType.Type == InstructionType.Text)
             {
-                InstructionType = SelectedInstructionType.Type,
-                Name = NameInputField.text
-            };
+                instruction = new TextInstruction
+                {
+                    Name = NameInputField.text
+                };
+            }
+            else
+            {
+                instruction = new TextureInstruction
+                {
+                    InstructionType = SelectedInstructionType.Type,
+                    Name = NameInputField.text
+                };
+            }
+
             Step.AddInstruction(instruction);
 
             Destroy(gameObject);

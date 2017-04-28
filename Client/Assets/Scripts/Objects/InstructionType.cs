@@ -2,6 +2,7 @@
 {
     public enum InstructionType : uint
     {
+        Text,
         Arrow,
         RotateClockwise,
         RotateCounterclockwise,

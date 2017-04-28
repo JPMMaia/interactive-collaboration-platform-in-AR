@@ -10,7 +10,7 @@ namespace CollaborationEngine.States
 {
     public class ServerCollaborationState : IApplicationState
     {
-        public event InputColliderComponent<InstructionObject>.InputEvent OnIndicationObjectClicked;
+        public event InputColliderComponent<TextureInstruction>.InputEvent OnIndicationObjectClicked;
 
         public void Initialize()
         {
@@ -81,14 +81,14 @@ namespace CollaborationEngine.States
             }
         }
 
-        private void Scene_OnIndicationObjectAdded(Scene scene, Scene.SceneEventArgs<InstructionObject> eventArgs)
+        private void Scene_OnIndicationObjectAdded(Scene scene, Scene.SceneEventArgs<TextureInstruction> eventArgs)
         {
             var sceneObject = eventArgs.SceneObject;
 
-            var inputCollider = new InputColliderComponent<InstructionObject>(sceneObject);
+            var inputCollider = new InputColliderComponent<TextureInstruction>(sceneObject);
             inputCollider.OnPressed += InputCollider_OnPressed;
         }
-        private void InputCollider_OnPressed(InputColliderComponent<InstructionObject> sender, EventArgs eventArgs)
+        private void InputCollider_OnPressed(InputColliderComponent<TextureInstruction> sender, EventArgs eventArgs)
         {
             if (OnIndicationObjectClicked != null)
                 OnIndicationObjectClicked(sender, eventArgs);

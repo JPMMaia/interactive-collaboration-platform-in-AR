@@ -12,6 +12,7 @@ namespace CollaborationEngine.UI.Instructions
         public HierarchyItem HierarchyItemPrefab;
         public NewInstructionPanel NewInstructionPanelPrefab;
         public InspectorPanel InspectorPanelPrefab;
+        public TextInspectorPanel TextInspectorPanelPrefab;
         public VerticalPanel Container;
         #endregion
 
@@ -47,7 +48,7 @@ namespace CollaborationEngine.UI.Instructions
         #region Members
         private readonly List<HierarchyItem> _items = new List<HierarchyItem>();
         private HierarchyItem _selectedHierarchyItem;
-        private InspectorPanel _inspectorPanel;
+        private GameObject _inspectorPanel;
         #endregion
 
         public void Start()
@@ -60,7 +61,17 @@ namespace CollaborationEngine.UI.Instructions
         {
             DestroyInspectorPanel();
 
-            _inspectorPanel = Instantiate(InspectorPanelPrefab);
+            if (SelectedHierarchyItem.Instruction is TextInstruction)
+            {
+                var panel = Instantiate(TextInspectorPanelPrefab);
+                panel.TextInstruction = (TextInstruction) SelectedHierarchyItem.Instruction;
+                _inspectorPanel = panel.gameObject;
+            }
+            else
+            {
+                _inspectorPanel = Instantiate(InspectorPanelPrefab).gameObject;
+            }
+
             ObjectLocator.Instance.RightPanel.Add(_inspectorPanel.GetComponent<RectTransform>());
         }
         private void DestroyInspectorPanel()
@@ -69,7 +80,7 @@ namespace CollaborationEngine.UI.Instructions
                 return;
 
             ObjectLocator.Instance.RightPanel.Remove(_inspectorPanel.GetComponent<RectTransform>());
-            Destroy(_inspectorPanel.gameObject);
+            Destroy(_inspectorPanel);
             _inspectorPanel = null;
         }
 
