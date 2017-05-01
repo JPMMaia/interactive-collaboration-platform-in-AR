@@ -55,6 +55,8 @@ namespace CollaborationEngine.UI.Instructions
         {
             Step.OnInstructionAdded += Step_OnInstructionAdded;
             Step.OnInstructionRemoved += Step_OnInstructionRemoved;
+
+            ObjectLocator.Instance.HintText.SetText("Create, delete or select an instruction.");
         }
 
         private void CreateInspectorPanel()

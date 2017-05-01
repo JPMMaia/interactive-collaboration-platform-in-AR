@@ -34,6 +34,8 @@ namespace CollaborationEngine.UI.Instructions
 
         #region Members
         private InstructionTypeItem _selectedInstructionType;
+        private bool _okClicked;
+        private bool _instructionInstantiated;
         #endregion
 
         public void Start()
@@ -45,13 +47,33 @@ namespace CollaborationEngine.UI.Instructions
                 instructionTypeItem.OnPressed += InstructionTypeItem_OnPressed;
                 InstructionTypeItemsContainer.Add(instructionTypeItem.GetComponent<RectTransform>());
             }
+
+            foreach (var group in ObjectLocator.Instance.UICanvas.GetComponentsInChildren<CanvasGroup>())
+                group.interactable = false;
+            GetComponent<CanvasGroup>().interactable = true;
+
+            ObjectLocator.Instance.HintText.Enable(false);
         }
 
-        #region Unity UI Event Handlers
-        public void OnOKClicked()
+        public void Update()
         {
-            if (NameInputField.text.Length == 0 || SelectedInstructionType == null)
+            if (!_okClicked || _instructionInstantiated)
                 return;
+
+            if (!Input.GetKeyDown(KeyCode.Mouse0))
+                return;
+
+            var mainCamera = ObjectLocator.Instance.MainCamera;
+            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hitInfo;
+            if (!Physics.Raycast(ray, out hitInfo))
+                return;
+
+            var worldPosition = hitInfo.point;
+            var root = ObjectLocator.Instance.SceneRoot;
+            var worldToLocalMatrix = root.transform.worldToLocalMatrix;
+            var localPosition = 0.1f * hitInfo.normal + worldToLocalMatrix.MultiplyPoint(worldPosition);
 
             SceneObject instruction;
             if (SelectedInstructionType.Type == InstructionType.Text)
@@ -70,17 +92,48 @@ namespace CollaborationEngine.UI.Instructions
                 };
             }
 
+            instruction.Position = localPosition;
+            instruction.Rotation = Quaternion.FromToRotation(Vector3.forward, -hitInfo.normal);
+            instruction.Scale = Vector3.one;
+
             Step.AddInstruction(instruction);
+
+            _instructionInstantiated = true;
+
+            foreach (var group in ObjectLocator.Instance.UICanvas.GetComponentsInChildren<CanvasGroup>())
+                group.interactable = true;
+
+            ObjectLocator.Instance.HintText.Enable(false);
 
             Destroy(gameObject);
         }
+
+        #region Unity UI Event Handlers
+
+        public void OnOKClicked()
+        {
+            if (NameInputField.text.Length == 0 || SelectedInstructionType == null)
+                return;
+
+            GetComponent<CanvasRenderer>().cull = true;
+            foreach (var canvasRenderer in GetComponentsInChildren<CanvasRenderer>())
+                canvasRenderer.cull = true;
+
+            _okClicked = true;
+
+            ObjectLocator.Instance.HintText.Enable(true);
+            ObjectLocator.Instance.HintText.SetText("Click on a surface to create instruction.");
+        }
+
         #endregion
 
         #region Event Handlers
+
         private void InstructionTypeItem_OnPressed(InstructionTypeItem sender, EventArgs eventArgs)
         {
             SelectedInstructionType = sender;
         }
+
         #endregion
     }
 }

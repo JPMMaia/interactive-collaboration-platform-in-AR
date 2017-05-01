@@ -67,6 +67,8 @@ namespace CollaborationEngine.UI.Steps
             Task.OnStepAdded += Task_OnStepAdded;
             Task.OnStepDeleted += Task_OnStepDeleted;
             Task.OnStepUpdated += Task_OnStepUpdated;
+
+            ObjectLocator.Instance.HintText.SetText("Create, delete or select a step.");
         }
         public void OnDestroy()
         {

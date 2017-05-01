@@ -35,6 +35,8 @@ namespace CollaborationEngine.UI.Tasks
 
             TaskManager.OnTaskAdded += TaskManager_OnTaskAdded;
             TaskManager.OnTaskRemoved += TaskManager_OnTaskRemoved;
+
+            ObjectLocator.Instance.HintText.SetText("Create, delete or select a task.");
         }
         public void OnDestroy()
         {

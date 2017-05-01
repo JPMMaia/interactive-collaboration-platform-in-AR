@@ -1,6 +1,5 @@
-﻿using CollaborationEngine.Objects.Prefabs;
-using CollaborationEngine.UI.Generic;
-using CollaborationEngine.UI.Instructions;
+﻿using CollaborationEngine.UI.Generic;
+using CollaborationEngine.UI.Hint;
 using CollaborationEngine.UI.Steps;
 using CollaborationEngine.UI.Tasks;
 using UnityEngine;
@@ -32,6 +31,7 @@ namespace CollaborationEngine.Objects
         public GameObject TextInstructionPrefab;
 
         public RectTransform UICanvas;
+        public HintText HintText;
         public FixedPanel RightPanel;
 
         private static ObjectLocator _instance;

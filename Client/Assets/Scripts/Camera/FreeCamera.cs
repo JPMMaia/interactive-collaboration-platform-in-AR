@@ -42,6 +42,10 @@ namespace CollaborationEngine.Camera
 
         public void Update()
         {
+            // If using UI:
+            if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                return;
+
             var movementSensibility = MovementSensibility;
             if (Input.GetKey(KeyCode.W))
                 MoveForward(movementSensibility);
