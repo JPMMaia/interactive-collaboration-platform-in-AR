@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CollaborationEngine.Objects;
 using CollaborationEngine.RuntimeGizmo.Helpers;
 using CollaborationEngine.RuntimeGizmo.Objects;
 using UnityEngine;
 
 namespace CollaborationEngine.RuntimeGizmo
 {
-    [RequireComponent(typeof(UnityEngine.Camera))]
     public class TransformGizmo : MonoBehaviour
     {
         public TransformSpace space = TransformSpace.Global;
@@ -46,7 +46,14 @@ namespace CollaborationEngine.RuntimeGizmo
         Axis selectedAxis = Axis.None;
         AxisInfo axisInfo;
         Transform _target;
-        UnityEngine.Camera myCamera;
+
+        private UnityEngine.Camera MyCamera
+        {
+            get { return ObjectLocator.Instance.CameraManager.SelectedCamera.UnityCamera; }
+            set
+            {    
+            }
+        }
 
         static Material lineMaterial;
 
@@ -73,7 +80,6 @@ namespace CollaborationEngine.RuntimeGizmo
 
         void Awake()
         {
-            myCamera = GetComponent<UnityEngine.Camera>();
             SetMaterial();
         }
 
@@ -175,7 +181,7 @@ namespace CollaborationEngine.RuntimeGizmo
 
             while (!Input.GetMouseButtonUp(0))
             {
-                Ray mouseRay = myCamera.ScreenPointToRay(Input.mousePosition);
+                Ray mouseRay = MyCamera.ScreenPointToRay(Input.mousePosition);
                 Vector3 mousePosition = Geometry.LinePlaneIntersect(mouseRay.origin, mouseRay.direction, originalTargetPosition, planeNormal);
 
                 if (previousMousePosition != Vector3.zero && mousePosition != Vector3.zero)
@@ -245,7 +251,7 @@ namespace CollaborationEngine.RuntimeGizmo
             if (selectedAxis == Axis.None && Input.GetMouseButtonDown(0))
             {
                 RaycastHit hitInfo;
-                if (Physics.Raycast(myCamera.ScreenPointToRay(Input.mousePosition), out hitInfo))
+                if (Physics.Raycast(MyCamera.ScreenPointToRay(Input.mousePosition), out hitInfo))
                 {
                     _target = hitInfo.transform;
                 }
@@ -294,7 +300,7 @@ namespace CollaborationEngine.RuntimeGizmo
             else if (zClosestDistance <= minSelectedDistanceCheck && zClosestDistance <= xClosestDistance && zClosestDistance <= yClosestDistance) selectedAxis = Axis.Z;
             else if (type == TransformType.Rotate && _target != null)
             {
-                Ray mouseRay = myCamera.ScreenPointToRay(Input.mousePosition);
+                Ray mouseRay = MyCamera.ScreenPointToRay(Input.mousePosition);
                 Vector3 mousePlaneHit = Geometry.LinePlaneIntersect(mouseRay.origin, mouseRay.direction, _target.position, (transform.position - _target.position).normalized);
                 if ((_target.position - mousePlaneHit).sqrMagnitude <= (handleLength * GetDistanceMultiplier()).Squared()) selectedAxis = Axis.Any;
             }
@@ -302,7 +308,7 @@ namespace CollaborationEngine.RuntimeGizmo
 
         float ClosestDistanceFromMouseToLines(List<Vector3> lines)
         {
-            Ray mouseRay = myCamera.ScreenPointToRay(Input.mousePosition);
+            Ray mouseRay = MyCamera.ScreenPointToRay(Input.mousePosition);
 
             float closestDistance = float.MaxValue;
             for (int i = 0; i < lines.Count; i += 2)
@@ -335,7 +341,7 @@ namespace CollaborationEngine.RuntimeGizmo
         float GetDistanceMultiplier()
         {
             if (_target == null) return 0f;
-            return Mathf.Max(.01f, Mathf.Abs(ExtVector3.MagnitudeInDirection(_target.position - transform.position, myCamera.transform.forward)));
+            return Mathf.Max(.01f, Mathf.Abs(ExtVector3.MagnitudeInDirection(_target.position - transform.position, MyCamera.transform.forward)));
         }
 
         void SetLines()

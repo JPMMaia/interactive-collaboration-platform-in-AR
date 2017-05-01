@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.UI.Generic;
+﻿using CollaborationEngine.Camera;
+using CollaborationEngine.UI.Generic;
 using CollaborationEngine.UI.Hint;
 using CollaborationEngine.UI.Steps;
 using CollaborationEngine.UI.Tasks;
@@ -33,6 +34,7 @@ namespace CollaborationEngine.Objects
         public RectTransform UICanvas;
         public HintText HintText;
         public FixedPanel RightPanel;
+        public CameraManager CameraManager;
 
         private static ObjectLocator _instance;
         public static ObjectLocator Instance

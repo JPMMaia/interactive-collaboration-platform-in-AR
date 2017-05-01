@@ -3,12 +3,16 @@
 namespace CollaborationEngine.Camera
 {
     [AddComponentMenu("Camera-Control/Free Camera")]
-    public class FreeCamera : MonoBehaviour
+    [RequireComponent(typeof(UnityEngine.Camera))]
+    public class FreeCamera : MonoBehaviour, ICamera
     {
+        #region Unity Editor
         public float MovementSensibility = 0.1f;
         public float RotationSensibility = 1.0f;
         public float MouseSensibility = 10.0f;
+        #endregion
 
+        #region Properties
         public Vector3 LocalRight
         {
             get
@@ -25,15 +29,28 @@ namespace CollaborationEngine.Camera
                 return new Vector3(localForward.x, localForward.y, localForward.z);
             }
         }
+        public bool Selected { get; set; }
+        public UnityEngine.Camera UnityCamera
+        {
+            get { return GetComponent<UnityEngine.Camera>(); }
+            set
+            {
+            }
+        }
+        #endregion
 
+        #region Members
         private Transform _transform;
         private Vector3 _position;
         private Quaternion _rotationQuaternion;
         private Matrix4x4 _rotationMatrix;
         private bool _dirty;
+        #endregion
 
         public void Awake()
         {
+            gameObject.SetActive(false);
+
             _transform = GetComponent<Transform>();
             _position = _transform.position;
             _rotationQuaternion = _transform.rotation;
@@ -44,6 +61,9 @@ namespace CollaborationEngine.Camera
         {
             // If using UI:
             if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            if (!Selected)
                 return;
 
             var movementSensibility = MovementSensibility;
