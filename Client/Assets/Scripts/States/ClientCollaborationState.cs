@@ -9,7 +9,7 @@ namespace CollaborationEngine.States
     {
         public void Initialize()
         {
-            _currentState = new SelectTaskState(this);
+            _currentState = new WaitForStepState(this);
             _currentState.Initialize();
 
             ObjectLocator.Instance.ClientRoot.SetActive(true);

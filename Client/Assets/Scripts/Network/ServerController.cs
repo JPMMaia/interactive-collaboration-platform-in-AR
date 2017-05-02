@@ -1,4 +1,5 @@
 ﻿using CollaborationEngine.Tasks;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network

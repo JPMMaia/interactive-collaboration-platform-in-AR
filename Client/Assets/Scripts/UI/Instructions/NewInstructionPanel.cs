@@ -63,8 +63,8 @@ namespace CollaborationEngine.UI.Instructions
             if (!Input.GetKeyDown(KeyCode.Mouse0))
                 return;
 
-            var mainCamera = ObjectLocator.Instance.MainCamera;
-            var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            var selectedCamera = ObjectLocator.Instance.CameraManager.SelectedCamera.UnityCamera;
+            var ray = selectedCamera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
             if (!Physics.Raycast(ray, out hitInfo))

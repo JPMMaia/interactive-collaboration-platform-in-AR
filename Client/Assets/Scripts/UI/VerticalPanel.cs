@@ -7,6 +7,23 @@ namespace CollaborationEngine.UI
     [RequireComponent(typeof(VerticalLayoutGroup))]
     public class VerticalPanel : MonoBehaviour
     {
+        #region Properties
+        public int ChildCount
+        {
+            get { return Transform.childCount; }
+        }
+        private RectTransform Transform
+        {
+            get
+            {
+                if (_transform == null)
+                    _transform = GetComponent<RectTransform>();
+
+                return _transform;
+            }
+        }
+        #endregion
+
         #region Members
         private RectTransform _transform;
         #endregion
@@ -16,27 +33,24 @@ namespace CollaborationEngine.UI
             var verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
             verticalLayoutGroup.childControlWidth = true;
             verticalLayoutGroup.childControlHeight = true;
-
-            _transform = GetComponent<RectTransform>();
-            _transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0.0f);
         }
 
         public void Add(RectTransform item)
         {
             // Calculate new height of contentor:
-            var newHeight = _transform.rect.height + item.rect.height;
+            var newHeight = Transform.rect.height + item.rect.height;
 
             // Allocate space for new element:
-            _transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newHeight);
+            Transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, newHeight);
 
             // Set item as child:
-            item.transform.SetParent(_transform, false);
+            item.transform.SetParent(Transform, false);
         }
         public void Remove(RectTransform item)
         {
             item.SetParent(null);
 
-            _transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _transform.rect.height - item.rect.height);
+            Transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Transform.rect.height - item.rect.height);
         }
     }
 }
