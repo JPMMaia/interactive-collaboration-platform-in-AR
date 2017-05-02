@@ -56,7 +56,18 @@ namespace CollaborationEngine.UI.Instructions
             Step.OnInstructionAdded += Step_OnInstructionAdded;
             Step.OnInstructionRemoved += Step_OnInstructionRemoved;
 
+            foreach (var instruction in Step.Instructions)
+                AddInstructionItem(instruction);
+
             ObjectLocator.Instance.HintText.SetText("Create, delete or select an instruction.");
+        }
+        public void OnDestroy()
+        {
+            foreach (var instruction in Step.Instructions)
+                RemoveInstructionItem(instruction);
+
+            Step.OnInstructionRemoved -= Step_OnInstructionRemoved;
+            Step.OnInstructionAdded -= Step_OnInstructionAdded;
         }
 
         private void CreateInspectorPanel()
@@ -86,29 +97,19 @@ namespace CollaborationEngine.UI.Instructions
             _inspectorPanel = null;
         }
 
-        #region Unity UI Event Handlers
-        public void OnNewInstructionButtonClick()
-        {
-            var panel = Instantiate(NewInstructionPanelPrefab);
-            panel.Step = Step;
-            panel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
-        }
-        #endregion
-
-        #region Event Handlers
-        private void Step_OnInstructionAdded(Step sender, Step.InstructionEventArgs eventArgs)
+        private void AddInstructionItem(SceneObject instruction)
         {
             var item = Instantiate(HierarchyItemPrefab);
             item.Step = Step;
-            item.Instruction = eventArgs.Instruction;
+            item.Instruction = instruction;
             item.OnClicked += Item_OnClicked;
 
             _items.Add(item);
             Container.Add(item.RectTransform);
         }
-        private void Step_OnInstructionRemoved(Step sender, Step.InstructionEventArgs eventArgs)
+        private void RemoveInstructionItem(SceneObject instruction)
         {
-            var index = _items.FindIndex(element => element.Instruction.ID == eventArgs.Instruction.ID);
+            var index = _items.FindIndex(element => element.Instruction.ID == instruction.ID);
             if (index == -1)
                 return;
 
@@ -122,6 +123,25 @@ namespace CollaborationEngine.UI.Instructions
 
             item.OnClicked -= Item_OnClicked;
             Destroy(item.gameObject);
+        }
+
+        #region Unity UI Event Handlers
+        public void OnNewInstructionButtonClick()
+        {
+            var panel = Instantiate(NewInstructionPanelPrefab);
+            panel.Step = Step;
+            panel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
+        }
+        #endregion
+
+        #region Event Handlers
+        private void Step_OnInstructionAdded(Step sender, Step.InstructionEventArgs eventArgs)
+        {
+            AddInstructionItem(eventArgs.Instruction);
+        }
+        private void Step_OnInstructionRemoved(Step sender, Step.InstructionEventArgs eventArgs)
+        {
+            RemoveInstructionItem(eventArgs.Instruction);
         }
 
         private void Item_OnClicked(HierarchyItem sender, System.EventArgs eventArgs)

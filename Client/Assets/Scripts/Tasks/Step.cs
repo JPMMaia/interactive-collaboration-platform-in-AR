@@ -90,6 +90,10 @@ namespace CollaborationEngine.Tasks
                     OnNameChanged(this, EventArgs.Empty);
             }
         }
+        public List<SceneObject> Instructions
+        {
+            get { return _instructions; }
+        }
         #endregion
 
         #region Members

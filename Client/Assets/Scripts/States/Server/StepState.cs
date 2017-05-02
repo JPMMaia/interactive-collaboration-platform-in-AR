@@ -24,16 +24,9 @@ namespace CollaborationEngine.States.Server
             Debug.Log("Initialize StepState");
 
             {
-                _task.OnStepAdded += Task_OnStepAdded;
-                _task.OnStepDeleted += Task_OnStepDeleted;
-                _task.OnStepUpdated += Task_OnStepUpdated;
-            }
-
-            {
                 _stepPanel = Object.Instantiate(ObjectLocator.Instance.ServerStepsPanelPrefab);
                 _stepPanel.Task = _task;
                 ObjectLocator.Instance.LeftPanel.Add(_stepPanel.GetComponent<RectTransform>());
-                _stepPanel.OnStepItemClicked += StepPanel_OnStepItemClicked;
             }
 
             {
@@ -46,18 +39,11 @@ namespace CollaborationEngine.States.Server
         {
             Debug.Log("Shutdown StepState");
 
-
-
             if (_stepPanel)
             {
-                _stepPanel.OnStepItemClicked += StepPanel_OnStepItemClicked;
                 Object.Destroy(_stepPanel.gameObject);
                 _stepPanel = null;
             }
-
-            _task.OnStepUpdated -= Task_OnStepUpdated;
-            _task.OnStepDeleted -= Task_OnStepDeleted;
-            _task.OnStepAdded -= Task_OnStepAdded;
         }
 
         public void FixedUpdate()
@@ -66,25 +52,5 @@ namespace CollaborationEngine.States.Server
         public void FrameUpdate()
         {
         }
-
-        #region EventHandlers
-        private void Task_OnStepAdded(Task sender, Task.StepEventArgs eventArgs)
-        {
-
-        }
-        private void Task_OnStepDeleted(Task sender, Task.StepEventArgs eventArgs)
-        {
-
-        }
-        private void Task_OnStepUpdated(Task sender, Task.StepEventArgs eventArgs)
-        {
-
-        }
-
-        private void StepPanel_OnStepItemClicked(StepItem sender, System.EventArgs eventArgs)
-        {
-            // TODO next state
-        }
-        #endregion
     }
 }

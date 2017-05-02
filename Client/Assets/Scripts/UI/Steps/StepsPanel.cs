@@ -16,6 +16,7 @@ namespace CollaborationEngine.UI.Steps
         #region Unity Editor
         public StepItem StepItemPrefab;
         public HierarchyPanel HierarchyPanelPrefab;
+        public PresentStepPanel PresentStepPanelPrefab;
         public RectTransform Content;
         #endregion
 
@@ -32,19 +33,24 @@ namespace CollaborationEngine.UI.Steps
                 if (_selectedStepItem != value)
                 {
                     if (_selectedStepItem != null)
+                    {
                         _selectedStepItem.SetSelectedAppearance(false);
-
+                        DestroyPresentStepPanel();
+                        DestroyHierarchyPanel();
+                    }
+                        
                     _selectedStepItem = value;
 
                     if (_selectedStepItem != null)
                     {
                         _selectedStepItem.SetSelectedAppearance(true);
                         CreateHierarchyPanel(value.Step);
+                        CreatePresentStepPanel(value.Step);
                     }
-                    else
-                    {
-                        DestroyHierarchyPanel();
-                    }
+                }
+                else if(value != null)
+                {
+                    SelectedStepItem = null;
                 }
             }
         }
@@ -55,6 +61,7 @@ namespace CollaborationEngine.UI.Steps
         private StepItem _selectedStepItem;
         private float _stepButtonHeight;
         private HierarchyPanel _hierarchyPanel;
+        private PresentStepPanel _presentStepPanel;
         #endregion
 
         public void Start()
@@ -141,6 +148,21 @@ namespace CollaborationEngine.UI.Steps
             ObjectLocator.Instance.RightPanel.Remove(_hierarchyPanel.GetComponent<RectTransform>());
             Destroy(_hierarchyPanel.gameObject);
             _hierarchyPanel = null;
+        }
+
+        private void CreatePresentStepPanel(Step step)
+        {
+            _presentStepPanel = Instantiate(PresentStepPanelPrefab);
+            _presentStepPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
+            _presentStepPanel.Step = step;
+        }
+        private void DestroyPresentStepPanel()
+        {
+            if (_presentStepPanel == null)
+                return;
+
+            Destroy(_presentStepPanel.gameObject);
+            _presentStepPanel = null;
         }
 
         #region Unity UI Events

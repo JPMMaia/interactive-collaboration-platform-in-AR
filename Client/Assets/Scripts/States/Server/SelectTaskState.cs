@@ -23,6 +23,7 @@ namespace CollaborationEngine.States.Server
         {
             Debug.Log("Initialize SelectTaskState");
 
+            // TODO remove
             _serverState.TaskManager.OnTaskAdded += TaskManager_OnTaskAdded;
             _serverState.TaskManager.OnTaskRemoved += TaskManager_OnTaskRemoved;
             _serverState.TaskManager.OnTaskUpdated += TaskManager_OnTaskUpdated;
