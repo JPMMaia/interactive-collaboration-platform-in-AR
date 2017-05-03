@@ -21,12 +21,9 @@ namespace CollaborationEngine.Objects
         }
 
         #region Properties
-        public override SceneObjectType Type
+        public override Type Type
         {
-            get
-            {
-                return SceneObjectType.Texture;
-            }
+            get { return typeof(TextureInstruction); }
         }
         #endregion
 

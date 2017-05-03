@@ -18,7 +18,7 @@ namespace CollaborationEngine.Objects
         #endregion
 
         #region Properties
-        public abstract SceneObjectType Type { get; }
+        public abstract Type Type { get; }
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
         public bool IsInstanced { get; private set; }
@@ -167,7 +167,7 @@ namespace CollaborationEngine.Objects
 
         public virtual void Serialize(NetworkWriter writer)
         {
-            writer.WritePackedUInt32((UInt32)Type);
+            writer.Write(Type.FullName);
             writer.WritePackedUInt32(ID);
             writer.Write(Name);
             writer.Write(Position);
@@ -183,21 +183,29 @@ namespace CollaborationEngine.Objects
             Scale = reader.ReadVector3();
         }
 
-        public static SceneObject FromNetworkReader(NetworkReader reader)
+        public class SceneObjectMessage : MessageBase
         {
-            var type = (SceneObjectType)reader.ReadPackedUInt32();
+            public SceneObject Data { get; set; }
 
-            SceneObject sceneObject;
-            if (type == SceneObjectType.Texture)
-                sceneObject = new TextureInstruction();
-            else if (type == SceneObjectType.Text)
-                sceneObject = new TextInstruction();
-            else
-                throw new Exception("Expected known type.");
+            public override void Serialize(NetworkWriter writer)
+            {
+                Data.Serialize(writer);
+            }
+            public override void Deserialize(NetworkReader reader)
+            {
+                var type = Type.GetType(reader.ReadString());
+                if (type == null)
+                    throw new Exception("Unexpected type.");
 
-            sceneObject.Deserialize(reader);
+                Data = (SceneObject)Activator.CreateInstance(type);
 
-            return sceneObject;
+                Data.Deserialize(reader);
+            }
+        }
+        public SceneObjectMessage ToNetworkMessage()
+        {
+            var sceneObject = (SceneObject)Activator.CreateInstance(Type);
+            return new SceneObjectMessage { Data = sceneObject };
         }
     }
 }

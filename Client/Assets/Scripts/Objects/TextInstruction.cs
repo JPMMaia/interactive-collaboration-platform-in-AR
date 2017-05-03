@@ -9,12 +9,9 @@ namespace CollaborationEngine.Objects
     {
         #region Properties
 
-        public override SceneObjectType Type
+        public override Type Type
         {
-            get
-            {
-                return SceneObjectType.Text;
-            }
+            get { return typeof(TextInstruction); }
         }
         public String Text
         {

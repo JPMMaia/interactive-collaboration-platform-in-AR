@@ -22,9 +22,10 @@ namespace CollaborationEngine.States.Client
         {
             var networkManager = NetworkManager.singleton.client;
             networkManager.RegisterHandler(NetworkHandles.PresentStep, OnChangeStep);
+            networkManager.RegisterHandler(NetworkHandles.AddInstruction, OnAddInstruction);
+            networkManager.RegisterHandler(NetworkHandles.RemoveInstruction, OnRemoveInstruction);
+            networkManager.RegisterHandler(NetworkHandles.UpdateInstruction, OnUpdateInstruction);
 
-            // TODO subscribe to instructions changes: addition, deletion and updates
-            
             // Instantiate instructions:
             foreach (var instruction in _step.Instructions)
                 instruction.Instantiate(ObjectLocator.Instance.SceneRoot.transform);
@@ -34,6 +35,9 @@ namespace CollaborationEngine.States.Client
         public void Shutdown()
         {
             var networkManager = NetworkManager.singleton.client;
+            networkManager.UnregisterHandler(NetworkHandles.UpdateInstruction);
+            networkManager.UnregisterHandler(NetworkHandles.RemoveInstruction);
+            networkManager.UnregisterHandler(NetworkHandles.AddInstruction);
             networkManager.UnregisterHandler(NetworkHandles.PresentStep);
         }
 
@@ -48,6 +52,16 @@ namespace CollaborationEngine.States.Client
         {
             var message = networkMessage.ReadMessage<GenericNetworkMessage<Step>>();
             _clientState.CurrentState = new StepState(_clientState, message.Data);
+        }
+        private void OnAddInstruction(NetworkMessage networkMessage)
+        {
+
+        }
+        private void OnRemoveInstruction(NetworkMessage networkMessage)
+        {
+        }
+        private void OnUpdateInstruction(NetworkMessage networkMessage)
+        {   
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.UI.Instructions
@@ -104,6 +106,10 @@ namespace CollaborationEngine.UI.Instructions
                 group.interactable = true;
 
             ObjectLocator.Instance.HintText.Enable(false);
+
+            // Send new instruction:
+            var networkClient = NetworkManager.singleton.client;
+            networkClient.Send(NetworkHandles.AddInstruction, instruction.ToNetworkMessage());
 
             Destroy(gameObject);
         }
