@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" dslVersion="1.0.0.0" Id="be193a60-becf-45a7-b24a-50e9490c3bdc" name="Use Cases" linkedPackageId="c28e2f2b-3877-4759-9a2d-b149747740db" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="abbb786f-1c72-4a85-94e0-92770d9d3ef4" name="Mentor" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b2e7edf7-0aad-41b7-b917-56893aec8a98" />
+        <targetEnds>
+          <association Id="682e46dc-2f9f-4fdc-b5ed-09b2b2fe8113" isDerived="false" sourceEndRoleName="Mentor" targetEndRoleName="Accept Client Connection" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="61b47f6e-a58e-4e6b-b7e5-9a1c4eb64f52" LastKnownName="Accept Client Connection" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0e83aad7-b370-4fc9-afe2-ba39991b0d19" name="Mentor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e2cc520d-69b4-4b4a-910a-bd85e1796e17" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="be6bc9ee-3844-4867-a3d7-a76d224b53b3" name="Accept Client Connection" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="750e8c97-9218-4abd-8486-f93ed535835e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="e0ed244e-cb98-4408-8852-da6325d5d309" />
+          </association>
+          <association Id="8c0bdfd5-f313-4835-800c-ebb29b84a927" isDerived="false" sourceEndRoleName="Mentor" targetEndRoleName="End Client Connection" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="6f51ae21-294b-4216-9837-2f319d97b968" LastKnownName="End Client Connection" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3a8578d4-66b6-44ce-b5b2-41a1bdea8ce2" name="Mentor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="01799f32-0053-4551-989c-7f69a5a9ee35" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6f561674-6e82-47fd-9745-52344cfd0cb4" name="End Client Connection" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f1e2c519-54e8-4c1a-8b00-c9fa08a0aa26" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0e178c39-cda4-4c4b-bf2a-9bda87ecb4d0" />
+          </association>
+          <association Id="042f22fe-6d49-4f77-a792-70720439666b" isDerived="false" sourceEndRoleName="Mentor" targetEndRoleName="Create virtual instruction" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9e030200-68dc-48ab-b27c-45460c1193dd" LastKnownName="Create virtual instruction" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9d1dbd60-0f21-42d4-a0c5-1e3366be9158" name="Mentor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="cc5d7314-65d2-4b52-8d36-9618f1e0742c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="fa5a34dc-77fe-44cb-a214-85073dd054f4" name="Create virtual instruction" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b51872db-f219-4f4c-a2f1-8b9d398a2a4b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1a3556ac-30bd-4f33-ac7a-fce03f8fbb7f" />
+          </association>
+          <association Id="f991b6e3-5e7a-4932-a694-1a6b6d8124d5" isDerived="false" sourceEndRoleName="Mentor" targetEndRoleName="Delete virtual instruction" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="1d1f0147-aca7-4edd-8569-b0c40fc16d20" LastKnownName="Delete virtual instruction" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="8ef73ca1-d1ef-497f-a71e-16e90f19a0ed" name="Mentor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e7cc935f-9218-4c2c-a608-00037d3ae30a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d28c7cf9-39e4-41d5-adeb-98ff3688c16c" name="Delete virtual instruction" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="79467042-e2d5-4b2b-ae05-10f0e41a439d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="04fae7ad-3ae1-4158-a71b-402496531d33" />
+          </association>
+          <association Id="6a89a1a2-697e-42e6-810a-63f64b7a7b9d" isDerived="false" sourceEndRoleName="Mentor" targetEndRoleName="Navigate through virtual scene" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9ba2ca58-e1f0-4f51-a5c2-882c64d352e7" LastKnownName="Navigate through virtual scene" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="01d101aa-f86d-4dd7-b41f-25d5268a8014" name="Mentor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="81aaa232-ccae-4ee5-aed5-e3a49979ec74" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7d4122f3-2c2b-4298-92a6-7604b8074ecb" name="Navigate through virtual scene" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="01c9b37e-0577-47f5-bec7-2aa281f9ff66" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8bd11eb1-e241-4171-85e8-e6cdb0a98110" />
+          </association>
+          <association Id="ffe52685-a9a6-4e26-8ece-4b634001eff3" isDerived="false" sourceEndRoleName="Mentor" targetEndRoleName="Edit Virtual Instruction" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="be3995ff-33ba-4ea7-9897-9f6d79f57b7f" LastKnownName="Edit Virtual Instruction" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="71de100b-60df-417c-990f-9791e2e348c6" name="Mentor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="232056da-e09e-46bb-8f65-0aeb78cba96b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1788a73d-2e15-46fb-a5a1-3e28aceda56b" name="Edit Virtual Instruction" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="481e5d28-8cac-4d7d-8746-78f3cc748ac3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4f98a584-b951-4c41-9d36-b58d7137d556" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="1c48d354-5c67-4054-ab31-73e9a0239048" name="Apprentice" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fb67e411-1b09-48ef-823f-52d17c1123c5" />
+        <targetEnds>
+          <association Id="5b59830b-43d3-42c1-a628-9a4deca0243d" isDerived="false" sourceEndRoleName="Apprentice" targetEndRoleName="Create Server Connection" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="61cadcd8-5ee6-4046-b840-a326d567c122" LastKnownName="Create Server Connection" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e74a129b-5bbd-4f40-9072-d64aa2725f6e" name="Apprentice" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="fc936f69-85fe-42b0-83df-27c4b3570ff0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a3325ff2-bbbb-4ff4-808c-450e42b61386" name="Create Server Connection" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="3f98fe23-6a2a-4dfa-a509-7b948a89130d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="84833ab1-ea80-48dc-9490-394ed001b3d1" />
+          </association>
+          <association Id="eb1473c4-9df9-4d06-b0dd-217dead68015" isDerived="false" sourceEndRoleName="Apprentice" targetEndRoleName="End Server Connection" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="77c567bc-8bc6-4831-8859-0ac236a7fed1" LastKnownName="End Server Connection" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="770f9a5b-9705-44a0-aaa0-e05445c04f3a" name="Apprentice" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="09095166-5edc-4f89-9799-51ae0d21d0f5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a7cc39a7-ab75-4db5-9c8a-22eb3b0c0eb5" name="End Server Connection" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="de70cbdb-4e85-47fe-8735-395e8b987d96" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0f296a84-5bef-4266-98ef-6b579ef89a70" />
+          </association>
+          <association Id="8dff765a-5dd4-4f78-9027-e8ef7d138aa6" isDerived="false" sourceEndRoleName="Apprentice" targetEndRoleName="Do World Operation" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="1d29f54d-446b-4c79-8147-fd8ae9e4500a" LastKnownName="Do World Operation" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5a83bb94-b862-4003-9e76-6803e7105985" name="Apprentice" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="e04cc82a-5dd7-478b-ad7e-3c914d5ca0fd" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c0eba776-dd5d-4b28-8fda-23aece5531a4" name="Do World Operation" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="e066a6ce-4c1d-4bf7-aac0-3c9e8530eac1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="024c9bec-8ca2-4026-9775-3705ea2c7cef" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="f1827074-951d-48ed-9e56-0d4259c330bc" name="Server" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e6092f03-5adc-47a8-948c-6fb9c14274f3" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="c31457c6-ba3b-4e01-bfee-12c5a9e0a074" name="Client" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="0b76e392-4c8d-43d0-a961-b02b4ea440bf" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="9e030200-68dc-48ab-b27c-45460c1193dd" name="Create virtual instruction" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="fa338f0b-e58e-4447-8b26-94123ff1685f" />
+        <subjects>
+          <subsystemMoniker Id="f1827074-951d-48ed-9e56-0d4259c330bc" LastKnownName="Server" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="1d1f0147-aca7-4edd-8569-b0c40fc16d20" name="Delete virtual instruction" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e75a3aae-6676-4295-8f03-202f0073412c" />
+        <subjects>
+          <subsystemMoniker Id="f1827074-951d-48ed-9e56-0d4259c330bc" LastKnownName="Server" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="9ba2ca58-e1f0-4f51-a5c2-882c64d352e7" name="Navigate through virtual scene" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1c75d830-a878-41fb-b334-dec1b3c45813" />
+        <subjects>
+          <subsystemMoniker Id="f1827074-951d-48ed-9e56-0d4259c330bc" LastKnownName="Server" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="61b47f6e-a58e-4e6b-b7e5-9a1c4eb64f52" name="Accept Client Connection" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3dda2035-fad0-47ba-aa43-701ed1733b6e" />
+        <subjects>
+          <subsystemMoniker Id="f1827074-951d-48ed-9e56-0d4259c330bc" LastKnownName="Server" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="6f51ae21-294b-4216-9837-2f319d97b968" name="End Client Connection" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8ab76b9f-43c8-47c6-8306-d00f36480f50" />
+        <subjects>
+          <subsystemMoniker Id="f1827074-951d-48ed-9e56-0d4259c330bc" LastKnownName="Server" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="61cadcd8-5ee6-4046-b840-a326d567c122" name="Create Server Connection" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3d826510-3a78-4acd-919b-f77c1761e330" />
+        <subjects>
+          <subsystemMoniker Id="c31457c6-ba3b-4e01-bfee-12c5a9e0a074" LastKnownName="Client" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="77c567bc-8bc6-4831-8859-0ac236a7fed1" name="End Server Connection" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3d6de001-4107-4461-bdf8-79048e859fd8" />
+        <subjects>
+          <subsystemMoniker Id="c31457c6-ba3b-4e01-bfee-12c5a9e0a074" LastKnownName="Client" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="be3995ff-33ba-4ea7-9897-9f6d79f57b7f" name="Edit Virtual Instruction" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5e28c8d7-fa4c-49dd-8235-bc96515e60fd" />
+        <subjects>
+          <subsystemMoniker Id="f1827074-951d-48ed-9e56-0d4259c330bc" LastKnownName="Server" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="1d29f54d-446b-4c79-8147-fd8ae9e4500a" name="Do World Operation" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d96c7102-ce05-4055-863b-d72f5eff644e" />
+        <subjects>
+          <subsystemMoniker Id="c31457c6-ba3b-4e01-bfee-12c5a9e0a074" LastKnownName="Client" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="c28e2f2b-3877-4759-9a2d-b149747740db" name="Dissertation">
+    <elementDefinition Id="975918c6-7186-4cbe-8a1f-09e7240abd3f" />
+    <profileInstances>
+      <packageHasProfileInstances Id="bf697f97-011f-42c7-b769-da4a41daf722">
+        <profileInstance Id="fc500f17-734b-4977-8554-fa82ccbdc8f6" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="83c65abd-1db8-47d6-a719-1c89de5eb3d1">
+        <profileInstance Id="0f6b23dd-240d-4d09-b269-442c2db43dcd" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>
