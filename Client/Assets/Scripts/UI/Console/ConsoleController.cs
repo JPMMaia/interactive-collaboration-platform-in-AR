@@ -27,8 +27,11 @@ namespace CollaborationEngine.UI.Console
         public void OnDestroy()
         {
             var networkController = NetworkController.Instance;
-            networkController.OnPlayerDisconnected -= NetworkController_OnPlayerDisconnected;
-            networkController.OnPlayerConnected -= NetworkController_OnPlayerConnected;
+            if (networkController != null)
+            {
+                networkController.OnPlayerDisconnected -= NetworkController_OnPlayerDisconnected;
+                networkController.OnPlayerConnected -= NetworkController_OnPlayerConnected;
+            }
         }
 
         public void AddText(String text)

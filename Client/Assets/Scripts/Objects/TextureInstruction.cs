@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine.Objects
 {
@@ -19,10 +20,20 @@ namespace CollaborationEngine.Objects
             Textures.Add(InstructionType.Hammer, "Textures/Tools/007-tool");
         }
 
+        #region Properties
+        public override SceneObjectType Type
+        {
+            get
+            {
+                return SceneObjectType.Texture;
+            }
+        }
+        #endregion
+
         public InstructionType InstructionType { get; set; }
 
-        public TextureInstruction() : 
-            base(ObjectLocator.Instance.IndicationPrefab, SceneObjectType.Indication)
+        public TextureInstruction() :
+            base(ObjectLocator.Instance.IndicationPrefab)
         {
         }
 
@@ -41,6 +52,19 @@ namespace CollaborationEngine.Objects
             }
 
             return gameObject;
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            base.Serialize(writer);
+
+            writer.WritePackedUInt32((UInt32) InstructionType);
+        }
+        public override void Deserialize(NetworkReader reader)
+        {
+            base.Deserialize(reader);
+
+            InstructionType = (InstructionType) reader.ReadPackedUInt32();
         }
     }
 }

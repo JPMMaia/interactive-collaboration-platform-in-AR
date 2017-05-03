@@ -2,8 +2,7 @@
 {
     public enum SceneObjectType : byte
     {
-        Real,
-        Indication,
-        IndicationTools
+        Texture = 0,
+        Text = 1,
     }
 }

@@ -20,6 +20,10 @@ namespace CollaborationEngine.Network
             }
         }
         public byte PlayerCount { get; set; }
+        public bool IsAppreticeConnected
+        {
+            get { return PlayerCount == 2; }
+        }
 
         #endregion
 

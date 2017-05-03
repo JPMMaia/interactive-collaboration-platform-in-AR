@@ -1,33 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Tasks
 {
-    public class Step
+    public class Step : ISerializable
     {
         #region Classes
-        public class StepMessage : MessageBase
-        {
-            public Step Data { get; set; }
-
-            public override void Serialize(NetworkWriter writer)
-            {
-                writer.WritePackedUInt32(Data._id);
-                writer.WritePackedUInt32(Data._taskId);
-                writer.Write(Data._name);
-            }
-            public override void Deserialize(NetworkReader reader)
-            {
-                Data = new Step
-                {
-                    _id = reader.ReadPackedUInt32(),
-                    _taskId = reader.ReadPackedUInt32(),
-                    _name = reader.ReadString()
-                };
-            }
-        }
         public class InstructionEventArgs : EventArgs
         {
             public SceneObject Instruction { get; set; }
@@ -105,7 +86,7 @@ namespace CollaborationEngine.Tasks
         private readonly List<SceneObject> _instructions = new List<SceneObject>();
         #endregion
 
-        private Step()
+        public Step()
         {
         }
         public Step(UInt32 taskId, UInt32 order, String name)
@@ -153,6 +134,27 @@ namespace CollaborationEngine.Tasks
         private static UInt32 GenerateID()
         {
             return _count++;
+        }
+
+        public void Serialize(NetworkWriter writer)
+        {
+            writer.WritePackedUInt32(_id);
+            writer.WritePackedUInt32(_taskId);
+            writer.Write(_name);
+
+            writer.WritePackedUInt32((UInt32)_instructions.Count);
+            foreach (var instruction in _instructions)
+                instruction.Serialize(writer);
+        }
+        public void Deserialize(NetworkReader reader)
+        {
+            _id = reader.ReadPackedUInt32();
+            _taskId = reader.ReadPackedUInt32();
+            _name = reader.ReadString();
+
+            var instructionCount = reader.ReadPackedUInt32();
+            for (var i = 0; i < instructionCount; ++i)
+                _instructions.Add(SceneObject.FromNetworkReader(reader));
         }
     }
 }

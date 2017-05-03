@@ -1,5 +1,4 @@
 ﻿using CollaborationEngine.Objects;
-using CollaborationEngine.Scenes;
 using CollaborationEngine.States.Client;
 using CollaborationEngine.Tasks;
 
@@ -14,13 +13,9 @@ namespace CollaborationEngine.States
 
             ObjectLocator.Instance.ClientRoot.SetActive(true);
             ObjectLocator.Instance.ServerRoot.SetActive(false);
-
-            Scene = new Scene(ObjectLocator.Instance.SceneRoot);
         }
         public void Shutdown()
         {
-            Scene = null;
-
             if (_currentState != null)
             {
                 _currentState.Shutdown();
@@ -37,7 +32,6 @@ namespace CollaborationEngine.States
             _currentState.FrameUpdate();
         }
 
-        public Scene Scene { get; private set; }
         public TaskManager TaskManager
         {
             get

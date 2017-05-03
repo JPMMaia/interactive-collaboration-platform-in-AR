@@ -76,6 +76,8 @@ namespace CollaborationEngine.UI.Instructions
         private void ToggleGizmo(bool enable)
         {
             var instance = TransformGizmo.Instance;
+            if (instance == null)
+                return;
 
             if (enable)
                 instance.SelectGameObject(Instruction.GameObject.transform);

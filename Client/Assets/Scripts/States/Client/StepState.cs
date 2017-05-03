@@ -1,5 +1,7 @@
-﻿using CollaborationEngine.Tasks;
-using UnityEngine;
+﻿using CollaborationEngine.Network;
+using CollaborationEngine.Objects;
+using CollaborationEngine.Tasks;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine.States.Client
 {
@@ -7,22 +9,32 @@ namespace CollaborationEngine.States.Client
     {
         #region Members
         private readonly ClientCollaborationState _clientState;
-        private readonly Task _task;
+        private readonly Step _step;
         #endregion
 
-        public StepState(ClientCollaborationState clientState, Task task)
+        public StepState(ClientCollaborationState clientState, Step step)
         {
             _clientState = clientState;
-            _task = task;
+            _step = step;
         }
 
         public void Initialize()
         {
-            Debug.Log("Initialize StepState");
+            var networkManager = NetworkManager.singleton.client;
+            networkManager.RegisterHandler(NetworkHandles.PresentStep, OnChangeStep);
+
+            // TODO subscribe to instructions changes: addition, deletion and updates
+            
+            // Instantiate instructions:
+            foreach (var instruction in _step.Instructions)
+                instruction.Instantiate(ObjectLocator.Instance.SceneRoot.transform);
+
+            ObjectLocator.Instance.HintText.SetText("Follow the mentor's instructions");
         }
         public void Shutdown()
         {
-            Debug.Log("´Shutdown StepState");
+            var networkManager = NetworkManager.singleton.client;
+            networkManager.UnregisterHandler(NetworkHandles.PresentStep);
         }
 
         public void FixedUpdate()
@@ -30,6 +42,12 @@ namespace CollaborationEngine.States.Client
         }
         public void FrameUpdate()
         {
+        }
+
+        private void OnChangeStep(NetworkMessage networkMessage)
+        {
+            var message = networkMessage.ReadMessage<GenericNetworkMessage<Step>>();
+            _clientState.CurrentState = new StepState(_clientState, message.Data);
         }
     }
 }

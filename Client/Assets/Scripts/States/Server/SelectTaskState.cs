@@ -58,6 +58,7 @@ namespace CollaborationEngine.States.Server
         #region Event Handlers
         private void TaskManager_OnTaskAdded(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
+            // TODO remove
             var networkClient = NetworkManager.singleton.client;
             networkClient.Send(NetworkHandles.AddTaskHandle, new Task.TaskMesssage { Data = eventArgs.Task });
         }

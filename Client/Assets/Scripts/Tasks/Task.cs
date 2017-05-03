@@ -19,8 +19,7 @@ namespace CollaborationEngine.Tasks
                 writer.WritePackedUInt32((UInt32)Data._steps.Count);
                 foreach (var step in Data._steps)
                 {
-                    var stepMessage = new Step.StepMessage { Data = step };
-                    stepMessage.Serialize(writer);
+                    step.Serialize(writer);
                 }
             }
             public override void Deserialize(NetworkReader reader)
@@ -31,8 +30,9 @@ namespace CollaborationEngine.Tasks
                 Data._steps = new List<Step>(stepLength);
                 for (var i = 0; i < stepLength; ++i)
                 {
-                    var stepMessage = reader.ReadMessage<Step.StepMessage>();
-                    Data._steps.Add(stepMessage.Data);
+                    var step = new Step();
+                    step.Deserialize(reader);
+                    Data._steps.Add(step);
                 }
             }
         }

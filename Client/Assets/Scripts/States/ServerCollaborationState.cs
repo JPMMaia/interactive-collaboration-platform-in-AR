@@ -1,8 +1,4 @@
-﻿using System;
-using System.Timers;
-using CollaborationEngine.Objects;
-using CollaborationEngine.Objects.Components;
-using CollaborationEngine.Scenes;
+﻿using CollaborationEngine.Objects;
 using CollaborationEngine.States.Server;
 using CollaborationEngine.Tasks;
 
@@ -10,7 +6,11 @@ namespace CollaborationEngine.States
 {
     public class ServerCollaborationState : IApplicationState
     {
-        public event InputColliderComponent<TextureInstruction>.InputEvent OnIndicationObjectClicked;
+        #region Members
+        private IApplicationState _currentState;
+        private InstructionType _selectedInstructionType = InstructionType.Arrow;
+        private readonly TaskManager _taskManager = new TaskManager();
+        #endregion
 
         public void Initialize()
         {
@@ -19,21 +19,9 @@ namespace CollaborationEngine.States
 
             ObjectLocator.Instance.ServerRoot.SetActive(true);
             ObjectLocator.Instance.ClientRoot.SetActive(false);
-
-            Scene = new Scene(ObjectLocator.Instance.SceneRoot);
-            Scene.OnIndicationObjectAdded += Scene_OnIndicationObjectAdded;
-
-            _synchronizationTimer.Interval = 200.0;
-            _synchronizationTimer.Elapsed += SynchronizationTimer_Elapsed;
-            _synchronizationTimer.Start();
         }
         public void Shutdown()
         {
-            _synchronizationTimer.Stop();
-            _synchronizationTimer.Elapsed -= SynchronizationTimer_Elapsed;
-
-            Scene = null;
-
             if (_currentState != null)
             {
                 _currentState.Shutdown();
@@ -50,7 +38,6 @@ namespace CollaborationEngine.States
             _currentState.FrameUpdate();
         }
 
-        public Scene Scene { get; private set; }
         public InstructionType SelectedInstructionType
         {
             get
@@ -80,27 +67,5 @@ namespace CollaborationEngine.States
                 _currentState.Initialize();
             }
         }
-
-        private void Scene_OnIndicationObjectAdded(Scene scene, Scene.SceneEventArgs<TextureInstruction> eventArgs)
-        {
-            var sceneObject = eventArgs.SceneObject;
-
-            var inputCollider = new InputColliderComponent<TextureInstruction>(sceneObject);
-            inputCollider.OnPressed += InputCollider_OnPressed;
-        }
-        private void InputCollider_OnPressed(InputColliderComponent<TextureInstruction> sender, EventArgs eventArgs)
-        {
-            if (OnIndicationObjectClicked != null)
-                OnIndicationObjectClicked(sender, eventArgs);
-        }
-        private void SynchronizationTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            Scene.SynchronizeScene();
-        }
-
-        private IApplicationState _currentState;
-        private InstructionType _selectedInstructionType = InstructionType.Arrow;
-        private readonly Timer _synchronizationTimer = new Timer();
-        private readonly TaskManager _taskManager = new TaskManager();
     }
 }

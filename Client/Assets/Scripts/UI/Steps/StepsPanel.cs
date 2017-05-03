@@ -154,6 +154,7 @@ namespace CollaborationEngine.UI.Steps
         {
             _presentStepPanel = Instantiate(PresentStepPanelPrefab);
             _presentStepPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
+            _presentStepPanel.StepsPanel = this;
             _presentStepPanel.Step = step;
         }
         private void DestroyPresentStepPanel()

@@ -1,11 +1,10 @@
-﻿using System.IO;
-using JetBrains.Annotations;
+﻿using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
 {
     public interface ISerializable
     {
-        void ReadFromMemoryStream(MemoryStream memoryStream);
-        MemoryStream WriteToMemoryStream();
+        void Serialize(NetworkWriter writer);
+        void Deserialize(NetworkReader reader);
     }
 }

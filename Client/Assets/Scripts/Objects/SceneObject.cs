@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using CollaborationEngine.Objects.Collision;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,60 +9,6 @@ namespace CollaborationEngine.Objects
 {
     public abstract class SceneObject
     {
-        #region Classes
-        public class Message : MessageBase
-        {
-            public SceneObject Data { get; set; }
-
-            public override void Serialize(NetworkWriter writer)
-            {
-                /*writer.WritePackedUInt32(Data._id);
-                writer.Write(Data._name);
-                writer.WritePackedUInt32((UInt32)Data._steps.Count);
-                foreach (var step in Data._steps)
-                {
-                    var stepMessage = new Step.StepMessage { Data = step };
-                    stepMessage.Serialize(writer);
-                }*/
-            }
-            public override void Deserialize(NetworkReader reader)
-            {
-                /*Data = new Task { _id = reader.ReadPackedUInt32(), _name = reader.ReadString() };
-
-                var stepLength = (Int32)reader.ReadPackedUInt32();
-                Data._steps = new List<Step>(stepLength);
-                for (var i = 0; i < stepLength; ++i)
-                {
-                    var stepMessage = reader.ReadMessage<Step.StepMessage>();
-                    Data._steps.Add(stepMessage.Data);
-                }*/
-            }
-        }
-        public class CollectionMessage : MessageBase
-        {
-            public IEnumerable<SceneObject> DataEnumerable { get; set; }
-
-            public override void Serialize(NetworkWriter writer)
-            {
-                writer.WritePackedUInt32((uint)DataEnumerable.Count());
-                foreach (var data in DataEnumerable)
-                {
-                    writer.Write(new Message() { Data = data });
-                }
-            }
-            public override void Deserialize(NetworkReader reader)
-            {
-                var count = reader.ReadPackedUInt32();
-
-                var data = new List<SceneObject>((int)count);
-                for (var i = 0; i < count; ++i)
-                    data.Add(reader.ReadMessage<Message>().Data);
-
-                DataEnumerable = data;
-            }
-        }
-        #endregion
-
         #region Delegates
         public delegate void SceneObjectDelegate(SceneObject sender, EventArgs eventArgs);
         #endregion
@@ -74,8 +18,20 @@ namespace CollaborationEngine.Objects
         #endregion
 
         #region Properties
+        public abstract SceneObjectType Type { get; }
         public GameObject Prefab { get; set; }
         public GameObject GameObject { get; private set; }
+        public bool IsInstanced { get; private set; }
+        public List<IComponent> Components
+        {
+            get
+            {
+                return _components;
+            }
+        }
+        public bool IsDirty { get; set; }
+        public InputColliderComponent<SceneObject> InputCollider { get; private set; }
+
         public uint ID { get; private set; }
         public String Name
         {
@@ -84,7 +40,7 @@ namespace CollaborationEngine.Objects
             {
                 _name = value;
 
-                if(OnNameChanged != null)
+                if (OnNameChanged != null)
                     OnNameChanged(this, EventArgs.Empty);
             }
         }
@@ -103,18 +59,6 @@ namespace CollaborationEngine.Objects
             get { return _scale; }
             set { _scale = value; }
         }
-        public SceneObjectType Type { get; set; }
-        public uint Flag { get; set; }
-        public bool IsInstanced { get; private set; }
-        public List<IComponent> Components
-        {
-            get
-            {
-                return _components;
-            }
-        }
-        public bool IsDirty { get; set; }
-        public InputColliderComponent<SceneObject> InputCollider { get; private set; }
         #endregion
 
         #region Members
@@ -129,11 +73,10 @@ namespace CollaborationEngine.Objects
         protected SceneObject()
         {
         }
-        protected SceneObject(GameObject prefab, SceneObjectType type)
+        protected SceneObject(GameObject prefab)
         {
             ID = _count++;
             Prefab = prefab;
-            Type = type;
 
             InputCollider = new InputColliderComponent<SceneObject>(this);
         }
@@ -220,6 +163,41 @@ namespace CollaborationEngine.Objects
         public TComponentType GetComponent<TComponentType>()
         {
             return GameObject.GetComponent<TComponentType>();
+        }
+
+        public virtual void Serialize(NetworkWriter writer)
+        {
+            writer.WritePackedUInt32((UInt32)Type);
+            writer.WritePackedUInt32(ID);
+            writer.Write(Name);
+            writer.Write(Position);
+            writer.Write(Rotation);
+            writer.Write(Scale);
+        }
+        public virtual void Deserialize(NetworkReader reader)
+        {
+            ID = reader.ReadPackedUInt32();
+            Name = reader.ReadString();
+            Position = reader.ReadVector3();
+            Rotation = reader.ReadQuaternion();
+            Scale = reader.ReadVector3();
+        }
+
+        public static SceneObject FromNetworkReader(NetworkReader reader)
+        {
+            var type = (SceneObjectType)reader.ReadPackedUInt32();
+
+            SceneObject sceneObject;
+            if (type == SceneObjectType.Texture)
+                sceneObject = new TextureInstruction();
+            else if (type == SceneObjectType.Text)
+                sceneObject = new TextInstruction();
+            else
+                throw new Exception("Expected known type.");
+
+            sceneObject.Deserialize(reader);
+
+            return sceneObject;
         }
     }
 }

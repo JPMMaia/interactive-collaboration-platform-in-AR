@@ -1,5 +1,4 @@
 ﻿using CollaborationEngine.Tasks;
-using UnityEngine;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
@@ -8,26 +7,12 @@ namespace CollaborationEngine.Network
     {
         public void Awake()
         {
-            NetworkServer.RegisterHandler(NetworkHandles.AddTaskHandle, OnAddTask);
-            NetworkServer.RegisterHandler(NetworkHandles.RemoveTaskHandle, OnRemoveTask);
-            NetworkServer.RegisterHandler(NetworkHandles.UpdateTaskHandle, OnUpdateTask);
+            NetworkServer.RegisterHandler(NetworkHandles.PresentStep, OnPresentStep);
         }
 
-        private ServerController()
+        private void OnPresentStep(NetworkMessage networkMessage)
         {
-        }
-
-        private void OnAddTask(NetworkMessage networkMessage)
-        {
-            NetworkServer.SendToAll(NetworkHandles.AddTaskHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
-        }
-        private void OnRemoveTask(NetworkMessage networkMessage)
-        {
-            NetworkServer.SendToAll(NetworkHandles.RemoveTaskHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
-        }
-        private void OnUpdateTask(NetworkMessage networkMessage)
-        {
-            NetworkServer.SendToAll(NetworkHandles.UpdateTaskHandle, networkMessage.ReadMessage<Task.TaskMesssage>());
+            NetworkServer.SendToAll(NetworkHandles.PresentStep, networkMessage.ReadMessage<GenericNetworkMessage<Step>>());
         }
     }
 }
