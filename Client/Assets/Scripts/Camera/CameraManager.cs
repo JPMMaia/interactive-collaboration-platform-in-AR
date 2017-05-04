@@ -35,6 +35,7 @@ namespace CollaborationEngine.Camera
                 {
                     _selectedCamera.Selected = false;
                     _selectedCamera.UnityCamera.gameObject.SetActive(false);
+                    TransformGizmoManager.Instance.SelectedCamera = null;
                 }
 
                 _selectedCamera = value;
@@ -43,6 +44,7 @@ namespace CollaborationEngine.Camera
                 {
                     _selectedCamera.Selected = true;
                     _selectedCamera.UnityCamera.gameObject.SetActive(true);
+                    TransformGizmoManager.Instance.SelectedCamera = _selectedCamera.UnityCamera;
                 }
             }
         }

@@ -9,6 +9,41 @@ namespace CollaborationEngine.Objects
 {
     public abstract class SceneObject
     {
+        #region Classes
+        public class IDMessage : MessageBase
+        {
+            public uint ID { get; set; }
+
+            public override void Serialize(NetworkWriter writer)
+            {
+                writer.WritePackedUInt32(ID);
+            }
+            public override void Deserialize(NetworkReader reader)
+            {
+                ID = reader.ReadPackedUInt32();
+            }
+        }
+        public class DataMessage : MessageBase
+        {
+            public SceneObject Data { get; set; }
+
+            public override void Serialize(NetworkWriter writer)
+            {
+                Data.Serialize(writer);
+            }
+            public override void Deserialize(NetworkReader reader)
+            {
+                var type = Type.GetType(reader.ReadString());
+                if (type == null)
+                    throw new Exception("Unexpected type.");
+
+                Data = (SceneObject)Activator.CreateInstance(type);
+
+                Data.Deserialize(reader);
+            }
+        }
+        #endregion
+
         #region Delegates
         public delegate void SceneObjectDelegate(SceneObject sender, EventArgs eventArgs);
         #endregion
@@ -181,31 +216,6 @@ namespace CollaborationEngine.Objects
             Position = reader.ReadVector3();
             Rotation = reader.ReadQuaternion();
             Scale = reader.ReadVector3();
-        }
-
-        public class SceneObjectMessage : MessageBase
-        {
-            public SceneObject Data { get; set; }
-
-            public override void Serialize(NetworkWriter writer)
-            {
-                Data.Serialize(writer);
-            }
-            public override void Deserialize(NetworkReader reader)
-            {
-                var type = Type.GetType(reader.ReadString());
-                if (type == null)
-                    throw new Exception("Unexpected type.");
-
-                Data = (SceneObject)Activator.CreateInstance(type);
-
-                Data.Deserialize(reader);
-            }
-        }
-        public SceneObjectMessage ToNetworkMessage()
-        {
-            var sceneObject = (SceneObject)Activator.CreateInstance(Type);
-            return new SceneObjectMessage { Data = sceneObject };
         }
     }
 }

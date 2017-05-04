@@ -30,7 +30,7 @@ namespace CollaborationEngine.RuntimeGizmo
         int circleDetail = 40;
         float minSelectedDistanceCheck = .04f;
         float moveSpeedMultiplier = 1f;
-        float scaleSpeedMultiplier = 1f;
+        float scaleSpeedMultiplier = 0.05f;
         float rotateSpeedMultiplier = 200f;
         float allRotateSpeedMultiplier = 20f;
 
@@ -50,23 +50,9 @@ namespace CollaborationEngine.RuntimeGizmo
         private UnityEngine.Camera MyCamera
         {
             get { return ObjectLocator.Instance.CameraManager.SelectedCamera.UnityCamera; }
-            set
-            {    
-            }
         }
 
         static Material lineMaterial;
-
-        public static TransformGizmo Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = FindObjectOfType<TransformGizmo>();
-
-                return _instance;
-            }
-        }
 
         public void SelectGameObject(Transform target)
         {
@@ -599,7 +585,5 @@ namespace CollaborationEngine.RuntimeGizmo
                 #endregion
             }
         }
-
-        private static TransformGizmo _instance;
     }
 }

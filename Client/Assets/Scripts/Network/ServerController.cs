@@ -20,15 +20,15 @@ namespace CollaborationEngine.Network
         }
         private void OnAddInstruction(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.AddInstruction, networkMessage.ReadMessage<SceneObject.SceneObjectMessage>());
+            NetworkServer.SendToAll(NetworkHandles.AddInstruction, networkMessage.ReadMessage<SceneObject.DataMessage>());
         }
         private void OnRemoveInstruction(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.RemoveInstruction, networkMessage.ReadMessage<SceneObject.SceneObjectMessage>());
+            NetworkServer.SendToAll(NetworkHandles.RemoveInstruction, networkMessage.ReadMessage<SceneObject.IDMessage>());
         }
         private void OnUpdateInstruction(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.UpdateInstruction, networkMessage.ReadMessage<SceneObject.SceneObjectMessage>());
+            NetworkServer.SendToAll(NetworkHandles.UpdateInstruction, networkMessage.ReadMessage<SceneObject.DataMessage>());
         }
     }
 }

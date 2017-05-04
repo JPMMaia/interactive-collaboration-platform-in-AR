@@ -154,7 +154,7 @@ namespace CollaborationEngine.Tasks
 
             var instructionCount = reader.ReadPackedUInt32();
             for (var i = 0; i < instructionCount; ++i)
-                _instructions.Add(reader.ReadMessage<SceneObject.SceneObjectMessage>().Data);
+                _instructions.Add(reader.ReadMessage<SceneObject.DataMessage>().Data);
         }
     }
 }

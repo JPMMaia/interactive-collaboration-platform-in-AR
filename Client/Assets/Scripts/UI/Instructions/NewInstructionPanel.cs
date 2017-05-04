@@ -109,7 +109,7 @@ namespace CollaborationEngine.UI.Instructions
 
             // Send new instruction:
             var networkClient = NetworkManager.singleton.client;
-            networkClient.Send(NetworkHandles.AddInstruction, instruction.ToNetworkMessage());
+            networkClient.Send(NetworkHandles.AddInstruction, new SceneObject.DataMessage{ Data = instruction} );
 
             Destroy(gameObject);
         }

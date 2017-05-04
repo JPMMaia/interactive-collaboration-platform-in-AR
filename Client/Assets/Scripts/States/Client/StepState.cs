@@ -1,6 +1,7 @@
 ﻿using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.States.Client
@@ -55,13 +56,24 @@ namespace CollaborationEngine.States.Client
         }
         private void OnAddInstruction(NetworkMessage networkMessage)
         {
+            var instruction = networkMessage.ReadMessage<SceneObject.DataMessage>().Data;
 
+            _step.Instructions.Add(instruction);
+            instruction.Instantiate(ObjectLocator.Instance.SceneRoot.transform);
         }
         private void OnRemoveInstruction(NetworkMessage networkMessage)
         {
+            var instructionID = networkMessage.ReadMessage<SceneObject.IDMessage>().ID;
+
+            var instructionIndex = _step.Instructions.FindIndex(e => e.ID == instructionID);
+            var instruction = _step.Instructions[instructionIndex];
+            _step.Instructions.RemoveAt(instructionIndex);
+
+            Object.Destroy(instruction.GameObject);
         }
         private void OnUpdateInstruction(NetworkMessage networkMessage)
-        {   
+        {
+            
         }
     }
 }

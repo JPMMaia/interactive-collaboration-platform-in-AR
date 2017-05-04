@@ -93,7 +93,8 @@ namespace CollaborationEngine.UI.Steps
             {
                 CanvasGroup.interactable = true;
                 ButtonText.text = "Present Step";
-                StepsPanel.GetComponent<CanvasGroup>().interactable = true;
+                if(StepsPanel != null)
+                    StepsPanel.GetComponent<CanvasGroup>().interactable = true;
             }
             else
             {

@@ -1,8 +1,10 @@
 ﻿using System;
+using CollaborationEngine.Camera;
+using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
-using CollaborationEngine.RuntimeGizmo;
 using CollaborationEngine.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.UI.Instructions
@@ -75,14 +77,9 @@ namespace CollaborationEngine.UI.Instructions
         }
         private void ToggleGizmo(bool enable)
         {
-            var instance = TransformGizmo.Instance;
-            if (instance == null)
-                return;
+            var instance = TransformGizmoManager.Instance;
 
-            if (enable)
-                instance.SelectGameObject(Instruction.GameObject.transform);
-            else
-                instance.UnselectGameObject();
+            instance.Target = enable ? Instruction.GameObject.transform : null;
         }
 
         #region Unity UI Event Handlers
@@ -99,6 +96,10 @@ namespace CollaborationEngine.UI.Instructions
         public void OnDeleteClick()
         {
             Step.RemoveInstruction(Instruction.ID);
+
+            // Send remove instruction:
+            var networkClient = NetworkManager.singleton.client;
+            networkClient.Send(NetworkHandles.RemoveInstruction, new SceneObject.IDMessage { ID = Instruction.ID });
         }
         #endregion
 
