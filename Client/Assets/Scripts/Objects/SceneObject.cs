@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollaborationEngine.Network;
 using CollaborationEngine.Objects.Components;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -125,7 +126,7 @@ namespace CollaborationEngine.Objects
             GameObject.transform.SetParent(parent, false);
             foreach (var component in Components)
                 component.Instantiate();
-
+            
             IsInstanced = true;
 
             return GameObject;
@@ -216,6 +217,51 @@ namespace CollaborationEngine.Objects
             Position = reader.ReadVector3();
             Rotation = reader.ReadQuaternion();
             Scale = reader.ReadVector3();
+        }
+
+        public virtual void Update(SceneObject instruction)
+        {
+            Position = instruction.Position;
+            Rotation = instruction.Rotation;
+            Scale = instruction.Scale;
+
+            if (IsInstanced)
+            {
+                GameObject.transform.localPosition = Position;
+                GameObject.transform.localRotation = Rotation;
+                GameObject.transform.localScale = Scale;
+            }
+        }
+
+        public virtual bool PerformNetworkSynch()
+        {
+            var dirty = false;
+
+            if (_position != GameObject.transform.localPosition)
+            {
+                _position = GameObject.transform.localPosition;
+                dirty = true;
+            }
+
+            if (_rotation != GameObject.transform.localRotation)
+            {
+                _rotation = GameObject.transform.localRotation;
+                dirty = true;
+            }
+
+            if (_scale != GameObject.transform.localScale)
+            {
+                _scale = GameObject.transform.localScale;
+                dirty = true;
+            }
+
+            if (dirty)
+            {
+                var networkClient = NetworkManager.singleton.client;
+                networkClient.Send(NetworkHandles.UpdateInstruction, new DataMessage { Data = this });
+            }
+
+            return dirty;
         }
     }
 }

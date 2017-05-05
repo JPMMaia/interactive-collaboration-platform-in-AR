@@ -42,6 +42,9 @@ namespace CollaborationEngine.States.Server
         public void FrameUpdate()
         {
         }
+        public void LateUpdate()
+        {
+        }
 
         private void TaskPanel_OnTaskItemClicked(TaskItem sender, System.EventArgs eventArgs)
         {

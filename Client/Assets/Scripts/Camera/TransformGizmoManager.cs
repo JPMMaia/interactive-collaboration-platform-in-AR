@@ -1,13 +1,19 @@
-﻿using CollaborationEngine.RuntimeGizmo;
+﻿using System;
+using CollaborationEngine.Objects;
+using CollaborationEngine.RuntimeGizmo;
 using UnityEngine;
 
 namespace CollaborationEngine.Camera
 {
     public class TransformGizmoManager : MonoBehaviour
     {
+        #region Events
+        public event EventHandler OnTargetTransformChanged;
+        #endregion
+
         #region Members
         private static TransformGizmoManager _instance;
-        private Transform _target;
+        private SceneObject _target;
         private UnityEngine.Camera _selectedCamera;
         #endregion
 
@@ -22,7 +28,7 @@ namespace CollaborationEngine.Camera
                 return _instance;
             }
         }
-        public Transform Target
+        public SceneObject Target
         {
             get { return _target; }
             set
@@ -32,10 +38,14 @@ namespace CollaborationEngine.Camera
                 if (_selectedCamera != null)
                 {
                     var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
-                    if(_target == null)
-                        transformGizmo.UnselectGameObject();
+                    if (_target != null)
+                    {
+                        transformGizmo.SelectGameObject(_target.GameObject.transform);
+                    }
                     else
-                        transformGizmo.SelectGameObject(_target);
+                    {
+                        transformGizmo.UnselectGameObject();
+                    }
                 }
             }
         }
@@ -44,14 +54,32 @@ namespace CollaborationEngine.Camera
             get { return _selectedCamera; }
             set
             {
-                if(_selectedCamera != null)
-                    _selectedCamera.gameObject.GetComponent<TransformGizmo>().UnselectGameObject();
+                if (_selectedCamera != null)
+                {
+                    var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
+                    transformGizmo.UnselectGameObject();
+                    transformGizmo.OnTransformChanged -= TransformGizmo_OnTransformChanged;
+                }
+
 
                 _selectedCamera = value;
 
                 if (_selectedCamera != null && _target != null)
-                    _selectedCamera.gameObject.GetComponent<TransformGizmo>().SelectGameObject(_target);
+                {
+                    var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
+                    transformGizmo.SelectGameObject(_target.GameObject.transform);
+                    transformGizmo.OnTransformChanged += TransformGizmo_OnTransformChanged;
+                }
             }
+        }
+
+        #endregion
+
+        #region Event Handlers
+        private void TransformGizmo_OnTransformChanged(object sender, EventArgs eventArgs)
+        {
+            if (OnTargetTransformChanged != null)
+                OnTargetTransformChanged(this, EventArgs.Empty);
         }
         #endregion
     }

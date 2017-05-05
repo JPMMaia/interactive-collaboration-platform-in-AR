@@ -265,20 +265,20 @@ namespace Kudan.AR
 				{
 					Debug.LogWarning("API Key field is Empty");
 				}
-				#else
+#else
 				// Set the API key
 				if (!string.IsNullOrEmpty(_APIKey))
 				{
-					_trackerPlugin.SetApiKey (_APIKey, Application.bundleIdentifier);
+					_trackerPlugin.SetApiKey (_APIKey, Application.identifier);
 				}
 				else
 				{
 					Debug.LogError("API Key field is Empty");
 				}
-				#endif
-				
-				// Print plugin version
-				string version = _trackerPlugin.GetPluginVersion();
+#endif
+
+                // Print plugin version
+                string version = _trackerPlugin.GetPluginVersion();
 				float nativeVersion = _trackerPlugin.GetNativePluginVersion();
 				Debug.Log(string.Format("[KudanAR] Initialising Plugin Version {0} (Native Framework Version {1})", version, nativeVersion));
 

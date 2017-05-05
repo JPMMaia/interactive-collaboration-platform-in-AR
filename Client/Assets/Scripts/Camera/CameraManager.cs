@@ -44,7 +44,8 @@ namespace CollaborationEngine.Camera
                 {
                     _selectedCamera.Selected = true;
                     _selectedCamera.UnityCamera.gameObject.SetActive(true);
-                    TransformGizmoManager.Instance.SelectedCamera = _selectedCamera.UnityCamera;
+                    if (TransformGizmoManager.Instance != null)
+                        TransformGizmoManager.Instance.SelectedCamera = _selectedCamera.UnityCamera;
                 }
             }
         }
@@ -62,7 +63,7 @@ namespace CollaborationEngine.Camera
 
         public void Update()
         {
-            if(Input.GetKeyDown(FreeCameraViewKey))
+            if (Input.GetKeyDown(FreeCameraViewKey))
             {
                 SelectedCamera = FreeCamera;
             }

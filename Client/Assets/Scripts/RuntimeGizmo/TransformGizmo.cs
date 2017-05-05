@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using CollaborationEngine.Objects;
 using CollaborationEngine.RuntimeGizmo.Helpers;
@@ -9,6 +10,8 @@ namespace CollaborationEngine.RuntimeGizmo
 {
     public class TransformGizmo : MonoBehaviour
     {
+        public event EventHandler OnTransformChanged;
+
         public TransformSpace space = TransformSpace.Global;
         public TransformType type = TransformType.Move;
 
@@ -50,6 +53,12 @@ namespace CollaborationEngine.RuntimeGizmo
         private UnityEngine.Camera MyCamera
         {
             get { return ObjectLocator.Instance.CameraManager.SelectedCamera.UnityCamera; }
+        }
+
+        private void NotifyTransformChanged()
+        {
+            if(OnTransformChanged != null)
+                OnTransformChanged(this, EventArgs.Empty);
         }
 
         static Material lineMaterial;
@@ -208,6 +217,8 @@ namespace CollaborationEngine.RuntimeGizmo
                             totalRotationAmount *= Quaternion.Euler(axis * rotateAmount);
                         }
                     }
+
+                    NotifyTransformChanged();
                 }
 
                 previousMousePosition = mousePosition;

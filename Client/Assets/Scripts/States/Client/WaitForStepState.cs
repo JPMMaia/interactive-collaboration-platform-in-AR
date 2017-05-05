@@ -35,6 +35,9 @@ namespace CollaborationEngine.States.Client
         public void FrameUpdate()
         {
         }
+        public void LateUpdate()
+        {
+        }
 
         private void OnPresentStep(NetworkMessage networkMessage)
         {

@@ -79,7 +79,16 @@ namespace CollaborationEngine.UI.Instructions
         {
             var instance = TransformGizmoManager.Instance;
 
-            instance.Target = enable ? Instruction.GameObject.transform : null;
+            if (enable)
+            {
+                instance.Target = Instruction;
+            }
+            else
+            {
+                instance.Target = null;
+            }
+
+            instance.Target = enable ? Instruction : null;
         }
 
         #region Unity UI Event Handlers

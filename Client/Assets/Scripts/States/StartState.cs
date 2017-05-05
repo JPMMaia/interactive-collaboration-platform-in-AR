@@ -17,5 +17,9 @@
         public void FrameUpdate()
         {
         }
+
+        public void LateUpdate()
+        {
+        }
     }
 }

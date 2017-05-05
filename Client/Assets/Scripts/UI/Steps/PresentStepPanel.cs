@@ -79,6 +79,13 @@ namespace CollaborationEngine.UI.Steps
             else
             {
                 PresentingStep = false;
+
+                // Send data:
+                var networkClient = NetworkManager.singleton.client;
+                if (!networkClient.Send(NetworkHandles.StopPresentStep, new IDMessage {ID = Step.ID}))
+                {
+                    PresentingStep = true;
+                }
             }
         }
 

@@ -1,6 +1,8 @@
-﻿using CollaborationEngine.Network;
+﻿using CollaborationEngine.Feedback;
+using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.UI.Feedback;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -11,6 +13,8 @@ namespace CollaborationEngine.States.Client
         #region Members
         private readonly ClientCollaborationState _clientState;
         private readonly Step _step;
+        private FeedbackPanel _feedbackPanel;
+        private ApprenticeFeedbackModule _apprenticeFeedbackModule;
         #endregion
 
         public StepState(ClientCollaborationState clientState, Step step)
@@ -22,7 +26,7 @@ namespace CollaborationEngine.States.Client
         public void Initialize()
         {
             var networkManager = NetworkManager.singleton.client;
-            networkManager.RegisterHandler(NetworkHandles.PresentStep, OnChangeStep);
+            networkManager.RegisterHandler(NetworkHandles.StopPresentStep, OnStopStep);
             networkManager.RegisterHandler(NetworkHandles.AddInstruction, OnAddInstruction);
             networkManager.RegisterHandler(NetworkHandles.RemoveInstruction, OnRemoveInstruction);
             networkManager.RegisterHandler(NetworkHandles.UpdateInstruction, OnUpdateInstruction);
@@ -31,15 +35,32 @@ namespace CollaborationEngine.States.Client
             foreach (var instruction in _step.Instructions)
                 instruction.Instantiate(ObjectLocator.Instance.SceneRoot.transform);
 
+            _apprenticeFeedbackModule = new ApprenticeFeedbackModule();
+            _feedbackPanel = Object.Instantiate(ObjectLocator.Instance.FeedbackPanelPrefab);
+            _feedbackPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
+            _feedbackPanel.CurrentStep = _step;
+            _feedbackPanel.FeedbackModule = _apprenticeFeedbackModule;
+
             ObjectLocator.Instance.HintText.SetText("Follow the mentor's instructions");
         }
         public void Shutdown()
         {
+            if (_feedbackPanel != null)
+            {
+                Object.Destroy(_feedbackPanel);
+                _feedbackPanel = null;
+            }
+
+            _apprenticeFeedbackModule = null;
+
+            foreach (var instruction in _step.Instructions)
+                instruction.Destroy();
+
             var networkManager = NetworkManager.singleton.client;
             networkManager.UnregisterHandler(NetworkHandles.UpdateInstruction);
             networkManager.UnregisterHandler(NetworkHandles.RemoveInstruction);
             networkManager.UnregisterHandler(NetworkHandles.AddInstruction);
-            networkManager.UnregisterHandler(NetworkHandles.PresentStep);
+            networkManager.UnregisterHandler(NetworkHandles.StopPresentStep);
         }
 
         public void FixedUpdate()
@@ -48,11 +69,13 @@ namespace CollaborationEngine.States.Client
         public void FrameUpdate()
         {
         }
-
-        private void OnChangeStep(NetworkMessage networkMessage)
+        public void LateUpdate()
         {
-            var message = networkMessage.ReadMessage<GenericNetworkMessage<Step>>();
-            _clientState.CurrentState = new StepState(_clientState, message.Data);
+        }
+
+        private void OnStopStep(NetworkMessage networkMessage)
+        {
+            _clientState.CurrentState = new WaitForStepState(_clientState);
         }
         private void OnAddInstruction(NetworkMessage networkMessage)
         {
@@ -73,7 +96,10 @@ namespace CollaborationEngine.States.Client
         }
         private void OnUpdateInstruction(NetworkMessage networkMessage)
         {
-            
+            var instruction = networkMessage.ReadMessage<SceneObject.DataMessage>().Data;
+
+            var instructionToUpdate = _step.Instructions.Find(e => e.ID == instruction.ID);
+            instructionToUpdate.Update(instruction);
         }
     }
 }

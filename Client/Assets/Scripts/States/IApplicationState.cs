@@ -6,5 +6,6 @@
         void Shutdown();
         void FixedUpdate();
         void FrameUpdate();
+        void LateUpdate();
     }
 }

@@ -52,6 +52,7 @@ namespace CollaborationEngine
         public void Awake()
         {
             DontDestroyOnLoad(this);
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
             // Initial state:
             ChangeState(new StartState(), false);
@@ -79,6 +80,12 @@ namespace CollaborationEngine
             
             if (Input.GetKeyDown("escape"))
                 Application.Quit();
+        }
+
+        public void LateUpdate()
+        {
+            if (CurrentState != null)
+                CurrentState.LateUpdate();
         }
 
         public void ChangeState<T>(T state, bool addToHistory = true) where T : IApplicationState

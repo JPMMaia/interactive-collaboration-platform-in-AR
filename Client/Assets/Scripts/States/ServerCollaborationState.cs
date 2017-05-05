@@ -67,5 +67,11 @@ namespace CollaborationEngine.States
                 _currentState.Initialize();
             }
         }
+
+        public void LateUpdate()
+        {
+            if(_currentState != null)
+                _currentState.LateUpdate();
+        }
     }
 }

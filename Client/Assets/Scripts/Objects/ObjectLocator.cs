@@ -1,5 +1,6 @@
 ﻿using CollaborationEngine.Camera;
 using CollaborationEngine.UI.Console;
+using CollaborationEngine.UI.Feedback;
 using CollaborationEngine.UI.Generic;
 using CollaborationEngine.UI.Hint;
 using CollaborationEngine.UI.Steps;
@@ -31,6 +32,7 @@ namespace CollaborationEngine.Objects
         public StepsPanel ServerStepsPanelPrefab;
         public StepsPanel ClientStepsPanelPrefab;
         public GameObject TextInstructionPrefab;
+        public FeedbackPanel FeedbackPanelPrefab;
 
         public RectTransform UICanvas;
         public HintText HintText;

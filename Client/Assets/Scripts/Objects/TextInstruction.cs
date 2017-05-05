@@ -1,4 +1,5 @@
 ﻿using System;
+using CollaborationEngine.Network;
 using CollaborationEngine.Objects.Prefabs;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -19,6 +20,7 @@ namespace CollaborationEngine.Objects
             set
             {
                 _text = value;
+                _needsSynch = true;
                 if (IsInstanced)
                     GameObject.GetComponent<TextInstructionPrefab>().Text.text = value;
             }
@@ -28,6 +30,7 @@ namespace CollaborationEngine.Objects
 
         #region Members
         private string _text;
+        private bool _needsSynch;
         #endregion
 
         public TextInstruction() :
@@ -55,6 +58,30 @@ namespace CollaborationEngine.Objects
             base.Deserialize(reader);
 
             _text = reader.ReadString();
+        }
+
+        public override void Update(SceneObject instruction)
+        {
+            base.Update(instruction);
+
+            var textInstruction = (TextInstruction) instruction;
+            Text = textInstruction.Text;
+        }
+
+        public override bool PerformNetworkSynch()
+        {
+            if (!base.PerformNetworkSynch())
+            {
+                if (!_needsSynch)
+                    return false;
+
+                var networkClient = NetworkManager.singleton.client;
+                networkClient.Send(NetworkHandles.UpdateInstruction, new DataMessage { Data = this });
+                _needsSynch = false;
+                return true;
+            }
+
+            return true;
         }
     }
 }

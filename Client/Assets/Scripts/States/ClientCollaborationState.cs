@@ -25,11 +25,18 @@ namespace CollaborationEngine.States
 
         public void FixedUpdate()
         {
-            _currentState.FixedUpdate();
+            if (_currentState != null)
+                _currentState.FixedUpdate();
         }
         public void FrameUpdate()
         {
-            _currentState.FrameUpdate();
+            if (_currentState != null)
+                _currentState.FrameUpdate();
+        }
+        public void LateUpdate()
+        {
+            if (_currentState != null)
+                _currentState.LateUpdate();
         }
 
         public TaskManager TaskManager
@@ -55,5 +62,8 @@ namespace CollaborationEngine.States
 
         private IApplicationState _currentState;
         private readonly TaskManager _taskManager = new TaskManager();
+
+
+
     }
 }

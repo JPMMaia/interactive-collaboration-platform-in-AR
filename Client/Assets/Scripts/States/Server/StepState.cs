@@ -1,5 +1,7 @@
-﻿using CollaborationEngine.Objects;
+﻿using CollaborationEngine.Feedback;
+using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.UI.Console;
 using CollaborationEngine.UI.Steps;
 using UnityEngine;
 
@@ -11,6 +13,7 @@ namespace CollaborationEngine.States.Server
         private readonly ServerCollaborationState _serverState;
         private readonly Task _task;
         private StepsPanel _stepPanel;
+        private MentorFeedbackModule _mentorFeedbackModule;
         #endregion
 
         public StepState(ServerCollaborationState serverState, Task task)
@@ -34,10 +37,18 @@ namespace CollaborationEngine.States.Server
                 ObjectLocator.Instance.ConsoleController = consolePanel;
                 ObjectLocator.Instance.LeftPanel.Add(consolePanel.GetComponent<RectTransform>());
             }
+
+            _mentorFeedbackModule = new MentorFeedbackModule();
+            _mentorFeedbackModule.OnHelpWanted += MentorFeedbackModule_OnHelpWanted;
+            _mentorFeedbackModule.OnStepCompleted += MentorFeedbackModule_OnStepCompleted;
         }
         public void Shutdown()
         {
             Debug.Log("Shutdown StepState");
+
+            _mentorFeedbackModule.OnStepCompleted -= MentorFeedbackModule_OnStepCompleted;
+            _mentorFeedbackModule.OnHelpWanted -= MentorFeedbackModule_OnHelpWanted;
+            _mentorFeedbackModule = null;
 
             if (_stepPanel)
             {
@@ -51,6 +62,23 @@ namespace CollaborationEngine.States.Server
         }
         public void FrameUpdate()
         {
+        }
+        public void LateUpdate()
+        {
+            foreach (var step in _task.Steps)
+            {
+                foreach (var instruction in step.Instructions)
+                    instruction.PerformNetworkSynch();
+            }
+        }
+
+        private void MentorFeedbackModule_OnHelpWanted(object sender, MentorFeedbackModule.FeedbackEventArgs e)
+        {
+            Object.FindObjectOfType<ConsoleController>().AddText("[" + e.StepName + "] Apprentice is requesting more instructions.");
+        }
+        private void MentorFeedbackModule_OnStepCompleted(object sender, MentorFeedbackModule.FeedbackEventArgs e)
+        {
+            Object.FindObjectOfType<ConsoleController>().AddText("[" + e.StepName + "] Apprentice completed step.");
         }
     }
 }
