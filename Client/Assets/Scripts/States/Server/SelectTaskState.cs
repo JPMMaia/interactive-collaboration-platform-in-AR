@@ -31,6 +31,7 @@ namespace CollaborationEngine.States.Server
 
             if (_taskPanel != null)
             {
+                _taskPanel.OnTaskItemClicked -= TaskPanel_OnTaskItemClicked;
                 Object.Destroy(_taskPanel.gameObject);
                 _taskPanel = null;
             }

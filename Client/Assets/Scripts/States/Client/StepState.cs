@@ -56,11 +56,11 @@ namespace CollaborationEngine.States.Client
             foreach (var instruction in _step.Instructions)
                 instruction.Destroy();
 
-            var networkManager = NetworkManager.singleton.client;
-            networkManager.UnregisterHandler(NetworkHandles.UpdateInstruction);
-            networkManager.UnregisterHandler(NetworkHandles.RemoveInstruction);
-            networkManager.UnregisterHandler(NetworkHandles.AddInstruction);
-            networkManager.UnregisterHandler(NetworkHandles.StopPresentStep);
+            //var networkManager = NetworkManager.singleton.client;
+            //networkManager.UnregisterHandler(NetworkHandles.UpdateInstruction);
+            //networkManager.UnregisterHandler(NetworkHandles.RemoveInstruction);
+            //networkManager.UnregisterHandler(NetworkHandles.AddInstruction);
+            //networkManager.UnregisterHandler(NetworkHandles.StopPresentStep);
         }
 
         public void FixedUpdate()

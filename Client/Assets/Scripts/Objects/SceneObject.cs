@@ -235,6 +235,9 @@ namespace CollaborationEngine.Objects
 
         public virtual bool PerformNetworkSynch()
         {
+            if (!IsInstanced)
+                return true;
+
             var dirty = false;
 
             if (_position != GameObject.transform.localPosition)

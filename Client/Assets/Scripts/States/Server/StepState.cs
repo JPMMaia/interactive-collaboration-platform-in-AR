@@ -68,7 +68,10 @@ namespace CollaborationEngine.States.Server
             foreach (var step in _task.Steps)
             {
                 foreach (var instruction in step.Instructions)
+                {
                     instruction.PerformNetworkSynch();
+                }
+                    
             }
         }
 
