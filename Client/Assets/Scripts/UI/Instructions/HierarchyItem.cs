@@ -27,7 +27,7 @@ namespace CollaborationEngine.UI.Instructions
         #endregion
 
         #region Properties
-        public Step Step { get; set; }
+        public StepModel StepModel { get; set; }
         public SceneObject Instruction { get; set; }
         public RectTransform RectTransform
         {
@@ -104,7 +104,7 @@ namespace CollaborationEngine.UI.Instructions
         }
         public void OnDeleteClick()
         {
-            Step.RemoveInstruction(Instruction.ID);
+            StepModel.RemoveInstruction(Instruction.ID);
 
             // Send remove instruction:
             var networkClient = NetworkManager.singleton.client;

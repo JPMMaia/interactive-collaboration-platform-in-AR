@@ -20,7 +20,7 @@ namespace CollaborationEngine.Network
 
         private void OnPresentStep(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.PresentStep, networkMessage.ReadMessage<GenericNetworkMessage<Step>>());
+            NetworkServer.SendToAll(NetworkHandles.PresentStep, networkMessage.ReadMessage<GenericNetworkMessage<StepModel>>());
         }
         private void OnStopPresentStep(NetworkMessage networkMessage)
         {

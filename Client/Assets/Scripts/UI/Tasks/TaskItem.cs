@@ -22,34 +22,34 @@ namespace CollaborationEngine.UI.Tasks
         #endregion
 
         #region Properties
-        public Task Task
+        public TaskModel TaskModel
         {
-            get { return _task; }
+            get { return _taskModel; }
             set
             {
-                if (_task != null)
-                    _task.OnNameChanged -= Task_OnNameChanged;
+                if (_taskModel != null)
+                    _taskModel.OnNameChanged -= TaskModelOnNameChanged;
 
-                _task = value;
+                _taskModel = value;
 
-                if (_task != null)
-                    _task.OnNameChanged += Task_OnNameChanged;
+                if (_taskModel != null)
+                    _taskModel.OnNameChanged += TaskModelOnNameChanged;
             }
         }
         #endregion
 
         #region Members
-        private Task _task;
+        private TaskModel _taskModel;
         #endregion
 
         public void Start()
         {
-            TaskNameText.text = _task.Name;
+            TaskNameText.text = _taskModel.Name;
         }
         public void OnDestroy()
         {
-            if (Task != null)
-                Task.OnNameChanged -= Task_OnNameChanged;
+            if (TaskModel != null)
+                TaskModel.OnNameChanged -= TaskModelOnNameChanged;
         }
 
         #region Unity UI Events
@@ -61,7 +61,7 @@ namespace CollaborationEngine.UI.Tasks
         public void OnEditClick()
         {
             var editTaskPanel = Instantiate(ObjectLocator.Instance.EditTaskPanelPrefab);
-            editTaskPanel.Task = Task;
+            editTaskPanel.TaskModel = TaskModel;
         }
         public void OnDeleteClick()
         {
@@ -73,9 +73,9 @@ namespace CollaborationEngine.UI.Tasks
         #endregion
 
         #region Event Handlers
-        private void Task_OnNameChanged(Task sender, EventArgs eventArgs)
+        private void TaskModelOnNameChanged(TaskModel sender, EventArgs eventArgs)
         {
-            TaskNameText.text = _task.Name;
+            TaskNameText.text = _taskModel.Name;
         }
         #endregion
     }

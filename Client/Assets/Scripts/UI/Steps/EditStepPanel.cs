@@ -12,16 +12,16 @@ namespace CollaborationEngine.UI.Steps
         #endregion
 
         #region Properties
-        public Task Task { get; set; }
-        public Step Step { get; set; }
+        public TaskModel TaskModel { get; set; }
+        public StepModel StepModel { get; set; }
         #endregion
 
         public void Start()
         {
             transform.SetParent(ObjectLocator.Instance.UICanvas, false);
 
-            if (Step != null)
-                StepNameInputField.text = Step.Name;
+            if (StepModel != null)
+                StepNameInputField.text = StepModel.Name;
 
             StepNameInputField.ActivateInputField();
         }
@@ -29,13 +29,13 @@ namespace CollaborationEngine.UI.Steps
         #region Unity UI Events
         public void OnOKClick()
         {
-            if (Step != null)
+            if (StepModel != null)
             {
-                Step.Name = StepNameInputField.text;
+                StepModel.Name = StepNameInputField.text;
             }
             else
             {
-                Task.AddStep(StepNameInputField.text);
+                TaskModel.AddStep(StepNameInputField.text);
             }
 
             Destroy(gameObject);

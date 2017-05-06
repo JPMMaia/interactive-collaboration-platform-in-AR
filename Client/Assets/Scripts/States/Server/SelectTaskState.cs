@@ -49,7 +49,7 @@ namespace CollaborationEngine.States.Server
 
         private void TaskPanel_OnTaskItemClicked(TaskItem sender, System.EventArgs eventArgs)
         {
-            _serverState.CurrentState = new StepState(_serverState, sender.Task);
+            _serverState.CurrentState = new StepState(_serverState, sender.TaskModel);
         }
     }
 }

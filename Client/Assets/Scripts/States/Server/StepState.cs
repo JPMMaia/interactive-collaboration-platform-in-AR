@@ -11,15 +11,15 @@ namespace CollaborationEngine.States.Server
     {
         #region Members
         private readonly ServerCollaborationState _serverState;
-        private readonly Task _task;
+        private readonly TaskModel _taskModel;
         private StepsPanel _stepPanel;
         private MentorFeedbackModule _mentorFeedbackModule;
         #endregion
 
-        public StepState(ServerCollaborationState serverState, Task task)
+        public StepState(ServerCollaborationState serverState, TaskModel taskModel)
         {
             _serverState = serverState;
-            _task = task;
+            _taskModel = taskModel;
         }
 
         public void Initialize()
@@ -28,7 +28,7 @@ namespace CollaborationEngine.States.Server
 
             {
                 _stepPanel = Object.Instantiate(ObjectLocator.Instance.ServerStepsPanelPrefab);
-                _stepPanel.Task = _task;
+                _stepPanel.TaskModel = _taskModel;
                 ObjectLocator.Instance.LeftPanel.Add(_stepPanel.GetComponent<RectTransform>());
             }
 
@@ -65,7 +65,7 @@ namespace CollaborationEngine.States.Server
         }
         public void LateUpdate()
         {
-            foreach (var step in _task.Steps)
+            foreach (var step in _taskModel.Steps)
             {
                 foreach (var instruction in step.Instructions)
                 {
@@ -81,7 +81,7 @@ namespace CollaborationEngine.States.Server
         }
         private void MentorFeedbackModule_OnStepCompleted(object sender, MentorFeedbackModule.FeedbackEventArgs e)
         {
-            Object.FindObjectOfType<ConsoleController>().AddText("[" + e.StepName + "] Apprentice completed step.");
+            Object.FindObjectOfType<ConsoleController>().AddText("[" + e.StepName + "] Apprentice completed stepModel.");
         }
     }
 }

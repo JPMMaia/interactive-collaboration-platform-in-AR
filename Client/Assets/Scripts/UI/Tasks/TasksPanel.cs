@@ -36,7 +36,7 @@ namespace CollaborationEngine.UI.Tasks
             TaskManager.OnTaskAdded += TaskManager_OnTaskAdded;
             TaskManager.OnTaskRemoved += TaskManager_OnTaskRemoved;
 
-            ObjectLocator.Instance.HintText.SetText("Create, delete or select a task.");
+            ObjectLocator.Instance.HintText.SetText("Create, delete or select a taskModel.");
         }
         public void OnDestroy()
         {
@@ -64,7 +64,7 @@ namespace CollaborationEngine.UI.Tasks
             // Add new element:
             var position = new Vector3(0.0f, -_taskItems.Count * _taskButtonHeight);
             var taskItem = Instantiate(TaskItemPrefab, position, Quaternion.identity);
-            taskItem.Task = eventArgs.Task;
+            taskItem.TaskModel = eventArgs.TaskModel;
             taskItem.transform.SetParent(Content.transform, false);
             taskItem.OnClicked += TaskItem_OnClicked;
             taskItem.OnDeleted += TaskItem_OnDeleted;
@@ -74,18 +74,18 @@ namespace CollaborationEngine.UI.Tasks
         }
         private void TaskManager_OnTaskRemoved(TaskManager sender, TaskManager.TaskEventArgs eventArgs)
         {
-            // Return if task item does not exist:
-            if (!_taskItems.Exists(element => element.Task.ID == eventArgs.Task.ID))
+            // Return if taskModel item does not exist:
+            if (!_taskItems.Exists(element => element.TaskModel.ID == eventArgs.TaskModel.ID))
                 return;
 
             // Find element:
-            var index = _taskItems.FindIndex(element => element.Task.ID == eventArgs.Task.ID);
+            var index = _taskItems.FindIndex(element => element.TaskModel.ID == eventArgs.TaskModel.ID);
             var taskItem = _taskItems[index];
 
             // Remove from list:
             _taskItems.RemoveAt(index);
 
-            // Destroy task item:
+            // Destroy taskModel item:
             taskItem.OnDeleted -= TaskItem_OnDeleted;
             taskItem.OnClicked -= TaskItem_OnClicked;
             taskItem.transform.SetParent(null);
@@ -102,7 +102,7 @@ namespace CollaborationEngine.UI.Tasks
         }
         private void TaskItem_OnDeleted(TaskItem sender, EventArgs eventArgs)
         {
-            TaskManager.RemoveTask(sender.Task.ID);
+            TaskManager.RemoveTask(sender.TaskModel.ID);
         }
         #endregion
     }

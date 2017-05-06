@@ -17,7 +17,7 @@ namespace CollaborationEngine.UI.Instructions
         #endregion
 
         #region Properties
-        public Step Step { get; set; }
+        public StepModel StepModel { get; set; }
         private InstructionTypeItem SelectedInstructionType
         {
             get { return _selectedInstructionType; }
@@ -98,7 +98,7 @@ namespace CollaborationEngine.UI.Instructions
             instruction.Rotation = Quaternion.FromToRotation(Vector3.forward, -hitInfo.normal);
             instruction.Scale = Vector3.one;
 
-            Step.AddInstruction(instruction);
+            StepModel.AddInstruction(instruction);
 
             _instructionInstantiated = true;
 

@@ -15,7 +15,7 @@ namespace CollaborationEngine.UI.Steps
 
         #region Properties
         public StepsPanel StepsPanel { get; set; }
-        public Step Step { get; set; }
+        public StepModel StepModel { get; set; }
         public CanvasGroup CanvasGroup
         {
             get
@@ -71,7 +71,7 @@ namespace CollaborationEngine.UI.Steps
 
                 // Send data:
                 var networkClient = NetworkManager.singleton.client;
-                if (!networkClient.Send(NetworkHandles.PresentStep, new GenericNetworkMessage<Step>(Step)))
+                if (!networkClient.Send(NetworkHandles.PresentStep, new GenericNetworkMessage<StepModel>(StepModel)))
                 {
                     PresentingStep = false;
                 }
@@ -82,7 +82,7 @@ namespace CollaborationEngine.UI.Steps
 
                 // Send data:
                 var networkClient = NetworkManager.singleton.client;
-                if (!networkClient.Send(NetworkHandles.StopPresentStep, new IDMessage {ID = Step.ID}))
+                if (!networkClient.Send(NetworkHandles.StopPresentStep, new IDMessage {ID = StepModel.ID}))
                 {
                     PresentingStep = true;
                 }
@@ -99,7 +99,7 @@ namespace CollaborationEngine.UI.Steps
             else if (NetworkController.Instance.IsAppreticeConnected)
             {
                 CanvasGroup.interactable = true;
-                ButtonText.text = "Present Step";
+                ButtonText.text = "Present StepModel";
                 if(StepsPanel != null)
                     StepsPanel.GetComponent<CanvasGroup>().interactable = true;
             }

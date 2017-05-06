@@ -12,7 +12,7 @@ namespace CollaborationEngine.UI.Instructions
         #endregion
 
         #region Properties
-        public Step Step { get; set; }
+        public StepModel StepModel { get; set; }
         public SceneObject Instruction { get; set; }
         #endregion
 
@@ -34,7 +34,7 @@ namespace CollaborationEngine.UI.Instructions
             }
             else
             {
-                Step.AddInstruction(new TextureInstruction());
+                StepModel.AddInstruction(new TextureInstruction());
             }
 
             Destroy(gameObject);

@@ -21,7 +21,7 @@ namespace CollaborationEngine.UI.Steps
         #endregion
 
         #region Properties
-        public Task Task { get; set; }
+        public TaskModel TaskModel { get; set; }
         public StepItem SelectedStepItem
         {
             get
@@ -44,8 +44,8 @@ namespace CollaborationEngine.UI.Steps
                     if (_selectedStepItem != null)
                     {
                         _selectedStepItem.SetSelectedAppearance(true);
-                        CreateHierarchyPanel(value.Step);
-                        CreatePresentStepPanel(value.Step);
+                        CreateHierarchyPanel(value.StepModel);
+                        CreatePresentStepPanel(value.StepModel);
                     }
                 }
                 else if(value != null)
@@ -71,46 +71,46 @@ namespace CollaborationEngine.UI.Steps
 
             Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0.0f);
 
-            Task.OnStepAdded += Task_OnStepAdded;
-            Task.OnStepDeleted += Task_OnStepDeleted;
-            Task.OnStepUpdated += Task_OnStepUpdated;
+            TaskModel.OnStepAdded += Task_OnStepAdded;
+            TaskModel.OnStepDeleted += Task_OnStepDeleted;
+            TaskModel.OnStepUpdated += Task_OnStepUpdated;
 
-            ObjectLocator.Instance.HintText.SetText("Create, delete or select a step.");
+            ObjectLocator.Instance.HintText.SetText("Create, delete or select a stepModel.");
         }
         public void OnDestroy()
         {
-            Task.OnStepUpdated -= Task_OnStepUpdated;
-            Task.OnStepDeleted -= Task_OnStepDeleted;
-            Task.OnStepAdded -= Task_OnStepAdded;
+            TaskModel.OnStepUpdated -= Task_OnStepUpdated;
+            TaskModel.OnStepDeleted -= Task_OnStepDeleted;
+            TaskModel.OnStepAdded -= Task_OnStepAdded;
         }
 
-        private void AddStepItem(Step step)
+        private void AddStepItem(StepModel stepModel)
         {
             // Allocate space for new element:
             Content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, (_stepsItems.Count + 1) * _stepButtonHeight);
 
             // Add new element:
-            var position = new Vector3(0.0f, -step.Order * _stepButtonHeight);
+            var position = new Vector3(0.0f, -stepModel.Order * _stepButtonHeight);
             var stepItem = Instantiate(StepItemPrefab, position, Quaternion.identity);
-            stepItem.Step = step;
+            stepItem.StepModel = stepModel;
             stepItem.transform.SetParent(Content.transform, false);
             stepItem.OnClicked += StepItem_OnClicked;
             stepItem.OnDeleted += StepItem_OnDeleted;
-            stepItem.Step.OnOrderChanged += Step_OnOrderChanged;
+            stepItem.StepModel.OnOrderChanged += Step_OnOrderChanged;
 
             // Add to list:
             _stepsItems.Add(stepItem);
 
             SelectedStepItem = stepItem;
         }
-        private void DeleteStepItem(Step step)
+        private void DeleteStepItem(StepModel stepModel)
         {
-            // Return if task item does not exist:
-            if (!_stepsItems.Exists(element => element.Step.ID == step.ID))
+            // Return if taskModel item does not exist:
+            if (!_stepsItems.Exists(element => element.StepModel.ID == stepModel.ID))
                 return;
 
             // Find element:
-            var index = _stepsItems.FindIndex(element => element.Step.ID == step.ID);
+            var index = _stepsItems.FindIndex(element => element.StepModel.ID == stepModel.ID);
             var stepItem = _stepsItems[index];
 
             if (stepItem == SelectedStepItem)
@@ -119,25 +119,25 @@ namespace CollaborationEngine.UI.Steps
             // Remove from list:
             _stepsItems.RemoveAt(index);
 
-            // Destroy task item:
-            stepItem.Step.OnOrderChanged -= Step_OnOrderChanged;
+            // Destroy taskModel item:
+            stepItem.StepModel.OnOrderChanged -= Step_OnOrderChanged;
             stepItem.OnDeleted -= StepItem_OnDeleted;
             stepItem.OnClicked -= StepItem_OnClicked;
             stepItem.transform.SetParent(null);
             Destroy(stepItem.gameObject);
         }
-        private void RecreateStepItem(Step step)
+        private void RecreateStepItem(StepModel stepModel)
         {
-            DeleteStepItem(step);
-            AddStepItem(step);
+            DeleteStepItem(stepModel);
+            AddStepItem(stepModel);
         }
 
-        private void CreateHierarchyPanel(Step step)
+        private void CreateHierarchyPanel(StepModel stepModel)
         {
             DestroyHierarchyPanel();
 
             _hierarchyPanel = Instantiate(HierarchyPanelPrefab);
-            _hierarchyPanel.Step = step;
+            _hierarchyPanel.StepModel = stepModel;
             ObjectLocator.Instance.RightPanel.Add(_hierarchyPanel.GetComponent<RectTransform>());
         }
         private void DestroyHierarchyPanel()
@@ -150,12 +150,12 @@ namespace CollaborationEngine.UI.Steps
             _hierarchyPanel = null;
         }
 
-        private void CreatePresentStepPanel(Step step)
+        private void CreatePresentStepPanel(StepModel stepModel)
         {
             _presentStepPanel = Instantiate(PresentStepPanelPrefab);
             _presentStepPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
             _presentStepPanel.StepsPanel = this;
-            _presentStepPanel.Step = step;
+            _presentStepPanel.StepModel = stepModel;
         }
         private void DestroyPresentStepPanel()
         {
@@ -170,23 +170,23 @@ namespace CollaborationEngine.UI.Steps
         public void OnCreateNewStepButtonClicked()
         {
             var editStepPanel = Instantiate(ObjectLocator.Instance.EditStepPanelPrefab);
-            editStepPanel.Task = Task;
+            editStepPanel.TaskModel = TaskModel;
         }
         #endregion
 
         #region Event Handlers
-        private void Task_OnStepAdded(Task sender, Task.StepEventArgs eventArgs)
+        private void Task_OnStepAdded(TaskModel sender, TaskModel.StepEventArgs eventArgs)
         {
-            AddStepItem(eventArgs.Step);
+            AddStepItem(eventArgs.StepModel);
         }
-        private void Task_OnStepDeleted(Task sender, Task.StepEventArgs eventArgs)
+        private void Task_OnStepDeleted(TaskModel sender, TaskModel.StepEventArgs eventArgs)
         {
-            DeleteStepItem(eventArgs.Step);
+            DeleteStepItem(eventArgs.StepModel);
         }
-        private void Task_OnStepUpdated(Task sender, Task.StepEventArgs eventArgs)
+        private void Task_OnStepUpdated(TaskModel sender, TaskModel.StepEventArgs eventArgs)
         {
         }
-        private void Step_OnOrderChanged(Step sender, EventArgs eventArgs)
+        private void Step_OnOrderChanged(StepModel sender, EventArgs eventArgs)
         {
             RecreateStepItem(sender);
         }
@@ -200,7 +200,7 @@ namespace CollaborationEngine.UI.Steps
         }
         private void StepItem_OnDeleted(StepItem sender, EventArgs eventArgs)
         {
-            Task.DeleteStep(sender.Step.ID);
+            TaskModel.DeleteStep(sender.StepModel.ID);
         }
         #endregion
     }

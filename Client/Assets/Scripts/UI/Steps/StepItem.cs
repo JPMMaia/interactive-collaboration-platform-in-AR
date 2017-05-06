@@ -23,34 +23,34 @@ namespace CollaborationEngine.UI.Steps
         #endregion
 
         #region Properties
-        public Step Step
+        public StepModel StepModel
         {
-            get { return _step; }
+            get { return _stepModel; }
             set
             {
-                if (_step != null)
-                    _step.OnNameChanged -= Step_OnNameChanged;
+                if (_stepModel != null)
+                    _stepModel.OnNameChanged -= StepModelOnNameChanged;
 
-                _step = value;
+                _stepModel = value;
 
-                if (_step != null)
-                    _step.OnNameChanged += Step_OnNameChanged;
+                if (_stepModel != null)
+                    _stepModel.OnNameChanged += StepModelOnNameChanged;
             }
         }
         #endregion
 
         #region Members
-        private Step _step;
+        private StepModel _stepModel;
         #endregion
 
         public void Start()
         {
-            StepNameText.text = _step.Name;
+            StepNameText.text = _stepModel.Name;
         }
         public void OnDestroy()
         {
-            if (Step != null)
-                Step.OnNameChanged -= Step_OnNameChanged;
+            if (StepModel != null)
+                StepModel.OnNameChanged -= StepModelOnNameChanged;
         }
 
         public void SetSelectedAppearance(bool enable)
@@ -67,7 +67,7 @@ namespace CollaborationEngine.UI.Steps
         public void OnEditClick()
         {
             var editTaskPanel = Instantiate(ObjectLocator.Instance.EditStepPanelPrefab);
-            editTaskPanel.Step = Step;
+            editTaskPanel.StepModel = StepModel;
         }
         public void OnDeleteClick()
         {
@@ -77,9 +77,9 @@ namespace CollaborationEngine.UI.Steps
         #endregion
 
         #region Event Handlers
-        private void Step_OnNameChanged(Step sender, EventArgs eventArgs)
+        private void StepModelOnNameChanged(StepModel sender, EventArgs eventArgs)
         {
-            StepNameText.text = _step.Name;
+            StepNameText.text = _stepModel.Name;
         }
         #endregion
     }

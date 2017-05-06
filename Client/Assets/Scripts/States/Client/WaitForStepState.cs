@@ -41,7 +41,7 @@ namespace CollaborationEngine.States.Client
 
         private void OnPresentStep(NetworkMessage networkMessage)
         {
-            var message = networkMessage.ReadMessage<GenericNetworkMessage<Step>>();
+            var message = networkMessage.ReadMessage<GenericNetworkMessage<StepModel>>();
             _clientState.CurrentState = new StepState(_clientState, message.Data);
         }
     }

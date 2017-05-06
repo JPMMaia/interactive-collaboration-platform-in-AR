@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollaborationEngine.Network;
 
 namespace CollaborationEngine.Tasks
 {
@@ -8,11 +9,11 @@ namespace CollaborationEngine.Tasks
         #region Classes
         public class TaskEventArgs : EventArgs
         {
-            public Task Task { get; private set; }
+            public TaskModel TaskModel { get; private set; }
 
-            public TaskEventArgs(Task task)
+            public TaskEventArgs(TaskModel taskModel)
             {
-                Task = task;
+                TaskModel = taskModel;
             }
         }
         #endregion
@@ -28,34 +29,34 @@ namespace CollaborationEngine.Tasks
         #endregion
 
         #region Members
-        private readonly List<Task> _tasks = new List<Task>();
+        private readonly List<TaskModel> _tasks = new List<TaskModel>();
         #endregion
 
-        public bool AddTask(Task task)
+        public bool AddTask(TaskModel taskModel)
         {
-            // Return false if there is already a task with the given name:
-            if (_tasks.Exists(element => element.Name == task.Name))
+            // Return false if there is already a taskModel with the given name:
+            if (_tasks.Exists(element => element.Name == taskModel.Name))
                 return false;
 
-            // Add task:
-            _tasks.Add(task);
+            // Add taskModel:
+            _tasks.Add(taskModel);
 
             // Subscribe to events:
-            task.OnNameChanged += Task_OnNameChanged;
+            taskModel.OnNameChanged += Task_OnNameChanged;
 
             // Raise event:
             if (OnTaskAdded != null)
-                OnTaskAdded(this, new TaskEventArgs(task));
+                OnTaskAdded(this, new TaskEventArgs(taskModel));
 
             return true;
         }
         public void RemoveTask(UInt32 taskID)
         {
-            // Return if there is not any task with the given ID:
+            // Return if there is not any taskModel with the given ID:
             if (!_tasks.Exists(element => element.ID == taskID))
                 return;
 
-            // Find task:
+            // Find taskModel:
             var index = _tasks.FindIndex(element => element.ID == taskID);
             var task = _tasks[index];
 
@@ -69,40 +70,40 @@ namespace CollaborationEngine.Tasks
             if (OnTaskRemoved != null)
                 OnTaskRemoved(this, new TaskEventArgs(task));
         }
-        public void UpdateTask(Task task)
+        public void UpdateTask(TaskModel taskModel)
         {
-            // Return if there is not any task with the given ID:
-            if (!_tasks.Exists(element => element.ID == task.ID))
+            // Return if there is not any taskModel with the given ID:
+            if (!_tasks.Exists(element => element.ID == taskModel.ID))
                 return;
 
-            // Find task:
-            var taskToUpdate = _tasks.Find(element => element.ID == task.ID);
+            // Find taskModel:
+            var taskToUpdate = _tasks.Find(element => element.ID == taskModel.ID);
 
-            // Update task:
-            taskToUpdate.Update(task);
+            // Update taskModel:
+            //taskToUpdate.Update(taskModel);
         }
-        public Task GetTask(UInt32 taskID)
+        public TaskModel GetTask(UInt32 taskID)
         {
             if (!_tasks.Exists(element => element.ID == taskID))
-                throw new Exception("There is not any task with the given ID.");
+                throw new Exception("There is not any taskModel with the given ID.");
 
             return _tasks.Find(element => element.ID == taskID);
         }
-        public bool TryGetTask(UInt32 taskID, out Task task)
+        public bool TryGetTask(UInt32 taskID, out TaskModel taskModel)
         {
             if (!_tasks.Exists(element => element.ID == taskID))
             {
-                task = null;
+                taskModel = null;
                 return false;
             }
 
-            task = _tasks.Find(element => element.ID == taskID);
+            taskModel = _tasks.Find(element => element.ID == taskID);
 
             return true;
         }
 
         #region Event Handlers
-        private void Task_OnNameChanged(Task sender, EventArgs eventArgs)
+        private void Task_OnNameChanged(TaskModel sender, EventArgs eventArgs)
         {
             if (OnTaskUpdated != null)
                 OnTaskUpdated(this, new TaskEventArgs(sender));

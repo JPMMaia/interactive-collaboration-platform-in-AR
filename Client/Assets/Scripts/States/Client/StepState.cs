@@ -12,15 +12,15 @@ namespace CollaborationEngine.States.Client
     {
         #region Members
         private readonly ClientCollaborationState _clientState;
-        private readonly Step _step;
+        private readonly StepModel _stepModel;
         private FeedbackPanel _feedbackPanel;
         private ApprenticeFeedbackModule _apprenticeFeedbackModule;
         #endregion
 
-        public StepState(ClientCollaborationState clientState, Step step)
+        public StepState(ClientCollaborationState clientState, StepModel stepModel)
         {
             _clientState = clientState;
-            _step = step;
+            _stepModel = stepModel;
         }
 
         public void Initialize()
@@ -32,13 +32,13 @@ namespace CollaborationEngine.States.Client
             networkManager.RegisterHandler(NetworkHandles.UpdateInstruction, OnUpdateInstruction);
 
             // Instantiate instructions:
-            foreach (var instruction in _step.Instructions)
+            foreach (var instruction in _stepModel.Instructions)
                 instruction.Instantiate(ObjectLocator.Instance.SceneRoot.transform);
 
             _apprenticeFeedbackModule = new ApprenticeFeedbackModule();
             _feedbackPanel = Object.Instantiate(ObjectLocator.Instance.FeedbackPanelPrefab);
             _feedbackPanel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
-            _feedbackPanel.CurrentStep = _step;
+            _feedbackPanel.CurrentStepModel = _stepModel;
             _feedbackPanel.FeedbackModule = _apprenticeFeedbackModule;
 
             ObjectLocator.Instance.HintText.SetText("Follow the mentor's instructions");
@@ -53,7 +53,7 @@ namespace CollaborationEngine.States.Client
 
             _apprenticeFeedbackModule = null;
 
-            foreach (var instruction in _step.Instructions)
+            foreach (var instruction in _stepModel.Instructions)
                 instruction.Destroy();
 
             //var networkManager = NetworkManager.singleton.client;
@@ -81,16 +81,16 @@ namespace CollaborationEngine.States.Client
         {
             var instruction = networkMessage.ReadMessage<SceneObject.DataMessage>().Data;
 
-            _step.Instructions.Add(instruction);
+            _stepModel.Instructions.Add(instruction);
             instruction.Instantiate(ObjectLocator.Instance.SceneRoot.transform);
         }
         private void OnRemoveInstruction(NetworkMessage networkMessage)
         {
             var instructionID = networkMessage.ReadMessage<SceneObject.IDMessage>().ID;
 
-            var instructionIndex = _step.Instructions.FindIndex(e => e.ID == instructionID);
-            var instruction = _step.Instructions[instructionIndex];
-            _step.Instructions.RemoveAt(instructionIndex);
+            var instructionIndex = _stepModel.Instructions.FindIndex(e => e.ID == instructionID);
+            var instruction = _stepModel.Instructions[instructionIndex];
+            _stepModel.Instructions.RemoveAt(instructionIndex);
 
             Object.Destroy(instruction.GameObject);
         }
@@ -98,7 +98,7 @@ namespace CollaborationEngine.States.Client
         {
             var instruction = networkMessage.ReadMessage<SceneObject.DataMessage>().Data;
 
-            var instructionToUpdate = _step.Instructions.Find(e => e.ID == instruction.ID);
+            var instructionToUpdate = _stepModel.Instructions.Find(e => e.ID == instruction.ID);
             instructionToUpdate.Update(instruction);
         }
     }

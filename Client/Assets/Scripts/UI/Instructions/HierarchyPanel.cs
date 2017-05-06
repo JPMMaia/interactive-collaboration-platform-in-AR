@@ -17,7 +17,7 @@ namespace CollaborationEngine.UI.Instructions
         #endregion
 
         #region Properties
-        public Step Step { get; set; }
+        public StepModel StepModel { get; set; }
         public HierarchyItem SelectedHierarchyItem
         {
             get { return _selectedHierarchyItem; }
@@ -53,21 +53,21 @@ namespace CollaborationEngine.UI.Instructions
 
         public void Start()
         {
-            Step.OnInstructionAdded += Step_OnInstructionAdded;
-            Step.OnInstructionRemoved += Step_OnInstructionRemoved;
+            StepModel.OnInstructionAdded += Step_OnInstructionAdded;
+            StepModel.OnInstructionRemoved += Step_OnInstructionRemoved;
 
-            foreach (var instruction in Step.Instructions)
+            foreach (var instruction in StepModel.Instructions)
                 AddInstructionItem(instruction);
 
             ObjectLocator.Instance.HintText.SetText("Create, delete or select an instruction.");
         }
         public void OnDestroy()
         {
-            foreach (var instruction in Step.Instructions)
+            foreach (var instruction in StepModel.Instructions)
                 RemoveInstructionItem(instruction);
 
-            Step.OnInstructionRemoved -= Step_OnInstructionRemoved;
-            Step.OnInstructionAdded -= Step_OnInstructionAdded;
+            StepModel.OnInstructionRemoved -= Step_OnInstructionRemoved;
+            StepModel.OnInstructionAdded -= Step_OnInstructionAdded;
         }
 
         private void CreateInspectorPanel()
@@ -100,7 +100,7 @@ namespace CollaborationEngine.UI.Instructions
         private void AddInstructionItem(SceneObject instruction)
         {
             var item = Instantiate(HierarchyItemPrefab);
-            item.Step = Step;
+            item.StepModel = StepModel;
             item.Instruction = instruction;
             item.OnClicked += Item_OnClicked;
 
@@ -129,17 +129,17 @@ namespace CollaborationEngine.UI.Instructions
         public void OnNewInstructionButtonClick()
         {
             var panel = Instantiate(NewInstructionPanelPrefab);
-            panel.Step = Step;
+            panel.StepModel = StepModel;
             panel.transform.SetParent(ObjectLocator.Instance.UICanvas, false);
         }
         #endregion
 
         #region Event Handlers
-        private void Step_OnInstructionAdded(Step sender, Step.InstructionEventArgs eventArgs)
+        private void Step_OnInstructionAdded(StepModel sender, StepModel.InstructionEventArgs eventArgs)
         {
             AddInstructionItem(eventArgs.Instruction);
         }
-        private void Step_OnInstructionRemoved(Step sender, Step.InstructionEventArgs eventArgs)
+        private void Step_OnInstructionRemoved(StepModel sender, StepModel.InstructionEventArgs eventArgs)
         {
             RemoveInstructionItem(eventArgs.Instruction);
         }

@@ -13,15 +13,15 @@ namespace CollaborationEngine.UI.Tasks
         #endregion
 
         #region Properties
-        public Task Task { get; set; }
+        public TaskModel TaskModel { get; set; }
         #endregion
 
         public void Start()
         {
             transform.SetParent(ObjectLocator.Instance.UICanvas, false);
 
-            if (Task != null)
-                TaskNameInputField.text = Task.Name;
+            if (TaskModel != null)
+                TaskNameInputField.text = TaskModel.Name;
 
             TaskNameInputField.ActivateInputField();
         }
@@ -29,9 +29,9 @@ namespace CollaborationEngine.UI.Tasks
         #region Unity UI Events
         public void OnOKClick()
         {
-            if (Task != null)
+            if (TaskModel != null)
             {
-                Task.Name = TaskNameInputField.text;
+                TaskModel.Name = TaskNameInputField.text;
             }
             else
             {
@@ -39,7 +39,7 @@ namespace CollaborationEngine.UI.Tasks
                 if (currentState is ServerCollaborationState)
                 {
                     var serverState = currentState as ServerCollaborationState;
-                    serverState.TaskManager.AddTask(new Task(TaskNameInputField.text));
+                    serverState.TaskManager.AddTask(new TaskModel(TaskNameInputField.text));
                 }
             }
 
