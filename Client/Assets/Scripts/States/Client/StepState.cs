@@ -2,6 +2,7 @@
 using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.Tasks.Steps;
 using CollaborationEngine.UI.Feedback;
 using UnityEngine;
 using UnityEngine.Networking;

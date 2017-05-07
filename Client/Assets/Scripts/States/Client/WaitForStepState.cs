@@ -1,6 +1,7 @@
 ﻿using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.Tasks.Steps;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.States.Client

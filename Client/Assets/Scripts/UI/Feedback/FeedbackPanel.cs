@@ -1,5 +1,6 @@
 ﻿using CollaborationEngine.Feedback;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.Tasks.Steps;
 using UnityEngine;
 
 namespace CollaborationEngine.UI.Feedback

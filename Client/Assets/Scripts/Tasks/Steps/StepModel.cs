@@ -5,7 +5,7 @@ using CollaborationEngine.Network;
 using CollaborationEngine.Objects;
 using UnityEngine.Networking;
 
-namespace CollaborationEngine.Tasks
+namespace CollaborationEngine.Tasks.Steps
 {
     public class StepModel : Entity, ISerializable
     {

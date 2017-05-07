@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CollaborationEngine.Base;
 
 namespace CollaborationEngine.Tasks
@@ -16,8 +17,11 @@ namespace CollaborationEngine.Tasks
 
         public TaskModel Create()
         {
-            //Instantiate()
-            return null;
+            throw new NotImplementedException();
+        }
+        public TaskModel Duplicate(uint taskID)
+        {
+            throw new NotImplementedException();
         }
         public void Delete(uint taskID)
         {
@@ -27,6 +31,5 @@ namespace CollaborationEngine.Tasks
         {
             return _tasks.Find(e => e.ID == taskID);
         }
-        
     }
 }

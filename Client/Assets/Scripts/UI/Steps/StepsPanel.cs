@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.Tasks.Steps;
 using CollaborationEngine.UI.Instructions;
 using UnityEngine;
 

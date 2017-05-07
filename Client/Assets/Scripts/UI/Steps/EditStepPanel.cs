@@ -1,5 +1,6 @@
 ﻿using CollaborationEngine.Objects;
 using CollaborationEngine.Tasks;
+using CollaborationEngine.Tasks.Steps;
 using UnityEngine;
 using UnityEngine.UI;
 

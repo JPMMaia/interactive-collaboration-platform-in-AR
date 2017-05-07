@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CollaborationEngine.Base;
 using CollaborationEngine.Network;
+using CollaborationEngine.Tasks.Steps;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Tasks
