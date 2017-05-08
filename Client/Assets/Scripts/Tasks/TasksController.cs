@@ -33,20 +33,7 @@ namespace CollaborationEngine.Tasks
 
             // Create task views:
             foreach (var task in TasksModel.Tasks)
-                CreateTaskView(task);
-        }
-        public void OnDisable()
-        {
-            // Destroy task views:
-            foreach (var taskView in _taskViews)
-                Destroy(taskView.Value.gameObject);
-            _taskViews.Clear();
-
-            // Unsubscribe to events:
-            TasksView.OnCreateTaskClicked -= TasksView_OnCreateTaskClicked;
-            TasksModel.OnTaskDeleted -= TasksModel_OnTaskDeleted;
-            TasksModel.OnTaskDuplicated -= TasksModel_OnTaskDuplicated;
-            TasksModel.OnTaskCreated -= TasksModel_OnTaskCreated;
+                CreateTaskView(task.Value);
         }
 
         private TaskView CreateTaskView([NotNull] TaskModel taskModel)
@@ -68,6 +55,7 @@ namespace CollaborationEngine.Tasks
             taskView.OnEdited += TaskView_OnEdited;
             taskView.OnDuplicated += TaskView_OnDuplicated;
             taskView.OnDeleted += TaskView_OnDeleted;
+            taskView.OnEndEdit += TaskView_OnEndEdit;
 
             // Set parent:
             taskView.transform.SetParent(TasksView.Container, false);
@@ -91,13 +79,23 @@ namespace CollaborationEngine.Tasks
             taskView.transform.SetParent(null);
 
             // Unsubscribe from events:
-            taskView.OnDeleted += TaskView_OnDeleted;
-            taskView.OnDuplicated += TaskView_OnDuplicated;
-            taskView.OnEdited += TaskView_OnEdited;
-            taskView.OnSelected += TaskView_OnSelected;
+            taskView.OnEndEdit -= TaskView_OnEndEdit;
+            taskView.OnDeleted -= TaskView_OnDeleted;
+            taskView.OnDuplicated -= TaskView_OnDuplicated;
+            taskView.OnEdited -= TaskView_OnEdited;
+            taskView.OnSelected -= TaskView_OnSelected;
 
             // Destroy:
             Destroy(taskView.gameObject);
+        }
+
+        private void ActivateTaskViewInputField(TaskView taskView)
+        {
+            // Block UI:
+            TasksView.Interactale = false;
+
+            // Edit task name:
+            taskView.EditTaskName();
         }
 
         #region Event Handlers
@@ -124,17 +122,16 @@ namespace CollaborationEngine.Tasks
             if (!_taskViews.TryGetValue(taskModel.ID, out taskView))
                 taskView = CreateTaskView(taskModel);
 
-            // Edit task name:
-            taskView.EditTaskName();
+            ActivateTaskViewInputField(taskView);
         }
 
         private void TaskView_OnSelected(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
         private void TaskView_OnEdited(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            sender.EditTaskName();
+            ActivateTaskViewInputField(sender);
         }
         private void TaskView_OnDuplicated(TaskView sender, Events.IDEventArgs eventArgs)
         {
@@ -143,6 +140,17 @@ namespace CollaborationEngine.Tasks
         private void TaskView_OnDeleted(TaskView sender, Events.IDEventArgs eventArgs)
         {
             TasksModel.Delete(eventArgs.ID);
+        }
+        private void TaskView_OnEndEdit(TaskView sender, Events.IDEventArgs eventArgs)
+        {
+            // Get task model:
+            var taskModel = TasksModel.Get(eventArgs.ID);
+
+            // Update name:
+            taskModel.Name = sender.TaskName;
+
+            // Unblock UI:
+            TasksView.Interactale = true;
         }
         #endregion
     }

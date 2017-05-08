@@ -4,8 +4,13 @@ using UnityEngine.UI;
 
 namespace CollaborationEngine.UserInterface
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class ButtonInputFieldToggle : MonoBehaviour
     {
+        #region Events
+        public event EventHandler OnEndEdit;
+        #endregion
+
         #region Unity Editor
         public Button Button;
         public Text ButtonOrderText;
@@ -29,7 +34,7 @@ namespace CollaborationEngine.UserInterface
             get { return _text; }
             set
             {
-                if(value == null)
+                if (value == null)
                     value = String.Empty;
 
                 _text = value.ToUpper();
@@ -85,10 +90,16 @@ namespace CollaborationEngine.UserInterface
         }
         public void OnInputFieldEndEdit()
         {
-            ActivateButton();
-
-            // TODO do not activate button if text is empty:
-            throw new NotImplementedException();
+            if (_text.Length > 0)
+            {
+                ActivateButton();
+                if(OnEndEdit != null)
+                    OnEndEdit(this, EventArgs.Empty);
+            }
+            else
+            {
+                ActivateInputField();
+            }
         }
         #endregion
     }

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using CollaborationEngine.Base;
 using UnityEngine;
 
 namespace CollaborationEngine.Tasks
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class TasksView : Entity
     {
         public RectTransform Container;
@@ -12,6 +12,12 @@ namespace CollaborationEngine.Tasks
         #region Events
         public event EventHandler OnCreateTaskClicked;
         #endregion
+
+        public bool Interactale
+        {
+            get { return GetComponent<CanvasGroup>().interactable; }
+            set { GetComponent<CanvasGroup>().interactable = value; }
+        }
 
         #region Unity Event Handlers
         public void OnCreateTaskButtonClicked()

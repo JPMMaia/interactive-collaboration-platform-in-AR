@@ -18,13 +18,13 @@ namespace CollaborationEngine.Tasks
         #endregion
 
         #region Properties
-        public IEnumerable<TaskModel> Tasks
+        public IEnumerable<KeyValuePair<uint, TaskModel>> Tasks
         {
             get { return _tasks; }
         }
         #endregion
 
-        private readonly List<TaskModel> _tasks = new List<TaskModel>();
+        private readonly Dictionary<uint, TaskModel> _tasks = new Dictionary<uint, TaskModel>();
 
         private TaskModel CreateTask()
         {
@@ -33,7 +33,7 @@ namespace CollaborationEngine.Tasks
             task.ID = TaskModel.GenerateID();
 
             // Add task to list:
-            _tasks.Add(task);
+            _tasks.Add(task.ID, task);
 
             return task;
         }
@@ -50,7 +50,7 @@ namespace CollaborationEngine.Tasks
         public TaskModel Duplicate(uint taskID)
         {
             // Get task to duplicate:
-            var taskToDuplicate = Get(taskID);
+            var taskToDuplicate = _tasks[taskID];
 
             // Create new task and perform deep copy:
             var duplicatedTask = CreateTask();
@@ -65,14 +65,12 @@ namespace CollaborationEngine.Tasks
         public void Delete(uint taskID)
         {
             // Get task:
-            var index = _tasks.FindIndex(e => e.ID == taskID);
-            if (index < 0)
+            TaskModel task;
+            if(!_tasks.TryGetValue(taskID, out task))
                 return;
 
-            var task = _tasks[index];
-
             // Remove task:
-            _tasks.RemoveAt(index);
+            _tasks.Remove(taskID);
 
             // Raise event:
             if (OnTaskDeleted != null)
@@ -80,7 +78,7 @@ namespace CollaborationEngine.Tasks
         }
         public TaskModel Get(uint taskID)
         {
-            return _tasks.Find(e => e.ID == taskID);
+            return _tasks[taskID];
         }
     }
 }

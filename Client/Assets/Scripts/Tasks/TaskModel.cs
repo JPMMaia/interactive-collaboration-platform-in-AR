@@ -159,9 +159,13 @@ namespace CollaborationEngine.Tasks
 
         public void DeepCopy(TaskModel other)
         {
-            other.Name = _name;
+            other.Name = GenerateCopyName(Name);
 
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+        }
+        private String GenerateCopyName(String originalName)
+        {
+            return originalName + "- Copy";
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using CollaborationEngine.Base;
 using CollaborationEngine.Events;
 using CollaborationEngine.UserInterface;
+using UnityEngine;
 
 namespace CollaborationEngine.Tasks
 {
@@ -14,6 +15,7 @@ namespace CollaborationEngine.Tasks
         public event IDEventDelegate OnEdited;
         public event IDEventDelegate OnDuplicated;
         public event IDEventDelegate OnDeleted;
+        public event IDEventDelegate OnEndEdit;
         #endregion
 
         #region UnityEditor
@@ -50,6 +52,15 @@ namespace CollaborationEngine.Tasks
         private String _taskName;
         #endregion
 
+        public void Start()
+        {
+            TaskButtonInputFieldToggle.OnEndEdit += TaskButtonInputFieldToggle_OnEndEdit;
+        }
+        public void OnDestroy()
+        {
+            TaskButtonInputFieldToggle.OnEndEdit -= TaskButtonInputFieldToggle_OnEndEdit;
+        }
+
         private void UpdateView()
         {
             TaskButtonInputFieldToggle.OrderText = String.Format("{0,2:D2}.", _taskOrder);
@@ -58,7 +69,17 @@ namespace CollaborationEngine.Tasks
 
         public void EditTaskName()
         {
+            TaskButtonInputFieldToggle.GetComponent<CanvasGroup>().ignoreParentGroups = true;
             TaskButtonInputFieldToggle.ActivateInputField();
+        }
+
+        private void TaskButtonInputFieldToggle_OnEndEdit(object sender, EventArgs e)
+        {
+            _taskName = TaskButtonInputFieldToggle.Text;
+            TaskButtonInputFieldToggle.GetComponent<CanvasGroup>().ignoreParentGroups = false;
+
+            if (OnEndEdit != null)
+                OnEndEdit(this, new IDEventArgs(TaskID));
         }
 
         #region Unity UI Events
