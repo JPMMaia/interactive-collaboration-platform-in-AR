@@ -57,8 +57,8 @@ namespace CollaborationEngine.Tasks
             taskView.OnDeleted += TaskView_OnDeleted;
             taskView.OnEndEdit += TaskView_OnEndEdit;
 
-            // Set parent:
-            taskView.transform.SetParent(TasksView.Container, false);
+            // Add to task view:
+            TasksView.AddToContainer(taskView.transform);
 
             // Add to list:
             _taskViews.Add(taskModel.ID, taskView);
@@ -75,8 +75,8 @@ namespace CollaborationEngine.Tasks
             // Remove task from list:
             _taskViews.Remove(taskID);
 
-            // Remove from parent:
-            taskView.transform.SetParent(null);
+            // Remove from task view:
+            TasksView.RemoveFromContainer(taskView.transform);
 
             // Unsubscribe from events:
             taskView.OnEndEdit -= TaskView_OnEndEdit;
