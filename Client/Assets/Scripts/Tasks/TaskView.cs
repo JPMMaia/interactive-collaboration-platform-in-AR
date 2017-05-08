@@ -1,13 +1,15 @@
 ﻿using System;
 using CollaborationEngine.Base;
 using CollaborationEngine.Events;
-using UnityEngine.UI;
+using CollaborationEngine.UserInterface;
 
 namespace CollaborationEngine.Tasks
 {
     public class TaskView : Entity
     {
         #region Events
+        public delegate void IDEventDelegate(TaskView sender, IDEventArgs eventArgs);
+
         public event IDEventDelegate OnSelected;
         public event IDEventDelegate OnEdited;
         public event IDEventDelegate OnDuplicated;
@@ -15,7 +17,7 @@ namespace CollaborationEngine.Tasks
         #endregion
 
         #region UnityEditor
-        public Text TaskNameText;
+        public ButtonInputFieldToggle TaskButtonInputFieldToggle;
         #endregion
 
         #region Properties
@@ -50,7 +52,13 @@ namespace CollaborationEngine.Tasks
 
         private void UpdateView()
         {
-            TaskNameText.text = String.Format("{0,2:D2}. {1}", _taskOrder, _taskName.ToUpper());
+            TaskButtonInputFieldToggle.OrderText = String.Format("{0,2:D2}.", _taskOrder);
+            TaskButtonInputFieldToggle.Text = _taskName;
+        }
+
+        public void EditTaskName()
+        {
+            TaskButtonInputFieldToggle.ActivateInputField();
         }
 
         #region Unity UI Events

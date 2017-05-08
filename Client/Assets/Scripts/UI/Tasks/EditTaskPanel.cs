@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.Objects;
+﻿using System;
+using CollaborationEngine.Objects;
 using CollaborationEngine.States;
 using CollaborationEngine.Tasks;
 using UnityEngine;
@@ -39,7 +40,8 @@ namespace CollaborationEngine.UI.Tasks
                 if (currentState is ServerCollaborationState)
                 {
                     var serverState = currentState as ServerCollaborationState;
-                    serverState.TaskManager.AddTask(new TaskModel(TaskNameInputField.text));
+                    //serverState.TaskManager.AddTask(new TaskModel(TaskNameInputField.text));
+                    throw new NotImplementedException();
                 }
             }
 

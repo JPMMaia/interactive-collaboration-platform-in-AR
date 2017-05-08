@@ -53,6 +53,7 @@ namespace CollaborationEngine.Tasks
         public UInt32 ID
         {
             get { return _id; }
+            set { _id = value; }
         }
         public String Name
         {
@@ -81,18 +82,9 @@ namespace CollaborationEngine.Tasks
         private string _name;
         #endregion
 
-        private static UInt32 GenerateID()
+        public static uint GenerateID()
         {
             return _count++;
-        }
-
-        private TaskModel()
-        {
-        }
-        public TaskModel(String name)
-        {
-            _id = GenerateID();
-            _name = name;
         }
 
         /*public void Update(TaskModel taskModel)
@@ -164,6 +156,14 @@ namespace CollaborationEngine.Tasks
             if (OnStepUpdated != null)
                 OnStepUpdated(this, new StepEventArgs(sender));
         }
+
+        public void DeepCopy(TaskModel other)
+        {
+            other.Name = _name;
+
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

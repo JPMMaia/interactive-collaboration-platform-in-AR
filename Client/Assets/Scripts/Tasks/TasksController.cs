@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CollaborationEngine.Base;
-using UnityEngine;
+using JetBrains.Annotations;
 
 namespace CollaborationEngine.Tasks
 {
@@ -16,26 +16,51 @@ namespace CollaborationEngine.Tasks
         private TasksModel TasksModel
         {
             get { return Application.Model.Tasks; }
-        } 
+        }
         #endregion
 
         #region Members
-        private readonly List<TaskView> _taskViews = new List<TaskView>();
+        private readonly Dictionary<uint, TaskView> _taskViews = new Dictionary<uint, TaskView>();
         #endregion
 
-        public void Start()
+        public void OnEnable()
         {
+            // Subscribe to events:
+            TasksModel.OnTaskCreated += TasksModel_OnTaskCreated;
+            TasksModel.OnTaskDuplicated += TasksModel_OnTaskDuplicated;
+            TasksModel.OnTaskDeleted += TasksModel_OnTaskDeleted;
+            TasksView.OnCreateTaskClicked += TasksView_OnCreateTaskClicked;
+
+            // Create task views:
             foreach (var task in TasksModel.Tasks)
                 CreateTaskView(task);
         }
-
-        private void CreateTaskView(TaskModel taskModel)
+        public void OnDisable()
         {
+            // Destroy task views:
+            foreach (var taskView in _taskViews)
+                Destroy(taskView.Value.gameObject);
+            _taskViews.Clear();
+
+            // Unsubscribe to events:
+            TasksView.OnCreateTaskClicked -= TasksView_OnCreateTaskClicked;
+            TasksModel.OnTaskDeleted -= TasksModel_OnTaskDeleted;
+            TasksModel.OnTaskDuplicated -= TasksModel_OnTaskDuplicated;
+            TasksModel.OnTaskCreated -= TasksModel_OnTaskCreated;
+        }
+
+        private TaskView CreateTaskView([NotNull] TaskModel taskModel)
+        {
+            // Ignore if task view already exists:
+            if (_taskViews.ContainsKey(taskModel.ID))
+                return _taskViews[taskModel.ID];
+
             // Instantiate:
             var taskView = Instantiate(TaskViewPrefab);
 
             // Set properties:
             taskView.TaskID = taskModel.ID;
+            taskView.TaskOrder = (uint)_taskViews.Count + 1;
             taskView.TaskName = taskModel.Name;
 
             // Subscribe to events:
@@ -48,31 +73,19 @@ namespace CollaborationEngine.Tasks
             taskView.transform.SetParent(TasksView.Container, false);
 
             // Add to list:
-            _taskViews.Add(taskView);
+            _taskViews.Add(taskModel.ID, taskView);
+
+            return taskView;
         }
-
-        private void CreateTask()
+        private void DeleteTaskView(uint taskID)
         {
-            // Create task model:
-            var taskModel = TasksModel.Create();
-
-            // Create task view:
-            CreateTaskView(taskModel);
-        }
-        private void DeleteTask(uint taskID)
-        {
-            // Delete task model:
-            TasksModel.Delete(taskID);
-
-            // Find task view:
-            var index = _taskViews.FindIndex(e => e.TaskID == taskID);
-            if (index < 0)
+            // Get task view:
+            TaskView taskView;
+            if (!_taskViews.TryGetValue(taskID, out taskView))
                 return;
 
-            var taskView = _taskViews[index];
-
             // Remove task from list:
-            _taskViews.RemoveAt(index);
+            _taskViews.Remove(taskID);
 
             // Remove from parent:
             taskView.transform.SetParent(null);
@@ -86,27 +99,50 @@ namespace CollaborationEngine.Tasks
             // Destroy:
             Destroy(taskView.gameObject);
         }
-        private void DuplicateTask(uint taskID)
-        {
-
-        }
 
         #region Event Handlers
-        private void TaskView_OnSelected(object sender, Events.IDEventArgs eventArgs)
+        private void TasksModel_OnTaskCreated(TasksModel sender, TaskEventArgs eventArgs)
+        {
+            CreateTaskView(eventArgs.TaskModel);
+        }
+        private void TasksModel_OnTaskDuplicated(TasksModel sender, TaskEventArgs eventArgs)
+        {
+            CreateTaskView(eventArgs.TaskModel);
+        }
+        private void TasksModel_OnTaskDeleted(TasksModel sender, TaskEventArgs eventArgs)
+        {
+            DeleteTaskView(eventArgs.TaskModel.ID);
+        }
+
+        private void TasksView_OnCreateTaskClicked(object sender, EventArgs eventArgs)
+        {
+            // Create task model:
+            var taskModel = TasksModel.Create();
+
+            // Get corresponding task view:
+            TaskView taskView;
+            if (!_taskViews.TryGetValue(taskModel.ID, out taskView))
+                taskView = CreateTaskView(taskModel);
+
+            // Edit task name:
+            taskView.EditTaskName();
+        }
+
+        private void TaskView_OnSelected(TaskView sender, Events.IDEventArgs eventArgs)
         {
             throw new System.NotImplementedException();
         }
-        private void TaskView_OnEdited(object sender, Events.IDEventArgs eventArgs)
+        private void TaskView_OnEdited(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            sender.EditTaskName();
         }
-        private void TaskView_OnDuplicated(object sender, Events.IDEventArgs eventArgs)
+        private void TaskView_OnDuplicated(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            TasksModel.Duplicate(eventArgs.ID);
         }
-        private void TaskView_OnDeleted(object sender, Events.IDEventArgs eventArgs)
+        private void TaskView_OnDeleted(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            DeleteTask(eventArgs.ID);
+            TasksModel.Delete(eventArgs.ID);
         }
         #endregion
     }
