@@ -1,7 +1,7 @@
 ﻿using CollaborationEngine.Feedback;
 using CollaborationEngine.Objects;
+using CollaborationEngine.Steps;
 using CollaborationEngine.Tasks;
-using CollaborationEngine.Tasks.Steps;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
