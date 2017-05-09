@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CollaborationEngine.Base
 {
@@ -9,17 +8,5 @@ namespace CollaborationEngine.Base
         public View View;
         public Controller Controller;
         public Prefabs Prefabs;
-
-        public void Notify(String eventPath, UnityEngine.Object target, params object[] data)
-        {
-            var controllers = GetAllControllers();
-            foreach (var controller in controllers)
-                controller.OnNotify(eventPath, target, data);
-        }
-
-        private Controller[] GetAllControllers()
-        {
-            return FindObjectsOfType<Controller>();
-        }
     }
 }

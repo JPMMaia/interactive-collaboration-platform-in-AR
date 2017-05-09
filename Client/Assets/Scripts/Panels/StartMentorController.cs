@@ -1,28 +1,39 @@
-﻿using System;
-using CollaborationEngine.Base;
-using UnityEngine;
+﻿using CollaborationEngine.Base;
+using CollaborationEngine.Events;
 
 namespace CollaborationEngine.Panels
 {
-    public class StartMentorController : Entity
+    public class StartMentorController : Controller
     {
+        public delegate void EventDelegate(StartMentorController sender, IDEventArgs eventArgs);
+
+        public event EventDelegate OnTaskSelected;
+
         public StartMentorView StartMentorViewPrefab;
+
+        private StartMentorView _startMentorView;
 
         public void Start()
         {
             // Create start mentor view:
-            var startMentorView = Instantiate(StartMentorViewPrefab);
+            _startMentorView = Instantiate(StartMentorViewPrefab);
 
             // Add to canvas:
-            startMentorView.transform.SetParent(Application.View.MainCanvas.transform, false);
+            _startMentorView.transform.SetParent(Application.View.MainCanvas.transform, false);
 
             // Subscribe to events:
-            startMentorView.OnTaskSelected += StartMentorView_OnTaskSelected;
+            _startMentorView.OnTaskSelected += StartMentorView_OnTaskSelected;
+        }
+        public void OnDestroy()
+        {
+            if(_startMentorView)
+                Destroy(_startMentorView.gameObject);
         }
 
-        private void StartMentorView_OnTaskSelected(object sender, Events.IDEventArgs e)
+        private void StartMentorView_OnTaskSelected(object sender, IDEventArgs e)
         {
-            throw new NotImplementedException();
+            if (OnTaskSelected != null)
+                OnTaskSelected(this, e);
         }
     }
 }
