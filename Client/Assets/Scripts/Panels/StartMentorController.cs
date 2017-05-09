@@ -1,4 +1,6 @@
-﻿using CollaborationEngine.Base;
+﻿using System;
+using CollaborationEngine.Base;
+using UnityEngine;
 
 namespace CollaborationEngine.Panels
 {
@@ -10,8 +12,17 @@ namespace CollaborationEngine.Panels
         {
             // Create start mentor view:
             var startMentorView = Instantiate(StartMentorViewPrefab);
-            startMentorView.transform.SetParent(Application.View.MainCanvas.transform);
 
+            // Add to canvas:
+            startMentorView.transform.SetParent(Application.View.MainCanvas.transform, false);
+
+            // Subscribe to events:
+            startMentorView.OnTaskSelected += StartMentorView_OnTaskSelected;
+        }
+
+        private void StartMentorView_OnTaskSelected(object sender, Events.IDEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

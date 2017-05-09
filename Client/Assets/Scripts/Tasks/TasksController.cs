@@ -127,7 +127,7 @@ namespace CollaborationEngine.Tasks
 
         private void TaskView_OnSelected(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            throw new NotImplementedException();
+            TasksView.NotifyTaskSelected(eventArgs.ID);
         }
         private void TaskView_OnEdited(TaskView sender, Events.IDEventArgs eventArgs)
         {

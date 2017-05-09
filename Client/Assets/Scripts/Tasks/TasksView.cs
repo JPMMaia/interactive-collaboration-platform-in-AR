@@ -1,5 +1,6 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using CollaborationEngine.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ namespace CollaborationEngine.Tasks
         #endregion
 
         #region Events
+        public event EventHandler<IDEventArgs> OnTaskSelected;
         public event EventHandler OnCreateTaskClicked;
         #endregion
 
@@ -34,6 +36,12 @@ namespace CollaborationEngine.Tasks
 
             if(Placeholder.transform.childCount == 0)
                 Placeholder.gameObject.SetActive(true);
+        }
+
+        public void NotifyTaskSelected(uint taskID)
+        {
+            if (OnTaskSelected != null)
+                OnTaskSelected(this, new IDEventArgs(taskID));
         }
 
         #region Unity Event Handlers
