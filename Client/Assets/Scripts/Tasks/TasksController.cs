@@ -31,7 +31,10 @@ namespace CollaborationEngine.Tasks
             TasksModel.OnTaskDeleted += TasksModel_OnTaskDeleted;
             TasksView.OnCreateTaskClicked += TasksView_OnCreateTaskClicked;
 
-            // Create task views:
+            // Load tasks:
+            TasksModel.Load();
+
+            // Create tasks:
             foreach (var task in TasksModel.Tasks)
                 CreateTaskView(task.Value);
         }

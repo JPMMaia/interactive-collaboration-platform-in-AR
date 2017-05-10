@@ -2,9 +2,9 @@
 using CollaborationEngine.Network;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using CollaborationEngine.Steps;
 using CollaborationEngine.Utilities;
-using UnityEngine.Networking;
 
 namespace CollaborationEngine.Tasks
 {
@@ -23,8 +23,24 @@ namespace CollaborationEngine.Tasks
         #endregion
 
         #region Properties
-        public UInt32 ID { get; set; }
-        public String Name { get; set; }
+        public UInt32 ID
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                _unsaved = true;
+            }
+        }
+        public String Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                _unsaved = true;
+            }
+        }
         public IEnumerable<KeyValuePair<uint, StepModel>> Steps
         {
             get { return _steps; }
@@ -33,12 +49,15 @@ namespace CollaborationEngine.Tasks
 
         #region Members
         private static uint _count;
+        private bool _unsaved;
+        private uint _id;
+        private string _name;
         private Dictionary<uint, StepModel> _steps = new Dictionary<uint, StepModel>();
         #endregion
 
-        public static uint GenerateID()
+        public void AssignID()
         {
-            return _count++;
+            _id = _count++;
         }
 
         private StepModel CreateStep()
@@ -96,36 +115,63 @@ namespace CollaborationEngine.Tasks
             return _steps[stepID];
         }
 
-        public void Serialize(NetworkWriter writer)
+        public void Serialize(BinaryWriter writer)
         {
-            writer.WritePackedUInt32(ID);
-            writer.Write(Name);
-            writer.WritePackedUInt32((UInt32)_steps.Count);
-            foreach (var step in _steps)
-            {
-                step.Value.Serialize(writer);
-            }
+            writer.Write(_id);
+            writer.Write(_name);
         }
-        public void Deserialize(NetworkReader reader)
+        public void Deserialize(BinaryReader reader)
         {
-            ID = reader.ReadPackedUInt32();
-            Name = reader.ReadString();
-
-            var stepLength = (Int32) reader.ReadPackedUInt32();
-            _steps = new Dictionary<uint, StepModel>(stepLength);
-            for (var i = 0; i < stepLength; ++i)
-            {
-                var step = Instantiate(StepModelPrefab);
-                step.Deserialize(reader);
-                _steps.Add(step.ID, step);
-            }
+            _id = reader.ReadUInt32();
+            _name = reader.ReadString();
+            _unsaved = false;
         }
 
         public void DeepCopy(TaskModel other)
         {
             other.Name = CopyUtilities.GenerateCopyName(Name);
+        }
 
-            throw new NotImplementedException();
+        public void Save(String directory)
+        {
+            if (!_unsaved)
+                return;
+
+            // Create directory if it doesn't exist:
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            // Serialize object:
+            var data = new MemoryStream();
+            Serialize(new BinaryWriter(data));
+
+            // Write to file:
+            var file = directory + "Task.data";
+            using (var stream = File.OpenWrite(file))
+            {
+                using (var binaryStream = new BinaryWriter(stream))
+                {
+                    binaryStream.Write(data.GetBuffer(), 0, (int) data.Length);
+                }
+            }
+        }
+        public void Load(String directory)
+        {
+            MemoryStream data;
+
+            // Read file:
+            var file = directory + "Task.data";
+            using (var stream = File.OpenRead(file))
+            {
+                using (var binaryStream = new BinaryReader(stream))
+                {
+                    var bytes = binaryStream.ReadBytes((int)stream.Length);
+                    data = new MemoryStream(bytes);
+                }
+            }
+
+            // Deserialize object:
+            Deserialize(new BinaryReader(data));
         }
     }
 }

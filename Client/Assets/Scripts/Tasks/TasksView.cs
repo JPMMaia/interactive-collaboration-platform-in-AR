@@ -34,7 +34,7 @@ namespace CollaborationEngine.Tasks
         {
             element.SetParent(null);
 
-            if(Placeholder.transform.childCount == 0)
+            if(Container.transform.childCount == 0)
                 Placeholder.gameObject.SetActive(true);
         }
 

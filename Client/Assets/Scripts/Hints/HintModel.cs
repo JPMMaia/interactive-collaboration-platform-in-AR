@@ -7,7 +7,7 @@ namespace CollaborationEngine.Hints
     public class HintModel : Entity
     {
         #region Properties
-        public UInt32 ID { get; set; }
+        public uint ID { get; set; }
         public String Name { get; set; }
         #endregion
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using CollaborationEngine.Base;
 
 namespace CollaborationEngine.Tasks
@@ -24,13 +26,16 @@ namespace CollaborationEngine.Tasks
         }
         #endregion
 
-        private readonly Dictionary<uint, TaskModel> _tasks = new Dictionary<uint, TaskModel>();
+        #region Members
+        private static readonly String SavedTasksPath = "Saved/Tasks/";
+        private Dictionary<uint, TaskModel> _tasks = new Dictionary<uint, TaskModel>();
+        #endregion
 
         private TaskModel CreateTask()
         {
             // Create new task and assign a unique ID:
-            var task = Instantiate(TaskModelPrefab);
-            task.ID = TaskModel.GenerateID();
+            var task = Instantiate(TaskModelPrefab, transform);
+            task.AssignID();
 
             // Add task to list:
             _tasks.Add(task.ID, task);
@@ -42,7 +47,7 @@ namespace CollaborationEngine.Tasks
             var task = CreateTask();
 
             // Raise event:
-            if(OnTaskCreated != null)
+            if (OnTaskCreated != null)
                 OnTaskCreated(this, new TaskEventArgs(task));
 
             return task;
@@ -66,7 +71,7 @@ namespace CollaborationEngine.Tasks
         {
             // Get task:
             TaskModel task;
-            if(!_tasks.TryGetValue(taskID, out task))
+            if (!_tasks.TryGetValue(taskID, out task))
                 return;
 
             // Remove task:
@@ -75,10 +80,39 @@ namespace CollaborationEngine.Tasks
             // Raise event:
             if (OnTaskDeleted != null)
                 OnTaskDeleted(this, new TaskEventArgs(task));
+
+            // Destroy task:
+            Destroy(task.gameObject);
         }
         public TaskModel Get(uint taskID)
         {
             return _tasks[taskID];
+        }
+
+        public void Save()
+        {
+            // TODO remove deleted directories
+
+            // Save all tasks:
+            foreach (var task in _tasks.Values)
+                task.Save(String.Format("{0}{1}/", SavedTasksPath, task.ID));
+        }
+        public void Load()
+        {
+            // Create directory if it doesn't exist:
+            if (!Directory.Exists(SavedTasksPath))
+                Directory.CreateDirectory(SavedTasksPath);
+
+            // Get all directories:
+            var directories = Directory.GetDirectories(SavedTasksPath);
+
+            // Load all tasks:
+            _tasks = new Dictionary<uint, TaskModel>(directories.Length);
+            foreach (var directory in directories)
+            {
+                var task = CreateTask();
+                task.Load(String.Format("{0}/", directory));
+            }
         }
     }
 }

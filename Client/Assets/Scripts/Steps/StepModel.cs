@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Network;
 using CollaborationEngine.Utilities;
-using UnityEngine.Networking;
 
 namespace CollaborationEngine.Steps
 {
@@ -97,24 +97,26 @@ namespace CollaborationEngine.Steps
             return _hints[hintID];
         }
 
-        public void Serialize(NetworkWriter writer)
+        public void Serialize(BinaryWriter writer)
         {
-            writer.WritePackedUInt32(ID);
+            throw new NotImplementedException();
+
+            /*writer.WritePackedUInt32(ID);
             writer.WritePackedUInt32(TaskID);
             writer.Write(Name);
 
             writer.WritePackedUInt32((UInt32)_hints.Count);
-            throw new NotImplementedException();
             //foreach (var hint in _hints)
-//                hint.Value.Serialize(writer);
+//                hint.Value.Serialize(writer);*/
         }
-        public void Deserialize(NetworkReader reader)
+        public void Deserialize(BinaryReader reader)
         {
-            ID = reader.ReadPackedUInt32();
+            throw new NotImplementedException();
+
+            /*ID = reader.ReadPackedUInt32();
             TaskID = reader.ReadPackedUInt32();
             Name = reader.ReadString();
 
-            throw new NotImplementedException();
             /*var hintCount = reader.ReadPackedUInt32();
             for (var i = 0; i < hintCount; ++i)
             {
