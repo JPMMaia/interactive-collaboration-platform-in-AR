@@ -22,7 +22,7 @@ namespace Kudan.AR
 		/// </summary>
 		private const int DefaultCameraHeight = 480;
 
-		[Tooltip("The key required to run in the Editor. You can get an Editor key by clicking the 'Get Editor API Key' button below")]
+		[Tooltip("The key required to run in the Editor. You can get an Editor key by clicking the 'GetStep Editor API Key' button below")]
 		/// <summary>
 		/// The license key used to run the plugin in the Editor. By registering an account on the Kudan website, you can claim one free key for personal use.
 		/// NOTE: This key is separate from the API Key checked on iOS and Android builds. Use _APIKey for those platforms.
@@ -228,7 +228,7 @@ namespace Kudan.AR
 		{
 			CreateDebugLineMaterial();
 
-			// Create the platform specific plugin interface
+			// CreateStep the platform specific plugin interface
 			_trackerPlugin = new Tracker (_background);
 
 			if (_trackerPlugin == null)

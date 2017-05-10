@@ -9,7 +9,7 @@ namespace CollaborationEngine.Tasks.Editor
         [Test]
         public void TaskTestsSimplePasses()
         {
-            // Create task:
+            // CreateStep task:
             var savedTask = CreateTask(1, "TestTask");
 
             // Save task:

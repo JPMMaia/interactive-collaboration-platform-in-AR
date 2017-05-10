@@ -44,7 +44,7 @@ namespace CollaborationEngine.Steps
 
         private THint CreateHint<THint>(THint prefab) where THint : HintModel
         {
-            // Create new hint and assign a unique ID:
+            // CreateStep new hint and assign a unique ID:
             var hint = Instantiate(prefab);
             hint.ID = HintModel.GenerateID();
 
@@ -65,10 +65,10 @@ namespace CollaborationEngine.Steps
         }
         public HintModel Duplicate(uint hintID)
         {
-            // Get hint to duplicate:
+            // GetStep hint to duplicate:
             var hintToDuplicate = _hints[hintID];
 
-            // Create new hint and perform deep copy:
+            // CreateStep new hint and perform deep copy:
             var duplicatedTask = CreateHint(hintToDuplicate);
             hintToDuplicate.DeepCopy(duplicatedTask);
 
@@ -80,7 +80,7 @@ namespace CollaborationEngine.Steps
         }
         public void Delete(uint hintID)
         {
-            // Get hint:
+            // GetStep hint:
             HintModel hint;
             if (!_hints.TryGetValue(hintID, out hint))
                 return;

@@ -172,7 +172,7 @@ namespace Kudan.AR
 		}
 
 		/// <summary>
-		/// Get the native plugin version number. This is the version number of the native framework used for the current platform, not the version of the plugin itself.
+		/// GetStep the native plugin version number. This is the version number of the native framework used for the current platform, not the version of the plugin itself.
 		/// </summary>
 		/// <returns>The native plugin version number.</returns>
 		public override float GetNativePluginVersion()
@@ -183,7 +183,7 @@ namespace Kudan.AR
 			#elif UNITY_ANDROID
 			if ( m_KudanAR_Instance != null )
 			{
-				// Get Version from native side
+				// GetStep Version from native side
 				return m_KudanAR_Instance.Call<float>( "GetPluginVersion" );
 			}
 			
@@ -309,13 +309,13 @@ namespace Kudan.AR
 			// on OSX so trial and error is required.
 			if (NativeInterface.WebCamInit (deviceIndex))
 			{
-				// Get webcam texture resolution.
+				// GetStep webcam texture resolution.
 				NativeInterface.WebCamGetResolution (resolution);
 
 				_width = resolution [0];
 				_height = resolution [1];
 
-				// Create a new texture to hold it.
+				// CreateStep a new texture to hold it.
 				_clonedTexture = new Texture2D (_width, _height, TextureFormat.RGBA32, false);
 
 				if (wasTracking)
@@ -592,7 +592,7 @@ namespace Kudan.AR
 
 				if ( _isTrackingRunning )
 				{
-			        // Create a texture if required
+			        // CreateStep a texture if required
 			        if ( _finalTexture == null )
 			        {
 				        int iTextureHandle = m_KudanAR_Instance.Call<int>( "getTextureHandle" );
@@ -990,18 +990,18 @@ namespace Kudan.AR
 			{
 				m_KudanAR_Instance.Call ("updateArbi", _floorHeight);
 
-				AndroidJavaObject arbiPosition = m_KudanAR_Instance.Get<AndroidJavaObject>("m_ArbiPosition");
-				AndroidJavaObject arbiOrientation = m_KudanAR_Instance.Get<AndroidJavaObject>("m_ArbiOrientation");
+				AndroidJavaObject arbiPosition = m_KudanAR_Instance.GetStep<AndroidJavaObject>("m_ArbiPosition");
+				AndroidJavaObject arbiOrientation = m_KudanAR_Instance.GetStep<AndroidJavaObject>("m_ArbiOrientation");
 
-				position.x = arbiPosition.Get<float>("x");
-				position.y = arbiPosition.Get<float>("y");
-				position.z = -arbiPosition.Get<float>("z");
+				position.x = arbiPosition.GetStep<float>("x");
+				position.y = arbiPosition.GetStep<float>("y");
+				position.z = -arbiPosition.GetStep<float>("z");
 
 
-				orientation.x = arbiOrientation.Get<float>("x");
-				orientation.y = arbiOrientation.Get<float>("y");
-				orientation.z = arbiOrientation.Get<float>("z");
-				orientation.w = arbiOrientation.Get<float>("w");
+				orientation.x = arbiOrientation.GetStep<float>("x");
+				orientation.y = arbiOrientation.GetStep<float>("y");
+				orientation.z = arbiOrientation.GetStep<float>("z");
+				orientation.w = arbiOrientation.GetStep<float>("w");
 			}
 			#endif
 		}
@@ -1032,17 +1032,17 @@ namespace Kudan.AR
 			{
 				m_KudanAR_Instance.Call ("updateArbi", _floorHeight);
 
-				AndroidJavaObject floorPosition = m_KudanAR_Instance.Get<AndroidJavaObject>("m_FloorPosition");
-				AndroidJavaObject floorOrientation = m_KudanAR_Instance.Get<AndroidJavaObject>("m_FloorOrientation");
+				AndroidJavaObject floorPosition = m_KudanAR_Instance.GetStep<AndroidJavaObject>("m_FloorPosition");
+				AndroidJavaObject floorOrientation = m_KudanAR_Instance.GetStep<AndroidJavaObject>("m_FloorOrientation");
 
-				position.x = floorPosition.Get<float>("x");
-				position.y = floorPosition.Get<float>("y");
-				position.z = floorPosition.Get<float>("z");
+				position.x = floorPosition.GetStep<float>("x");
+				position.y = floorPosition.GetStep<float>("y");
+				position.z = floorPosition.GetStep<float>("z");
 
-				orientation.x = floorOrientation.Get<float>("x");
-				orientation.y = floorOrientation.Get<float>("y");
-				orientation.z = floorOrientation.Get<float>("z");
-				orientation.w = floorOrientation.Get<float>("w");
+				orientation.x = floorOrientation.GetStep<float>("x");
+				orientation.y = floorOrientation.GetStep<float>("y");
+				orientation.z = floorOrientation.GetStep<float>("z");
+				orientation.w = floorOrientation.GetStep<float>("w");
 			}
 			#endif
 		}
@@ -1085,7 +1085,7 @@ namespace Kudan.AR
 		}
 
 		/// <summary>
-		/// Get a list of all trackables detected in the current frame.
+		/// GetStep a list of all trackables detected in the current frame.
 		/// </summary>
 		/// <returns>A list of all trackables detected in the current frame.</returns>
 		private List<Trackable> GetDetected()
@@ -1128,8 +1128,8 @@ namespace Kudan.AR
 				GetDetectedTrackable(i, sbName, 512, ref width, ref height, pos, ori);
 				#elif UNITY_ANDROID
 				AndroidJavaObject thisTrackable = m_KudanAR_Instance.Call<AndroidJavaObject>( "GetTrackable", i );
-				AndroidJavaObject thisTrackablePosition = thisTrackable.Get<AndroidJavaObject>( "m_Position" );
-				AndroidJavaObject thisTrackableOrientation = thisTrackable.Get<AndroidJavaObject>( "m_Orientation" );
+				AndroidJavaObject thisTrackablePosition = thisTrackable.GetStep<AndroidJavaObject>( "m_Position" );
+				AndroidJavaObject thisTrackableOrientation = thisTrackable.GetStep<AndroidJavaObject>( "m_Orientation" );
 				#endif
 				
 				#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IOS
@@ -1138,9 +1138,9 @@ namespace Kudan.AR
 				trackable.height = height;
 				trackable.trackingMethod = trackingMethod;
 				#elif UNITY_ANDROID
-				trackable.name = thisTrackable.Get<string>( "m_Name" );
-				trackable.width = thisTrackable.Get<int>( "m_Width" );
-				trackable.height = thisTrackable.Get<int>( "m_Height" );
+				trackable.name = thisTrackable.GetStep<string>( "m_Name" );
+				trackable.width = thisTrackable.GetStep<int>( "m_Width" );
+				trackable.height = thisTrackable.GetStep<int>( "m_Height" );
 				#endif
 
 				#if UNITY_EDITOR || UNITY_STANDALONE
@@ -1150,8 +1150,8 @@ namespace Kudan.AR
 				trackable.position = ConvertNativeFloatsToVector3(pos[0], pos[1], pos[2]);
 				trackable.orientation = ConvertNativeFloatsToQuaternion(ori[0], ori[1], ori[2], ori[3]);
 				#elif UNITY_ANDROID
-				trackable.position = ConvertNativeFloatsToVector3( thisTrackablePosition.Get<float>( "x" ), thisTrackablePosition.Get<float>( "y" ), thisTrackablePosition.Get<float>( "z" ) );
-				trackable.orientation = ConvertNativeFloatsToQuaternion( thisTrackableOrientation.Get<float>( "x" ), thisTrackableOrientation.Get<float>( "y" ), thisTrackableOrientation.Get<float>( "z" ), thisTrackableOrientation.Get<float>( "w" ) );
+				trackable.position = ConvertNativeFloatsToVector3( thisTrackablePosition.GetStep<float>( "x" ), thisTrackablePosition.GetStep<float>( "y" ), thisTrackablePosition.GetStep<float>( "z" ) );
+				trackable.orientation = ConvertNativeFloatsToQuaternion( thisTrackableOrientation.GetStep<float>( "x" ), thisTrackableOrientation.GetStep<float>( "y" ), thisTrackableOrientation.GetStep<float>( "z" ), thisTrackableOrientation.GetStep<float>( "w" ) );
 				thisTrackable.Dispose();
 				#endif
 

@@ -1,33 +1,54 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using CollaborationEngine.Tasks;
 
 namespace CollaborationEngine.Panels
 {
     public class EditorController : Controller
     {
+        #region Events
         public delegate void EventDelegate(EditorController sender, EventArgs eventArgs);
 
         public event EventDelegate OnGoBack;
+        #endregion
 
-        public EditorView EditorViewPrefab;
+        #region Unity Editor
+        public EditorView EditorView;
+        public InstructionsController InstructionsController;
+        #endregion
 
-        private EditorView _editorView;
+        #region Properties
+        public uint TaskID { get; set; }
+        private TasksModel TasksModel
+        {
+            get { return Application.Model.Tasks; }
+        }
+        #endregion
+
+        #region Members
+        private TaskModel _task;
+        #endregion
 
         public void Start()
         {
-            // Create editor view:
-            _editorView = Instantiate(EditorViewPrefab);
-
-            // Add to canvas:
-            _editorView.transform.SetParent(Application.View.MainCanvas.transform, false);
-
             // Subscribe to events:
-            _editorView.OnGoBack += EditorView_OnGoBack;
+            EditorView.OnGoBack += EditorView_OnGoBack;
+
+            // Cache task:
+            _task = TasksModel.Get(TaskID);
+            InstructionsController.TaskModel = _task;
+
+            // TODO Load steps and hints:
+
+            // TODO If the task hasn't got any steps, add a default one:
+            _task.CreateStep();
         }
         public void OnDestroy()
         {
-            if(_editorView)
-                Destroy(_editorView.gameObject);
+            // TODO Save and then destroy steps and hints:
+
+            if (EditorView)
+                Destroy(EditorView.gameObject);
         }
 
         private void EditorView_OnGoBack(object sender, EventArgs e)

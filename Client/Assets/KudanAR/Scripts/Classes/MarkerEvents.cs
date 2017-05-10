@@ -74,10 +74,10 @@ namespace Kudan.AR
 		/// </summary>
 		void Update ()
 		{
-			// Get all GameObjects in the scene that are tagged with the "Marker" tag.
+			// GetStep all GameObjects in the scene that are tagged with the "Marker" tag.
 			markerArray = GameObject.FindGameObjectsWithTag ("Marker");
 
-			// Get all detected trackables found by the plugin and store them in an array.
+			// GetStep all detected trackables found by the plugin and store them in an array.
 			trackables = trackingMethodMarker.Plugin.GetDetectedTrackablesAsArray();
 
 			if (markerArray.Length < numMaxEventTracking)

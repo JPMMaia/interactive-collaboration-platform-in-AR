@@ -94,7 +94,7 @@ namespace CollaborationEngine.Camera
 
             if (_dirty)
             {
-                // Create the camera rotation matrix:
+                // CreateStep the camera rotation matrix:
                 _rotationMatrix = Matrix4x4.TRS(Vector3.zero, _rotationQuaternion, Vector3.one);
 
                 _transform.position = _position;

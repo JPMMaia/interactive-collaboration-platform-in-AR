@@ -15,7 +15,7 @@ namespace CollaborationEngine.Panels
 
         public void Start()
         {
-            // Create start mentor view:
+            // CreateStep start mentor view:
             _startMentorView = Instantiate(StartMentorViewPrefab);
 
             // Add to canvas:

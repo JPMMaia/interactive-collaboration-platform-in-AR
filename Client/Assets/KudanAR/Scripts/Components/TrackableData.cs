@@ -66,7 +66,7 @@ namespace Kudan.AR
 #endif
 
 #if UNITY_EDITOR
-		[UnityEditor.MenuItem("Assets/Create/Kudan AR Trackable Data")]
+		[UnityEditor.MenuItem("Assets/CreateStep/Kudan AR Trackable Data")]
 #endif
         /// <summary>
         /// Creates a new trackable asset using KARMarker data from a selected file.

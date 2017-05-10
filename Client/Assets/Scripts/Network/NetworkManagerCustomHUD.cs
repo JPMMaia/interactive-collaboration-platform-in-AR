@@ -149,7 +149,7 @@ namespace CollaborationEngine.Network
                     {
                         if (Manager.matches == null)
                         {
-                            if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "Create Internet Match"))
+                            if (GUI.Button(new Rect(xpos, ypos, 200 * SizeMultiplier, 20 * SizeMultiplier), "CreateStep Internet Match"))
                             {
                                 Manager.matchMaker.CreateMatch(Manager.matchName, Manager.matchSize, true, "", "", "", 0, 0, Manager.OnMatchCreate);
                             }

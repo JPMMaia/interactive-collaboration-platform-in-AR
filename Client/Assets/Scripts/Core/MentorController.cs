@@ -1,17 +1,31 @@
 ﻿using CollaborationEngine.Base;
 using CollaborationEngine.Panels;
+using CollaborationEngine.Tasks;
 
 namespace CollaborationEngine.Core
 {
     public class MentorController : Controller
     {
+        #region Unity Editor
         public StartMentorController StartMentorControllerPrefab;
         public EditorController EditorControllerPrefab;
+        #endregion
+
+        #region Properties
+        private TasksModel TasksModel
+        {
+            get { return Application.Model.Tasks; }
+        }
+        #endregion
 
         public void Start()
         {
             // TODO start server
-            
+
+            // Load all tasks:
+            TasksModel.Load();
+
+            // Present start screen:
             PresentStartScreen();
         }
 
@@ -20,9 +34,11 @@ namespace CollaborationEngine.Core
             var controller = Instantiate(StartMentorControllerPrefab, transform);
             controller.OnTaskSelected += Controller_OnTaskSelected;
         }
-        private void PresentEditorScreen()
+        private void PresentEditorScreen(uint taskID)
         {
-            var controller = Instantiate(EditorControllerPrefab, transform);
+            var controller = Instantiate(EditorControllerPrefab, Application.View.MainCanvas.transform);
+            controller.TaskID = taskID;
+
             controller.OnGoBack += Controller_OnGoBack;
         }
 
@@ -31,7 +47,7 @@ namespace CollaborationEngine.Core
             // Destroy start mentor controller:
             Destroy(sender.gameObject);
 
-            PresentEditorScreen();
+            PresentEditorScreen(e.ID);
         }
         private void Controller_OnGoBack(EditorController sender, System.EventArgs eventArgs)
         {

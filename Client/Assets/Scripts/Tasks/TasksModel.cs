@@ -33,7 +33,7 @@ namespace CollaborationEngine.Tasks
 
         private TaskModel CreateTask()
         {
-            // Create new task and assign a unique ID:
+            // CreateStep new task and assign a unique ID:
             var task = Instantiate(TaskModelPrefab, transform);
             task.AssignID();
 
@@ -54,10 +54,10 @@ namespace CollaborationEngine.Tasks
         }
         public TaskModel Duplicate(uint taskID)
         {
-            // Get task to duplicate:
+            // GetStep task to duplicate:
             var taskToDuplicate = _tasks[taskID];
 
-            // Create new task and perform deep copy:
+            // CreateStep new task and perform deep copy:
             var duplicatedTask = CreateTask();
             taskToDuplicate.DeepCopy(duplicatedTask);
 
@@ -69,7 +69,7 @@ namespace CollaborationEngine.Tasks
         }
         public void Delete(uint taskID)
         {
-            // Get task:
+            // GetStep task:
             TaskModel task;
             if (!_tasks.TryGetValue(taskID, out task))
                 return;
@@ -99,11 +99,11 @@ namespace CollaborationEngine.Tasks
         }
         public void Load()
         {
-            // Create directory if it doesn't exist:
+            // CreateStep directory if it doesn't exist:
             if (!Directory.Exists(SavedTasksPath))
                 Directory.CreateDirectory(SavedTasksPath);
 
-            // Get all directories:
+            // GetStep all directories:
             var directories = Directory.GetDirectories(SavedTasksPath);
 
             // Load all tasks:

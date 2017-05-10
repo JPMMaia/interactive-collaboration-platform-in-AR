@@ -21,10 +21,10 @@ public class CreateCone : ScriptableWizard
     public bool inside = false;
     public bool addCollider = false;
 
-    [MenuItem("GameObject/Create Other/Cone")]
+    [MenuItem("GameObject/CreateStep Other/Cone")]
     static void CreateWizard()
     {
-        ScriptableWizard.DisplayWizard("Create Cone", typeof(CreateCone));
+        ScriptableWizard.DisplayWizard("CreateStep Cone", typeof(CreateCone));
     }
 
     void OnWizardCreate()

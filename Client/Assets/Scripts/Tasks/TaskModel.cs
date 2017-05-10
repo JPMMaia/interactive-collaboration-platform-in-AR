@@ -60,10 +60,10 @@ namespace CollaborationEngine.Tasks
             _id = _count++;
         }
 
-        private StepModel CreateStep()
+        private StepModel InternalCreateStep()
         {
-            // Create new step and assign a unique ID:
-            var step = Instantiate(StepModelPrefab);
+            // CreateStep new step and assign a unique ID:
+            var step = Instantiate(StepModelPrefab, transform);
             step.ID = StepModel.GenerateID();
 
             // Add step to list:
@@ -71,9 +71,9 @@ namespace CollaborationEngine.Tasks
 
             return step;
         }
-        public StepModel Create()
+        public StepModel CreateStep()
         {
-            var step = CreateStep();
+            var step = InternalCreateStep();
 
             // Raise event:
             if (OnStepCreated != null)
@@ -81,13 +81,13 @@ namespace CollaborationEngine.Tasks
 
             return step;
         }
-        public StepModel Duplicate(uint stepID)
+        public StepModel DuplicateStep(uint stepID)
         {
-            // Get step to duplicate:
+            // GetStep step to duplicate:
             var stepToDuplicate = _steps[stepID];
 
-            // Create new step and perform deep copy:
-            var duplicatedTask = CreateStep();
+            // CreateStep new step and perform deep copy:
+            var duplicatedTask = InternalCreateStep();
             stepToDuplicate.DeepCopy(duplicatedTask);
 
             // Raise event:
@@ -96,9 +96,9 @@ namespace CollaborationEngine.Tasks
 
             return duplicatedTask;
         }
-        public void Delete(uint stepID)
+        public void DeleteStep(uint stepID)
         {
-            // Get step:
+            // GetStep step:
             StepModel step;
             if (!_steps.TryGetValue(stepID, out step))
                 return;
@@ -110,7 +110,7 @@ namespace CollaborationEngine.Tasks
             if (OnStepDeleted != null)
                 OnStepDeleted(this, new StepEventArgs(step));
         }
-        public StepModel Get(uint stepID)
+        public StepModel GetStep(uint stepID)
         {
             return _steps[stepID];
         }
@@ -137,7 +137,7 @@ namespace CollaborationEngine.Tasks
             if (!_unsaved)
                 return;
 
-            // Create directory if it doesn't exist:
+            // CreateStep directory if it doesn't exist:
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 

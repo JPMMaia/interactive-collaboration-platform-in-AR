@@ -34,13 +34,13 @@ namespace Kudan.AR
 			}
 
 			GUILayout.Space(5f);
-			if (GUILayout.Button("Get Editor API Key"))
+			if (GUILayout.Button("GetStep Editor API Key"))
 			{
 				Application.OpenURL("https://www.kudan.eu/keys/");
 			}
 			GUILayout.Space(5f);
 
-			if (GUILayout.Button("Get Support"))
+			if (GUILayout.Button("GetStep Support"))
 			{
 				Application.OpenURL("https://www.kudan.eu/support/");
 			}

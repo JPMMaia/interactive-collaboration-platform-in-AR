@@ -20,7 +20,7 @@ namespace CollaborationEngine.Objects
 
         public static Material CreateTexturedMaterial(Texture texture, Shader shader)
         {
-            // Create material:
+            // CreateStep material:
             var material = new Material(shader);
 
             // Set texture:
@@ -34,7 +34,7 @@ namespace CollaborationEngine.Objects
             // Load texture:
             var texture = LoadTexture(texturePath);
 
-            // Create and set textured material:
+            // CreateStep and set textured material:
             var materials = meshRenderer.materials;
 
             var shader = ((uint)options & (uint)MaterialOptions.Cutout) != 0 ? ShaderLocator.Instance.TransparentCutoutShader : ShaderLocator.Instance.StandardShader;

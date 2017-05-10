@@ -104,11 +104,11 @@ namespace Kudan.AR
 				if (fing.phase == TouchPhase.Began)	//If the finger started touching the screen this frame
 				{
 					if(!EventSystem.current.IsPointerOverGameObject(fing.fingerId))	//And the finger on the screen is not currently touching an object
-						startPos = fing.position;	//Get the screen position of the finger when it hit the screen
+						startPos = fing.position;	//GetStep the screen position of the finger when it hit the screen
 				} 
 				else if (fing.phase == TouchPhase.Ended)	//If the finger stopped touching the screen this frame
 				{
-					endPos = fing.position;			//Get the screen position of the finger when it left the screen
+					endPos = fing.position;			//GetStep the screen position of the finger when it left the screen
 
 					if (Mathf.Abs(endPos.magnitude - startPos.magnitude) < roughDiff)	//Calculate how far away the finger was from its starting point when it left the screen
 					{

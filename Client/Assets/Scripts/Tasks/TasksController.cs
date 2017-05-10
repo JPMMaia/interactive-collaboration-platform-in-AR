@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CollaborationEngine.Base;
-using JetBrains.Annotations;
 
 namespace CollaborationEngine.Tasks
 {
@@ -31,15 +30,12 @@ namespace CollaborationEngine.Tasks
             TasksModel.OnTaskDeleted += TasksModel_OnTaskDeleted;
             TasksView.OnCreateTaskClicked += TasksView_OnCreateTaskClicked;
 
-            // Load tasks:
-            TasksModel.Load();
-
-            // Create tasks:
+            // CreateStep tasks:
             foreach (var task in TasksModel.Tasks)
                 CreateTaskView(task.Value);
         }
 
-        private TaskView CreateTaskView([NotNull] TaskModel taskModel)
+        private TaskView CreateTaskView(TaskModel taskModel)
         {
             // Ignore if task view already exists:
             if (_taskViews.ContainsKey(taskModel.ID))
@@ -70,7 +66,7 @@ namespace CollaborationEngine.Tasks
         }
         private void DeleteTaskView(uint taskID)
         {
-            // Get task view:
+            // GetStep task view:
             TaskView taskView;
             if (!_taskViews.TryGetValue(taskID, out taskView))
                 return;
@@ -117,10 +113,10 @@ namespace CollaborationEngine.Tasks
 
         private void TasksView_OnCreateTaskClicked(object sender, EventArgs eventArgs)
         {
-            // Create task model:
+            // CreateStep task model:
             var taskModel = TasksModel.Create();
 
-            // Get corresponding task view:
+            // GetStep corresponding task view:
             TaskView taskView;
             if (!_taskViews.TryGetValue(taskModel.ID, out taskView))
                 taskView = CreateTaskView(taskModel);
@@ -146,7 +142,7 @@ namespace CollaborationEngine.Tasks
         }
         private void TaskView_OnEndEdit(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            // Get task model:
+            // GetStep task model:
             var taskModel = TasksModel.Get(eventArgs.ID);
 
             // Update name:
