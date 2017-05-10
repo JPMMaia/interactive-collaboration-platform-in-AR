@@ -10,7 +10,7 @@ namespace CollaborationEngine.Panels
     public class InstructionsController : Controller
     {
         #region Unity Editor
-        public StepView StepViewPrefab;
+        public StepController StepControllerPrefab;
         public InstructionsView InstructionsView;
         public InputField AddStepInputField;
         #endregion
@@ -20,7 +20,7 @@ namespace CollaborationEngine.Panels
         #endregion
 
         #region Members
-        private readonly Dictionary<uint, StepView> _stepViews = new Dictionary<uint, StepView>();
+        private readonly Dictionary<uint, StepController> _stepControllers = new Dictionary<uint, StepController>();
         #endregion
 
         public void Start()
@@ -31,42 +31,39 @@ namespace CollaborationEngine.Panels
 
             // CreateStep step views:
             foreach (var stepModel in TaskModel.Steps)
-                CreateStepView(stepModel.Value);
+                CreateStepController(stepModel.Value);
         }
 
-        private StepView CreateStepView(StepModel stepModel)
+        private StepController CreateStepController(StepModel stepModel)
         {
-            // Ignore if step view already exists:
-            if (_stepViews.ContainsKey(stepModel.ID))
-                return _stepViews[stepModel.ID];
+            // Ignore if step controller already exists:
+            if (_stepControllers.ContainsKey(stepModel.ID))
+                return _stepControllers[stepModel.ID];
 
             // Instantiate:
-            var stepView = Instantiate(StepViewPrefab);
+            var stepController = Instantiate(StepControllerPrefab);
 
             // Set properties:
-            stepView.StepID = stepModel.ID;
-            stepView.StepOrder = (uint) _stepViews.Count + 1;
-            stepView.StepDescription = stepModel.Name;
-
-            // TODO Subscribe to events:
+            stepController.StepModel = stepModel;
+            stepController.StepOrder = (uint)_stepControllers.Count + 1;
 
             // Add to instructions view:
-            InstructionsView.AddToContainer(stepView.transform);
+            InstructionsView.AddToContainer(stepController.transform);
 
             // Add to list:
-            _stepViews.Add(stepModel.ID, stepView);
+            _stepControllers.Add(stepModel.ID, stepController);
 
-            return stepView;
+            return stepController;
         }
-        private void DeleteStepView(uint stepID)
+        private void DeleteStepController(uint stepID)
         {
-            // GetStep step view:
-            StepView stepView;
-            if (!_stepViews.TryGetValue(stepID, out stepView))
+            // GetStep step controller:
+            StepController stepView;
+            if (!_stepControllers.TryGetValue(stepID, out stepView))
                 return;
 
             // Remove step from list:
-            _stepViews.Remove(stepID);
+            _stepControllers.Remove(stepID);
 
             // Remove from instructions view:
             InstructionsView.RemoveFromContainer(stepView.transform);
@@ -81,10 +78,6 @@ namespace CollaborationEngine.Panels
             var stepModel = TaskModel.CreateStep();
             stepModel.Name = AddStepInputField.text;
 
-            // Update step view:
-            var stepView = _stepViews[stepModel.ID];
-            stepView.StepDescription = stepModel.Name;
-
             // Reset input field:
             AddStepInputField.text = String.Empty;
         }
@@ -92,7 +85,7 @@ namespace CollaborationEngine.Panels
         #region Event Handlers
         private void TaskModel_OnStepCreated(TaskModel sender, StepEventArgs eventArgs)
         {
-            CreateStepView(eventArgs.StepModel);
+            CreateStepController(eventArgs.StepModel);
         }
         private void TaskModel_OnStepDuplicated(TaskModel sender, StepEventArgs eventArgs)
         {
