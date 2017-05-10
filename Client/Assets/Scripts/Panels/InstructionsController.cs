@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CollaborationEngine.Base;
 using CollaborationEngine.Steps;
 using CollaborationEngine.Tasks;
+using UnityEngine.UI;
 
 namespace CollaborationEngine.Panels
 {
@@ -10,6 +12,7 @@ namespace CollaborationEngine.Panels
         #region Unity Editor
         public StepView StepViewPrefab;
         public InstructionsView InstructionsView;
+        public InputField AddStepInputField;
         #endregion
 
         #region Properties
@@ -28,10 +31,10 @@ namespace CollaborationEngine.Panels
 
             // CreateStep step views:
             foreach (var stepModel in TaskModel.Steps)
-                CreateTaskView(stepModel.Value);
+                CreateStepView(stepModel.Value);
         }
 
-        private StepView CreateTaskView(StepModel stepModel)
+        private StepView CreateStepView(StepModel stepModel)
         {
             // Ignore if step view already exists:
             if (_stepViews.ContainsKey(stepModel.ID))
@@ -40,7 +43,10 @@ namespace CollaborationEngine.Panels
             // Instantiate:
             var stepView = Instantiate(StepViewPrefab);
 
-            // TODO Set properties:
+            // Set properties:
+            stepView.StepID = stepModel.ID;
+            stepView.StepOrder = (uint) _stepViews.Count + 1;
+            stepView.StepDescription = stepModel.Name;
 
             // TODO Subscribe to events:
 
@@ -52,7 +58,7 @@ namespace CollaborationEngine.Panels
 
             return stepView;
         }
-        private void DeleteTaskView(uint stepID)
+        private void DeleteStepView(uint stepID)
         {
             // GetStep step view:
             StepView stepView;
@@ -69,10 +75,24 @@ namespace CollaborationEngine.Panels
             Destroy(stepView.gameObject);
         }
 
+        public void OnAddStepEndEdit()
+        {
+            // Create step model:
+            var stepModel = TaskModel.CreateStep();
+            stepModel.Name = AddStepInputField.text;
+
+            // Update step view:
+            var stepView = _stepViews[stepModel.ID];
+            stepView.StepDescription = stepModel.Name;
+
+            // Reset input field:
+            AddStepInputField.text = String.Empty;
+        }
+
         #region Event Handlers
         private void TaskModel_OnStepCreated(TaskModel sender, StepEventArgs eventArgs)
         {
-            CreateTaskView(eventArgs.StepModel);
+            CreateStepView(eventArgs.StepModel);
         }
         private void TaskModel_OnStepDuplicated(TaskModel sender, StepEventArgs eventArgs)
         {
