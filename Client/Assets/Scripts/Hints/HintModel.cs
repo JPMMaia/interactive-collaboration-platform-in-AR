@@ -17,16 +17,16 @@ namespace CollaborationEngine.Hints
         private static uint _count;
         #endregion
 
-        public static uint GenerateID()
+        public void AssignID()
         {
-            return _count++;
+            ID = _count++;
         }
 
         public virtual void DeepCopy(HintModel other)
         {
+            other.TaskID = TaskID;
+            other.StepID = StepID;
             other.Name = CopyUtilities.GenerateCopyName(Name);
-
-            throw new NotImplementedException();
         }
     }
 }

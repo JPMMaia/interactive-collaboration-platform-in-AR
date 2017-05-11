@@ -42,7 +42,7 @@ namespace CollaborationEngine.Steps
         {
             // CreateStep new hint and assign a unique ID:
             var hint = Instantiate(prefab, transform);
-            hint.ID = HintModel.GenerateID();
+            hint.AssignID();
             hint.TaskID = TaskID;
             hint.StepID = ID;
 
