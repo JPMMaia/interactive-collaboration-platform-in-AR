@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.Base;
+﻿using System;
+using CollaborationEngine.Base;
 using UnityEngine;
 
 namespace CollaborationEngine.Hints

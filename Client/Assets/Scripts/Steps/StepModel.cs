@@ -89,6 +89,8 @@ namespace CollaborationEngine.Steps
             // Raise event:
             if (OnHintDeleted != null)
                 OnHintDeleted(this, new HintEventArgs(hint));
+
+            Destroy(hint.gameObject);
         }
         public HintModel GetHint(uint hintID)
         {

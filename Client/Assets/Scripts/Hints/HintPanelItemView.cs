@@ -32,6 +32,15 @@ namespace CollaborationEngine.Hints
         {
             if(OnNameEndedEdit != null)
                 OnNameEndedEdit(this, new NameEventArgs(NameInputField.text));
+
+            NameInputField.caretWidth = 1;
+            NameInputField.readOnly = true;
+        }
+        public void OnEditClick()
+        {
+            NameInputField.caretWidth = 3;
+            NameInputField.readOnly = false;
+            NameInputField.ActivateInputField();
         }
         public void OnDuplicateClick()
         {

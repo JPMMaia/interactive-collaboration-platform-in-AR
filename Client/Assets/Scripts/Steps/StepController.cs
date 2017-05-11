@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Hints.NewHintWindow;
@@ -25,9 +24,12 @@ namespace CollaborationEngine.Steps
         }
 
         private readonly Dictionary<uint, HintController> _hints = new Dictionary<uint, HintController>();
+        private float _originalHeight;
 
         public void Start()
         {
+            _originalHeight = GetComponent<RectTransform>().rect.height;
+
             StepView.StepID = StepModel.ID;
 
             if(StepModel.Name != null)
@@ -60,6 +62,14 @@ namespace CollaborationEngine.Steps
             }
         }
 
+        private void UpdatePanelSize()
+        {
+            var rectTransform = GetComponent<RectTransform>();
+
+            var size = _originalHeight + _hints.Count * 40.0f + (_hints.Count - 1) * 10.0f;
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
+        }
+
         private void StepModel_OnHintCreated(StepModel sender, HintEventArgs eventArgs)
         {
             // Instantiate hint controller:
@@ -69,6 +79,8 @@ namespace CollaborationEngine.Steps
 
             // Add to collection:
             _hints.Add(eventArgs.HintModel.ID, hintController);
+
+            UpdatePanelSize();
         }
         private void StepModel_OnHintDeleted(StepModel sender, HintEventArgs eventArgs)
         {
@@ -80,6 +92,8 @@ namespace CollaborationEngine.Steps
 
             // Destroy hint controller:
             Destroy(hintController.gameObject);
+
+            UpdatePanelSize();
         }
     }
 }
