@@ -18,13 +18,9 @@ namespace CollaborationEngine.Steps
         public event HintModelEventDelegate OnHintDeleted;
         #endregion
 
-        #region Unity Editor
-        public HintModel HintModelPrefab;
-        #endregion
-
         #region Properties
         public UInt32 ID { get; set; }
-        public UInt32 TaskID { get; private set; }
+        public UInt32 TaskID { get; set; }
         public String Name { get; set; }
         public IEnumerable<KeyValuePair<uint, HintModel>> Hints
         {
@@ -42,20 +38,22 @@ namespace CollaborationEngine.Steps
             return _count++;
         }
 
-        private THint CreateHint<THint>(THint prefab) where THint : HintModel
+        private THint InternalCreateHint<THint>(THint prefab) where THint : HintModel
         {
             // CreateStep new hint and assign a unique ID:
-            var hint = Instantiate(prefab);
+            var hint = Instantiate(prefab, transform);
             hint.ID = HintModel.GenerateID();
+            hint.TaskID = TaskID;
+            hint.StepID = ID;
 
             // Add hint to list:
             _hints.Add(hint.ID, hint);
 
             return hint;
         }
-        public THint Create<THint>(THint prefab) where THint : HintModel
+        public THint CreateHint<THint>(THint prefab) where THint : HintModel
         {
-            var hint = CreateHint(prefab);
+            var hint = InternalCreateHint(prefab);
 
             // Raise event:
             if (OnHintCreated != null)
@@ -63,13 +61,13 @@ namespace CollaborationEngine.Steps
 
             return hint;
         }
-        public HintModel Duplicate(uint hintID)
+        public HintModel DuplicateHint(uint hintID)
         {
             // GetStep hint to duplicate:
             var hintToDuplicate = _hints[hintID];
 
             // CreateStep new hint and perform deep copy:
-            var duplicatedTask = CreateHint(hintToDuplicate);
+            var duplicatedTask = InternalCreateHint(hintToDuplicate);
             hintToDuplicate.DeepCopy(duplicatedTask);
 
             // Raise event:
@@ -78,7 +76,7 @@ namespace CollaborationEngine.Steps
 
             return duplicatedTask;
         }
-        public void Delete(uint hintID)
+        public void DeleteHint(uint hintID)
         {
             // GetStep hint:
             HintModel hint;
@@ -92,7 +90,7 @@ namespace CollaborationEngine.Steps
             if (OnHintDeleted != null)
                 OnHintDeleted(this, new HintEventArgs(hint));
         }
-        public HintModel Get(uint hintID)
+        public HintModel GetHint(uint hintID)
         {
             return _hints[hintID];
         }

@@ -65,6 +65,7 @@ namespace CollaborationEngine.Tasks
             // CreateStep new step and assign a unique ID:
             var step = Instantiate(StepModelPrefab, transform);
             step.ID = StepModel.GenerateID();
+            step.TaskID = ID;
 
             // Add step to list:
             _steps.Add(step.ID, step);

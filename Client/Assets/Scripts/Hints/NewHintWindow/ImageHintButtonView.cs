@@ -3,7 +3,7 @@ using CollaborationEngine.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CollaborationEngine.Hints
+namespace CollaborationEngine.Hints.NewHintWindow
 {
     public class ImageHintButtonView : Entity
     {

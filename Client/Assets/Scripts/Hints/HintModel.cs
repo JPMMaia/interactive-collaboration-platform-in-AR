@@ -8,6 +8,8 @@ namespace CollaborationEngine.Hints
     {
         #region Properties
         public uint ID { get; set; }
+        public uint TaskID { get; set; }
+        public uint StepID { get; set; }
         public String Name { get; set; }
         #endregion
 

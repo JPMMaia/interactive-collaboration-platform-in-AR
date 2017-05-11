@@ -35,7 +35,7 @@ namespace CollaborationEngine.Steps
 
         private void UpdateName()
         {
-            NameText.text = String.Format("Step {0}", StepOrder);
+            NameText.text = String.Format("STEP {0}", StepOrder);
         }
     }
 }

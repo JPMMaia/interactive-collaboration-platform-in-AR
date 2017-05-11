@@ -74,7 +74,7 @@ namespace CollaborationEngine.Panels
 
         public void OnAddStepEndEdit()
         {
-            // Create step model:
+            // CreateHint step model:
             var stepModel = TaskModel.CreateStep();
             stepModel.Name = AddStepInputField.text;
 

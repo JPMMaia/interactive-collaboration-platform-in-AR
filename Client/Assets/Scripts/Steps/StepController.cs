@@ -1,12 +1,21 @@
-﻿using CollaborationEngine.Base;
+﻿using System.Collections.Generic;
+using System.Net;
+using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
+using CollaborationEngine.Hints.NewHintWindow;
+using UnityEngine;
 
 namespace CollaborationEngine.Steps
 {
     public class StepController : Controller
     {
         public StepView StepView;
+        public RectTransform HintControllersContainer;
+        public RectTransform HintPanelItemViewsContainer;
         public NewHintWindowController NewHintWindowControllerPrefab;
+        public TextHintModel TextHintModelPrefab;
+        public ImageHintModel ImageHintModelPrefab;
+        public HintController HintControllerPrefab;
 
         public StepModel StepModel { get; set; }
         public uint StepOrder
@@ -15,18 +24,62 @@ namespace CollaborationEngine.Steps
             set { StepView.StepOrder = value; }
         }
 
+        private readonly Dictionary<uint, HintController> _hints = new Dictionary<uint, HintController>();
+
         public void Start()
         {
             StepView.StepID = StepModel.ID;
 
             if(StepModel.Name != null)
                 StepView.StepDescription = StepModel.Name.ToUpper();
+
+            StepModel.OnHintCreated += StepModel_OnHintCreated;
+            StepModel.OnHintDeleted += StepModel_OnHintDeleted;
         }
 
         public void OnAddButtonClick()
         {
             // Span hint window:
-            Instantiate(NewHintWindowControllerPrefab, Application.View.MainCanvas.transform);
+            var newHintWindowController = Instantiate(NewHintWindowControllerPrefab, Application.View.MainCanvas.transform);
+            newHintWindowController.OnEndCreate += NewHintWindowController_OnEndCreate;
+        }
+
+        private void NewHintWindowController_OnEndCreate(object sender, NewHintWindowController.WindowDataEventArgs eventArgs)
+        {
+            // CreateHint hint model:
+            if (eventArgs.HintType == HintType.Text)
+            {
+                var hintModel = StepModel.CreateHint(TextHintModelPrefab);
+                hintModel.Name = eventArgs.Name;
+            }
+            else
+            {
+                var hintModel = StepModel.CreateHint(ImageHintModelPrefab);
+                hintModel.Name = eventArgs.Name;
+                hintModel.ImageHintType = eventArgs.ImageHintType;
+            }
+        }
+
+        private void StepModel_OnHintCreated(StepModel sender, HintEventArgs eventArgs)
+        {
+            // Instantiate hint controller:
+            var hintController = Instantiate(HintControllerPrefab, HintControllersContainer);
+            hintController.HintPanelItemViewsContainer = HintPanelItemViewsContainer;
+            hintController.HintModel = eventArgs.HintModel;
+
+            // Add to collection:
+            _hints.Add(eventArgs.HintModel.ID, hintController);
+        }
+        private void StepModel_OnHintDeleted(StepModel sender, HintEventArgs eventArgs)
+        {
+            // Remove from collection:
+            HintController hintController;
+            if (!_hints.TryGetValue(eventArgs.HintModel.ID, out hintController))
+                return;
+            _hints.Remove(eventArgs.HintModel.ID);
+
+            // Destroy hint controller:
+            Destroy(hintController.gameObject);
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using CollaborationEngine.Base;
+﻿using System;
+using CollaborationEngine.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CollaborationEngine.Hints
+namespace CollaborationEngine.Hints.NewHintWindow
 {
     public class NewHintWindowView : Entity
     {
@@ -16,6 +17,10 @@ namespace CollaborationEngine.Hints
         #endregion
 
         #region Properties
+        public String Name
+        {
+            get { return NameInputField.text; }
+        }
         public HintType HintType
         {
             get
