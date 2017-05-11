@@ -1,10 +1,12 @@
 ﻿using CollaborationEngine.Base;
+using CollaborationEngine.Hints;
 
 namespace CollaborationEngine.Steps
 {
     public class StepController : Controller
     {
         public StepView StepView;
+        public NewHintWindowController NewHintWindowControllerPrefab;
 
         public StepModel StepModel { get; set; }
         public uint StepOrder
@@ -16,12 +18,15 @@ namespace CollaborationEngine.Steps
         public void Start()
         {
             StepView.StepID = StepModel.ID;
-            StepView.StepDescription = StepModel.Name.ToUpper();
+
+            if(StepModel.Name != null)
+                StepView.StepDescription = StepModel.Name.ToUpper();
         }
 
         public void OnAddButtonClick()
         {
-            // TODO Span hint window
+            // Span hint window:
+            Instantiate(NewHintWindowControllerPrefab, Application.View.MainCanvas.transform);
         }
     }
 }
