@@ -7,11 +7,14 @@ namespace CollaborationEngine.Hints
     public class HintController : Controller
     {
         public HintPanelItemView HintPanelItemViewPrefab;
+        public TextHint3DView TextHint3DViewPrefab;
+        public ImageHint3DView ImageHint3DViewPrefab;
 
         public HintModel HintModel { get; set; }
         public RectTransform HintPanelItemViewsContainer { get; set; }
 
         private HintPanelItemView _hintPanelItemView;
+        private Entity _hint3DView;
 
         public void Start()
         {
@@ -36,12 +39,28 @@ namespace CollaborationEngine.Hints
             _hintPanelItemView.OnDuplicateClicked += _hintPanelItemView_OnDuplicateClicked;
             _hintPanelItemView.OnDeleteClicked += _hintPanelItemView_OnDeleteClicked;
 
-            // TODO Instantiate 3D hint:
-
+            // Instantiate hint 3D view:
+            if (HintModel.Type == HintType.Text)
+            {
+                var hint3DView = Instantiate(TextHint3DViewPrefab, Application.View.SceneRoot.transform);
+                hint3DView.Text = HintModel.Name;
+                _hint3DView = hint3DView;
+            }
+            else if (HintModel.Type == HintType.Image)
+            {
+                var hint3DView = Instantiate(ImageHint3DViewPrefab, Application.View.SceneRoot.transform);
+                var imageHintModel = (ImageHintModel) HintModel;
+                hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
+                _hint3DView = hint3DView;
+            }
         }
+
         public void OnDestroy()
         {
-            // Destroy hint panel item view:
+            if(_hint3DView)
+                Destroy(_hint3DView.gameObject);
+
+            
             if(_hintPanelItemView)
                 Destroy(_hintPanelItemView.gameObject);
         }
@@ -49,6 +68,12 @@ namespace CollaborationEngine.Hints
         private void _hintPanelItemView_OnNameChanged(object sender, HintPanelItemView.NameEventArgs e)
         {
             HintModel.Name = e.Name;
+
+            if (HintModel.Type == HintType.Text)
+            {
+                var hint3DView = (TextHint3DView) _hint3DView;
+                hint3DView.Text = e.Name;
+            }
         }
         private void _hintPanelItemView_OnDuplicateClicked(object sender, EventArgs e)
         {

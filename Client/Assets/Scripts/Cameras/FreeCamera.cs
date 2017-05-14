@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CollaborationEngine.Camera
+namespace CollaborationEngine.Cameras
 {
     [AddComponentMenu("Camera-Control/Free Camera")]
     [RequireComponent(typeof(UnityEngine.Camera))]

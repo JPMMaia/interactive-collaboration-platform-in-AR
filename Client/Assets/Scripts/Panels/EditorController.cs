@@ -40,8 +40,9 @@ namespace CollaborationEngine.Panels
 
             // TODO Load steps and hints:
 
-            // TODO If the task hasn't got any steps, add a default one:
-            _task.CreateStep();
+            // If the task hasn't got any steps, add a default one:
+            if(_task.StepCount == 0)
+                _task.CreateStep();
         }
         public void OnDestroy()
         {

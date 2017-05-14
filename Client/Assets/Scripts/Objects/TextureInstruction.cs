@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollaborationEngine.Utilities;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -41,11 +42,11 @@ namespace CollaborationEngine.Objects
             var meshRenderers = GameObject.GetComponentsInChildren<MeshRenderer>();
             foreach (var meshRenderer in meshRenderers)
             {
-                var options = AssetsUtils.MaterialOptions.Cutout;
+               /* var options = AssetsUtils.MaterialOptions.Cutout;
                 if (meshRenderer.gameObject.CompareTag("Backface"))
                     options = (AssetsUtils.MaterialOptions)((uint)options | (uint)AssetsUtils.MaterialOptions.InvertX);
 
-                AssetsUtils.SetTexturedMaterial(meshRenderer, Textures[InstructionType], options);
+                AssetsUtils.SetTexturedMaterial(meshRenderer, Textures[InstructionType], options);*/
             }
 
             return gameObject;

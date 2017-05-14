@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using CollaborationEngine.Cameras;
 using CollaborationEngine.Objects;
 using CollaborationEngine.RuntimeGizmo.Helpers;
 using CollaborationEngine.RuntimeGizmo.Objects;
@@ -11,6 +12,8 @@ namespace CollaborationEngine.RuntimeGizmo
     public class TransformGizmo : MonoBehaviour
     {
         public event EventHandler OnTransformChanged;
+
+        public CameraManager CameraManager;
 
         public TransformSpace space = TransformSpace.Global;
         public TransformType type = TransformType.Move;
@@ -50,9 +53,9 @@ namespace CollaborationEngine.RuntimeGizmo
         AxisInfo axisInfo;
         Transform _target;
 
-        private UnityEngine.Camera MyCamera
+        private Camera MyCamera
         {
-            get { return ObjectLocator.Instance.CameraManager.SelectedCamera.UnityCamera; }
+            get { return CameraManager.SelectedCamera.UnityCamera; }
         }
 
         private void NotifyTransformChanged()

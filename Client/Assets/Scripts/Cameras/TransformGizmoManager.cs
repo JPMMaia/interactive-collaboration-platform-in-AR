@@ -3,7 +3,7 @@ using CollaborationEngine.Objects;
 using CollaborationEngine.RuntimeGizmo;
 using UnityEngine;
 
-namespace CollaborationEngine.Camera
+namespace CollaborationEngine.Cameras
 {
     public class TransformGizmoManager : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace CollaborationEngine.Camera
         #region Members
         private static TransformGizmoManager _instance;
         private SceneObject _target;
-        private UnityEngine.Camera _selectedCamera;
+        private Camera _selectedCamera;
         #endregion
 
         #region Properties
@@ -49,7 +49,7 @@ namespace CollaborationEngine.Camera
                 }
             }
         }
-        public UnityEngine.Camera SelectedCamera
+        public Camera SelectedCamera
         {
             get { return _selectedCamera; }
             set

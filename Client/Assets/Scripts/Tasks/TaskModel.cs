@@ -45,6 +45,10 @@ namespace CollaborationEngine.Tasks
         {
             get { return _steps; }
         }
+        public int StepCount
+        {
+            get { return _steps.Count; }
+        }
         #endregion
 
         #region Members

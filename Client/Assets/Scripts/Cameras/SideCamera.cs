@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CollaborationEngine.Camera
+namespace CollaborationEngine.Cameras
 {
     [RequireComponent(typeof(UnityEngine.Camera))]
     public class SideCamera : MonoBehaviour, ICamera

@@ -1,4 +1,4 @@
-﻿using CollaborationEngine.Camera;
+﻿using CollaborationEngine.Cameras;
 using UnityEngine;
 
 namespace CollaborationEngine.Objects

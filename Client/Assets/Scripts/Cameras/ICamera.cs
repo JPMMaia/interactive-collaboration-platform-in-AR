@@ -1,4 +1,4 @@
-﻿namespace CollaborationEngine.Camera
+﻿namespace CollaborationEngine.Cameras
 {
     public interface ICamera
     {

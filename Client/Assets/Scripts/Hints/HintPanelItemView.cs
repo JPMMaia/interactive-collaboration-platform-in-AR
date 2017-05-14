@@ -24,6 +24,7 @@ namespace CollaborationEngine.Hints
 
         public RawImage IconRawImage;
         public InputField NameInputField;
+        public CanvasGroup NameInputFieldCanvasGroup;
 
         public Texture Icon
         {
@@ -46,12 +47,12 @@ namespace CollaborationEngine.Hints
             if(OnNameEndedEdit != null)
                 OnNameEndedEdit(this, new NameEventArgs(NameInputField.text));
 
-            NameInputField.caretWidth = 1;
+            NameInputFieldCanvasGroup.interactable = false;
             NameInputField.readOnly = true;
         }
         public void OnEditClick()
         {
-            NameInputField.caretWidth = 3;
+            NameInputFieldCanvasGroup.interactable = true;
             NameInputField.readOnly = false;
             NameInputField.ActivateInputField();
         }
