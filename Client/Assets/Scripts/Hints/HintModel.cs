@@ -11,6 +11,7 @@ namespace CollaborationEngine.Hints
         public uint TaskID { get; set; }
         public uint StepID { get; set; }
         public String Name { get; set; }
+        public HintType Type { get; protected set;  }
         #endregion
 
         #region Members

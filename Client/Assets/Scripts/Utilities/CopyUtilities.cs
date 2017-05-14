@@ -6,7 +6,7 @@ namespace CollaborationEngine.Utilities
     {
         public static String GenerateCopyName(String originalName)
         {
-            return originalName + "- Copy";
+            return originalName + " - Copy";
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CollaborationEngine.Hints;
+using CollaborationEngine.UserInterface;
 using UnityEngine;
 
 namespace CollaborationEngine.Base
@@ -7,5 +8,6 @@ namespace CollaborationEngine.Base
     {
         public Canvas MainCanvas;
         public ImageHintTextures ImageHintTextures;
+        public Icons Icons;
     }
 }

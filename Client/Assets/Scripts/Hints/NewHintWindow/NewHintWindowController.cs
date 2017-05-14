@@ -25,6 +25,13 @@ namespace CollaborationEngine.Hints.NewHintWindow
 
         public void OnOKClick()
         {
+            // Ensure that name is not empty:
+            if (View.Name.Length == 0)
+            {
+                View.NameInputField.ActivateInputField();
+                return;
+            }
+
             if(OnEndCreate != null)
                 OnEndCreate(this, new WindowDataEventArgs(View.Name, View.HintType, View.SelectedImageHintType));
 

@@ -36,6 +36,7 @@ namespace CollaborationEngine.Steps
                 StepView.StepDescription = StepModel.Name.ToUpper();
 
             StepModel.OnHintCreated += StepModel_OnHintCreated;
+            StepModel.OnHintDuplicated += StepModel_OnHintCreated;
             StepModel.OnHintDeleted += StepModel_OnHintDeleted;
         }
 

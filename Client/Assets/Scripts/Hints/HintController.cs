@@ -17,6 +17,21 @@ namespace CollaborationEngine.Hints
         {
             // Instantiate hint panel item view:
             _hintPanelItemView = Instantiate(HintPanelItemViewPrefab, HintPanelItemViewsContainer);
+
+            // Set properties:
+            _hintPanelItemView.Name = HintModel.Name;
+
+            if (HintModel.Type == HintType.Text)
+            {
+                _hintPanelItemView.Icon = Application.View.Icons.TextIcon;
+            }
+            else if (HintModel.Type == HintType.Image)
+            {
+                var imageHintModel = (ImageHintModel) HintModel;
+                _hintPanelItemView.Icon = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
+            }
+
+            // Subscribe to events:
             _hintPanelItemView.OnNameChanged += _hintPanelItemView_OnNameChanged;
             _hintPanelItemView.OnDuplicateClicked += _hintPanelItemView_OnDuplicateClicked;
             _hintPanelItemView.OnDeleteClicked += _hintPanelItemView_OnDeleteClicked;
@@ -35,14 +50,14 @@ namespace CollaborationEngine.Hints
         {
             HintModel.Name = e.Name;
         }
-        private void _hintPanelItemView_OnDuplicateClicked(object sender, System.EventArgs e)
+        private void _hintPanelItemView_OnDuplicateClicked(object sender, EventArgs e)
         {
             var parentTaskModel = Application.Model.Tasks.Get(HintModel.TaskID);
             var parentStepModel = parentTaskModel.GetStep(HintModel.StepID);
 
             parentStepModel.DuplicateHint(HintModel.ID);
         }
-        private void _hintPanelItemView_OnDeleteClicked(object sender, System.EventArgs e)
+        private void _hintPanelItemView_OnDeleteClicked(object sender, EventArgs e)
         {
             var parentTaskModel = Application.Model.Tasks.Get(HintModel.TaskID);
             var parentStepModel = parentTaskModel.GetStep(HintModel.StepID);

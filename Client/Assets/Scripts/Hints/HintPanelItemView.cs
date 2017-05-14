@@ -1,5 +1,6 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.Hints
@@ -21,7 +22,19 @@ namespace CollaborationEngine.Hints
         public event EventHandler OnDuplicateClicked;
         public event EventHandler OnDeleteClicked;
 
+        public RawImage IconRawImage;
         public InputField NameInputField;
+
+        public Texture Icon
+        {
+            get { return IconRawImage.texture; }
+            set { IconRawImage.texture = value; }
+        }
+        public String Name
+        {
+            get { return NameInputField.text; }
+            set { NameInputField.text = value; }
+        }
 
         public void OnNameChange()
         {
