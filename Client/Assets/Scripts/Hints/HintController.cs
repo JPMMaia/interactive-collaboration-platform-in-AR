@@ -1,5 +1,6 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using CollaborationEngine.Cameras;
 using UnityEngine;
 
 namespace CollaborationEngine.Hints
@@ -36,6 +37,7 @@ namespace CollaborationEngine.Hints
 
             // Subscribe to events:
             _hintPanelItemView.OnNameChanged += _hintPanelItemView_OnNameChanged;
+            _hintPanelItemView.OnEditClicked += _hintPanelItemView_OnEditClicked;
             _hintPanelItemView.OnDuplicateClicked += _hintPanelItemView_OnDuplicateClicked;
             _hintPanelItemView.OnDeleteClicked += _hintPanelItemView_OnDeleteClicked;
 
@@ -53,8 +55,9 @@ namespace CollaborationEngine.Hints
                 hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
                 _hint3DView = hint3DView;
             }
-        }
 
+            _hintPanelItemView.OnEditClick();
+        }
         public void OnDestroy()
         {
             if(_hint3DView)
@@ -74,6 +77,11 @@ namespace CollaborationEngine.Hints
                 var hint3DView = (TextHint3DView) _hint3DView;
                 hint3DView.Text = e.Name;
             }
+        }
+        private void _hintPanelItemView_OnEditClicked(object sender, HintPanelItemView.EditEventArgs e)
+        {
+            // Set transform gizmo:
+            FindObjectOfType<TransformGizmoManager>().Target = e.Editing ? _hint3DView.transform : null;
         }
         private void _hintPanelItemView_OnDuplicateClicked(object sender, EventArgs e)
         {

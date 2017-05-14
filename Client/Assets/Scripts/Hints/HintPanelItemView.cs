@@ -16,15 +16,27 @@ namespace CollaborationEngine.Hints
                 Name = name;
             }
         }
+        public class EditEventArgs : EventArgs
+        {
+            public bool Editing { get; private set; }
+
+            public EditEventArgs(bool editing)
+            {
+                Editing = editing;
+            }
+        }
 
         public event EventHandler<NameEventArgs> OnNameChanged;
         public event EventHandler<NameEventArgs> OnNameEndedEdit;
+        public event EventHandler<EditEventArgs> OnEditClicked;
         public event EventHandler OnDuplicateClicked;
         public event EventHandler OnDeleteClicked;
 
         public RawImage IconRawImage;
         public InputField NameInputField;
         public CanvasGroup NameInputFieldCanvasGroup;
+        public RawImage EditButtonRawImage;
+        public CanvasGroup EditButtonCanvasGroup;
 
         public Texture Icon
         {
@@ -37,6 +49,8 @@ namespace CollaborationEngine.Hints
             set { NameInputField.text = value; }
         }
 
+        private bool _editing;
+
         public void OnNameChange()
         {
             if (OnNameChanged != null)
@@ -46,15 +60,36 @@ namespace CollaborationEngine.Hints
         {
             if(OnNameEndedEdit != null)
                 OnNameEndedEdit(this, new NameEventArgs(NameInputField.text));
-
-            NameInputFieldCanvasGroup.interactable = false;
-            NameInputField.readOnly = true;
         }
         public void OnEditClick()
         {
-            NameInputFieldCanvasGroup.interactable = true;
-            NameInputField.readOnly = false;
-            NameInputField.ActivateInputField();
+            if (!_editing)
+            {
+                Application.View.MainCanvas.GetComponent<CanvasGroup>().interactable = false;
+
+                NameInputFieldCanvasGroup.interactable = true;
+                NameInputFieldCanvasGroup.ignoreParentGroups = true;
+                NameInputField.readOnly = false;
+
+                EditButtonCanvasGroup.ignoreParentGroups = true;
+                EditButtonRawImage.color = new Color(140.0f / 255.0f, 72.0f / 255.0f, 159.0f / 255.0f, 1.0f);
+            }
+            else
+            {
+                EditButtonRawImage.color = Color.white;
+                EditButtonCanvasGroup.ignoreParentGroups = false;
+
+                NameInputField.readOnly = true;
+                NameInputFieldCanvasGroup.ignoreParentGroups = false;
+                NameInputFieldCanvasGroup.interactable = false;
+
+                Application.View.MainCanvas.GetComponent<CanvasGroup>().interactable = true;
+            }
+
+            _editing = !_editing;
+
+            if (OnEditClicked != null)
+                OnEditClicked(this, new EditEventArgs(_editing));
         }
         public void OnDuplicateClick()
         {

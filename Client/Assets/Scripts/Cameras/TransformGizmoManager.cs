@@ -1,5 +1,4 @@
 ﻿using System;
-using CollaborationEngine.Objects;
 using CollaborationEngine.RuntimeGizmo;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ namespace CollaborationEngine.Cameras
 
         #region Members
         private static TransformGizmoManager _instance;
-        private SceneObject _target;
+        private Transform _target;
         private Camera _selectedCamera;
         #endregion
 
@@ -28,7 +27,7 @@ namespace CollaborationEngine.Cameras
                 return _instance;
             }
         }
-        public SceneObject Target
+        public Transform Target
         {
             get { return _target; }
             set
@@ -40,7 +39,7 @@ namespace CollaborationEngine.Cameras
                     var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
                     if (_target != null)
                     {
-                        transformGizmo.SelectGameObject(_target.GameObject.transform);
+                        transformGizmo.SelectGameObject(_target);
                     }
                     else
                     {
@@ -67,7 +66,7 @@ namespace CollaborationEngine.Cameras
                 if (_selectedCamera != null && _target != null)
                 {
                     var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
-                    transformGizmo.SelectGameObject(_target.GameObject.transform);
+                    transformGizmo.SelectGameObject(_target);
                     transformGizmo.OnTransformChanged += TransformGizmo_OnTransformChanged;
                 }
             }
