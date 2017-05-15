@@ -33,7 +33,7 @@ namespace CollaborationEngine.AugmentedReality
         {
             var renderers = GetComponentsInChildren<Renderer>();
             foreach (var component in renderers)
-                component.enabled = false;
+                component.enabled = true;
         }
     }
 }
