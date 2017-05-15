@@ -56,7 +56,7 @@ namespace CollaborationEngine.Tasks
         private bool _unsaved;
         private uint _id;
         private string _name;
-        private Dictionary<uint, StepModel> _steps = new Dictionary<uint, StepModel>();
+        private readonly Dictionary<uint, StepModel> _steps = new Dictionary<uint, StepModel>();
         #endregion
 
         public void AssignID()

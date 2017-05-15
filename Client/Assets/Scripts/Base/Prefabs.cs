@@ -1,13 +1,12 @@
-﻿using CollaborationEngine.Panels;
-using CollaborationEngine.Tasks;
-using UnityEngine;
+﻿using CollaborationEngine.Hints;
+using CollaborationEngine.Steps;
 
 namespace CollaborationEngine.Base
 {
     public class Prefabs : Entity
     {
-        public StartMentorView StartMentorView;
-        public TaskModel TaskModel;
-        public TaskView TaskView;
+        public StepModel StepModelPrefab;
+        public TextHintModel TextHintModelPrefab;
+        public ImageHintModel ImageHintModelPrefab;
     }
 }

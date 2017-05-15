@@ -1,14 +1,30 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using CollaborationEngine.UserInterface;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.Steps
 {
     public class StepView : Entity
     {
+        #region Events
+        public class ShowEventArgs : EventArgs
+        {
+            public uint StepID { get; private set; }
+
+            public ShowEventArgs(uint stepID)
+            {
+                StepID = stepID;
+            }
+        }
+
+        public event EventHandler<ShowEventArgs> OnShowClicked;
+        #endregion
+
         #region Unity Editor
         public Text NameText;
         public InputField DescriptionInputField;
+        public RadioButtonView ShowRadioButton;
         #endregion
 
         #region Properties
@@ -27,6 +43,17 @@ namespace CollaborationEngine.Steps
             get { return DescriptionInputField.text; }
             set { DescriptionInputField.text = value; }
         }
+        public bool Showing
+        {
+            get
+            {
+                return ShowRadioButton.Selected;
+            }
+            set
+            {
+                ShowRadioButton.Selected = value;
+            }
+        }
         #endregion
 
         #region Members
@@ -36,6 +63,12 @@ namespace CollaborationEngine.Steps
         private void UpdateName()
         {
             NameText.text = String.Format("STEP {0}", StepOrder);
+        }
+
+        public void OnShowClick()
+        {
+            if (OnShowClicked != null)
+                OnShowClicked(this, new ShowEventArgs(StepID));
         }
     }
 }

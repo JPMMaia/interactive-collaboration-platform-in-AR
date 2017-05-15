@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CollaborationEngine.Base;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine.Tasks
 {
@@ -30,7 +31,7 @@ namespace CollaborationEngine.Tasks
             TasksModel.OnTaskDeleted += TasksModel_OnTaskDeleted;
             TasksView.OnCreateTaskClicked += TasksView_OnCreateTaskClicked;
 
-            // CreateStep tasks:
+            // Create task views:
             foreach (var task in TasksModel.Tasks)
                 CreateTaskView(task.Value);
         }

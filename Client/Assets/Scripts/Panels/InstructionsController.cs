@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CollaborationEngine.Base;
+using CollaborationEngine.Network;
 using CollaborationEngine.Steps;
 using CollaborationEngine.Tasks;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.Panels
@@ -13,14 +16,43 @@ namespace CollaborationEngine.Panels
         public StepController StepControllerPrefab;
         public InstructionsView InstructionsView;
         public InputField AddStepInputField;
+        public Text ShowingStepMessageText;
         #endregion
 
         #region Properties
         public TaskModel TaskModel { get; set; }
+        public uint ShowingStepID
+        {
+            get { return _showingStepID; }
+            set
+            {
+                // Disable radio button:
+                if(_stepControllers.ContainsKey(_showingStepID))
+                    _stepControllers[_showingStepID].Showing = false;
+
+                _showingStepID = value;
+
+                if (_stepControllers.ContainsKey(_showingStepID))
+                {
+                    var stepController = _stepControllers[_showingStepID];
+
+                    // Enable radio button:
+                    stepController.Showing = true;
+
+                    // Change apprentice box message:
+                    ShowingStepMessageText.text = String.Format("Showing Step {0}.", _stepControllers[value].StepOrder);
+
+                    // Send network message:
+                    var networkClient = NetworkManager.singleton.client;
+                    networkClient.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(stepController.StepModel));
+                }
+            }
+        }
         #endregion
 
         #region Members
         private readonly Dictionary<uint, StepController> _stepControllers = new Dictionary<uint, StepController>();
+        private uint _showingStepID;
         #endregion
 
         public void Start()
@@ -29,16 +61,19 @@ namespace CollaborationEngine.Panels
             TaskModel.OnStepDuplicated += TaskModel_OnStepDuplicated;
             TaskModel.OnStepDeleted += TaskModel_OnStepDeleted;
 
-            // CreateStep step views:
+            // Create step controllers:
             foreach (var stepModel in TaskModel.Steps)
                 CreateStepController(stepModel.Value);
+
+            if (_stepControllers.Count > 0)
+                ShowingStepID = _stepControllers.First().Key;
         }
 
-        private StepController CreateStepController(StepModel stepModel)
+        private void CreateStepController(StepModel stepModel)
         {
             // Ignore if step controller already exists:
             if (_stepControllers.ContainsKey(stepModel.ID))
-                return _stepControllers[stepModel.ID];
+                return;
 
             // Instantiate:
             var stepController = Instantiate(StepControllerPrefab);
@@ -47,13 +82,14 @@ namespace CollaborationEngine.Panels
             stepController.StepModel = stepModel;
             stepController.StepOrder = (uint)_stepControllers.Count + 1;
 
+            // Subscribe to events:
+            stepController.OnShowClicked += StepController_OnShowClicked;
+
             // Add to instructions view:
             InstructionsView.AddToContainer(stepController.transform);
 
             // Add to list:
             _stepControllers.Add(stepModel.ID, stepController);
-
-            return stepController;
         }
         private void DeleteStepController(uint stepID)
         {
@@ -92,11 +128,15 @@ namespace CollaborationEngine.Panels
         }
         private void TaskModel_OnStepDuplicated(TaskModel sender, StepEventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            CreateStepController(eventArgs.StepModel);
         }
         private void TaskModel_OnStepDeleted(TaskModel sender, StepEventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            DeleteStepController(eventArgs.StepModel.ID);
+        }
+        private void StepController_OnShowClicked(object sender, StepView.ShowEventArgs e)
+        {
+            ShowingStepID = e.StepID;
         }
         #endregion
     }

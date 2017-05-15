@@ -21,7 +21,11 @@ namespace CollaborationEngine.Steps
         #region Properties
         public UInt32 ID { get; set; }
         public UInt32 TaskID { get; set; }
-        public String Name { get; set; }
+        public String Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
         public IEnumerable<KeyValuePair<uint, HintModel>> Hints
         {
             get { return _hints; }
@@ -31,6 +35,7 @@ namespace CollaborationEngine.Steps
         #region Members
         private static uint _count;
         private readonly Dictionary<uint, HintModel> _hints = new Dictionary<uint, HintModel>();
+        private string _name = String.Empty;
         #endregion
 
         public static uint GenerateID()
@@ -99,32 +104,38 @@ namespace CollaborationEngine.Steps
 
         public void Serialize(BinaryWriter writer)
         {
-            throw new NotImplementedException();
-
-            /*writer.WritePackedUInt32(ID);
-            writer.WritePackedUInt32(TaskID);
+            writer.Write(ID);
+            writer.Write(TaskID);
             writer.Write(Name);
 
-            writer.WritePackedUInt32((UInt32)_hints.Count);
-            //foreach (var hint in _hints)
-//                hint.Value.Serialize(writer);*/
+            writer.Write(_hints.Count);
+            foreach (var hint in _hints)
+            {
+                writer.Write((byte)hint.Value.Type);
+                hint.Value.Serialize(writer);
+            }
         }
         public void Deserialize(BinaryReader reader)
         {
-            throw new NotImplementedException();
-
-            /*ID = reader.ReadPackedUInt32();
-            TaskID = reader.ReadPackedUInt32();
+            ID = reader.ReadUInt32();
+            TaskID = reader.ReadUInt32();
             Name = reader.ReadString();
 
-            /*var hintCount = reader.ReadPackedUInt32();
+            var hintCount = reader.ReadInt32();
             for (var i = 0; i < hintCount; ++i)
             {
-                
-                var hint = Instantiate(HintModelPrefab);
+                var hintType = (HintType) reader.ReadByte();
+
+                HintModel hint;
+                if (hintType == HintType.Text)
+                    hint = Instantiate(Application.Prefabs.TextHintModelPrefab);
+                else
+                    hint = Instantiate(Application.Prefabs.ImageHintModelPrefab);
+
                 hint.Deserialize(reader);
+
                 _hints.Add(hint.ID, hint);
-            }*/
+            }
         }
 
         public void DeepCopy(StepModel other)

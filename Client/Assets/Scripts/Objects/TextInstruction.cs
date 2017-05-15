@@ -76,7 +76,7 @@ namespace CollaborationEngine.Objects
                     return false;
 
                 var networkClient = NetworkManager.singleton.client;
-                networkClient.Send(NetworkHandles.UpdateInstruction, new DataMessage { Data = this });
+                networkClient.Send(NetworkHandles.UpdateHintTransform, new DataMessage { Data = this });
                 _needsSynch = false;
                 return true;
             }

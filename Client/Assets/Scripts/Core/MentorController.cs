@@ -1,6 +1,8 @@
 ﻿using CollaborationEngine.Base;
+using CollaborationEngine.Network;
 using CollaborationEngine.Panels;
 using CollaborationEngine.Tasks;
+using UnityEngine;
 
 namespace CollaborationEngine.Core
 {
@@ -9,6 +11,7 @@ namespace CollaborationEngine.Core
         #region Unity Editor
         public StartMentorController StartMentorControllerPrefab;
         public EditorController EditorControllerPrefab;
+        public MentorNetworkManager MentorNetworkManager;
         #endregion
 
         #region Properties
@@ -20,7 +23,8 @@ namespace CollaborationEngine.Core
 
         public void Start()
         {
-            // TODO start server
+            // Start a server and a client on the same application:
+            MentorNetworkManager.StartHost();
 
             // Load all tasks:
             TasksModel.Load();
@@ -44,6 +48,8 @@ namespace CollaborationEngine.Core
 
         private void Controller_OnTaskSelected(StartMentorController sender, Events.IDEventArgs e)
         {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
             // Destroy start mentor controller:
             Destroy(sender.gameObject);
 
@@ -51,6 +57,8 @@ namespace CollaborationEngine.Core
         }
         private void Controller_OnGoBack(EditorController sender, System.EventArgs eventArgs)
         {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
             // Destroy editor controller:
             Destroy(sender.gameObject);
 

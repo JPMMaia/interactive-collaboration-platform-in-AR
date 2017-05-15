@@ -1,7 +1,9 @@
 ﻿using System;
 using CollaborationEngine.Base;
 using CollaborationEngine.Cameras;
+using CollaborationEngine.Network;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine.Hints
 {
@@ -81,7 +83,13 @@ namespace CollaborationEngine.Hints
         private void _hintPanelItemView_OnEditClicked(object sender, HintPanelItemView.EditEventArgs e)
         {
             // Set transform gizmo:
-            FindObjectOfType<TransformGizmoManager>().Target = e.Editing ? _hint3DView.transform : null;
+            var transformGizmo = FindObjectOfType<TransformGizmoManager>();
+            transformGizmo.Target = e.Editing ? _hint3DView.transform : null;
+
+            if (e.Editing)
+                transformGizmo.OnTargetTransformChanged += TransformGizmo_OnTargetTransformChanged;
+            else
+                transformGizmo.OnTargetTransformChanged -= TransformGizmo_OnTargetTransformChanged;
         }
         private void _hintPanelItemView_OnDuplicateClicked(object sender, EventArgs e)
         {
@@ -96,6 +104,14 @@ namespace CollaborationEngine.Hints
             var parentStepModel = parentTaskModel.GetStep(HintModel.StepID);
 
             parentStepModel.DeleteHint(HintModel.ID);
+        }
+
+        private void TransformGizmo_OnTargetTransformChanged(object sender, TransformGizmoManager.TransformEventArgs e)
+        {
+            // Send network message:
+            var networkClient = NetworkManager.singleton.client;
+            networkClient.Send(NetworkHandles.UpdateHintTransform,
+                new TransformNetworkMessage(HintModel.ID, e.Transform.localPosition, e.Transform.localRotation, e.Transform.localScale));
         }
     }
 }

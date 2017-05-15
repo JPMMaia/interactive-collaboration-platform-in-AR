@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CollaborationEngine.Hints
 {
-    public enum ImageHintType
+    public enum ImageHintType : byte
     {
         Arrow,
         RotateClockwise,

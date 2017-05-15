@@ -1,17 +1,17 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using UnityEngine.Networking;
+using Object = UnityEngine.Object;
 
-namespace CollaborationEngine.Network
+namespace CollaborationEngine.Steps
 {
-    public class GenericNetworkMessage<TData> : MessageBase where TData : ISerializable
+    public class StepModelNetworkMessage : MessageBase
     {
-        public TData Data { get; set; }
+        public StepModel Data { get; set; }
 
-        public GenericNetworkMessage()
+        public StepModelNetworkMessage()
         {
         }
-        public GenericNetworkMessage(TData data)
+        public StepModelNetworkMessage(StepModel data)
         {
             Data = data;
         }
@@ -21,12 +21,12 @@ namespace CollaborationEngine.Network
             var data = new MemoryStream();
             Data.Serialize(new BinaryWriter(data));
 
-            writer.Write(data.GetBuffer(), (int) data.Position);
+            writer.Write(data.GetBuffer(), (int)data.Position);
         }
         public override void Deserialize(NetworkReader reader)
         {
-            var type = typeof(TData);
-            Data = (TData)Activator.CreateInstance(type);
+            var application = Object.FindObjectOfType<Base.Application>();
+            Data = Object.Instantiate(application.Prefabs.StepModelPrefab);
 
             var data = new MemoryStream(reader.ReadBytes(reader.Length));
             Data.Deserialize(new BinaryReader(data));

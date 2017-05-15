@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Hints.NewHintWindow;
@@ -8,6 +9,8 @@ namespace CollaborationEngine.Steps
 {
     public class StepController : Controller
     {
+        public event EventHandler<StepView.ShowEventArgs> OnShowClicked;
+
         public StepView StepView;
         public RectTransform HintControllersContainer;
         public RectTransform HintPanelItemViewsContainer;
@@ -22,6 +25,11 @@ namespace CollaborationEngine.Steps
             get { return StepView.StepOrder; }
             set { StepView.StepOrder = value; }
         }
+        public bool Showing
+        {
+            get { return StepView.Showing; }
+            set { StepView.Showing = value; }
+        }
 
         private readonly Dictionary<uint, HintController> _hints = new Dictionary<uint, HintController>();
         private float _originalHeight;
@@ -31,8 +39,9 @@ namespace CollaborationEngine.Steps
             _originalHeight = GetComponent<RectTransform>().rect.height;
 
             StepView.StepID = StepModel.ID;
+            StepView.OnShowClicked += StepView_OnShowClicked;
 
-            if(StepModel.Name != null)
+            if (StepModel.Name != null)
                 StepView.StepDescription = StepModel.Name.ToUpper();
 
             StepModel.OnHintCreated += StepModel_OnHintCreated;
@@ -71,6 +80,11 @@ namespace CollaborationEngine.Steps
             rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, size);
         }
 
+        private void StepView_OnShowClicked(object sender, StepView.ShowEventArgs e)
+        {
+            if (OnShowClicked != null)
+                OnShowClicked(this, e);
+        }
         private void StepModel_OnHintCreated(StepModel sender, HintEventArgs eventArgs)
         {
             // Instantiate hint controller:

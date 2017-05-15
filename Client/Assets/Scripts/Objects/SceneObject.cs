@@ -261,7 +261,7 @@ namespace CollaborationEngine.Objects
             if (dirty)
             {
                 var networkClient = NetworkManager.singleton.client;
-                networkClient.Send(NetworkHandles.UpdateInstruction, new DataMessage { Data = this });
+                networkClient.Send(NetworkHandles.UpdateHintTransform, new DataMessage { Data = this });
             }
 
             return dirty;

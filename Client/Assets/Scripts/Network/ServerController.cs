@@ -1,7 +1,6 @@
 ﻿using CollaborationEngine.Feedback;
 using CollaborationEngine.Objects;
 using CollaborationEngine.Steps;
-using CollaborationEngine.Tasks;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
@@ -14,14 +13,14 @@ namespace CollaborationEngine.Network
             NetworkServer.RegisterHandler(NetworkHandles.StopPresentStep, OnStopPresentStep);
             NetworkServer.RegisterHandler(NetworkHandles.AddInstruction, OnAddInstruction);
             NetworkServer.RegisterHandler(NetworkHandles.RemoveInstruction, OnRemoveInstruction);
-            NetworkServer.RegisterHandler(NetworkHandles.UpdateInstruction, OnUpdateInstruction);
+            NetworkServer.RegisterHandler(NetworkHandles.UpdateHintTransform, OnUpdateInstruction);
             NetworkServer.RegisterHandler(NetworkHandles.HelpWanted, OnHelpWanted);
             NetworkServer.RegisterHandler(NetworkHandles.StepCompleted, OnStepCompleted);
         }
 
         private void OnPresentStep(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.PresentStep, networkMessage.ReadMessage<GenericNetworkMessage<StepModel>>());
+            NetworkServer.SendToAll(NetworkHandles.PresentStep, networkMessage.ReadMessage<StepModelNetworkMessage>());
         }
         private void OnStopPresentStep(NetworkMessage networkMessage)
         {
@@ -37,7 +36,7 @@ namespace CollaborationEngine.Network
         }
         private void OnUpdateInstruction(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.UpdateInstruction, networkMessage.ReadMessage<SceneObject.DataMessage>());
+            NetworkServer.SendToAll(NetworkHandles.UpdateHintTransform, networkMessage.ReadMessage<TransformNetworkMessage>());
         }
         private void OnHelpWanted(NetworkMessage networkMessage)
         {

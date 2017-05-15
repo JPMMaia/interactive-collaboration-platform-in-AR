@@ -3,7 +3,7 @@ using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
 {
-    public class NetworkController : NetworkManager
+    public class MentorNetworkManager : NetworkManager
     {
         #region Events
         public event EventHandler OnPlayerConnected;
@@ -12,11 +12,11 @@ namespace CollaborationEngine.Network
 
         #region Properties
 
-        public static NetworkController Instance
+        public static MentorNetworkManager Instance
         {
             get
             {
-                return FindObjectOfType(typeof(NetworkController)) as NetworkController;
+                return FindObjectOfType(typeof(MentorNetworkManager)) as MentorNetworkManager;
             }
         }
         public byte PlayerCount { get; set; }

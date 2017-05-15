@@ -7,7 +7,21 @@ namespace CollaborationEngine.Cameras
     public class TransformGizmoManager : MonoBehaviour
     {
         #region Events
-        public event EventHandler OnTargetTransformChanged;
+        public class TransformEventArgs : EventArgs
+        {
+            public Transform Transform { get; private set; }
+
+            public TransformEventArgs(Transform transform)
+            {
+                Transform = transform;
+            }
+        }
+
+        public event EventHandler<TransformEventArgs> OnTargetTransformChanged;
+        #endregion
+
+        #region Unity Editor
+        public TransformGizmo[] TransformGizmos;
         #endregion
 
         #region Members
@@ -57,9 +71,7 @@ namespace CollaborationEngine.Cameras
                 {
                     var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
                     transformGizmo.UnselectGameObject();
-                    transformGizmo.OnTransformChanged -= TransformGizmo_OnTransformChanged;
                 }
-
 
                 _selectedCamera = value;
 
@@ -67,18 +79,28 @@ namespace CollaborationEngine.Cameras
                 {
                     var transformGizmo = _selectedCamera.gameObject.GetComponent<TransformGizmo>();
                     transformGizmo.SelectGameObject(_target);
-                    transformGizmo.OnTransformChanged += TransformGizmo_OnTransformChanged;
                 }
             }
         }
 
         #endregion
 
+        public void Awake()
+        {
+            foreach (var transformGizmo in TransformGizmos)
+            {
+                transformGizmo.OnTransformChanged += TransformGizmo_OnTransformChanged;
+            }
+        }
+
         #region Event Handlers
         private void TransformGizmo_OnTransformChanged(object sender, EventArgs eventArgs)
         {
+            if (sender != null && (TransformGizmo) sender != _selectedCamera.gameObject.GetComponent<TransformGizmo>())
+                return;
+
             if (OnTargetTransformChanged != null)
-                OnTargetTransformChanged(this, EventArgs.Empty);
+                OnTargetTransformChanged(this, new TransformEventArgs(Target));
         }
         #endregion
     }

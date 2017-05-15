@@ -1,6 +1,6 @@
 ﻿namespace CollaborationEngine.Hints
 {
-    public enum HintType
+    public enum HintType : byte
     {
         Text,
         Image
