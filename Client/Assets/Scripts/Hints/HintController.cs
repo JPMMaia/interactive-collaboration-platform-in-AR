@@ -14,9 +14,20 @@ namespace CollaborationEngine.Hints
 
         public HintModel HintModel { get; set; }
         public RectTransform HintPanelItemViewsContainer { get; set; }
+        public bool Showing
+        {
+            get { return _showing; }
+            set
+            {
+                _showing = value;
+                if (_hint3DView)
+                    _hint3DView.Showing = value;
+            }
+        }
 
         private HintPanelItemView _hintPanelItemView;
         private Hint3DView _hint3DView;
+        private bool _showing;
 
         public void Start()
         {
@@ -60,8 +71,10 @@ namespace CollaborationEngine.Hints
             _hint3DView.Position = HintModel.Position;
             _hint3DView.Rotation = HintModel.Rotation;
             _hint3DView.Scale = HintModel.Scale;
+            _hint3DView.Showing = Showing;
 
-            _hintPanelItemView.OnEditClick();
+            if(Showing)
+                _hintPanelItemView.OnEditClick();
         }
         public void OnDestroy()
         {

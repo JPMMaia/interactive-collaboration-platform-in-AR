@@ -20,5 +20,16 @@ namespace CollaborationEngine.Hints
             get { return transform.localScale; }
             set { transform.localScale = value; }
         }
+        public bool Showing
+        {
+            get
+            {
+                return gameObject.activeInHierarchy;
+            }
+            set
+            {
+                gameObject.SetActive(value);
+            }
+        }
     }
 }
