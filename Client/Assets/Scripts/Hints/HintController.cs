@@ -2,6 +2,7 @@
 using CollaborationEngine.Base;
 using CollaborationEngine.Cameras;
 using CollaborationEngine.Network;
+using CollaborationEngine.Panels;
 using UnityEngine;
 
 namespace CollaborationEngine.Hints
@@ -11,6 +12,7 @@ namespace CollaborationEngine.Hints
         public HintPanelItemView HintPanelItemViewPrefab;
         public TextHint3DView TextHint3DViewPrefab;
         public ImageHint3DView ImageHint3DViewPrefab;
+        public TransformPanelController TransformPanelControllerPrefab;
 
         public HintModel HintModel { get; set; }
         public RectTransform HintPanelItemViewsContainer { get; set; }
@@ -28,6 +30,7 @@ namespace CollaborationEngine.Hints
         private HintPanelItemView _hintPanelItemView;
         private Hint3DView _hint3DView;
         private bool _showing;
+        private TransformPanelController _transformPanelController;
 
         public void Start()
         {
@@ -103,9 +106,16 @@ namespace CollaborationEngine.Hints
             transformGizmo.Target = e.Editing ? _hint3DView.transform : null;
 
             if (e.Editing)
+            {
+                _transformPanelController = Instantiate(TransformPanelControllerPrefab, transform);
                 transformGizmo.OnTargetTransformChanged += TransformGizmo_OnTargetTransformChanged;
+            }
             else
+            {
                 transformGizmo.OnTargetTransformChanged -= TransformGizmo_OnTargetTransformChanged;
+                if(_transformPanelController)
+                    Destroy(_transformPanelController.gameObject);
+            }
         }
         private void _hintPanelItemView_OnDuplicateClicked(object sender, EventArgs e)
         {
