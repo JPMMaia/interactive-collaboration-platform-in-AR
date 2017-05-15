@@ -18,14 +18,14 @@ namespace CollaborationEngine.Feedback
         public MentorFeedbackModule()
         {
             var networkManager = NetworkManager.singleton.client;
-            networkManager.RegisterHandler(NetworkHandles.HelpWanted, OnHelpWantedCallback);
+            networkManager.RegisterHandler(NetworkHandles.NeedMoreInstructions, OnHelpWantedCallback);
             networkManager.RegisterHandler(NetworkHandles.StepCompleted, OnStepCompletedCallback);
         }
         ~MentorFeedbackModule()
         {
             var networkManager = NetworkManager.singleton.client;
             networkManager.UnregisterHandler(NetworkHandles.StepCompleted);
-            networkManager.UnregisterHandler(NetworkHandles.HelpWanted);
+            networkManager.UnregisterHandler(NetworkHandles.NeedMoreInstructions);
         }
 
         private void OnHelpWantedCallback(NetworkMessage networkMessage)

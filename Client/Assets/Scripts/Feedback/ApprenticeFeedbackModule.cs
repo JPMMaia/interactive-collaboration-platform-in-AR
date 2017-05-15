@@ -27,7 +27,7 @@ namespace CollaborationEngine.Feedback
         public void HelpWanted(String stepName)
         {
             var networkClient = NetworkManager.singleton.client;
-            networkClient.Send(NetworkHandles.HelpWanted, new StringMessage{ Data = stepName });
+            networkClient.Send(NetworkHandles.NeedMoreInstructions, new StringMessage{ Data = stepName });
         }
 
         public void StepCompleted(String stepName)

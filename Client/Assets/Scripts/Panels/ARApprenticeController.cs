@@ -14,6 +14,7 @@ namespace CollaborationEngine.Panels
         public Hint3DController Hint3DControllerPrefab;
 
         private ARApprenticeView _view;
+        private StepModel _stepModel;
         private readonly Dictionary<uint, Hint3DController> _hintControllers = new Dictionary<uint, Hint3DController>();
 
         public void Start()
@@ -46,21 +47,21 @@ namespace CollaborationEngine.Panels
 
         private void _view_OnNeedMoreInstructionsClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NetworkManager.singleton.client.Send(NetworkHandles.NeedMoreInstructions, new IDMessage(_stepModel.ID));
         }
         private void _view_OnCompletedTheStepClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NetworkManager.singleton.client.Send(NetworkHandles.StepCompleted, new IDMessage(_stepModel.ID));
         }
 
         public void OnPresentStep(NetworkMessage networkMessage)
         {
-            var stepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
+            _stepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
 
             // Reparent:
-            stepModel.gameObject.transform.SetParent(Application.Model.Tasks.transform);
-            foreach (var hintModel in stepModel.Hints)
-                hintModel.Value.transform.SetParent(stepModel.transform);
+            _stepModel.gameObject.transform.SetParent(Application.Model.Tasks.transform);
+            foreach (var hintModel in _stepModel.Hints)
+                hintModel.Value.transform.SetParent(_stepModel.transform);
 
             // Destroy previous step hint controllers:
             foreach (var hintController in _hintControllers)
@@ -68,7 +69,7 @@ namespace CollaborationEngine.Panels
             _hintControllers.Clear();
 
             // Create hint controllers:
-            foreach (var hint in stepModel.Hints)
+            foreach (var hint in _stepModel.Hints)
                 CreateHintController(hint.Value);
         }
         private void OnHintTransformUpdate(NetworkMessage networkMessage)
