@@ -5,7 +5,6 @@ using CollaborationEngine.Base;
 using CollaborationEngine.Network;
 using CollaborationEngine.Steps;
 using CollaborationEngine.Tasks;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.Panels
@@ -26,9 +25,11 @@ namespace CollaborationEngine.Panels
             get { return _showingStepID; }
             set
             {
-                // Disable radio button:
-                if(_stepControllers.ContainsKey(_showingStepID))
+                if (_stepControllers.ContainsKey(_showingStepID))
+                {
+                    // Hide step:
                     _stepControllers[_showingStepID].Showing = false;
+                }
 
                 _showingStepID = value;
 
@@ -42,12 +43,11 @@ namespace CollaborationEngine.Panels
                     // Change apprentice box message:
                     ShowingStepMessageText.text = String.Format("Showing Step {0}.", _stepControllers[value].StepOrder);
 
-                    // Send network message:
-                    var networkClient = NetworkManager.singleton.client;
-                    networkClient.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(stepController.StepModel));
+                    SendPresentStepNetworkMessage();
                 }
             }
         }
+        public MentorNetworkManager NetworkManager { get; set; }
         #endregion
 
         #region Members
@@ -57,6 +57,8 @@ namespace CollaborationEngine.Panels
 
         public void Start()
         {
+            NetworkManager.OnPlayerConnected += NetworkManager_OnPlayerConnected;
+
             TaskModel.OnStepCreated += TaskModel_OnStepCreated;
             TaskModel.OnStepDuplicated += TaskModel_OnStepDuplicated;
             TaskModel.OnStepDeleted += TaskModel_OnStepDeleted;
@@ -121,7 +123,20 @@ namespace CollaborationEngine.Panels
             AddStepInputField.text = String.Empty;
         }
 
+        private void SendPresentStepNetworkMessage()
+        {
+            var stepController = _stepControllers[_showingStepID];
+            NetworkManager.client.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(stepController.StepModel));
+        }
+
         #region Event Handlers
+        private void NetworkManager_OnPlayerConnected(object sender, EventArgs e)
+        {
+            if (NetworkManager.IsAppreticeConnected)
+            {
+                SendPresentStepNetworkMessage();
+            }
+        }
         private void TaskModel_OnStepCreated(TaskModel sender, StepEventArgs eventArgs)
         {
             CreateStepController(eventArgs.StepModel);

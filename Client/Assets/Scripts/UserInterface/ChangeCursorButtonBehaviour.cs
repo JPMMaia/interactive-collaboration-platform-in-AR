@@ -11,7 +11,6 @@ namespace CollaborationEngine.UserInterface
 
         public void Awake()
         {
-            
             var eventTrigger = GetComponent<EventTrigger>();
             eventTrigger.triggers = new List<EventTrigger.Entry>();
 

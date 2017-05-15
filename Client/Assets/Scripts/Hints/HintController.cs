@@ -3,7 +3,6 @@ using CollaborationEngine.Base;
 using CollaborationEngine.Cameras;
 using CollaborationEngine.Network;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace CollaborationEngine.Hints
 {
@@ -17,7 +16,7 @@ namespace CollaborationEngine.Hints
         public RectTransform HintPanelItemViewsContainer { get; set; }
 
         private HintPanelItemView _hintPanelItemView;
-        private Entity _hint3DView;
+        private Hint3DView _hint3DView;
 
         public void Start()
         {
@@ -57,6 +56,10 @@ namespace CollaborationEngine.Hints
                 hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
                 _hint3DView = hint3DView;
             }
+
+            _hint3DView.Position = HintModel.Position;
+            _hint3DView.Rotation = HintModel.Rotation;
+            _hint3DView.Scale = HintModel.Scale;
 
             _hintPanelItemView.OnEditClick();
         }
@@ -105,13 +108,21 @@ namespace CollaborationEngine.Hints
 
             parentStepModel.DeleteHint(HintModel.ID);
         }
-
         private void TransformGizmo_OnTargetTransformChanged(object sender, TransformGizmoManager.TransformEventArgs e)
         {
+            // Update model:
+            HintModel.Position = e.Transform.localPosition;
+            HintModel.Rotation = e.Transform.localRotation;
+            HintModel.Scale = e.Transform.localScale;
+
             // Send network message:
-            var networkClient = NetworkManager.singleton.client;
-            networkClient.Send(NetworkHandles.UpdateHintTransform,
-                new TransformNetworkMessage(HintModel.ID, e.Transform.localPosition, e.Transform.localRotation, e.Transform.localScale));
+            var networkManager = MentorNetworkManager.Instance;
+            if (networkManager.IsAppreticeConnected)
+            {
+                var message = new TransformNetworkMessage(HintModel.ID, e.Transform.localPosition,
+                    e.Transform.localRotation, e.Transform.localScale);
+                networkManager.client.Send(NetworkHandles.UpdateHintTransform, message);
+            }
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
-using CollaborationEngine.Base;
 using UnityEngine;
 
 namespace CollaborationEngine.Hints
 {
-    public class TextHint3DView : Entity
+    public class TextHint3DView : Hint3DView
     {
         public TextMesh TextComponent;
 

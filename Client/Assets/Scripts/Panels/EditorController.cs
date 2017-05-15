@@ -1,5 +1,6 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using CollaborationEngine.Network;
 using CollaborationEngine.Tasks;
 
 namespace CollaborationEngine.Panels
@@ -23,6 +24,7 @@ namespace CollaborationEngine.Panels
         {
             get { return Application.Model.Tasks; }
         }
+        public MentorNetworkManager NetworkManager { get; set; }
         #endregion
 
         #region Members
@@ -37,6 +39,7 @@ namespace CollaborationEngine.Panels
             // Cache task:
             _task = TasksModel.Get(TaskID);
             InstructionsController.TaskModel = _task;
+            InstructionsController.NetworkManager = NetworkManager;
 
             // TODO Load steps and hints:
 

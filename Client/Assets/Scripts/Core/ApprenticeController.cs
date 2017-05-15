@@ -1,6 +1,8 @@
 ﻿using CollaborationEngine.Base;
 using CollaborationEngine.Network;
 using CollaborationEngine.Panels;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace CollaborationEngine.Core
 {
@@ -16,8 +18,9 @@ namespace CollaborationEngine.Core
 
         public void Start()
         {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
             // Subsribe to network events:
-            NetworkManager.OnConnected += NetworkManager_OnConnected;
             NetworkManager.OnDisconnected += NetworkManager_OnDisconnected;
 
             // Present start screen:
@@ -31,10 +34,11 @@ namespace CollaborationEngine.Core
 
             _curentController = controller;
         }
-        private void PresentARScreen()
+        private void PresentARScreen(NetworkMessage networkMessage)
         {
             var controller = Instantiate(ARApprenticeControllerPrefab, transform);
-
+            controller.OnPresentStep(networkMessage);
+            
             _curentController = controller;
         }
 
@@ -42,13 +46,7 @@ namespace CollaborationEngine.Core
         {
             NetworkManager.networkAddress = e.IPAddress;
             NetworkManager.StartClient();
-        }
-        private void NetworkManager_OnConnected(object sender, System.EventArgs e)
-        {
-            if (_curentController)
-                Destroy(_curentController.gameObject);
-
-           PresentARScreen();
+            NetworkManager.client.RegisterHandler(NetworkHandles.PresentStep, OnPresentStep);
         }
         private void NetworkManager_OnDisconnected(object sender, System.EventArgs e)
         {
@@ -56,6 +54,14 @@ namespace CollaborationEngine.Core
                 Destroy(_curentController.gameObject);
 
             PresentStartScreen();
+        }
+
+        private void OnPresentStep(NetworkMessage networkMessage)
+        {
+            if (_curentController)
+                Destroy(_curentController.gameObject);
+
+            PresentARScreen(networkMessage);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace CollaborationEngine.Panels
             throw new NotImplementedException();
         }
 
-        private void OnPresentStep(NetworkMessage networkMessage)
+        public void OnPresentStep(NetworkMessage networkMessage)
         {
             var stepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
 
@@ -75,6 +75,12 @@ namespace CollaborationEngine.Panels
         {
             var data = networkMessage.ReadMessage<TransformNetworkMessage>();
 
+            if (!_hintControllers.ContainsKey(data.ID))
+                return;
+
+            // TODO Update model:
+
+            // Update view:
             var hintView = _hintControllers[data.ID].Hint3DView;
             hintView.transform.localPosition = data.Position;
             hintView.transform.localRotation = data.Rotation;

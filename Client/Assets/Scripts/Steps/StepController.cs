@@ -28,7 +28,24 @@ namespace CollaborationEngine.Steps
         public bool Showing
         {
             get { return StepView.Showing; }
-            set { StepView.Showing = value; }
+            set
+            {
+                if (StepView.Showing == value)
+                    return;
+
+                StepView.Showing = value;
+
+                if (value)
+                {
+                    // Create views:
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    // Destroy views:
+                    throw new NotImplementedException();
+                }
+            }
         }
 
         private readonly Dictionary<uint, HintController> _hints = new Dictionary<uint, HintController>();
@@ -87,6 +104,9 @@ namespace CollaborationEngine.Steps
         }
         private void StepModel_OnHintCreated(StepModel sender, HintEventArgs eventArgs)
         {
+            // Show views only is showing step:
+            throw new NotImplementedException();
+
             // Instantiate hint controller:
             var hintController = Instantiate(HintControllerPrefab, HintControllersContainer);
             hintController.HintPanelItemViewsContainer = HintPanelItemViewsContainer;

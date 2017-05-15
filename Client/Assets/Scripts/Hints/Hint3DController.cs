@@ -8,7 +8,7 @@ namespace CollaborationEngine.Hints
         public ImageHint3DView ImageHint3DViewPrefab;
 
         public HintModel HintModel { get; set; }
-        public Entity Hint3DView
+        public Hint3DView Hint3DView
         {
             get
             {
@@ -16,7 +16,7 @@ namespace CollaborationEngine.Hints
             }
         }
 
-        private Entity _hint3DView;
+        private Hint3DView _hint3DView;
 
         public void Start()
         {
@@ -34,6 +34,10 @@ namespace CollaborationEngine.Hints
                 hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
                 _hint3DView = hint3DView;
             }
+
+            _hint3DView.Position = HintModel.Position;
+            _hint3DView.Rotation = HintModel.Rotation;
+            _hint3DView.Scale = HintModel.Scale;
         }
         public void OnDestroy()
         {

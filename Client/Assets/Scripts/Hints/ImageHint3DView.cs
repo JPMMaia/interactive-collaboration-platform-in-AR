@@ -1,10 +1,9 @@
-﻿using CollaborationEngine.Base;
-using CollaborationEngine.Utilities;
+﻿using CollaborationEngine.Utilities;
 using UnityEngine;
 
 namespace CollaborationEngine.Hints
 {
-    public class ImageHint3DView : Entity
+    public class ImageHint3DView : Hint3DView
     {
         public Texture Image
         {
