@@ -86,28 +86,40 @@ namespace CollaborationEngine.Panels
 
             // Subscribe to events:
             stepController.OnShowClicked += StepController_OnShowClicked;
+            stepController.OnDeleteClicked += StepController_OnDeleteClicked;
 
             // Add to instructions view:
             InstructionsView.AddToContainer(stepController.transform);
 
             // Add to list:
             _stepControllers.Add(stepModel.ID, stepController);
+
+            // If not showing any step, show this one:
+            if (!_stepControllers.ContainsKey(ShowingStepID))
+                ShowingStepID = stepModel.ID;
         }
         private void DeleteStepController(uint stepID)
         {
             // GetStep step controller:
-            StepController stepView;
-            if (!_stepControllers.TryGetValue(stepID, out stepView))
+            StepController stepController;
+            if (!_stepControllers.TryGetValue(stepID, out stepController))
                 return;
 
             // Remove step from list:
             _stepControllers.Remove(stepID);
 
+            // If showing, switch to another:
+            if (stepController.Showing)
+            {
+                if (_stepControllers.Count > 1)
+                    ShowingStepID = _stepControllers.First().Key;
+            }
+
             // Remove from instructions view:
-            InstructionsView.RemoveFromContainer(stepView.transform);
+            InstructionsView.RemoveFromContainer(stepController.transform);
 
             // Destroy:
-            Destroy(stepView.gameObject);
+            Destroy(stepController.gameObject);
         }
 
         public void OnAddStepEndEdit()
@@ -152,6 +164,11 @@ namespace CollaborationEngine.Panels
         private void StepController_OnShowClicked(object sender, StepView.ShowEventArgs e)
         {
             ShowingStepID = e.StepID;
+        }
+        private void StepController_OnDeleteClicked(object sender, Events.IDEventArgs e)
+        {
+            // Delete step model:
+            TaskModel.DeleteStep(e.ID);
         }
         #endregion
     }

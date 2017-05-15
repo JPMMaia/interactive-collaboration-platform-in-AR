@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CollaborationEngine.Base;
+using CollaborationEngine.Events;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Hints.NewHintWindow;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace CollaborationEngine.Steps
     public class StepController : Controller
     {
         public event EventHandler<StepView.ShowEventArgs> OnShowClicked;
+        public event EventHandler<IDEventArgs> OnDeleteClicked;
 
         public StepView StepView;
         public RectTransform HintControllersContainer;
@@ -60,6 +62,11 @@ namespace CollaborationEngine.Steps
             // Span hint window:
             var newHintWindowController = Instantiate(NewHintWindowControllerPrefab, Application.View.MainCanvas.transform);
             newHintWindowController.OnEndCreate += NewHintWindowController_OnEndCreate;
+        }
+        public void OnDeleteButtonClick()
+        {
+            if(OnDeleteClicked != null)
+                OnDeleteClicked(this, new IDEventArgs(StepModel.ID));
         }
 
         private void NewHintWindowController_OnEndCreate(object sender, NewHintWindowController.WindowDataEventArgs eventArgs)
