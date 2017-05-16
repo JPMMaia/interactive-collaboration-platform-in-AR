@@ -21,7 +21,7 @@ namespace CollaborationEngine.Steps
             var data = new MemoryStream();
             Data.Serialize(new BinaryWriter(data));
 
-            writer.Write(data.GetBuffer(), (int)data.Position);
+            writer.Write(data.ToArray(), (int)data.Position);
         }
         public override void Deserialize(NetworkReader reader)
         {

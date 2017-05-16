@@ -156,7 +156,7 @@ namespace CollaborationEngine.Tasks
             {
                 using (var binaryStream = new BinaryWriter(stream))
                 {
-                    binaryStream.Write(data.GetBuffer(), 0, (int) data.Length);
+                    binaryStream.Write(data.ToArray(), 0, (int) data.Length);
                 }
             }
         }
