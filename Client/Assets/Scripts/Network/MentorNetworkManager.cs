@@ -19,7 +19,11 @@ namespace CollaborationEngine.Network
                 return FindObjectOfType(typeof(MentorNetworkManager)) as MentorNetworkManager;
             }
         }
-        public byte PlayerCount { get; set; }
+
+        public int PlayerCount
+        {
+            get { return numPlayers; }
+        }
         public bool IsAppreticeConnected
         {
             get { return PlayerCount == 2; }
@@ -31,16 +35,12 @@ namespace CollaborationEngine.Network
         {
             base.OnServerConnect(conn);
 
-            ++PlayerCount;
-
             if(OnPlayerConnected != null)
                 OnPlayerConnected(this, EventArgs.Empty);
         }
         public override void OnServerDisconnect(NetworkConnection conn)
         {
             base.OnServerDisconnect(conn);
-
-            --PlayerCount;
 
             if (OnPlayerDisconnected != null)
                 OnPlayerDisconnected(this, EventArgs.Empty);
