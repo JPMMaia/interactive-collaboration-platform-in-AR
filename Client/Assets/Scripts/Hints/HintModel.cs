@@ -42,15 +42,19 @@ namespace CollaborationEngine.Hints
 
         public virtual HintModel DeepCopy(Transform parent, uint taskID, uint stepID)
         {
-            var copy = Instantiate(this, parent);
+            throw new NotSupportedException();
+        }
+        protected void DeepCopy(HintModel copy, uint taskID, uint stepID)
+        {
             copy.AssignID();
 
             // Copy properties:
             copy.TaskID = taskID;
-            copy.Name = CopyUtilities.GenerateCopyName(Name);
-            copy.
-
-            return copy;
+            copy.StepID = stepID;
+            copy.Name = Name;
+            copy.Position = Position;
+            copy.Rotation = Rotation;
+            copy.Scale = Scale;
         }
 
         public virtual void Serialize(BinaryWriter writer)
@@ -101,6 +105,9 @@ namespace CollaborationEngine.Hints
                 var z = reader.ReadSingle();
                 Scale = new Vector3(x, y, z);
             }
+
+            if (_count <= ID)
+                _count = ID + 1;
         }
     }
 }

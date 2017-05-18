@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using CollaborationEngine.Steps;
-using CollaborationEngine.Utilities;
+using UnityEngine;
 
 namespace CollaborationEngine.Tasks
 {
@@ -29,7 +29,6 @@ namespace CollaborationEngine.Tasks
             set
             {
                 _id = value;
-                _unsaved = true;
             }
         }
         public String Name
@@ -38,7 +37,6 @@ namespace CollaborationEngine.Tasks
             set
             {
                 _name = value;
-                _unsaved = true;
             }
         }
         public IEnumerable<KeyValuePair<uint, StepModel>> Steps
@@ -53,7 +51,6 @@ namespace CollaborationEngine.Tasks
 
         #region Members
         private static uint _count;
-        private bool _unsaved;
         private uint _id;
         private string _name;
         private readonly Dictionary<uint, StepModel> _steps = new Dictionary<uint, StepModel>();
@@ -124,21 +121,38 @@ namespace CollaborationEngine.Tasks
         {
             writer.Write(_id);
             writer.Write(_name);
+
+            writer.Write(_steps.Count);
+            foreach (var step in _steps)
+            {
+                step.Value.Serialize(writer);
+            }
         }
         public void Deserialize(BinaryReader reader)
         {
             _id = reader.ReadUInt32();
             _name = reader.ReadString();
-            _unsaved = false;
+
+            var stepCount = reader.ReadInt32();
+            for (var i = 0; i < stepCount; ++i)
+            {
+                var step = Instantiate(StepModelPrefab);
+                step.Deserialize(reader);
+
+                _steps.Add(step.ID, step);
+            }
+
+            if (_count <= ID)
+                _count = ID + 1;
         }
 
-        public TaskModel DeepCopy()
+        public TaskModel DeepCopy(Transform parent)
         {
-            var taskCopy = Instantiate(this, transform.parent);
+            var taskCopy = Instantiate(this, parent);
             taskCopy.AssignID();
 
             // Copy name:
-            taskCopy.Name = CopyUtilities.GenerateCopyName(Name);
+            taskCopy.Name = Name;
 
             // Deep copy steps:
             foreach (var stepModel in _steps.Values)
@@ -155,9 +169,6 @@ namespace CollaborationEngine.Tasks
 
         public void Save(String directory)
         {
-            if (!_unsaved)
-                return;
-
             // CreateStep directory if it doesn't exist:
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
@@ -172,7 +183,7 @@ namespace CollaborationEngine.Tasks
             {
                 using (var binaryStream = new BinaryWriter(stream))
                 {
-                    binaryStream.Write(data.ToArray(), 0, (int) data.Length);
+                    binaryStream.Write(data.ToArray(), 0, (int)data.Length);
                 }
             }
         }

@@ -4,7 +4,6 @@ using System.IO;
 using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Network;
-using CollaborationEngine.Utilities;
 using UnityEngine;
 
 namespace CollaborationEngine.Steps
@@ -73,7 +72,7 @@ namespace CollaborationEngine.Steps
             var hintToDuplicate = _hints[hintID];
 
             // Create new hint and perform deep copy:
-            var duplicatedHint = hintToDuplicate.DeepCopy();
+            var duplicatedHint = hintToDuplicate.DeepCopy(transform, TaskID, ID);
             _hints.Add(duplicatedHint.ID, duplicatedHint);
 
             // Raise event:
@@ -137,28 +136,31 @@ namespace CollaborationEngine.Steps
 
                 _hints.Add(hint.ID, hint);
             }
+
+            if (_count <= ID)
+                _count = ID + 1;
         }
 
         public StepModel DeepCopy(Transform parent, uint taskID)
         {
-            var copy = Instantiate(this, parent);
-            copy.AssignID();
+            var stepCopy = Instantiate(this, parent);
+            stepCopy.AssignID();
 
             // Copy properties:
-            copy.TaskID = taskID;
-            copy.Name = CopyUtilities.GenerateCopyName(Name);
+            stepCopy.TaskID = taskID;
+            stepCopy.Name = Name;
 
             // Deep copy hints:
             foreach (var hintModel in _hints.Values)
             {
                 // Copy hint:
-                var hintCopy = hintModel.DeepCopy();
+                var hintCopy = hintModel.DeepCopy(stepCopy.transform, stepCopy.TaskID, stepCopy.ID);
 
                 // Add step copy:
-                copy._hints.Add(hintCopy.ID, hintCopy);
+                stepCopy._hints.Add(hintCopy.ID, hintCopy);
             }
 
-            return copy;
+            return stepCopy;
         }
     }
 }

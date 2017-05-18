@@ -1,5 +1,4 @@
-﻿using System;
-using CollaborationEngine.Hints;
+﻿using CollaborationEngine.Hints;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -8,30 +7,30 @@ namespace CollaborationEngine.Tasks.Editor
     public class HintTests
     {
         [Test]
-        public void TaskTestsSimplePasses()
+        public void HintTestsDeepCopy()
         {
             {
                 var expected = CreateImageHint(1, 2, 3, "Test1", Vector3.one, Quaternion.identity, Vector3.one, ImageHintType.Axe);
                 var actual = expected.DeepCopy(expected.transform.parent, expected.TaskID, expected.StepID);
 
-                AssertHintsAreEqual(expected, actual);
+                AssertHintsAreEqual(expected, actual, expected.TaskID, expected.StepID);
             }
 
             {
-                var expected = CreateTextHint(1, 2, 3, "Test1", Vector3.one, Quaternion.identity, Vector3.one);
+                var expected = CreateTextHint(1, 2, 3, "Test2", Vector3.one, Quaternion.identity, Vector3.one);
                 var actual = expected.DeepCopy(expected.transform.parent, expected.TaskID, expected.StepID);
 
-                AssertHintsAreEqual(expected, actual);
+                AssertHintsAreEqual(expected, actual, expected.TaskID, expected.StepID);
             }
         }
 
-        public static void AssertHintsAreEqual(HintModel expected, HintModel actual)
+        public static void AssertHintsAreEqual(HintModel expected, HintModel actual, uint expectedTaskID, uint expectedStepID)
         {
             Assert.AreEqual(expected.Type, actual.Type);
 
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.TaskID, actual.TaskID);
-            Assert.AreEqual(expected.StepID, actual.StepID);
+            Assert.AreEqual(expectedTaskID, actual.TaskID);
+            Assert.AreEqual(expectedStepID, actual.StepID);
             UnityEngine.Assertions.Assert.AreEqual(expected.Position, actual.Position);
             UnityEngine.Assertions.Assert.AreEqual(expected.Rotation, actual.Rotation);
             UnityEngine.Assertions.Assert.AreEqual(expected.Scale, actual.Scale);
@@ -42,7 +41,7 @@ namespace CollaborationEngine.Tasks.Editor
             }
         }
 
-        private void FillHintProperties(HintModel hint, uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale)
+        private static void FillHintProperties(HintModel hint, uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale)
         {
             hint.ID = id;
             hint.TaskID = taskID;
@@ -52,7 +51,7 @@ namespace CollaborationEngine.Tasks.Editor
             hint.Rotation = rotation;
             hint.Scale = scale;
         }
-        private TextHintModel CreateTextHint(uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale)
+        public static TextHintModel CreateTextHint(uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale)
         {
             var gameObject = new GameObject();
 
@@ -61,7 +60,7 @@ namespace CollaborationEngine.Tasks.Editor
             
             return textHint;
         }
-        private ImageHintModel CreateImageHint(uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale, ImageHintType imageHintType)
+        public static ImageHintModel CreateImageHint(uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale, ImageHintType imageHintType)
         {
             var gameObject = new GameObject();
 

@@ -30,6 +30,7 @@ namespace CollaborationEngine.Hints
         private HintPanelItemView _hintPanelItemView;
         private Hint3DView _hint3DView;
         private bool _showing;
+        private bool _edit;
         private TransformPanelController _transformPanelController;
 
         public void Start()
@@ -76,7 +77,7 @@ namespace CollaborationEngine.Hints
             _hint3DView.Scale = HintModel.Scale;
             _hint3DView.Showing = Showing;
 
-            if(Showing)
+            if(_edit)
                 _hintPanelItemView.OnEditClick();
         }
         public void OnDestroy()
@@ -87,6 +88,14 @@ namespace CollaborationEngine.Hints
             
             if(_hintPanelItemView)
                 Destroy(_hintPanelItemView.gameObject);
+        }
+
+        public void Edit()
+        {
+            _edit = true;
+
+            if(_hintPanelItemView)
+                _hintPanelItemView.OnEditClick();
         }
 
         private void _hintPanelItemView_OnNameChanged(object sender, HintPanelItemView.NameEventArgs e)

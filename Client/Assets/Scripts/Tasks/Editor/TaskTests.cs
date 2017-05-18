@@ -1,4 +1,5 @@
 ﻿using System;
+using CollaborationEngine.Steps;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -6,10 +7,19 @@ namespace CollaborationEngine.Tasks.Editor
 {
     public class TaskTests
     {
-        [Test]
-        public void TaskTestsSimplePasses()
+        public static StepModel StepModelPrefab
         {
-            // CreateStep task:
+            get
+            {
+                var gameObject = new GameObject();
+                return gameObject.AddComponent<StepModel>();
+            }
+        }
+
+        [Test]
+        public void TaskTestsLoadSave()
+        {
+            // Create task:
             var savedTask = CreateTask(1, "TestTask");
 
             // Save task:
@@ -20,8 +30,55 @@ namespace CollaborationEngine.Tasks.Editor
             var loadedTask = CreateTask(0, String.Empty);
             loadedTask.Load(path);
 
-            Assert.AreEqual(savedTask.ID, loadedTask.ID);
-            Assert.AreEqual(savedTask.Name, loadedTask.Name);
+            AssertTasksAreEqual(savedTask, loadedTask);
+        }
+
+        [Test]
+        public void TaskTestsDeepCopy()
+        {
+            {
+                var expected = CreateTask(1, "Test1");
+                expected.StepModelPrefab = StepModelPrefab;
+
+                {
+                    var step = expected.CreateStep();
+                    step.Name = "Test2";
+
+                    {
+                        var hint = step.CreateHint(StepTests.ImageHintModelPrefab);
+                        step.DuplicateHint(hint.ID);
+                        step.DuplicateHint(hint.ID);
+                        step.DuplicateHint(hint.ID);
+                    }
+                }
+
+                var actual = expected.DeepCopy(expected.transform.parent);
+
+                AssertTasksAreEqual(expected, actual);
+            }
+        }
+
+        public static void AssertTasksAreEqual(TaskModel expected, TaskModel actual)
+        {
+            Assert.AreEqual(expected.Name, actual.Name);
+
+            using (var expectedStepIt = expected.Steps.GetEnumerator())
+            {
+                using (var actualStepIt = actual.Steps.GetEnumerator())
+                {
+                    while (true)
+                    {
+                        var expectedNext = expectedStepIt.MoveNext();
+                        var actualNext = actualStepIt.MoveNext();
+
+                        Assert.IsTrue(expectedNext == actualNext);
+                        if (!expectedNext)
+                            break;
+
+                        StepTests.AssertStepsAreEqual(expectedStepIt.Current.Value, actualStepIt.Current.Value, actual.ID);
+                    }
+                }
+            }
         }
 
         private TaskModel CreateTask(uint id, string name)

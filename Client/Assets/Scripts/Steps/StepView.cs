@@ -17,8 +17,18 @@ namespace CollaborationEngine.Steps
                 StepID = stepID;
             }
         }
+        public class EndEditEventArgs : EventArgs
+        {
+            public String Text { get; private set; }
+
+            public EndEditEventArgs(String text)
+            {
+                Text = text;
+            }
+        }
 
         public event EventHandler<ShowEventArgs> OnShowClicked;
+        public event EventHandler<EndEditEventArgs> OnDescriptionEndedEdit;
         #endregion
 
         #region Unity Editor
@@ -69,6 +79,12 @@ namespace CollaborationEngine.Steps
         {
             if (OnShowClicked != null)
                 OnShowClicked(this, new ShowEventArgs(StepID));
+        }
+
+        public void OnDescriptionEndEdit()
+        {
+            if(OnDescriptionEndedEdit != null)
+                OnDescriptionEndedEdit(this, new EndEditEventArgs(DescriptionInputField.text));
         }
     }
 }

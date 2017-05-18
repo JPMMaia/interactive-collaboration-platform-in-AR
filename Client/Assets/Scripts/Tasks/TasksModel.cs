@@ -54,12 +54,12 @@ namespace CollaborationEngine.Tasks
         }
         public TaskModel Duplicate(uint taskID)
         {
-            // GetStep task to duplicate:
+            // Get task to duplicate:
             var taskToDuplicate = _tasks[taskID];
 
-            // CreateStep new task and perform deep copy:
-            var duplicatedTask = CreateTask();
-            taskToDuplicate.DeepCopy(duplicatedTask);
+            // Perform deep copy:
+            var duplicatedTask = taskToDuplicate.DeepCopy(transform);
+            _tasks.Add(duplicatedTask.ID, duplicatedTask);
 
             // Raise event:
             if (OnTaskDuplicated != null)
@@ -77,6 +77,13 @@ namespace CollaborationEngine.Tasks
             // Remove task:
             _tasks.Remove(taskID);
 
+            // Delete directory:
+            {
+                var directory = String.Format("{0}{1}/", SavedTasksPath, task.ID);
+                if (Directory.Exists(directory))
+                    Directory.Delete(directory, true);
+            }
+
             // Raise event:
             if (OnTaskDeleted != null)
                 OnTaskDeleted(this, new TaskEventArgs(task));
@@ -91,19 +98,17 @@ namespace CollaborationEngine.Tasks
 
         public void Save()
         {
-            // TODO remove deleted directories
-
             // Save all tasks:
             foreach (var task in _tasks.Values)
                 task.Save(String.Format("{0}{1}/", SavedTasksPath, task.ID));
         }
         public void Load()
         {
-            // CreateStep directory if it doesn't exist:
+            // Create directory if it doesn't exist:
             if (!Directory.Exists(SavedTasksPath))
                 Directory.CreateDirectory(SavedTasksPath);
 
-            // GetStep all directories:
+            // Get all directories:
             var directories = Directory.GetDirectories(SavedTasksPath);
 
             // Load all tasks:

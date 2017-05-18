@@ -32,6 +32,10 @@ namespace CollaborationEngine.Core
             // Present start screen:
             PresentStartScreen();
         }
+        public void OnApplicationQuit()
+        {
+            TasksModel.Save();
+        }
 
         private void PresentStartScreen()
         {

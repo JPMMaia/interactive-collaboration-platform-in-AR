@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using UnityEngine;
 
 namespace CollaborationEngine.Hints
 {
@@ -22,6 +23,17 @@ namespace CollaborationEngine.Hints
             base.Deserialize(reader);
 
             ImageHintType = (ImageHintType) reader.ReadByte();
+        }
+
+        public override HintModel DeepCopy(Transform parent, uint taskID, uint stepID)
+        {
+            var hint = Instantiate(this, parent);
+
+            DeepCopy(hint, taskID, stepID);
+
+            hint.ImageHintType = ImageHintType;
+
+            return hint;
         }
     }
 }

@@ -48,6 +48,7 @@ namespace CollaborationEngine.Steps
 
             StepView.StepID = StepModel.ID;
             StepView.OnShowClicked += StepView_OnShowClicked;
+            StepView.OnDescriptionEndedEdit += StepView_OnDescriptionEndedEdit;
 
             if (StepModel.Name != null)
                 StepView.StepDescription = StepModel.Name.ToUpper();
@@ -55,6 +56,38 @@ namespace CollaborationEngine.Steps
             StepModel.OnHintCreated += StepModel_OnHintCreated;
             StepModel.OnHintDuplicated += StepModel_OnHintCreated;
             StepModel.OnHintDeleted += StepModel_OnHintDeleted;
+
+            foreach (var hintModel in StepModel.Hints)
+            {
+                CreateHintController(hintModel.Value);
+            }
+        }
+
+        private void CreateHintController(HintModel hintModel)
+        {
+            // Instantiate hint controller:
+            var hintController = Instantiate(HintControllerPrefab, HintControllersContainer);
+            hintController.HintPanelItemViewsContainer = HintPanelItemViewsContainer;
+            hintController.HintModel = hintModel;
+            hintController.Showing = Showing;
+
+            // Add to collection:
+            _hints.Add(hintModel.ID, hintController);
+
+            UpdatePanelSize();
+        }
+        private void DeleteHintController(uint hintID)
+        {
+            // Remove from collection:
+            HintController hintController;
+            if (!_hints.TryGetValue(hintID, out hintController))
+                return;
+            _hints.Remove(hintID);
+
+            // Destroy hint controller:
+            Destroy(hintController.gameObject);
+
+            UpdatePanelSize();
         }
 
         public void OnAddButtonClick()
@@ -71,18 +104,27 @@ namespace CollaborationEngine.Steps
 
         private void NewHintWindowController_OnEndCreate(object sender, NewHintWindowController.WindowDataEventArgs eventArgs)
         {
-            // CreateHint hint model:
+            uint hintID;
+
+            // Create hint model:
             if (eventArgs.HintType == HintType.Text)
             {
                 var hintModel = StepModel.CreateHint(TextHintModelPrefab);
                 hintModel.Name = eventArgs.Name;
+                hintID = hintModel.ID;
             }
             else
             {
                 var hintModel = StepModel.CreateHint(ImageHintModelPrefab);
                 hintModel.Name = eventArgs.Name;
                 hintModel.ImageHintType = eventArgs.ImageHintType;
+                hintID = hintModel.ID;
             }
+
+            // Get hint controller:
+            var hintController = _hints[hintID];
+            if(Showing)
+                hintController.Edit();
         }
 
         private void UpdatePanelSize()
@@ -98,31 +140,17 @@ namespace CollaborationEngine.Steps
             if (OnShowClicked != null)
                 OnShowClicked(this, e);
         }
+        private void StepView_OnDescriptionEndedEdit(object sender, StepView.EndEditEventArgs e)
+        {
+            StepModel.Name = e.Text;
+        }
         private void StepModel_OnHintCreated(StepModel sender, HintEventArgs eventArgs)
         {
-            // Instantiate hint controller:
-            var hintController = Instantiate(HintControllerPrefab, HintControllersContainer);
-            hintController.HintPanelItemViewsContainer = HintPanelItemViewsContainer;
-            hintController.HintModel = eventArgs.HintModel;
-            hintController.Showing = Showing;
-
-            // Add to collection:
-            _hints.Add(eventArgs.HintModel.ID, hintController);
-
-            UpdatePanelSize();
+            CreateHintController(eventArgs.HintModel);
         }
         private void StepModel_OnHintDeleted(StepModel sender, HintEventArgs eventArgs)
         {
-            // Remove from collection:
-            HintController hintController;
-            if (!_hints.TryGetValue(eventArgs.HintModel.ID, out hintController))
-                return;
-            _hints.Remove(eventArgs.HintModel.ID);
-
-            // Destroy hint controller:
-            Destroy(hintController.gameObject);
-
-            UpdatePanelSize();
+            DeleteHintController(eventArgs.HintModel.ID);
         }
     }
 }
