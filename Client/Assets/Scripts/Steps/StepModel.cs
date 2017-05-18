@@ -5,6 +5,7 @@ using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Network;
 using CollaborationEngine.Utilities;
+using UnityEngine;
 
 namespace CollaborationEngine.Steps
 {
@@ -38,9 +39,9 @@ namespace CollaborationEngine.Steps
         private string _name = String.Empty;
         #endregion
 
-        public static uint GenerateID()
+        public void AssignID()
         {
-            return _count++;
+            ID = _count++;
         }
 
         private THint InternalCreateHint<THint>(THint prefab) where THint : HintModel
@@ -68,18 +69,18 @@ namespace CollaborationEngine.Steps
         }
         public HintModel DuplicateHint(uint hintID)
         {
-            // GetStep hint to duplicate:
+            // Get hint to duplicate:
             var hintToDuplicate = _hints[hintID];
 
-            // CreateStep new hint and perform deep copy:
-            var duplicatedTask = InternalCreateHint(hintToDuplicate);
-            hintToDuplicate.DeepCopy(duplicatedTask);
+            // Create new hint and perform deep copy:
+            var duplicatedHint = hintToDuplicate.DeepCopy();
+            _hints.Add(duplicatedHint.ID, duplicatedHint);
 
             // Raise event:
             if (OnHintDuplicated != null)
-                OnHintDuplicated(this, new HintEventArgs(duplicatedTask));
+                OnHintDuplicated(this, new HintEventArgs(duplicatedHint));
 
-            return duplicatedTask;
+            return duplicatedHint;
         }
         public void DeleteHint(uint hintID)
         {
@@ -138,11 +139,26 @@ namespace CollaborationEngine.Steps
             }
         }
 
-        public void DeepCopy(StepModel other)
+        public StepModel DeepCopy(Transform parent, uint taskID)
         {
-            other.Name = CopyUtilities.GenerateCopyName(Name);
+            var copy = Instantiate(this, parent);
+            copy.AssignID();
 
-            throw new NotImplementedException();
+            // Copy properties:
+            copy.TaskID = taskID;
+            copy.Name = CopyUtilities.GenerateCopyName(Name);
+
+            // Deep copy hints:
+            foreach (var hintModel in _hints.Values)
+            {
+                // Copy hint:
+                var hintCopy = hintModel.DeepCopy();
+
+                // Add step copy:
+                copy._hints.Add(hintCopy.ID, hintCopy);
+            }
+
+            return copy;
         }
     }
 }

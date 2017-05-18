@@ -68,7 +68,7 @@ namespace CollaborationEngine.Tasks
         {
             // CreateStep new step and assign a unique ID:
             var step = Instantiate(StepModelPrefab, transform);
-            step.ID = StepModel.GenerateID();
+            step.AssignID();
             step.TaskID = ID;
 
             // Add step to list:
@@ -88,18 +88,18 @@ namespace CollaborationEngine.Tasks
         }
         public StepModel DuplicateStep(uint stepID)
         {
-            // GetStep step to duplicate:
+            // Get step to duplicate:
             var stepToDuplicate = _steps[stepID];
 
-            // CreateStep new step and perform deep copy:
-            var duplicatedTask = InternalCreateStep();
-            stepToDuplicate.DeepCopy(duplicatedTask);
+            // Deep copy:
+            var duplicatedStep = stepToDuplicate.DeepCopy(transform, ID);
+            _steps.Add(duplicatedStep.ID, duplicatedStep);
 
             // Raise event:
             if (OnStepDuplicated != null)
-                OnStepDuplicated(this, new StepEventArgs(duplicatedTask));
+                OnStepDuplicated(this, new StepEventArgs(duplicatedStep));
 
-            return duplicatedTask;
+            return duplicatedStep;
         }
         public void DeleteStep(uint stepID)
         {
@@ -132,9 +132,25 @@ namespace CollaborationEngine.Tasks
             _unsaved = false;
         }
 
-        public void DeepCopy(TaskModel other)
+        public TaskModel DeepCopy()
         {
-            other.Name = CopyUtilities.GenerateCopyName(Name);
+            var taskCopy = Instantiate(this, transform.parent);
+            taskCopy.AssignID();
+
+            // Copy name:
+            taskCopy.Name = CopyUtilities.GenerateCopyName(Name);
+
+            // Deep copy steps:
+            foreach (var stepModel in _steps.Values)
+            {
+                // Copy step:
+                var stepCopy = stepModel.DeepCopy(taskCopy.transform, taskCopy.ID);
+
+                // Add step copy:
+                taskCopy._steps.Add(stepCopy.ID, stepCopy);
+            }
+
+            return taskCopy;
         }
 
         public void Save(String directory)

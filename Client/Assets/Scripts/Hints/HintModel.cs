@@ -40,11 +40,17 @@ namespace CollaborationEngine.Hints
             ID = _count++;
         }
 
-        public virtual void DeepCopy(HintModel other)
+        public virtual HintModel DeepCopy(Transform parent, uint taskID, uint stepID)
         {
-            other.TaskID = TaskID;
-            other.StepID = StepID;
-            other.Name = CopyUtilities.GenerateCopyName(Name);
+            var copy = Instantiate(this, parent);
+            copy.AssignID();
+
+            // Copy properties:
+            copy.TaskID = taskID;
+            copy.Name = CopyUtilities.GenerateCopyName(Name);
+            copy.
+
+            return copy;
         }
 
         public virtual void Serialize(BinaryWriter writer)
