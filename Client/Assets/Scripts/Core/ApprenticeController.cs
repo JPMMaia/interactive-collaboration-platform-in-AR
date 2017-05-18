@@ -1,6 +1,7 @@
 ﻿using CollaborationEngine.Base;
 using CollaborationEngine.Network;
 using CollaborationEngine.Panels;
+using CollaborationEngine.Steps;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -37,8 +38,8 @@ namespace CollaborationEngine.Core
         private void PresentARScreen(NetworkMessage networkMessage)
         {
             var controller = Instantiate(ARApprenticeControllerPrefab, transform);
-            controller.OnPresentStep(networkMessage);
-            
+            controller.StepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
+
             _curentController = controller;
         }
 
@@ -46,7 +47,7 @@ namespace CollaborationEngine.Core
         {
             NetworkManager.networkAddress = e.IPAddress;
             NetworkManager.StartClient();
-            NetworkManager.client.RegisterHandler(NetworkHandles.PresentStep, OnPresentStep);
+            NetworkManager.client.RegisterHandler(NetworkHandles.Initialize, OnInitialize);
         }
         private void NetworkManager_OnDisconnected(object sender, System.EventArgs e)
         {
@@ -56,7 +57,7 @@ namespace CollaborationEngine.Core
             PresentStartScreen();
         }
 
-        private void OnPresentStep(NetworkMessage networkMessage)
+        private void OnInitialize(NetworkMessage networkMessage)
         {
             if (_curentController)
                 Destroy(_curentController.gameObject);

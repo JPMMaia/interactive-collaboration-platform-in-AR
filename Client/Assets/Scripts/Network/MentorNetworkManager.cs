@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
@@ -26,22 +27,32 @@ namespace CollaborationEngine.Network
         }
         public bool IsAppreticeConnected
         {
-            get { return PlayerCount == 2; }
+            get { return _connections.Count == 2; }
         }
 
         #endregion
 
-        public override void OnServerConnect(NetworkConnection conn)
-        {
-            base.OnServerConnect(conn);
+        private readonly Dictionary<int, NetworkConnection> _connections = new Dictionary<int, NetworkConnection>();
 
-            if(OnPlayerConnected != null)
+        public override void OnServerConnect(NetworkConnection connection)
+        {
+            base.OnServerConnect(connection);
+
+            if (_connections.ContainsKey(connection.connectionId))
+                return;
+
+            _connections.Add(connection.connectionId, connection);
+            if (OnPlayerConnected != null)
                 OnPlayerConnected(this, EventArgs.Empty);
         }
-        public override void OnServerDisconnect(NetworkConnection conn)
+        public override void OnServerDisconnect(NetworkConnection connection)
         {
-            base.OnServerDisconnect(conn);
+            base.OnServerDisconnect(connection);
 
+            if (!_connections.ContainsKey(connection.connectionId))
+                return;
+
+            _connections.Remove(connection.connectionId);
             if (OnPlayerDisconnected != null)
                 OnPlayerDisconnected(this, EventArgs.Empty);
         }

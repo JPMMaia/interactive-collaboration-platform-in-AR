@@ -146,7 +146,8 @@ namespace CollaborationEngine.Panels
         {
             if (NetworkManager.IsAppreticeConnected)
             {
-                SendPresentStepNetworkMessage();
+                var stepController = _stepControllers[_showingStepID];
+                NetworkManager.client.Send(NetworkHandles.Initialize, new StepModelNetworkMessage(stepController.StepModel));
             }
         }
         private void TaskModel_OnStepCreated(TaskModel sender, StepEventArgs eventArgs)

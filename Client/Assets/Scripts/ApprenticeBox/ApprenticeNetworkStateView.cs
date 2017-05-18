@@ -9,26 +9,12 @@ namespace CollaborationEngine.ApprenticeBox
 {
     public class ApprenticeNetworkStateView : Entity
     {
+        public NotificationIcon IconPrefab;
+        public AudioClip NotificationAudioClip;
         public Image Background;
         public Text Text;
-        public Color NormalBackgroundColor;
-        public Color HighlightBackgroundColor;
-        public Color NormalTextColor;
-        public Color HighlightTextColor;
 
-        private bool NewNotification
-        {
-            get { return _newNotification; }
-            set
-            {
-                _newNotification = value;
-                if(_newNotification)
-                    _notificationTime = DateTime.Now;
-            }
-        }
-
-        private DateTime _notificationTime;
-        private bool _newNotification;
+        private NotificationIcon _icon;
 
         public void Start()
         {
@@ -41,55 +27,46 @@ namespace CollaborationEngine.ApprenticeBox
             networkManager.client.RegisterHandler(NetworkHandles.StepCompleted, OnStepCompleted);
         }
 
-        public void Update()
-        {
-            if (NewNotification)
-            {
-                var amount = (float) (DateTime.Now - _notificationTime).Ticks / TimeSpan.FromSeconds(5.0f).Ticks;
-
-                Background.color = InterpolateColor(HighlightBackgroundColor, NormalBackgroundColor, amount);
-                Text.color = InterpolateColor(HighlightTextColor, NormalTextColor, amount);
-
-                if (amount >= 1.0f)
-                    NewNotification = false;
-            }
-        }
-
-        private void NetworkManager_OnConnectionsChanged(object sender, System.EventArgs e)
+        private void NetworkManager_OnConnectionsChanged(object sender, EventArgs e)
         {
             var networkManager = MentorNetworkManager.Instance;
 
-            if (networkManager.IsAppreticeConnected)
+            Text.text = networkManager.IsAppreticeConnected ? "The apprentice is online." : "The apprentice is offline.";
+
+            // Remove icon:
+            if(_icon)
+                Destroy(_icon.gameObject);
+
+            PlayNotificationAudioClip();
+        }
+
+        private void ChangeIcon(NotificationType notificationType)
+        {
+            if (!_icon)
             {
-                Text.text = "The apprentice is online.";
-                NewNotification = true;
+                _icon = Instantiate(IconPrefab, transform);
+                _icon.transform.SetAsFirstSibling();
             }
-            else
-            {
-                Text.text = "The apprentice is offline.";
-                NewNotification = true;
-            }
+                
+            _icon.NotificationType = notificationType;
+        }
+        private void PlayNotificationAudioClip()
+        {
+            if(NotificationAudioClip)
+                AudioSource.PlayClipAtPoint(NotificationAudioClip, transform.position);
         }
 
         private void OnNeedMoreInstructions(NetworkMessage networkMessage)
         {
             Text.text = "The apprentice is requesting more instructions.";
-            NewNotification = true;
+            ChangeIcon(NotificationType.Help);
+            PlayNotificationAudioClip();
         }
         private void OnStepCompleted(NetworkMessage networkMessage)
         {
             Text.text = "The apprentice completed step.";
-            NewNotification = true;
-        }
-
-        private Color InterpolateColor(Color color1, Color color2, float amount)
-        {
-            var red = Mathf.Lerp(color1.r, color2.r, amount);
-            var green = Mathf.Lerp(color1.g, color2.g, amount);
-            var blue = Mathf.Lerp(color1.b, color2.b, amount);
-            var alpha = Mathf.Lerp(color1.a, color2.a, amount);
-
-            return new Color(red, green, blue, alpha);
+            ChangeIcon(NotificationType.StepCompleted);
+            PlayNotificationAudioClip();
         }
     }
 }

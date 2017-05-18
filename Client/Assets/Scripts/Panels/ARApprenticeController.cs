@@ -13,8 +13,9 @@ namespace CollaborationEngine.Panels
         public ARApprenticeView ARApprenticeViewPrefab;
         public Hint3DController Hint3DControllerPrefab;
 
+        public StepModel StepModel { get; set; }
+
         private ARApprenticeView _view;
-        private StepModel _stepModel;
         private readonly Dictionary<uint, Hint3DController> _hintControllers = new Dictionary<uint, Hint3DController>();
 
         public void Start()
@@ -29,11 +30,30 @@ namespace CollaborationEngine.Panels
             var networkClient = NetworkManager.singleton.client;
             networkClient.RegisterHandler(NetworkHandles.PresentStep, OnPresentStep);
             networkClient.RegisterHandler(NetworkHandles.UpdateHintTransform, OnHintTransformUpdate);
+
+            UpdateStep();
         }
         public void OnDestroy()
         {
             if(_view)
                 Destroy(_view.gameObject);
+        }
+
+        private void UpdateStep()
+        {
+            // Reparent:
+            StepModel.gameObject.transform.SetParent(Application.Model.Tasks.transform);
+            foreach (var hintModel in StepModel.Hints)
+                hintModel.Value.transform.SetParent(StepModel.transform);
+
+            // Destroy previous step hint controllers:
+            foreach (var hintController in _hintControllers)
+                Destroy(hintController.Value.gameObject);
+            _hintControllers.Clear();
+
+            // Create hint controllers:
+            foreach (var hint in StepModel.Hints)
+                CreateHintController(hint.Value);
         }
 
         private void CreateHintController(HintModel hintModel)
@@ -47,30 +67,18 @@ namespace CollaborationEngine.Panels
 
         private void _view_OnNeedMoreInstructionsClicked(object sender, EventArgs e)
         {
-            NetworkManager.singleton.client.Send(NetworkHandles.NeedMoreInstructions, new IDMessage(_stepModel.ID));
+            NetworkManager.singleton.client.Send(NetworkHandles.NeedMoreInstructions, new IDMessage(StepModel.ID));
         }
         private void _view_OnCompletedTheStepClicked(object sender, EventArgs e)
         {
-            NetworkManager.singleton.client.Send(NetworkHandles.StepCompleted, new IDMessage(_stepModel.ID));
+            NetworkManager.singleton.client.Send(NetworkHandles.StepCompleted, new IDMessage(StepModel.ID));
         }
 
-        public void OnPresentStep(NetworkMessage networkMessage)
+        private void OnPresentStep(NetworkMessage networkMessage)
         {
-            _stepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
+            StepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
 
-            // Reparent:
-            _stepModel.gameObject.transform.SetParent(Application.Model.Tasks.transform);
-            foreach (var hintModel in _stepModel.Hints)
-                hintModel.Value.transform.SetParent(_stepModel.transform);
-
-            // Destroy previous step hint controllers:
-            foreach (var hintController in _hintControllers)
-                Destroy(hintController.Value.gameObject);
-            _hintControllers.Clear();
-
-            // Create hint controllers:
-            foreach (var hint in _stepModel.Hints)
-                CreateHintController(hint.Value);
+            UpdateStep();
         }
         private void OnHintTransformUpdate(NetworkMessage networkMessage)
         {
