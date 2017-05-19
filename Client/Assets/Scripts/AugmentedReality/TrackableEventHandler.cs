@@ -26,14 +26,18 @@ namespace CollaborationEngine.AugmentedReality
         {
             var renderers = GetComponentsInChildren<Renderer>();
             foreach (var component in renderers)
-                component.enabled = true;
+            {
+                component.enabled = component.gameObject.tag != "ClientHide";
+            }
         }
 
         public void OnTrackingLost()
         {
             var renderers = GetComponentsInChildren<Renderer>();
             foreach (var component in renderers)
-                component.enabled = true;
+            {
+                component.enabled = component.gameObject.tag != "ClientHide";
+            }
         }
     }
 }
