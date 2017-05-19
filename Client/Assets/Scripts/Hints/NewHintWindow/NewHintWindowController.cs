@@ -23,6 +23,22 @@ namespace CollaborationEngine.Hints.NewHintWindow
 
         public NewHintWindowView View;
 
+        public String Name
+        {
+            get { return View.Name; }
+            set { View.Name = value; }
+        }
+        public HintType HintType
+        {
+            get { return View.HintType; }
+            set { View.HintType = value; }
+        }
+        public ImageHintType SelectedImageHintType
+        {
+            get { return View.SelectedImageHintType; }
+            set { View.SelectedImageHintType = value; }
+        }
+
         public void OnOKClick()
         {
             // Ensure that name is not empty:

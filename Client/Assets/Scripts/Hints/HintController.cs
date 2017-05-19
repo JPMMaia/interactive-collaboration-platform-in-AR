@@ -1,6 +1,7 @@
 ﻿using System;
 using CollaborationEngine.Base;
 using CollaborationEngine.Cameras;
+using CollaborationEngine.Hints.NewHintWindow;
 using CollaborationEngine.Network;
 using CollaborationEngine.Panels;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace CollaborationEngine.Hints
 {
     public class HintController : Controller
     {
+        public EditImageHintWindowController EditHintWindowControllerPrefab;
         public HintPanelItemView HintPanelItemViewPrefab;
         public TextHint3DView TextHint3DViewPrefab;
         public ImageHint3DView ImageHint3DViewPrefab;
@@ -71,6 +73,7 @@ namespace CollaborationEngine.Hints
             {
                 var imageHintModel = (ImageHintModel) HintModel;
                 _hintPanelItemView.Icon = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
+                _hintPanelItemView.OnIconClicked += _hintPanelItemView_OnIconClicked;
             }
 
             // Subscribe to events:
@@ -162,6 +165,13 @@ namespace CollaborationEngine.Hints
 
             parentStepModel.DeleteHint(HintModel.ID);
         }
+        private void _hintPanelItemView_OnIconClicked(object sender, EventArgs e)
+        {
+            var editWindow = Instantiate(EditHintWindowControllerPrefab, Application.View.MainCanvas.transform);
+            editWindow.SelectedImageHintType = ((ImageHintModel) HintModel).ImageHintType;
+
+            editWindow.OnEndCreate += EditWindow_OnEndCreate;
+        }
         private void TransformGizmo_OnTargetTransformChanged(object sender, TransformGizmoManager.TransformEventArgs e)
         {
             // Update model:
@@ -177,6 +187,15 @@ namespace CollaborationEngine.Hints
                     e.Transform.localRotation, e.Transform.localScale);
                 networkManager.client.Send(NetworkHandles.UpdateHintTransform, message);
             }
+        }
+        private void EditWindow_OnEndCreate(object sender, EditImageHintWindowController.WindowDataEventArgs e)
+        {
+            var imageHintModel = (ImageHintModel) HintModel;
+            imageHintModel.ImageHintType = e.ImageHintType;
+
+            var texture = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
+            _hintPanelItemView.Icon = texture;
+            ((ImageHint3DView) _hint3DView).Image = texture;
         }
     }
 }

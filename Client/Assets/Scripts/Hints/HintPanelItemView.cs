@@ -31,6 +31,7 @@ namespace CollaborationEngine.Hints
         public event EventHandler<EditEventArgs> OnEditClicked;
         public event EventHandler OnDuplicateClicked;
         public event EventHandler OnDeleteClicked;
+        public event EventHandler OnIconClicked;
 
         public RawImage IconRawImage;
         public InputField NameInputField;
@@ -100,6 +101,11 @@ namespace CollaborationEngine.Hints
         {
             if(OnDeleteClicked != null)
                 OnDeleteClicked(this, EventArgs.Empty);
+        }
+        public void OnIconClick()
+        {
+            if(OnIconClicked != null)
+                OnIconClicked(this, EventArgs.Empty);
         }
     }
 }

@@ -20,12 +20,17 @@ namespace CollaborationEngine.Hints.NewHintWindow
         public String Name
         {
             get { return NameInputField.text; }
+            set { NameInputField.text = value; }
         }
         public HintType HintType
         {
             get
             {
                 return NameTypeToggle.isOn ? HintType.Text : HintType.Image;
+            }
+            set
+            {
+                NameTypeToggle.isOn = value == HintType.Text;
             }
         }
         private ImageHintButtonView SelectedImageHintButton
@@ -46,6 +51,16 @@ namespace CollaborationEngine.Hints.NewHintWindow
             get
             {
                 return _selectedImageHintButton == null ? ImageHintType.Null : _selectedImageHintButton.ImageHintType;
+            }
+            set
+            {
+                if (value == ImageHintType.Null)
+                {
+                    _selectedImageHintButton = null;
+                    return;
+                }
+
+                _selectedImageHintButton.ImageHintType = value;
             }
         }
         #endregion
