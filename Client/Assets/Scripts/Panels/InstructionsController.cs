@@ -131,7 +131,7 @@ namespace CollaborationEngine.Panels
                 return;
 
             // CreateHint step model:
-            var stepModel = TaskModel.CreateStep();
+            var stepModel = TaskModel.DuplicateStep(TaskModel.Steps.Last().Key);
             stepModel.Name = AddStepInputField.text;
 
             // Reset input field:

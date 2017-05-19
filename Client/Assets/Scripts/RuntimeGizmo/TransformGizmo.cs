@@ -35,7 +35,7 @@ namespace CollaborationEngine.RuntimeGizmo
         int circleDetail = 40;
         float minSelectedDistanceCheck = .04f;
         float moveSpeedMultiplier = 1f;
-        float scaleSpeedMultiplier = 0.05f;
+        float scaleSpeedMultiplier = 10f;
         float rotateSpeedMultiplier = 200f;
         float allRotateSpeedMultiplier = 20f;
 

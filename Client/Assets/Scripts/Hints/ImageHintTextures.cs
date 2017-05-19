@@ -7,7 +7,10 @@ namespace CollaborationEngine.Hints
 {
     public enum ImageHintType : byte
     {
-        Arrow,
+        ArrowUp,
+        ArrowDown,
+        ArrowLeft,
+        ArrowRight,
         RotateClockwise,
         RotateCounterclockwise,
         Wrench,
