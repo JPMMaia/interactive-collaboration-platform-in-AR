@@ -37,8 +37,6 @@ namespace CollaborationEngine.Cameras
         #region Members
         private Camera _camera;
         private Transform _transform;
-        private Vector3 _position;
-        private bool _dirty;
         #endregion
 
         public void Awake()
@@ -85,7 +83,6 @@ namespace CollaborationEngine.Cameras
 
             _transform = GetComponent<Transform>();
             _transform.LookAt(_transform.position + LocalForward, LocalUp);
-            _position = _transform.position;
         }
 
         public void Update()
@@ -110,13 +107,6 @@ namespace CollaborationEngine.Cameras
             var mouseWheelInput = Input.GetAxis("Mouse ScrollWheel") * MouseWheelSensibility;
             if (Mathf.Abs(mouseWheelInput) > Mathf.Epsilon)
                 UnityCamera.orthographicSize -= mouseWheelInput;
-
-            if (_dirty)
-            {
-                _transform.position = _position;
-
-                _dirty = false;
-            }
         }
 
         private void Move(Vector3 axis, float scalar)
@@ -125,8 +115,7 @@ namespace CollaborationEngine.Cameras
             var translation = axis * scalar;
 
             // Apply the translation:
-            _position += translation;
-            _dirty = true;
+            transform.position += translation;
         }
         private void MoveRight(float scalar)
         {
@@ -145,6 +134,7 @@ namespace CollaborationEngine.Cameras
                 writer.Write(transform.localPosition.z);
             }
 
+            writer.Write(UnityCamera.orthographicSize);
             writer.Write(MovementSensibility);
             writer.Write(MouseWheelSensibility);
         }
@@ -155,9 +145,9 @@ namespace CollaborationEngine.Cameras
                 var y = reader.ReadSingle();
                 var z = reader.ReadSingle();
                 transform.localPosition = new Vector3(x, y, z);
-                _position = transform.localPosition;
             }
 
+            UnityCamera.orthographicSize = reader.ReadSingle();
             MovementSensibility = reader.ReadSingle();
             MouseWheelSensibility = reader.ReadSingle();
         }
