@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CollaborationEngine.Cameras
 {
     [AddComponentMenu("Camera-Control/Free Camera")]
-    [RequireComponent(typeof(UnityEngine.Camera))]
+    [RequireComponent(typeof(Camera))]
     public class FreeCamera : MonoBehaviour, ICamera, ISerializable
     {
         #region Unity Editor
@@ -32,9 +32,9 @@ namespace CollaborationEngine.Cameras
             }
         }
         public bool Selected { get; set; }
-        public UnityEngine.Camera UnityCamera
+        public Camera UnityCamera
         {
-            get { return GetComponent<UnityEngine.Camera>(); }
+            get { return GetComponent<Camera>(); }
             set
             {
             }
@@ -164,6 +164,7 @@ namespace CollaborationEngine.Cameras
                 writer.Write(transform.localRotation.x);
                 writer.Write(transform.localRotation.y);
                 writer.Write(transform.localRotation.z);
+                writer.Write(transform.localRotation.w);
             }
 
             writer.Write(MovementSensibility);
@@ -190,6 +191,8 @@ namespace CollaborationEngine.Cameras
             MovementSensibility = reader.ReadSingle();
             RotationSensibility = reader.ReadSingle();
             MouseSensibility = reader.ReadSingle();
+
+            Awake();
         }
     }
 }

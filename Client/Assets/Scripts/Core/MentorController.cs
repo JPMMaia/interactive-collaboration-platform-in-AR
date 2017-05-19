@@ -24,24 +24,23 @@ namespace CollaborationEngine.Core
         }
         private uint CurrentTaskID
         {
-            get { return _currentTaskID; }
             set
             {
                 // If a task was selected, save camera configurations:
-                if (_currentTaskID != _nullID)
+                if (_currentTaskID != NullID)
                     SaveCameraConfigurations(_currentTaskID);
 
                 _currentTaskID = value;
 
                 // If a task is selected, load camera configurations:
-                if (_currentTaskID != _nullID)
+                if (_currentTaskID != NullID)
                     LoadCameraConfigurations(_currentTaskID);
             }
         }
         #endregion
 
-        private uint _currentTaskID;
-        private readonly uint _nullID = uint.MaxValue;
+        private const uint NullID = uint.MaxValue;
+        private uint _currentTaskID = NullID;
 
         public void Start()
         {
@@ -59,7 +58,7 @@ namespace CollaborationEngine.Core
             TasksModel.Save();
 
             // Unset task ID, in order to proper save the configurations:
-            CurrentTaskID = _nullID;
+            CurrentTaskID = NullID;
         }
 
         private void PresentStartScreen()
@@ -92,7 +91,7 @@ namespace CollaborationEngine.Core
         private void Controller_OnGoBack(EditorController sender, System.EventArgs eventArgs)
         {
             // Unset task ID:
-            CurrentTaskID = _nullID;
+            CurrentTaskID = NullID;
 
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
@@ -132,21 +131,24 @@ namespace CollaborationEngine.Core
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
-            MemoryStream data;
-
             // Read file:
             var file = directory + "Cameras.data";
-            using (var stream = File.OpenRead(file))
+            if (File.Exists(file))
             {
-                using (var binaryStream = new BinaryReader(stream))
-                {
-                    var bytes = binaryStream.ReadBytes((int)stream.Length);
-                    data = new MemoryStream(bytes);
-                }
-            }
+                MemoryStream data;
 
-            // Deserialize object:
-            CameraManager.Deserialize(new BinaryReader(data));
+                using (var stream = File.OpenRead(file))
+                {
+                    using (var binaryStream = new BinaryReader(stream))
+                    {
+                        var bytes = binaryStream.ReadBytes((int)stream.Length);
+                        data = new MemoryStream(bytes);
+                    }
+                }
+
+                // Deserialize object:
+                CameraManager.Deserialize(new BinaryReader(data));
+            }
         }
     }
 }

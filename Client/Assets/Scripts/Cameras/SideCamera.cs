@@ -154,6 +154,7 @@ namespace CollaborationEngine.Cameras
                 var y = reader.ReadSingle();
                 var z = reader.ReadSingle();
                 transform.localPosition = new Vector3(x, y, z);
+                _position = transform.localPosition;
             }
 
             MovementSensibility = reader.ReadSingle();
