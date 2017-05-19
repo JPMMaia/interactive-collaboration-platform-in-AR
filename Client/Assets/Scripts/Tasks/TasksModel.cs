@@ -79,7 +79,7 @@ namespace CollaborationEngine.Tasks
 
             // Delete directory:
             {
-                var directory = String.Format("{0}{1}/", SavedTasksPath, task.ID);
+                var directory = GenerateSavedTaskPath(task.ID);
                 if (Directory.Exists(directory))
                     Directory.Delete(directory, true);
             }
@@ -96,11 +96,16 @@ namespace CollaborationEngine.Tasks
             return _tasks[taskID];
         }
 
+        public static String GenerateSavedTaskPath(uint taskID)
+        {
+            return String.Format("{0}{1}/", SavedTasksPath, taskID);
+        }
+
         public void Save()
         {
             // Save all tasks:
             foreach (var task in _tasks.Values)
-                task.Save(String.Format("{0}{1}/", SavedTasksPath, task.ID));
+                task.Save(GenerateSavedTaskPath(task.ID));
         }
         public void Load()
         {

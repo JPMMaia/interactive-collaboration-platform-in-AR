@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using CollaborationEngine.Network;
+using UnityEngine;
 
 namespace CollaborationEngine.Cameras
 {
-    public class CameraManager : MonoBehaviour
+    public class CameraManager : MonoBehaviour, ISerializable
     {
         #region Unity Editor
         public FreeCamera FreeCamera;
@@ -88,5 +90,30 @@ namespace CollaborationEngine.Cameras
         private CameraViewType _selectedCameraType;
         private ICamera _selectedCamera;
         #endregion
+
+        public void Serialize(BinaryWriter writer)
+        {
+            FreeCamera.Serialize(writer);
+            RightCamera.Serialize(writer);
+            LeftCamera.Serialize(writer);
+            TopCamera.Serialize(writer);
+            BottomCamera.Serialize(writer);
+            FrontCamera.Serialize(writer);
+            BackCamera.Serialize(writer);
+
+            writer.Write((byte) SelectedCameraType);
+        }
+        public void Deserialize(BinaryReader reader)
+        {
+            FreeCamera.Deserialize(reader);
+            RightCamera.Deserialize(reader);
+            LeftCamera.Deserialize(reader);
+            TopCamera.Deserialize(reader);
+            BottomCamera.Deserialize(reader);
+            FrontCamera.Deserialize(reader);
+            BackCamera.Deserialize(reader);
+
+            SelectedCameraType = (CameraViewType) reader.ReadByte();
+        }
     }
 }

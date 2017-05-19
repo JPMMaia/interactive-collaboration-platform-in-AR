@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using CollaborationEngine.Network;
+using UnityEngine;
 
 namespace CollaborationEngine.Cameras
 {
     [AddComponentMenu("Camera-Control/Free Camera")]
     [RequireComponent(typeof(UnityEngine.Camera))]
-    public class FreeCamera : MonoBehaviour, ICamera
+    public class FreeCamera : MonoBehaviour, ICamera, ISerializable
     {
         #region Unity Editor
         public float MovementSensibility = 0.1f;
@@ -148,6 +150,46 @@ namespace CollaborationEngine.Cameras
             // Calculate the rotation arround the world Z-axis:
             var worldZAxis = new Vector3(0.0f, 0.0f, 1.0f);
             Rotate(worldZAxis, degrees);
+        }
+
+        public void Serialize(BinaryWriter writer)
+        {
+            {
+                writer.Write(transform.localPosition.x);
+                writer.Write(transform.localPosition.y);
+                writer.Write(transform.localPosition.z);
+            }
+
+            {
+                writer.Write(transform.localRotation.x);
+                writer.Write(transform.localRotation.y);
+                writer.Write(transform.localRotation.z);
+            }
+
+            writer.Write(MovementSensibility);
+            writer.Write(RotationSensibility);
+            writer.Write(MouseSensibility);
+        }
+        public void Deserialize(BinaryReader reader)
+        {
+            {
+                var x = reader.ReadSingle();
+                var y = reader.ReadSingle();
+                var z = reader.ReadSingle();
+                transform.localPosition = new Vector3(x, y, z);
+            }
+
+            {
+                var x = reader.ReadSingle();
+                var y = reader.ReadSingle();
+                var z = reader.ReadSingle();
+                var w = reader.ReadSingle();
+                transform.localRotation = new Quaternion(x, y, z, w);
+            }
+
+            MovementSensibility = reader.ReadSingle();
+            RotationSensibility = reader.ReadSingle();
+            MouseSensibility = reader.ReadSingle();
         }
     }
 }

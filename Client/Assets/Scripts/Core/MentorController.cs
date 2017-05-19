@@ -1,4 +1,6 @@
-﻿using CollaborationEngine.Base;
+﻿using System.IO;
+using CollaborationEngine.Base;
+using CollaborationEngine.Cameras;
 using CollaborationEngine.Network;
 using CollaborationEngine.Panels;
 using CollaborationEngine.Tasks;
@@ -12,6 +14,7 @@ namespace CollaborationEngine.Core
         public StartMentorController StartMentorControllerPrefab;
         public EditorController EditorControllerPrefab;
         public MentorNetworkManager MentorNetworkManager;
+        public CameraManager CameraManager;
         #endregion
 
         #region Properties
@@ -19,7 +22,26 @@ namespace CollaborationEngine.Core
         {
             get { return Application.Model.Tasks; }
         }
+        private uint CurrentTaskID
+        {
+            get { return _currentTaskID; }
+            set
+            {
+                // If a task was selected, save camera configurations:
+                if (_currentTaskID != _nullID)
+                    SaveCameraConfigurations(_currentTaskID);
+
+                _currentTaskID = value;
+
+                // If a task is selected, load camera configurations:
+                if (_currentTaskID != _nullID)
+                    LoadCameraConfigurations(_currentTaskID);
+            }
+        }
         #endregion
+
+        private uint _currentTaskID;
+        private readonly uint _nullID = uint.MaxValue;
 
         public void Start()
         {
@@ -35,6 +57,9 @@ namespace CollaborationEngine.Core
         public void OnApplicationQuit()
         {
             TasksModel.Save();
+
+            // Unset task ID, in order to proper save the configurations:
+            CurrentTaskID = _nullID;
         }
 
         private void PresentStartScreen()
@@ -59,15 +84,69 @@ namespace CollaborationEngine.Core
             Destroy(sender.gameObject);
 
             PresentEditorScreen(e.ID);
+
+            // Set task ID:
+            CurrentTaskID = e.ID;
+            
         }
         private void Controller_OnGoBack(EditorController sender, System.EventArgs eventArgs)
         {
+            // Unset task ID:
+            CurrentTaskID = _nullID;
+
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
             // Destroy editor controller:
             Destroy(sender.gameObject);
 
             PresentStartScreen();
+        }
+
+        private void SaveCameraConfigurations(uint taskID)
+        {
+            var directory = TasksModel.GenerateSavedTaskPath(taskID);
+
+            // Create directory if it doesn't exist:
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            // Serialize cameras:
+            var data = new MemoryStream();
+            CameraManager.Serialize(new BinaryWriter(data));
+
+            // Write to file:
+            var file = directory + "Cameras.data";
+            using (var stream = File.OpenWrite(file))
+            {
+                using (var binaryStream = new BinaryWriter(stream))
+                {
+                    binaryStream.Write(data.ToArray(), 0, (int)data.Length);
+                }
+            }
+        }
+        private void LoadCameraConfigurations(uint taskID)
+        {
+            var directory = TasksModel.GenerateSavedTaskPath(taskID);
+
+            // Create directory if it doesn't exist:
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            MemoryStream data;
+
+            // Read file:
+            var file = directory + "Cameras.data";
+            using (var stream = File.OpenRead(file))
+            {
+                using (var binaryStream = new BinaryReader(stream))
+                {
+                    var bytes = binaryStream.ReadBytes((int)stream.Length);
+                    data = new MemoryStream(bytes);
+                }
+            }
+
+            // Deserialize object:
+            CameraManager.Deserialize(new BinaryReader(data));
         }
     }
 }

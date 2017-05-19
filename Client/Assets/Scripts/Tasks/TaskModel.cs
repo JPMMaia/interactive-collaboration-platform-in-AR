@@ -169,7 +169,7 @@ namespace CollaborationEngine.Tasks
 
         public void Save(String directory)
         {
-            // CreateStep directory if it doesn't exist:
+            // Create directory if it doesn't exist:
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 

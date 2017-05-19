@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using CollaborationEngine.Network;
+using UnityEngine;
 
 namespace CollaborationEngine.Cameras
 {
-    [RequireComponent(typeof(UnityEngine.Camera))]
-    public class SideCamera : MonoBehaviour, ICamera
+    [RequireComponent(typeof(Camera))]
+    public class SideCamera : MonoBehaviour, ICamera, ISerializable
     {
         public enum ViewDirection
         {
@@ -22,9 +24,9 @@ namespace CollaborationEngine.Cameras
         public Vector3 LocalUp { get; private set; }
         public Vector3 LocalForward { get; private set; }
         public bool Selected { get; set; }
-        public UnityEngine.Camera UnityCamera
+        public Camera UnityCamera
         {
-            get { return GetComponent<UnityEngine.Camera>(); }
+            get { return GetComponent<Camera>(); }
             set
             {
             }
@@ -32,7 +34,7 @@ namespace CollaborationEngine.Cameras
         #endregion
 
         #region Members
-        private UnityEngine.Camera _camera;
+        private Camera _camera;
         private Transform _transform;
         private Vector3 _position;
         private bool _dirty;
@@ -42,7 +44,7 @@ namespace CollaborationEngine.Cameras
         {
             gameObject.SetActive(false);
 
-            _camera = GetComponent<UnityEngine.Camera>();
+            _camera = GetComponent<Camera>();
             _camera.orthographic = true;
 
             switch (View)
@@ -132,6 +134,30 @@ namespace CollaborationEngine.Cameras
         private void MoveUp(float scalar)
         {
             Move(LocalUp, scalar);
+        }
+
+        public void Serialize(BinaryWriter writer)
+        {
+            {
+                writer.Write(transform.localPosition.x);
+                writer.Write(transform.localPosition.y);
+                writer.Write(transform.localPosition.z);
+            }
+
+            writer.Write(MovementSensibility);
+            writer.Write(MouseWheelSensibility);
+        }
+        public void Deserialize(BinaryReader reader)
+        {
+            {
+                var x = reader.ReadSingle();
+                var y = reader.ReadSingle();
+                var z = reader.ReadSingle();
+                transform.localPosition = new Vector3(x, y, z);
+            }
+
+            MovementSensibility = reader.ReadSingle();
+            MouseWheelSensibility = reader.ReadSingle();
         }
     }
 }
