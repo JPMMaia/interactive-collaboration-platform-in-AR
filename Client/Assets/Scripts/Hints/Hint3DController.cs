@@ -35,9 +35,9 @@ namespace CollaborationEngine.Hints
                 _hint3DView = hint3DView;
             }
 
-            _hint3DView.Position = HintModel.Position;
-            _hint3DView.Rotation = HintModel.Rotation;
-            _hint3DView.Scale = HintModel.Scale;
+            _hint3DView.LocalPosition = HintModel.LocalPosition;
+            _hint3DView.LocalRotation = HintModel.LocalRotation;
+            _hint3DView.LocalScale = HintModel.LocalScale;
             _hint3DView.Showing = true;
         }
         public void OnDestroy()

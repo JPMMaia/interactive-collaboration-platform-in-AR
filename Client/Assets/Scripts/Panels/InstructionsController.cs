@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CollaborationEngine.Base;
+using CollaborationEngine.Cameras;
 using CollaborationEngine.Network;
 using CollaborationEngine.Steps;
 using CollaborationEngine.Tasks;
@@ -48,6 +49,7 @@ namespace CollaborationEngine.Panels
             }
         }
         public MentorNetworkManager NetworkManager { get; set; }
+        public CameraManager CameraManager { get; set; }
         #endregion
 
         #region Members
@@ -82,6 +84,7 @@ namespace CollaborationEngine.Panels
 
             // Set properties:
             stepController.StepModel = stepModel;
+            stepController.CameraManager = CameraManager;
             stepController.StepOrder = (uint)_stepControllers.Count + 1;
 
             // Subscribe to events:

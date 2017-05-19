@@ -31,9 +31,9 @@ namespace CollaborationEngine.Tasks.Editor
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expectedTaskID, actual.TaskID);
             Assert.AreEqual(expectedStepID, actual.StepID);
-            UnityEngine.Assertions.Assert.AreEqual(expected.Position, actual.Position);
-            UnityEngine.Assertions.Assert.AreEqual(expected.Rotation, actual.Rotation);
-            UnityEngine.Assertions.Assert.AreEqual(expected.Scale, actual.Scale);
+            UnityEngine.Assertions.Assert.AreEqual(expected.LocalPosition, actual.LocalPosition);
+            UnityEngine.Assertions.Assert.AreEqual(expected.LocalRotation, actual.LocalRotation);
+            UnityEngine.Assertions.Assert.AreEqual(expected.LocalScale, actual.LocalScale);
 
             if (expected.Type == HintType.Image)
             {
@@ -47,9 +47,9 @@ namespace CollaborationEngine.Tasks.Editor
             hint.TaskID = taskID;
             hint.StepID = stepID;
             hint.Name = name;
-            hint.Position = position;
-            hint.Rotation = rotation;
-            hint.Scale = scale;
+            hint.LocalPosition = position;
+            hint.LocalRotation = rotation;
+            hint.LocalScale = scale;
         }
         public static TextHintModel CreateTextHint(uint id, uint taskID, uint stepID, string name, Vector3 position, Quaternion rotation, Vector3 scale)
         {

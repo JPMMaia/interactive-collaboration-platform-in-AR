@@ -615,9 +615,9 @@
             Extracts the horizontal field of view from a perspective projection matrix in degrees
             </summary>
         </member>
-        <member name="M:Vuforia.CameraConfigurationUtility.ScalePerspectiveProjectionMatrix(UnityEngine.Matrix4x4,System.Single,System.Single)">
+        <member name="M:Vuforia.CameraConfigurationUtility.LocalLocalScalePerspectiveProjectionMatrix(UnityEngine.Matrix4x4,System.Single,System.Single)">
             <summary>
-            Scales a provided input perspective projection matrix to a given vertical and horizontal field of view
+            LocalLocalScales a provided input perspective projection matrix to a given vertical and horizontal field of view
             </summary>
         </member>
         <member name="M:Vuforia.CameraConfigurationUtility.CalculateHorizontalFoVFromViewPortAspect(System.Single,System.Single)">
@@ -1029,10 +1029,10 @@
             where the transition from VR to AR should be as seamless as possible.
             </summary>
         </member>
-        <member name="T:Vuforia.RotationalDeviceTracker">
+        <member name="T:Vuforia.LocalLocalLocalRotationalDeviceTracker">
             <summary>
-            The RotationalDeviceTracker tracks a device in the world by relying on
-            sensor tracking. The RotationalDeviceTracker publishes device trackable
+            The LocalLocalLocalRotationalDeviceTracker tracks a device in the world by relying on
+            sensor tracking. The LocalLocalLocalRotationalDeviceTracker publishes device trackable
             result. Device Trackable results are in world coordinate system 
              and use a physical unit (meter).
              A rotational device tracker can use model correction to improve the 
@@ -1042,45 +1042,45 @@
              of returned pose. You should only use this mode in VR configuration!
             </summary>
         </member>
-        <member name="F:Vuforia.RotationalDeviceTracker.MODEL_CORRECTION_MODE.NONE">
+        <member name="F:Vuforia.LocalLocalLocalRotationalDeviceTracker.MODEL_CORRECTION_MODE.NONE">
             <summary>
             Model Correction is disabled 
             </summary>
         </member>
-        <member name="F:Vuforia.RotationalDeviceTracker.MODEL_CORRECTION_MODE.HEAD">
+        <member name="F:Vuforia.LocalLocalLocalRotationalDeviceTracker.MODEL_CORRECTION_MODE.HEAD">
             <summary>
             Use a Head Model Correction
             </summary>
         </member>
-        <member name="F:Vuforia.RotationalDeviceTracker.MODEL_CORRECTION_MODE.HANDHELD">
+        <member name="F:Vuforia.LocalLocalLocalRotationalDeviceTracker.MODEL_CORRECTION_MODE.HANDHELD">
             <summary>
             Use a Handheld Model Correction
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.RecenterPose">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.RecenterPose">
             <summary>
             Recenters the device tracker pose to the current transform of the ARCamera
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.RecenterPose(System.Boolean)">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.RecenterPose(System.Boolean)">
             <summary>
             Recenters the device tracker pose
             </summary>
             <param name="resetToCurrentPose">Whether to reset to the current pose of the ARCamera or the one that was last reset to.</param>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.SetPosePrediction(System.Boolean)">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.SetPosePrediction(System.Boolean)">
             <summary>
             Enable pose prediction to improve tracking position.
             Recommended to use this mode for VR experience.
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.GetPosePrediction">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.GetPosePrediction">
             <summary>
             Get the current pose prediction mode
             by default prediction is off.
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.SetModelCorrectionMode(Vuforia.RotationalDeviceTracker.MODEL_CORRECTION_MODE)">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.SetModelCorrectionMode(Vuforia.LocalLocalLocalRotationalDeviceTracker.MODEL_CORRECTION_MODE)">
             <summary>
             Specify a correction mode of the returned pose with default correction offsets.
             The rotational device tracker supports two transform models: 
@@ -1091,13 +1091,13 @@
             a custom pivot point for the transform model.
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.GetModelCorrectionMode">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.GetModelCorrectionMode">
             <summary>
             Get the currently set transform model used for correction.
             By default no transform model is used.
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.SetModelCorrectionModeWithTransform(Vuforia.RotationalDeviceTracker.MODEL_CORRECTION_MODE,UnityEngine.Vector3)">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.SetModelCorrectionModeWithTransform(Vuforia.LocalLocalLocalRotationalDeviceTracker.MODEL_CORRECTION_MODE,UnityEngine.Vector3)">
             <summary>
             Specify a correction mode of the returned pose with a custom 
             correction offset. This is specified as an offset from the pivot point
@@ -1110,7 +1110,7 @@
             transform models.
             </summary>
         </member>
-        <member name="M:Vuforia.RotationalDeviceTracker.GetModelCorrectionTransform">
+        <member name="M:Vuforia.LocalLocalLocalRotationalDeviceTracker.GetModelCorrectionTransform">
             <summary>
             Get the current correction offset for the rotation. This is specified as an offset from the pivot point
             (e.g. neck) to the device.
@@ -1215,9 +1215,9 @@
             Unregisters a previously registered callback
             </summary>
         </member>
-        <member name="M:Vuforia.DeviceTrackingManager.PositionCamera(UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,Vuforia.VuforiaManagerImpl.PoseData)">
+        <member name="M:Vuforia.DeviceTrackingManager.LocalLocalLocalPositionCamera(UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,Vuforia.VuforiaManagerImpl.PoseData)">
             <summary>
-            Positions the camera relative to a reference position and rotation.
+            LocalLocalLocalPositions the camera relative to a reference position and rotation.
             </summary>
         </member>
         <member name="T:Vuforia.FactorySetter">
@@ -1345,7 +1345,7 @@
             NumDivisions is set to a valid value.
             </summary>
         </member>
-        <member name="P:Vuforia.BackgroundPlaneAbstractBehaviour.DefaultRotationTowardsCamera">
+        <member name="P:Vuforia.BackgroundPlaneAbstractBehaviour.DefaultLocalLocalLocalRotationTowardsCamera">
             <summary>
             The default rotation that is applied to the Background Plane to align it towards the camera, before applying any
             orientation or mirroring rotations on top of that.
@@ -1619,9 +1619,9 @@
             represented by a bounding box, grid of the capture area and the origin alignment plane.
             </summary>
         </member>
-        <member name="M:Vuforia.ObjectTargetAbstractBehaviour.CorrectScaleImpl">
+        <member name="M:Vuforia.ObjectTargetAbstractBehaviour.CorrectLocalLocalScaleImpl">
             <summary>
-            Scales the Trackable uniformly
+            LocalLocalScales the Trackable uniformly
             </summary>
         </member>
         <member name="M:Vuforia.ObjectTargetAbstractBehaviour.InternalUnregisterTrackable">
@@ -1669,7 +1669,7 @@
             the trackable.
             </summary>
             <param name="trackable">Object Target</param>
-            <param name="applyTargetScaleToBehaviour"></param>
+            <param name="applyTargetLocalLocalScaleToBehaviour"></param>
         </member>
         <member name="M:Vuforia.ObjectTargetAbstractBehaviour.OnValidate">
             <summary>
@@ -2598,9 +2598,9 @@
             around the origin.
             </summary>
         </member>
-        <member name="M:Vuforia.VuMarkAbstractBehaviour.CorrectScaleImpl">
+        <member name="M:Vuforia.VuMarkAbstractBehaviour.CorrectLocalLocalScaleImpl">
             <summary>
-            Scales the Trackable uniformly
+            LocalLocalScales the Trackable uniformly
             </summary>
         </member>
         <member name="M:Vuforia.VuMarkAbstractBehaviour.InternalUnregisterTrackable">
@@ -3146,9 +3146,9 @@
             Get or set the bottom diameter. Changing this value uniformly scales the target.
             </summary>
         </member>
-        <member name="M:Vuforia.CylinderTargetAbstractBehaviour.CorrectScaleImpl">
+        <member name="M:Vuforia.CylinderTargetAbstractBehaviour.CorrectLocalLocalScaleImpl">
             <summary>
-            Scales the Trackable uniformly
+            LocalLocalScales the Trackable uniformly
             </summary>
         </member>
         <member name="M:Vuforia.CylinderTargetAbstractBehaviour.InternalUnregisterTrackable">
@@ -3295,7 +3295,7 @@
             the trackable.
             </summary>
             <param name="trackable">Trackable which is assigned to behaviour at runtime</param>
-            <param name="applyTargetScaleToBehaviour">Runtime trackable size is applied to behaviour.
+            <param name="applyTargetLocalLocalScaleToBehaviour">Runtime trackable size is applied to behaviour.
             set to true if behaviour is created at runtime, false for behaviours defined in the editor.</param>
             <returns>true if the target has the correct type and has been successfully initialized</returns>
         </member>
@@ -3379,7 +3379,7 @@
             Get half width and height of the box
             </summary>
         </member>
-        <member name="P:Vuforia.OrientedBoundingBox.Rotation">
+        <member name="P:Vuforia.OrientedBoundingBox.LocalLocalLocalRotation">
             <summary>
             Get the counter clock wise rotation of the box in degrees
             with respect to the x axis
@@ -3401,7 +3401,7 @@
             Get half width and height of the box
             </summary>
         </member>
-        <member name="P:Vuforia.OrientedBoundingBox3D.RotationY">
+        <member name="P:Vuforia.OrientedBoundingBox3D.LocalLocalLocalRotationY">
             <summary>
             Get the counter clock wise rotation of the box in degrees
             with respect to the x axis
@@ -3968,12 +3968,12 @@
             This class handles Text Tracking and defining the detection and tracking area at runtime
             </summary>
         </member>
-        <member name="P:Vuforia.SmartTerrainTrackerImpl.ScaleToMillimeter">
+        <member name="P:Vuforia.SmartTerrainTrackerImpl.LocalLocalScaleToMillimeter">
             <summary>
             The scaling factor for SmartTerrain trackables from scene units into millimeters
             </summary>
         </member>
-        <member name="M:Vuforia.SmartTerrainTrackerImpl.SetScaleToMillimeter(System.Single)">
+        <member name="M:Vuforia.SmartTerrainTrackerImpl.SetLocalLocalScaleToMillimeter(System.Single)">
             <summary>
             Set the scaling factor for SmartTerrain trackables from scene units into millimeters.
             The default scaling factor is 1.0.
@@ -4144,7 +4144,7 @@
             Get the corresponding Word-object of this trackable
             </summary>
         </member>
-        <member name="P:Vuforia.WordResultImpl.Position">
+        <member name="P:Vuforia.WordResultImpl.LocalLocalLocalPosition">
             <summary>
             Get the position of the current pose of the trackable
             </summary>
@@ -4598,16 +4598,16 @@
             Return whether reconstruction should be automatically started at startup
             </summary>
         </member>
-        <member name="M:Vuforia.ReconstructionAbstractBehaviour.ScaleEditorMeshesByFactor(System.Single)">
+        <member name="M:Vuforia.ReconstructionAbstractBehaviour.LocalLocalScaleEditorMeshesByFactor(System.Single)">
             <summary>
-            Scales the surface and prop meshes by a given factor (directly affects the mesh data).
+            LocalLocalScales the surface and prop meshes by a given factor (directly affects the mesh data).
             Only used for authoring (to create a ST instance in the same size as the initialization target),
             does not have any affect if called at runtime
             </summary>
         </member>
-        <member name="M:Vuforia.ReconstructionAbstractBehaviour.ScaleEditorPropPositionsByFactor(System.Single)">
+        <member name="M:Vuforia.ReconstructionAbstractBehaviour.LocalLocalScaleEditorPropLocalLocalLocalPositionsByFactor(System.Single)">
             <summary>
-            Scales the prop authoring positions on the surface by a given factor.
+            LocalLocalScales the prop authoring positions on the surface by a given factor.
             Only used for authoring (to create a ST instance in the same size as the initialization target),
             does not have any affect if called at runtime
             </summary>
@@ -4681,7 +4681,7 @@
             Get the mesh of the smart terrain trackable.
             </summary>
         </member>
-        <member name="P:Vuforia.SmartTerrainTrackable.LocalPosition">
+        <member name="P:Vuforia.SmartTerrainTrackable.LocalLocalLocalLocalPosition">
             <summary>
             Get the local 3D position of the smart terrain trackable relative to the parent
             </summary>
@@ -4702,12 +4702,12 @@
             This class handles Text Tracking and defining the detection and tracking area at runtime
             </summary>
         </member>
-        <member name="P:Vuforia.SmartTerrainTracker.ScaleToMillimeter">
+        <member name="P:Vuforia.SmartTerrainTracker.LocalLocalScaleToMillimeter">
             <summary>
             The scaling factor for SmartTerrain trackables from scene units into millimeters
             </summary>
         </member>
-        <member name="M:Vuforia.SmartTerrainTracker.SetScaleToMillimeter(System.Single)">
+        <member name="M:Vuforia.SmartTerrainTracker.SetLocalLocalScaleToMillimeter(System.Single)">
             <summary>
             Set the scaling factor for SmartTerrain trackables from scene units into millimeters.
             The default scaling factor is 1.0.
@@ -5128,9 +5128,9 @@
             The image target that this ImageTargetBehaviour augments
             </summary>
         </member>
-        <member name="M:Vuforia.ImageTargetAbstractBehaviour.CorrectScaleImpl">
+        <member name="M:Vuforia.ImageTargetAbstractBehaviour.CorrectLocalLocalScaleImpl">
             <summary>
-            Scales the Trackable uniformly
+            LocalLocalScales the Trackable uniformly
             </summary>
         </member>
         <member name="M:Vuforia.ImageTargetAbstractBehaviour.InternalUnregisterTrackable">
@@ -6338,7 +6338,7 @@
             used for detecting that the specified trackable in the dataset is not valid anymore.
             </summary>
         </member>
-        <member name="F:Vuforia.TrackableBehaviour.mPreviousScale">
+        <member name="F:Vuforia.TrackableBehaviour.mPreviousLocalLocalScale">
             <summary>
             This value is used to identify non-uniform scaling of the trackable.
             </summary>
@@ -6367,7 +6367,7 @@
             </summary>
             <param name="newFrameIndex">Frame index of processed frame, multiple render frames can have the same frame index</param>
         </member>
-        <member name="M:Vuforia.TrackableBehaviour.CorrectScale">
+        <member name="M:Vuforia.TrackableBehaviour.CorrectLocalLocalScale">
             <summary>
             Corrects scaling for trackables where non-uniform scaling is not allowed
             </summary>
@@ -6384,17 +6384,17 @@
             Use it only if you know what you are doing - e.g. when you want to destroy a trackable, but reuse the TrackableBehaviour.
             </summary>
         </member>
-        <member name="M:Vuforia.TrackableBehaviour.CorrectScaleImpl">
+        <member name="M:Vuforia.TrackableBehaviour.CorrectLocalLocalScaleImpl">
             <summary>
             Overwrite this method when a specific scale should be enforced.
             </summary>
         </member>
         <member name="M:Vuforia.TrackableBehaviour.EnforceUniformScaling">
             <summary>
-            Scales the Trackable uniformly
+            LocalLocalScales the Trackable uniformly
             </summary>
         </member>
-        <member name="M:Vuforia.TrackableBehaviour.SetScaleFromWidth(System.Single,System.Single)">
+        <member name="M:Vuforia.TrackableBehaviour.SetLocalLocalScaleFromWidth(System.Single,System.Single)">
             <summary>
             Set scale-value of this game object based on the target width.
             This method should be used only for 2D-targets
@@ -6403,7 +6403,7 @@
             <param name="aspectRatio">aspect ratio of target (height/width)</param>
             <returns>uniform scale value of game object</returns>
         </member>
-        <member name="M:Vuforia.TrackableBehaviour.SetScaleFromHeight(System.Single,System.Single)">
+        <member name="M:Vuforia.TrackableBehaviour.SetLocalLocalScaleFromHeight(System.Single,System.Single)">
             <summary>
             Set scale-value of this game object based on the target height.
             This method should be used only for 2D-targets
@@ -6412,7 +6412,7 @@
             <param name="aspectRatio">aspect ratio of target (height/width)</param>
             <returns>uniform scale value of game object</returns>
         </member>
-        <member name="M:Vuforia.TrackableBehaviour.SetScale(System.Single,System.Single,System.Single)">
+        <member name="M:Vuforia.TrackableBehaviour.SetLocalLocalScale(System.Single,System.Single,System.Single)">
             <summary>
             Set scale-value of this game object based on one dimension.
             The largest dimension is computed based on the aspect ratios to the other
@@ -6929,7 +6929,7 @@
             Get the oriented 2D bounding box of the word in image space
             </summary>
         </member>
-        <member name="P:Vuforia.WordResult.Position">
+        <member name="P:Vuforia.WordResult.LocalLocalLocalPosition">
             <summary>
             Get the position of the current pose of the trackable
             </summary>
@@ -7247,7 +7247,7 @@
             <param name="targetHeight">The height of the image target being used in millimetres</param>
             <returns>True if initialisation is successful, false otherwise</returns>
         </member>
-        <member name="M:Vuforia.EyewearUserCalibrator.getMinScaleHint">
+        <member name="M:Vuforia.EyewearUserCalibrator.getMinLocalLocalScaleHint">
             <summary>Gets a hint of the minimum size a calibration shape should be drawn</summary>
             <remarks>
              - The smaller a calibration shape is drawn the further the user needs to
@@ -7257,7 +7257,7 @@
             </remarks>
             <returns>The minimum scale of the shape in the range 0.0 - 1.0</returns>
         </member>
-        <member name="M:Vuforia.EyewearUserCalibrator.getMaxScaleHint">
+        <member name="M:Vuforia.EyewearUserCalibrator.getMaxLocalLocalScaleHint">
             <summary>Gets a hint of the maximum size a calibration shape should be drawn</summary>
             <remarks>
              - Drawing a large calibration shape means the sides of the shape will

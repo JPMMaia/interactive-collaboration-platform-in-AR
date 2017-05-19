@@ -389,7 +389,7 @@
             <param name="serializedObject">Local aspect ratio of this object target will be updated</param>
             <param name="size">Uniform scale of the target</param>
         </member>
-        <member name="M:Vuforia.EditorClasses.ObjectTargetEditor.UpdateScale(Vuforia.EditorClasses.SerializedObjectTarget,UnityEngine.Vector3)">
+        <member name="M:Vuforia.EditorClasses.ObjectTargetEditor.UpdateLocalLocalScale(Vuforia.EditorClasses.SerializedObjectTarget,UnityEngine.Vector3)">
             <summary>
             Define a new scale for the object target.
             If PreserveChildSize is true, all child objects will be scaled inversely in order to keep their original size.
@@ -557,13 +557,13 @@
         </member>
         <member name="M:Vuforia.EditorClasses.CylinderMeshFactory.AddSealingTriangles(System.Collections.Generic.List{UnityEngine.Vector3},System.Boolean)">
             <summary>
-            Create a circle for top or bottom geometry. Positions, normals, and texture coordinates are added.
+            Create a circle for top or bottom geometry. LocalLocalLocalPositions, normals, and texture coordinates are added.
             </summary>
             <param name="perimeterVertices">Vertices of circle, must be parallel to xz-plane</param>
             <param name="isTop">define whether the circle is for the top or for the bottom geometry</param>
             <returns>return face indices</returns>
         </member>
-        <member name="M:Vuforia.EditorClasses.CylinderMeshFactory.CreatePerimeterPositions(System.Single,System.Single,System.Int32)">
+        <member name="M:Vuforia.EditorClasses.CylinderMeshFactory.CreatePerimeterLocalLocalLocalPositions(System.Single,System.Single,System.Int32)">
             <summary>
             Create positions for a circle at a specific height (y-coordinate).
             Note that the real height (y-coordinate) is used, not the sidelength
@@ -593,7 +593,7 @@
             Geometry and materials are updated according to the new parameters.
             </summary>
         </member>
-        <member name="M:Vuforia.EditorClasses.CylinderTargetEditor.UpdateScale(Vuforia.EditorClasses.SerializedCylinderTarget,System.Single)">
+        <member name="M:Vuforia.EditorClasses.CylinderTargetEditor.UpdateLocalLocalScale(Vuforia.EditorClasses.SerializedCylinderTarget,System.Single)">
             <summary>
             Define a new scale for the cylinder target, which corresponds to the sidelength.
             If PreserveChildSize is true, all child objects will be scaled inversely in order to keep their original size.
@@ -661,7 +661,7 @@
             Editor for ImageTargetBehaviours
             </summary>
         </member>
-        <member name="M:Vuforia.EditorClasses.ImageTargetEditor.UpdateScale(Vuforia.EditorClasses.SerializedImageTarget,UnityEngine.Vector2)">
+        <member name="M:Vuforia.EditorClasses.ImageTargetEditor.UpdateLocalLocalScale(Vuforia.EditorClasses.SerializedImageTarget,UnityEngine.Vector2)">
             <summary>
             Updates the scale values in the transform component of all edited image targets from a given size.
             If PreserveChildSize is true, all child objects will be scaled inversely in order to keep their original size.

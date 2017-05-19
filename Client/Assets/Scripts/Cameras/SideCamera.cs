@@ -27,9 +27,10 @@ namespace CollaborationEngine.Cameras
         public Camera UnityCamera
         {
             get { return GetComponent<Camera>(); }
-            set
-            {
-            }
+        }
+        public CameraViewType CameraType
+        {
+            get { return (CameraViewType) View; }
         }
         #endregion
 

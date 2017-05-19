@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using CollaborationEngine.Base;
+using CollaborationEngine.Cameras;
 using CollaborationEngine.Events;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Hints.NewHintWindow;
+using CollaborationEngine.Utilities;
 using UnityEngine;
 
 namespace CollaborationEngine.Steps
@@ -22,6 +24,7 @@ namespace CollaborationEngine.Steps
         public HintController HintControllerPrefab;
 
         public StepModel StepModel { get; set; }
+        public CameraManager CameraManager { get; set; }
         public uint StepOrder
         {
             get { return StepView.StepOrder; }
@@ -104,25 +107,32 @@ namespace CollaborationEngine.Steps
 
         private void NewHintWindowController_OnEndCreate(object sender, NewHintWindowController.WindowDataEventArgs eventArgs)
         {
-            uint hintID;
-
             // Create hint model:
+            HintModel hintModel;
             if (eventArgs.HintType == HintType.Text)
             {
-                var hintModel = StepModel.CreateHint(TextHintModelPrefab);
-                hintModel.Name = eventArgs.Name;
-                hintID = hintModel.ID;
+                hintModel = StepModel.CreateHint(TextHintModelPrefab);
             }
             else
             {
-                var hintModel = StepModel.CreateHint(ImageHintModelPrefab);
-                hintModel.Name = eventArgs.Name;
-                hintModel.ImageHintType = eventArgs.ImageHintType;
-                hintID = hintModel.ID;
+                var imageHintModel = StepModel.CreateHint(ImageHintModelPrefab);
+                imageHintModel.ImageHintType = eventArgs.ImageHintType;
+                hintModel = imageHintModel;
+            }
+
+            hintModel.Name = eventArgs.Name;
+
+            // Orient hint to camera:
+            {
+                var selectedCamera = CameraManager.SelectedCamera;
+                var worldPosition = CameraUtilities.InFrontOfCameraPosition(selectedCamera);
+                hintModel.LocalPosition = Application.View.SceneRoot.transform.InverseTransformPoint(worldPosition);
+                hintModel.LocalRotation = CameraUtilities.ParallelToCameraRotation(selectedCamera);
             }
 
             // Get hint controller:
-            var hintController = _hints[hintID];
+            var hintController = _hints[hintModel.ID];
+
             if(Showing)
                 hintController.Edit();
         }

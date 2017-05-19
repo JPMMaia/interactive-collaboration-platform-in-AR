@@ -1,5 +1,6 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using CollaborationEngine.Cameras;
 using CollaborationEngine.Network;
 using CollaborationEngine.Tasks;
 
@@ -25,6 +26,7 @@ namespace CollaborationEngine.Panels
             get { return Application.Model.Tasks; }
         }
         public MentorNetworkManager NetworkManager { get; set; }
+        public CameraManager CameraManager { get; set; }
         #endregion
 
         #region Members
@@ -40,6 +42,7 @@ namespace CollaborationEngine.Panels
             _task = TasksModel.Get(TaskID);
             InstructionsController.TaskModel = _task;
             InstructionsController.NetworkManager = NetworkManager;
+            InstructionsController.CameraManager = CameraManager;
 
             // TODO Load steps and hints:
 

@@ -1,8 +1,11 @@
-﻿namespace CollaborationEngine.Cameras
+﻿using JetBrains.Annotations;
+
+namespace CollaborationEngine.Cameras
 {
     public interface ICamera
     {
-        UnityEngine.Camera UnityCamera { get; set; }
+        CameraViewType CameraType { get; }
+        UnityEngine.Camera UnityCamera { get; }
         bool Selected { get; set; }
     }
 }

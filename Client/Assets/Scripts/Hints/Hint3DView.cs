@@ -7,15 +7,25 @@ namespace CollaborationEngine.Hints
     {
         public Vector3 Position
         {
+            get { return transform.position; }
+            set { transform.position = value; }
+        }
+        public Quaternion Rotation
+        {
+            get { return transform.rotation; }
+            set { transform.rotation = value; }
+        }
+        public Vector3 LocalPosition
+        {
             get { return transform.localPosition; }
             set { transform.localPosition = value; }
         }
-        public Quaternion Rotation
+        public Quaternion LocalRotation
         {
             get { return transform.localRotation; }
             set { transform.localRotation = value; }
         }
-        public Vector3 Scale
+        public Vector3 LocalScale
         {
             get { return transform.localScale; }
             set { transform.localScale = value; }

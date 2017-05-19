@@ -71,6 +71,7 @@ namespace CollaborationEngine.Core
             var controller = Instantiate(EditorControllerPrefab, Application.View.MainCanvas.transform);
             controller.TaskID = taskID;
             controller.NetworkManager = MentorNetworkManager;
+            controller.CameraManager = CameraManager;
 
             controller.OnGoBack += Controller_OnGoBack;
         }

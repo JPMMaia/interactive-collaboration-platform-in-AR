@@ -26,6 +26,28 @@ namespace CollaborationEngine.Hints
                     _hint3DView.Showing = value;
             }
         }
+        public Vector3 Position
+        {
+            get { return HintModel.Position; }
+            set
+            {
+                HintModel.Position = value;
+
+                if (_hint3DView)
+                    _hint3DView.Position = value;
+            }
+        }
+        public Quaternion Rotation
+        {
+            get { return HintModel.Rotation; }
+            set
+            {
+                HintModel.Rotation = value;
+
+                if (_hint3DView)
+                    _hint3DView.Rotation = value;
+            }
+        }
 
         private HintPanelItemView _hintPanelItemView;
         private Hint3DView _hint3DView;
@@ -72,9 +94,9 @@ namespace CollaborationEngine.Hints
                 _hint3DView = hint3DView;
             }
 
-            _hint3DView.Position = HintModel.Position;
-            _hint3DView.Rotation = HintModel.Rotation;
-            _hint3DView.Scale = HintModel.Scale;
+            _hint3DView.LocalPosition = HintModel.LocalPosition;
+            _hint3DView.LocalRotation = HintModel.LocalRotation;
+            _hint3DView.LocalScale = HintModel.LocalScale;
             _hint3DView.Showing = Showing;
 
             if(_edit)
@@ -143,9 +165,9 @@ namespace CollaborationEngine.Hints
         private void TransformGizmo_OnTargetTransformChanged(object sender, TransformGizmoManager.TransformEventArgs e)
         {
             // Update model:
-            HintModel.Position = e.Transform.localPosition;
-            HintModel.Rotation = e.Transform.localRotation;
-            HintModel.Scale = e.Transform.localScale;
+            HintModel.LocalPosition = e.Transform.localPosition;
+            HintModel.LocalRotation = e.Transform.localRotation;
+            HintModel.LocalScale = e.Transform.localScale;
 
             // Send network message:
             var networkManager = MentorNetworkManager.Instance;

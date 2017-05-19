@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using CollaborationEngine.Cameras;
-using CollaborationEngine.Objects;
 using CollaborationEngine.RuntimeGizmo.Helpers;
 using CollaborationEngine.RuntimeGizmo.Objects;
 using UnityEngine;
