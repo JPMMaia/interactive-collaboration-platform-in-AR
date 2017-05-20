@@ -20,6 +20,7 @@ namespace CollaborationEngine.Tasks
 
         #region Unity Editor
         public StepModel StepModelPrefab;
+        public int ImageTargetIndex;
         #endregion
 
         #region Properties

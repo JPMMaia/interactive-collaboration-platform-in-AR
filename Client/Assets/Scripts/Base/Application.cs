@@ -12,11 +12,19 @@ namespace CollaborationEngine.Base
 
         public bool IsMentor
         {
-            get { return Controller.GetComponentInChildren<MentorController>().gameObject.activeInHierarchy; }
+            get
+            {
+                var component = Controller.GetComponentInChildren<MentorController>();
+                return component && component.gameObject.activeInHierarchy;
+            }
         }
         public bool IsApprentice
         {
-            get { return Controller.GetComponentInChildren<ApprenticeController>().gameObject.activeInHierarchy; }
+            get
+            {
+                var component = Controller.GetComponentInChildren<ApprenticeController>();
+                return component && component.gameObject.activeInHierarchy;
+            }
         }
     }
 }

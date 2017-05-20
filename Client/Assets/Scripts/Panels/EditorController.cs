@@ -44,16 +44,15 @@ namespace CollaborationEngine.Panels
             InstructionsController.NetworkManager = NetworkManager;
             InstructionsController.CameraManager = CameraManager;
 
-            // TODO Load steps and hints:
+            // Activate image target:
+            Application.View.ImageTargets.ActivateImageTarget(_task.ImageTargetIndex);
 
             // If the task hasn't got any steps, add a default one:
-            if(_task.StepCount == 0)
+            if (_task.StepCount == 0)
                 _task.CreateStep();
         }
         public void OnDestroy()
         {
-            // TODO Save and then destroy steps and hints:
-
             if (EditorView)
                 Destroy(EditorView.gameObject);
         }
