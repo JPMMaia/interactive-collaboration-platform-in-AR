@@ -1,10 +1,33 @@
-﻿using CollaborationEngine.Steps;
+﻿using CollaborationEngine.Base;
+using CollaborationEngine.Steps;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
 {
     public class ServerController : NetworkBehaviour
     {
+        private Application Application
+        {
+            get { return FindObjectOfType<Application>(); }
+        }
+        private StepModel CurrentStepModel
+        {
+            get
+            {
+                return _currentStepModel;
+            }
+            set
+            {
+                if(_currentStepModel)
+                    Destroy(_currentStepModel.gameObject);
+
+                _currentStepModel = value;
+
+                if(_currentStepModel)
+                    _currentStepModel.transform.SetParent(transform, false);
+            }
+        }
+
         private StepModel _currentStepModel;
 
         public void Awake()
@@ -18,12 +41,14 @@ namespace CollaborationEngine.Network
 
         private void OnInitialize(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.Initialize, new StepModelNetworkMessage(_currentStepModel));
+            var currentStepParentTask = Application.Model.Tasks.Get(CurrentStepModel.TaskID);
+            var message = new StepModelNetworkMessage(currentStepParentTask.ImageTargetIndex, CurrentStepModel);
+            NetworkServer.SendToAll(NetworkHandles.Initialize, message);
         }
         private void OnPresentStep(NetworkMessage networkMessage)
         {
             var message = networkMessage.ReadMessage<StepModelNetworkMessage>();
-            _currentStepModel = message.Data;
+            CurrentStepModel = message.Data;
 
             NetworkServer.SendToAll(NetworkHandles.PresentStep, message);
         }

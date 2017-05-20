@@ -7,8 +7,8 @@ namespace CollaborationEngine.AugmentedReality
     {
         public void Awake()
         {
-            if(Application.IsApprentice)
-                GetComponent<Renderer>().enabled = false;
+            if (Application.IsApprentice)
+                GetComponent<Renderer>().gameObject.SetActive(false);
         }
     }
 }

@@ -19,7 +19,17 @@ namespace CollaborationEngine.Steps
         #endregion
 
         #region Properties
-        public UInt32 ID { get; set; }
+
+        public UInt32 ID
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+
+                gameObject.name = String.Format("Step Model {0}", value);
+            }
+        }
         public UInt32 TaskID { get; set; }
         public String Name
         {
@@ -34,6 +44,7 @@ namespace CollaborationEngine.Steps
 
         #region Members
         private static uint _count;
+        private uint _id;
         private readonly Dictionary<uint, HintModel> _hints = new Dictionary<uint, HintModel>();
         private string _name = String.Empty;
         #endregion
@@ -128,9 +139,9 @@ namespace CollaborationEngine.Steps
 
                 HintModel hint;
                 if (hintType == HintType.Text)
-                    hint = Instantiate(Application.Prefabs.TextHintModelPrefab);
+                    hint = Instantiate(Application.Prefabs.TextHintModelPrefab, transform);
                 else
-                    hint = Instantiate(Application.Prefabs.ImageHintModelPrefab);
+                    hint = Instantiate(Application.Prefabs.ImageHintModelPrefab, transform);
 
                 hint.Deserialize(reader);
 

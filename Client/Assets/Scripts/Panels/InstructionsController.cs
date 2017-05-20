@@ -141,7 +141,7 @@ namespace CollaborationEngine.Panels
         private void SendPresentStepNetworkMessage()
         {
             var stepController = _stepControllers[_showingStepID];
-            NetworkManager.client.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(stepController.StepModel));
+            NetworkManager.client.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(TaskModel.ImageTargetIndex, stepController.StepModel));
         }
 
         #region Event Handlers
@@ -150,7 +150,7 @@ namespace CollaborationEngine.Panels
             if (NetworkManager.IsAppreticeConnected)
             {
                 var stepController = _stepControllers[_showingStepID];
-                NetworkManager.client.Send(NetworkHandles.Initialize, new StepModelNetworkMessage(stepController.StepModel));
+                NetworkManager.client.Send(NetworkHandles.Initialize, new StepModelNetworkMessage(TaskModel.ImageTargetIndex, stepController.StepModel));
             }
         }
         private void TaskModel_OnStepCreated(TaskModel sender, StepEventArgs eventArgs)

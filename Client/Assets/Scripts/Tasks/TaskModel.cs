@@ -122,6 +122,7 @@ namespace CollaborationEngine.Tasks
         {
             writer.Write(_id);
             writer.Write(_name);
+            writer.Write(ImageTargetIndex);
 
             writer.Write(_steps.Count);
             foreach (var step in _steps)
@@ -133,11 +134,12 @@ namespace CollaborationEngine.Tasks
         {
             _id = reader.ReadUInt32();
             _name = reader.ReadString();
+            ImageTargetIndex = reader.ReadInt32();
 
             var stepCount = reader.ReadInt32();
             for (var i = 0; i < stepCount; ++i)
             {
-                var step = Instantiate(StepModelPrefab);
+                var step = Instantiate(StepModelPrefab, transform);
                 step.Deserialize(reader);
 
                 _steps.Add(step.ID, step);

@@ -76,7 +76,9 @@ namespace CollaborationEngine.Panels
 
         private void OnPresentStep(NetworkMessage networkMessage)
         {
-            StepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
+            var message = networkMessage.ReadMessage<StepModelNetworkMessage>();
+            Application.View.ImageTargets.ActivateImageTarget(message.ImageTargetIndex);
+            StepModel = message.Data;
 
             UpdateStep();
         }

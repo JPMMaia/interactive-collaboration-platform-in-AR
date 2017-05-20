@@ -38,7 +38,10 @@ namespace CollaborationEngine.Core
         private void PresentARScreen(NetworkMessage networkMessage)
         {
             var controller = Instantiate(ARApprenticeControllerPrefab, transform);
-            controller.StepModel = networkMessage.ReadMessage<StepModelNetworkMessage>().Data;
+
+            var message = networkMessage.ReadMessage<StepModelNetworkMessage>();
+            Application.View.ImageTargets.ActivateImageTarget(message.ImageTargetIndex);
+            controller.StepModel = message.Data;
 
             _curentController = controller;
         }
