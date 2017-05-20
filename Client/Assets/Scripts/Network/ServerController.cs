@@ -1,50 +1,68 @@
-﻿using CollaborationEngine.Feedback;
-using CollaborationEngine.Objects;
-using CollaborationEngine.Tasks;
+﻿using CollaborationEngine.Base;
+using CollaborationEngine.Steps;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
 {
     public class ServerController : NetworkBehaviour
     {
+        private Application Application
+        {
+            get { return FindObjectOfType<Application>(); }
+        }
+        private StepModel CurrentStepModel
+        {
+            get
+            {
+                return _currentStepModel;
+            }
+            set
+            {
+                if(_currentStepModel)
+                    Destroy(_currentStepModel.gameObject);
+
+                _currentStepModel = value;
+
+                if(_currentStepModel)
+                    _currentStepModel.transform.SetParent(transform, false);
+            }
+        }
+
+        private StepModel _currentStepModel;
+
         public void Awake()
         {
+            NetworkServer.RegisterHandler(NetworkHandles.Initialize, OnInitialize);
             NetworkServer.RegisterHandler(NetworkHandles.PresentStep, OnPresentStep);
-            NetworkServer.RegisterHandler(NetworkHandles.StopPresentStep, OnStopPresentStep);
-            NetworkServer.RegisterHandler(NetworkHandles.AddInstruction, OnAddInstruction);
-            NetworkServer.RegisterHandler(NetworkHandles.RemoveInstruction, OnRemoveInstruction);
-            NetworkServer.RegisterHandler(NetworkHandles.UpdateInstruction, OnUpdateInstruction);
-            NetworkServer.RegisterHandler(NetworkHandles.HelpWanted, OnHelpWanted);
+            NetworkServer.RegisterHandler(NetworkHandles.UpdateHintTransform, OnUpdateInstruction);
+            NetworkServer.RegisterHandler(NetworkHandles.NeedMoreInstructions, OnNeedMoreInstructions);
             NetworkServer.RegisterHandler(NetworkHandles.StepCompleted, OnStepCompleted);
         }
 
+        private void OnInitialize(NetworkMessage networkMessage)
+        {
+            var currentStepParentTask = Application.Model.Tasks.Get(CurrentStepModel.TaskID);
+            var message = new StepModelNetworkMessage(currentStepParentTask.ImageTargetIndex, CurrentStepModel);
+            NetworkServer.SendToAll(NetworkHandles.Initialize, message);
+        }
         private void OnPresentStep(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.PresentStep, networkMessage.ReadMessage<GenericNetworkMessage<Step>>());
-        }
-        private void OnStopPresentStep(NetworkMessage networkMessage)
-        {
-            NetworkServer.SendToAll(NetworkHandles.StopPresentStep, networkMessage.ReadMessage<IDMessage>());
-        }
-        private void OnAddInstruction(NetworkMessage networkMessage)
-        {
-            NetworkServer.SendToAll(NetworkHandles.AddInstruction, networkMessage.ReadMessage<SceneObject.DataMessage>());
-        }
-        private void OnRemoveInstruction(NetworkMessage networkMessage)
-        {
-            NetworkServer.SendToAll(NetworkHandles.RemoveInstruction, networkMessage.ReadMessage<SceneObject.IDMessage>());
+            var message = networkMessage.ReadMessage<StepModelNetworkMessage>();
+            CurrentStepModel = message.Data;
+
+            NetworkServer.SendToAll(NetworkHandles.PresentStep, message);
         }
         private void OnUpdateInstruction(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.UpdateInstruction, networkMessage.ReadMessage<SceneObject.DataMessage>());
+            NetworkServer.SendToAll(NetworkHandles.UpdateHintTransform, networkMessage.ReadMessage<TransformNetworkMessage>());
         }
-        private void OnHelpWanted(NetworkMessage networkMessage)
+        private void OnNeedMoreInstructions(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.HelpWanted, networkMessage.ReadMessage<ApprenticeFeedbackModule.StringMessage>());
+            NetworkServer.SendToAll(NetworkHandles.NeedMoreInstructions, networkMessage.ReadMessage<IDMessage>());
         }
         private void OnStepCompleted(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.StepCompleted, networkMessage.ReadMessage<ApprenticeFeedbackModule.StringMessage>());
+            NetworkServer.SendToAll(NetworkHandles.StepCompleted, networkMessage.ReadMessage<IDMessage>());
         }
     }
 }

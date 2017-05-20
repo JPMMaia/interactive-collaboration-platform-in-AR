@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
@@ -17,14 +18,18 @@ namespace CollaborationEngine.Network
 
         public override void Serialize(NetworkWriter writer)
         {
-            Data.Serialize(writer);
+            var data = new MemoryStream();
+            Data.Serialize(new BinaryWriter(data));
+
+            writer.Write(data.ToArray(), (int) data.Position);
         }
         public override void Deserialize(NetworkReader reader)
         {
             var type = typeof(TData);
             Data = (TData)Activator.CreateInstance(type);
 
-            Data.Deserialize(reader);
+            var data = new MemoryStream(reader.ReadBytes(reader.Length));
+            Data.Deserialize(new BinaryReader(data));
         }
     }
 }

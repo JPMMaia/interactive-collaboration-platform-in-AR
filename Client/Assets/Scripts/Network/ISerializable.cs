@@ -1,10 +1,10 @@
-﻿using UnityEngine.Networking;
+﻿using System.IO;
 
 namespace CollaborationEngine.Network
 {
     public interface ISerializable
     {
-        void Serialize(NetworkWriter writer);
-        void Deserialize(NetworkReader reader);
+        void Serialize(BinaryWriter writer);
+        void Deserialize(BinaryReader reader);
     }
 }

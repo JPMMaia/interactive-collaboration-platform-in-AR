@@ -4,7 +4,15 @@ namespace CollaborationEngine.Network
 {
     public class IDMessage : MessageBase
     {
-        public uint ID { get; set; }
+        public uint ID { get; private set; }
+
+        public IDMessage()
+        {
+        }
+        public IDMessage(uint id)
+        {
+            ID = id;
+        }
 
         public override void Serialize(NetworkWriter writer)
         {
