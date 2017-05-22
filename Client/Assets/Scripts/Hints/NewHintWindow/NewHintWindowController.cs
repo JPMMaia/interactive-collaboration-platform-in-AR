@@ -9,13 +9,13 @@ namespace CollaborationEngine.Hints.NewHintWindow
         {
             public String Name { get; private set; }
             public HintType HintType { get; private set; }
-            public ImageHintType ImageHintType { get; private set; }
+            public uint HintTypeID { get; private set; }
 
-            public WindowDataEventArgs(String name, HintType hintType, ImageHintType imageHintType)
+            public WindowDataEventArgs(String name, HintType hintType, uint hintTypeID)
             {
                 Name = name;
                 HintType = hintType;
-                ImageHintType = imageHintType;
+                HintTypeID = hintTypeID;
             }
         }
 
@@ -33,10 +33,10 @@ namespace CollaborationEngine.Hints.NewHintWindow
             get { return View.HintType; }
             set { View.HintType = value; }
         }
-        public ImageHintType SelectedImageHintType
+        public uint SelectedHintTypeID
         {
-            get { return View.SelectedImageHintType; }
-            set { View.SelectedImageHintType = value; }
+            get { return View.SelectedHintTypeID; }
+            set { View.SelectedHintTypeID = value; }
         }
 
         public void OnOKClick()
@@ -49,7 +49,7 @@ namespace CollaborationEngine.Hints.NewHintWindow
             }
 
             if(OnEndCreate != null)
-                OnEndCreate(this, new WindowDataEventArgs(View.Name, View.HintType, View.SelectedImageHintType));
+                OnEndCreate(this, new WindowDataEventArgs(View.Name, View.HintType, View.SelectedHintTypeID));
 
             Destroy(gameObject);
         }

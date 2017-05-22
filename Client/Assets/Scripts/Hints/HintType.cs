@@ -3,6 +3,7 @@
     public enum HintType : byte
     {
         Text,
-        Image
+        Image,
+        Geometry
     }
 }

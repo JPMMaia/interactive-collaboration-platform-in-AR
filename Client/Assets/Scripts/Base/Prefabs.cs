@@ -8,5 +8,6 @@ namespace CollaborationEngine.Base
         public StepModel StepModelPrefab;
         public TextHintModel TextHintModelPrefab;
         public ImageHintModel ImageHintModelPrefab;
+        public GeometryHintModel GeometryHintModelPrefab;
     }
 }

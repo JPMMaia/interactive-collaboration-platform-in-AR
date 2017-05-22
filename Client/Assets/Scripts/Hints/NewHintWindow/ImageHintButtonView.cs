@@ -10,11 +10,11 @@ namespace CollaborationEngine.Hints.NewHintWindow
         #region Events
         public class ButtonEventArgs : EventArgs
         {
-            public ImageHintType ImageHintType { get; private set; }
+            public uint HintTypeID { get; private set; }
 
-            public ButtonEventArgs(ImageHintType imageHintType)
+            public ButtonEventArgs(uint hintTypeID)
             {
-                ImageHintType = imageHintType;
+                HintTypeID = hintTypeID;
             }
         }
 
@@ -27,14 +27,19 @@ namespace CollaborationEngine.Hints.NewHintWindow
         public Button Button;
         public RawImage Icon;
 
-        public ImageHintType ImageHintType
+        public uint HintTypeID
         {
-            get { return _imageHintType; }
+            get { return _hintTypeID; }
             set
             {
-                _imageHintType = value;
-                Icon.texture = Application.View.ImageHintTextures.GetTexture(value);
+                _hintTypeID = value;
+                
             }
+        }
+        public Texture Texture
+        {
+            get { return Icon.mainTexture; }
+            set { Icon.texture = value; }
         }
         public bool Selected
         {
@@ -47,13 +52,13 @@ namespace CollaborationEngine.Hints.NewHintWindow
             }
         }
 
-        private ImageHintType _imageHintType;
+        private uint _hintTypeID;
         private bool _selected;
 
         public void OnClick()
         {
             if(OnClicked != null)
-                OnClicked(this, new ButtonEventArgs(_imageHintType));
+                OnClicked(this, new ButtonEventArgs(_hintTypeID));
         }
     }
 }

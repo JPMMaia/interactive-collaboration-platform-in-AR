@@ -140,8 +140,12 @@ namespace CollaborationEngine.Steps
                 HintModel hint;
                 if (hintType == HintType.Text)
                     hint = Instantiate(Application.Prefabs.TextHintModelPrefab, transform);
-                else
+                else if(hintType == HintType.Image)
                     hint = Instantiate(Application.Prefabs.ImageHintModelPrefab, transform);
+                else if (hintType == HintType.Geometry)
+                    hint = Instantiate(Application.Prefabs.GeometryHintModelPrefab, transform);
+                else
+                    throw new NotSupportedException();
 
                 hint.Deserialize(reader);
 

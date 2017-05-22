@@ -9,8 +9,9 @@ namespace CollaborationEngine.Hints.NewHintWindow
     {
         #region Unity Editor
         public InputField NameInputField;
-        public Toggle NameTypeToggle;
+        public Toggle TextTypeToggle;
         public Toggle ImageTypeToggle;
+        public Toggle GeometryTypeToggle;
         public RectTransform FormTransform;
         public GameObject ImagesContainerPrefab;
         public ImageHintButtonView ImageButtonPrefab;
@@ -26,11 +27,29 @@ namespace CollaborationEngine.Hints.NewHintWindow
         {
             get
             {
-                return NameTypeToggle.isOn ? HintType.Text : HintType.Image;
+                if (TextTypeToggle.isOn)
+                    return HintType.Text;
+
+                if (ImageTypeToggle.isOn)
+                    return HintType.Image;
+
+                if (GeometryTypeToggle.isOn)
+                    return HintType.Geometry;
+
+                throw new NotSupportedException();
             }
             set
             {
-                NameTypeToggle.isOn = value == HintType.Text;
+                if (value == HintType.Text)
+                    TextTypeToggle.isOn = true;
+
+                if (value == HintType.Image)
+                    ImageTypeToggle.isOn = true;
+
+                if (value == HintType.Geometry)
+                    GeometryTypeToggle.isOn = true;
+
+                throw new NotSupportedException();
             }
         }
         private ImageHintButtonView SelectedImageHintButton
@@ -42,25 +61,26 @@ namespace CollaborationEngine.Hints.NewHintWindow
 
                 _selectedImageHintButton = value;
 
-                if(_selectedImageHintButton != null)
+                if (_selectedImageHintButton != null)
                     _selectedImageHintButton.Selected = true;
             }
         }
-        public ImageHintType SelectedImageHintType
+        public uint SelectedHintTypeID
         {
             get
             {
-                return _selectedImageHintButton == null ? ImageHintType.Null : _selectedImageHintButton.ImageHintType;
+                return _selectedImageHintButton == null ? uint.MaxValue : _selectedImageHintButton.HintTypeID;
             }
             set
             {
-                if (value == ImageHintType.Null)
+                if (value == uint.MaxValue)
                 {
                     _selectedImageHintButton = null;
                     return;
                 }
 
-                _selectedImageHintButton.ImageHintType = value;
+                if (_selectedImageHintButton)
+                    _selectedImageHintButton.HintTypeID = value;
             }
         }
         #endregion
@@ -77,24 +97,19 @@ namespace CollaborationEngine.Hints.NewHintWindow
             _originalHeight = GetComponent<RectTransform>().rect.height;
         }
 
-        public void OnImageTypeChanged()
+        public void OnTogglesChanged()
         {
-            if (ImageTypeToggle.isOn)
+            if (HintType == HintType.Image || HintType == HintType.Geometry)
             {
-                // Ignore, if images container is already spawned:
+                // Destroy, if images container is already spawned:
                 if (_imagesContainer != null)
-                    return;
+                    DestroyImagesContainer();
 
                 // Instantiate images container:
                 _imagesContainer = Instantiate(ImagesContainerPrefab, FormTransform);
 
                 // Populate images container:
-                for (var imageType = 0; imageType < (int)ImageHintType.Count; ++imageType)
-                {
-                    var imageButton = Instantiate(ImageButtonPrefab, _imagesContainer.transform);
-                    imageButton.ImageHintType = (ImageHintType)imageType;
-                    imageButton.OnClicked += ImageButton_OnClicked;
-                }
+                InstantiateImageButtons(_imagesContainer);
 
                 // Select first by default:
                 SelectedImageHintButton = _imagesContainer.transform.GetChild(0).gameObject.GetComponent<ImageHintButtonView>();
@@ -103,21 +118,52 @@ namespace CollaborationEngine.Hints.NewHintWindow
             }
             else
             {
-                // Ignore, if images container doesn't exist:
-                if (_imagesContainer == null)
-                    return;
-
-                // Destroy images container:
-                Destroy(_imagesContainer.gameObject);
-                _imagesContainer = null;
-
-                // Set selected image hint to null:
-                _selectedImageHintButton = null;
-
-                CollapsePanel();
+                DestroyImagesContainer();
             }
         }
+        private void DestroyImagesContainer()
+        {
+            // Ignore, if images container doesn't exist:
+            if (_imagesContainer == null)
+                return;
 
+            // Destroy images container:
+            Destroy(_imagesContainer.gameObject);
+            _imagesContainer = null;
+
+            // Set selected image hint to null:
+            _selectedImageHintButton = null;
+
+            CollapsePanel();
+        }
+
+        private void InstantiateImageButtons(GameObject parent)
+        {
+            if (HintType == HintType.Image)
+            {
+                for (var imageType = 0; imageType < (int)ImageHintType.Count; ++imageType)
+                {
+                    var imageButton = Instantiate(ImageButtonPrefab, parent.transform);
+                    imageButton.HintTypeID = (uint)imageType;
+                    imageButton.Texture = Application.View.ImageHintTextures.GetTexture((ImageHintType) imageType);
+                    imageButton.OnClicked += ImageButton_OnClicked;
+                }
+            }
+            else if (HintType == HintType.Geometry)
+            {
+                foreach (var geometry in Application.View.GeometryModels.HintGeometries)
+                {
+                    var imageButton = Instantiate(ImageButtonPrefab, parent.transform);
+                    imageButton.HintTypeID = geometry.ID;
+                    imageButton.Texture = geometry.Icon;
+                    imageButton.OnClicked += ImageButton_OnClicked;
+                }
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
         private void ExpandPanel()
         {
             var rectTransform = GetComponent<RectTransform>();

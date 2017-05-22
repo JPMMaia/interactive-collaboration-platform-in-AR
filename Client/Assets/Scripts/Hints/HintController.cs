@@ -14,6 +14,7 @@ namespace CollaborationEngine.Hints
         public HintPanelItemView HintPanelItemViewPrefab;
         public TextHint3DView TextHint3DViewPrefab;
         public ImageHint3DView ImageHint3DViewPrefab;
+        public GeometryHint3DView GeometryHint3DViewPrefab;
         public TransformPanelController TransformPanelControllerPrefab;
 
         public HintModel HintModel { get; set; }
@@ -75,6 +76,14 @@ namespace CollaborationEngine.Hints
                 _hintPanelItemView.Icon = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
                 _hintPanelItemView.OnIconClicked += _hintPanelItemView_OnIconClicked;
             }
+            else if (HintModel.Type == HintType.Geometry)
+            {
+                _hintPanelItemView.Icon = Application.View.Icons.GeometryIcon;
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
 
             // Subscribe to events:
             _hintPanelItemView.OnNameChanged += _hintPanelItemView_OnNameChanged;
@@ -95,6 +104,17 @@ namespace CollaborationEngine.Hints
                 var imageHintModel = (ImageHintModel) HintModel;
                 hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
                 _hint3DView = hint3DView;
+            }
+            else if (HintModel.Type == HintType.Geometry)
+            {
+                var hint3DView = Instantiate(GeometryHint3DViewPrefab, Application.View.SceneRoot.transform);
+                var geometryHintModel = (GeometryHintModel) HintModel;
+                hint3DView.Geometry = Application.View.GeometryModels.GetGeometry(geometryHintModel.ModelID);
+                _hint3DView = hint3DView;
+            }
+            else
+            {
+                throw new NotSupportedException();
             }
 
             _hint3DView.LocalPosition = HintModel.LocalPosition;
@@ -168,7 +188,7 @@ namespace CollaborationEngine.Hints
         private void _hintPanelItemView_OnIconClicked(object sender, EventArgs e)
         {
             var editWindow = Instantiate(EditHintWindowControllerPrefab, Application.View.MainCanvas.transform);
-            editWindow.SelectedImageHintType = ((ImageHintModel) HintModel).ImageHintType;
+            editWindow.SelectedImageHintType = (uint) ((ImageHintModel) HintModel).ImageHintType;
 
             editWindow.OnEndCreate += EditWindow_OnEndCreate;
         }
@@ -191,7 +211,7 @@ namespace CollaborationEngine.Hints
         private void EditWindow_OnEndCreate(object sender, EditImageHintWindowController.WindowDataEventArgs e)
         {
             var imageHintModel = (ImageHintModel) HintModel;
-            imageHintModel.ImageHintType = e.ImageHintType;
+            imageHintModel.ImageHintType = (ImageHintType) e.ImageHintType;
 
             var texture = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
             _hintPanelItemView.Icon = texture;

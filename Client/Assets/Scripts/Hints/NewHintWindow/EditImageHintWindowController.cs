@@ -7,9 +7,9 @@ namespace CollaborationEngine.Hints.NewHintWindow
     {
         public class WindowDataEventArgs : EventArgs
         {
-            public ImageHintType ImageHintType { get; private set; }
+            public uint ImageHintType { get; private set; }
 
-        public WindowDataEventArgs(ImageHintType imageHintType)
+        public WindowDataEventArgs(uint imageHintType)
         {
             ImageHintType = imageHintType;
         }
@@ -19,7 +19,7 @@ namespace CollaborationEngine.Hints.NewHintWindow
 
     public EditImageHintWindowView View;
 
-    public ImageHintType SelectedImageHintType
+    public uint SelectedImageHintType
     {
         get { return View.SelectedImageHintType; }
         set

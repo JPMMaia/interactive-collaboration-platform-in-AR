@@ -13,6 +13,7 @@ namespace CollaborationEngine.Base
         public Icons Icons;
         public ShaderLocator Shaders;
         public ImageTargetCollection ImageTargets;
+        public Hint3DGeometryModels GeometryModels;
 
         public GameObject SceneRoot
         {

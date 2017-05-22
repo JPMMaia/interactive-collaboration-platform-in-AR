@@ -1,4 +1,5 @@
-﻿using CollaborationEngine.Base;
+﻿using System;
+using CollaborationEngine.Base;
 
 namespace CollaborationEngine.Hints
 {
@@ -33,6 +34,10 @@ namespace CollaborationEngine.Hints
                 var imageHintModel = (ImageHintModel)HintModel;
                 hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
                 _hint3DView = hint3DView;
+            }
+            else
+            {
+                throw new NotSupportedException();
             }
 
             _hint3DView.LocalPosition = HintModel.LocalPosition;

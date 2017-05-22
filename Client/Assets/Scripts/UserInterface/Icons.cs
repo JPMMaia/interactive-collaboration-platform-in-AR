@@ -6,5 +6,6 @@ namespace CollaborationEngine.UserInterface
     public class Icons : Entity
     {
         public Texture TextIcon;
+        public Texture GeometryIcon;
     }
 }

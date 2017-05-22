@@ -21,6 +21,7 @@ namespace CollaborationEngine.Steps
         public NewHintWindowController NewHintWindowControllerPrefab;
         public TextHintModel TextHintModelPrefab;
         public ImageHintModel ImageHintModelPrefab;
+        public GeometryHintModel GeometryHintModelPrefab;
         public HintController HintControllerPrefab;
 
         public StepModel StepModel { get; set; }
@@ -113,11 +114,21 @@ namespace CollaborationEngine.Steps
             {
                 hintModel = StepModel.CreateHint(TextHintModelPrefab);
             }
-            else
+            else if (eventArgs.HintType == HintType.Image)
             {
                 var imageHintModel = StepModel.CreateHint(ImageHintModelPrefab);
-                imageHintModel.ImageHintType = eventArgs.ImageHintType;
+                imageHintModel.ImageHintType = (ImageHintType) eventArgs.HintTypeID;
                 hintModel = imageHintModel;
+            }
+            else if(eventArgs.HintType == HintType.Geometry)
+            {
+                var geometryHintModel = StepModel.CreateHint(GeometryHintModelPrefab);
+                geometryHintModel.ModelID = eventArgs.HintTypeID;
+                hintModel = geometryHintModel;
+            }
+            else
+            {
+                throw new NotSupportedException();
             }
 
             hintModel.Name = eventArgs.Name;

@@ -26,24 +26,24 @@ namespace CollaborationEngine.Hints.NewHintWindow
                     _selectedImageHintButton.Selected = true;
             }
         }
-        public ImageHintType SelectedImageHintType
+        public uint SelectedImageHintType
         {
             get
             {
-                return _selectedImageHintButton == null ? ImageHintType.Null : _selectedImageHintButton.ImageHintType;
+                return _selectedImageHintButton == null ? uint.MaxValue : _selectedImageHintButton.HintTypeID;
             }
             set
             {
                 _selectedImageHintType = value;
 
-                if (value == ImageHintType.Null)
+                if (value == uint.MaxValue)
                 {
                     _selectedImageHintButton = null;
                     return;
                 }
 
                 if(_selectedImageHintButton)
-                    _selectedImageHintButton.ImageHintType = value;
+                    _selectedImageHintButton.HintTypeID = value;
             }
         }
         #endregion
@@ -51,7 +51,7 @@ namespace CollaborationEngine.Hints.NewHintWindow
         #region Members
         private GameObject _imagesContainer;
         private ImageHintButtonView _selectedImageHintButton;
-        private ImageHintType _selectedImageHintType;
+        private uint _selectedImageHintType;
         private float _originalHeight;
         #endregion
 
@@ -75,7 +75,8 @@ namespace CollaborationEngine.Hints.NewHintWindow
             for (var imageType = 0; imageType < (int)ImageHintType.Count; ++imageType)
             {
                 var imageButton = Instantiate(ImageButtonPrefab, _imagesContainer.transform);
-                imageButton.ImageHintType = (ImageHintType)imageType;
+                imageButton.HintTypeID = (uint) imageType;
+                imageButton.Texture = Application.View.ImageHintTextures.GetTexture((ImageHintType) imageType);
                 imageButton.OnClicked += ImageButton_OnClicked;
 
                 if (imageType == (int) _selectedImageHintType)
