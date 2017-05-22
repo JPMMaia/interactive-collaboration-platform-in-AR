@@ -138,7 +138,9 @@ namespace CollaborationEngine.Steps
                 var selectedCamera = CameraManager.SelectedCamera;
                 var worldPosition = CameraUtilities.InFrontOfCameraPosition(selectedCamera);
                 hintModel.LocalPosition = Application.View.SceneRoot.transform.InverseTransformPoint(worldPosition);
-                hintModel.LocalRotation = CameraUtilities.ParallelToCameraRotation(selectedCamera);
+
+                if(hintModel.Type != HintType.Geometry)
+                    hintModel.LocalRotation = CameraUtilities.ParallelToCameraRotation(selectedCamera);
             }
 
             // Get hint controller:

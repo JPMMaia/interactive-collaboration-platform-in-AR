@@ -7,6 +7,7 @@ namespace CollaborationEngine.Hints
     {
         public TextHint3DView TextHint3DViewPrefab;
         public ImageHint3DView ImageHint3DViewPrefab;
+        public GeometryHint3DView GeometryHint3DViewPrefab;
 
         public HintModel HintModel { get; set; }
         public Hint3DView Hint3DView
@@ -33,6 +34,13 @@ namespace CollaborationEngine.Hints
                 var hint3DView = Instantiate(ImageHint3DViewPrefab, Application.View.SceneRoot.transform);
                 var imageHintModel = (ImageHintModel)HintModel;
                 hint3DView.Image = Application.View.ImageHintTextures.GetTexture(imageHintModel.ImageHintType);
+                _hint3DView = hint3DView;
+            }
+            else if (HintModel.Type == HintType.Geometry)
+            {
+                var hint3DView = Instantiate(GeometryHint3DViewPrefab, Application.View.SceneRoot.transform);
+                var geometryHintModel = (GeometryHintModel) HintModel;
+                hint3DView.Geometry = Application.View.GeometryModels.GetGeometry(geometryHintModel.ModelID);
                 _hint3DView = hint3DView;
             }
             else

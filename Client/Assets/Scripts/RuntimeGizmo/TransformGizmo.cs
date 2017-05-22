@@ -143,7 +143,7 @@ namespace CollaborationEngine.RuntimeGizmo
 
         void SetSpaceAndType()
         {
-            if (Input.GetKeyDown(SetMoveType)) type = TransformType.Move;
+            /*if (Input.GetKeyDown(SetMoveType)) type = TransformType.Move;
             else if (Input.GetKeyDown(SetRotateType)) type = TransformType.Rotate;
             else if (Input.GetKeyDown(SetScaleType)) type = TransformType.Scale;
 
@@ -153,7 +153,7 @@ namespace CollaborationEngine.RuntimeGizmo
                 else if (space == TransformSpace.Local) space = TransformSpace.Global;
             }
 
-            if (type == TransformType.Scale) space = TransformSpace.Local; //Only support local scale
+            if (type == TransformType.Scale) space = TransformSpace.Local; //Only support local scale*/
         }
 
         void TransformSelected()

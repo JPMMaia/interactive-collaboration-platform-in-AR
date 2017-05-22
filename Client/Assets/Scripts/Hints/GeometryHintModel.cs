@@ -27,11 +27,13 @@ namespace CollaborationEngine.Hints
 
         public override HintModel DeepCopy(Transform parent, uint taskID, uint stepID)
         {
-            var hintModel = (GeometryHintModel) base.DeepCopy(parent, taskID, stepID);
+            var hint = Instantiate(this, parent);
 
-            hintModel.ModelID = ModelID;
+            DeepCopy(hint, taskID, stepID);
 
-            return hintModel;
+            hint.ModelID = ModelID;
+
+            return hint;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace CollaborationEngine.Cameras
         #region Unity Editor
         public CameraItemView[] CameraItemViews;
 
+        public bool EnableKeyboardInput = true;
         public KeyCode FreeCameraViewKey = KeyCode.Escape;
         public KeyCode RightViewKey = KeyCode.RightArrow;
         public KeyCode TopViewKey = KeyCode.UpArrow;
@@ -56,6 +57,9 @@ namespace CollaborationEngine.Cameras
 
         public void Update()
         {
+            if (!EnableKeyboardInput)
+                return;
+
             if (Input.GetKeyDown(FreeCameraViewKey))
             {
                 SelectedCamera = CameraViewType.Free;
