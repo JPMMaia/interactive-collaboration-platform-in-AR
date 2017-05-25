@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CollaborationEngine.Base;
 using CollaborationEngine.Cameras;
@@ -44,6 +45,17 @@ namespace CollaborationEngine.Panels
                     // Change apprentice box message:
                     ShowingStepMessageText.text = String.Format("Showing Step {0}.", _stepControllers[value].StepOrder);
 
+                    {
+                        // Log to file:
+                        using (var stream = new FileStream(_sessionFilename, FileMode.Append, FileAccess.Write, FileShare.None))
+                        {
+                            using (var streamWriter = new StreamWriter(stream))
+                            {
+                                streamWriter.WriteLine("Step {0} at {1}", _stepControllers[value].StepOrder, DateTime.Now);
+                            }
+                        }
+                    }
+
                     SendPresentStepNetworkMessage();
                 }
             }
@@ -55,6 +67,7 @@ namespace CollaborationEngine.Panels
         #region Members
         private readonly Dictionary<uint, StepController> _stepControllers = new Dictionary<uint, StepController>();
         private uint _showingStepID;
+        private String _sessionFilename;
         #endregion
 
         public void Start()
@@ -68,6 +81,26 @@ namespace CollaborationEngine.Panels
             // Create step controllers:
             foreach (var stepModel in TaskModel.Steps)
                 CreateStepController(stepModel.Value);
+
+            {
+                // Create directory if it doesn't exist:
+                const string directory = "Sessions/";
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                // Set filename:
+                _sessionFilename = directory + String.Format("{0:yyyy-mm-dd_hh-MM-ss}.session", DateTime.Now);
+
+                // Write task ID and name:
+                using (var stream = new FileStream(_sessionFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    using (var streamWriter = new StreamWriter(stream))
+                    {
+                        streamWriter.WriteLine("Task ID: {0}", TaskModel.ID);
+                        streamWriter.WriteLine("Task Name: {0}", TaskModel.Name);
+                    }
+                }
+            }
 
             if (_stepControllers.Count > 0)
                 ShowingStepID = _stepControllers.First().Key;
@@ -90,6 +123,7 @@ namespace CollaborationEngine.Panels
             // Subscribe to events:
             stepController.OnShowClicked += StepController_OnShowClicked;
             stepController.OnDeleteClicked += StepController_OnDeleteClicked;
+            stepController.OnHintEditClicked += StepController_OnHintEditClicked;
 
             // Add to instructions view:
             InstructionsView.AddToContainer(stepController.transform);
@@ -141,7 +175,7 @@ namespace CollaborationEngine.Panels
         private void SendPresentStepNetworkMessage()
         {
             var stepController = _stepControllers[_showingStepID];
-            NetworkManager.client.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(TaskModel.ImageTargetIndex, stepController.StepModel));
+            NetworkManager.client.Send(NetworkHandles.PresentStep, new StepModelNetworkMessage(TaskModel.ImageTargetIndex, stepController.StepOrder, stepController.StepModel));
         }
 
         #region Event Handlers
@@ -150,7 +184,7 @@ namespace CollaborationEngine.Panels
             if (NetworkManager.IsAppreticeConnected)
             {
                 var stepController = _stepControllers[_showingStepID];
-                NetworkManager.client.Send(NetworkHandles.Initialize, new StepModelNetworkMessage(TaskModel.ImageTargetIndex, stepController.StepModel));
+                NetworkManager.client.Send(NetworkHandles.Initialize, new StepModelNetworkMessage(TaskModel.ImageTargetIndex, stepController.StepOrder, stepController.StepModel));
             }
         }
         private void TaskModel_OnStepCreated(TaskModel sender, StepEventArgs eventArgs)
@@ -173,6 +207,10 @@ namespace CollaborationEngine.Panels
         {
             // Delete step model:
             TaskModel.DeleteStep(e.ID);
+        }
+        private void StepController_OnHintEditClicked(object sender, StepController.StepHintEventArgs e)
+        {
+            ShowingStepID = e.Sender.StepModel.ID;
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using CollaborationEngine.Base;
+using UnityEngine.UI;
 
 namespace CollaborationEngine.Panels
 {
@@ -7,6 +8,10 @@ namespace CollaborationEngine.Panels
     {
         public event EventHandler OnNeedMoreInstructionsClicked;
         public event EventHandler OnCompletedTheStepClicked;
+
+        public Text HeaderText;
+        public Button MoreInstructionsButton;
+        public Button StepCompletedButton;
 
         public void OnNeedMoreInstructionsClick()
         {

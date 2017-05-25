@@ -12,8 +12,21 @@ namespace CollaborationEngine.Steps
 {
     public class StepController : Controller
     {
+        public class StepHintEventArgs : EventArgs
+        {
+            public StepController Sender { get; private set; }
+            public HintController HintController { get; private set; }
+
+            public StepHintEventArgs(StepController sender, HintController hintController)
+            {
+                Sender = sender;
+                HintController = hintController;
+            }
+        }
+
         public event EventHandler<StepView.ShowEventArgs> OnShowClicked;
         public event EventHandler<IDEventArgs> OnDeleteClicked;
+        public event EventHandler<StepHintEventArgs> OnHintEditClicked;
 
         public StepView StepView;
         public RectTransform HintControllersContainer;
@@ -74,6 +87,7 @@ namespace CollaborationEngine.Steps
             hintController.HintPanelItemViewsContainer = HintPanelItemViewsContainer;
             hintController.HintModel = hintModel;
             hintController.Showing = Showing;
+            hintController.OnEdit += HintController_OnEdit;
 
             // Add to collection:
             _hints.Add(hintModel.ID, hintController);
@@ -174,6 +188,11 @@ namespace CollaborationEngine.Steps
         private void StepModel_OnHintDeleted(StepModel sender, HintEventArgs eventArgs)
         {
             DeleteHintController(eventArgs.HintModel.ID);
+        }
+        private void HintController_OnEdit(object sender, HintController.HintEventArgs e)
+        {
+            if (OnHintEditClicked != null)
+                OnHintEditClicked(this, new StepHintEventArgs(this, e.HintController));
         }
     }
 }

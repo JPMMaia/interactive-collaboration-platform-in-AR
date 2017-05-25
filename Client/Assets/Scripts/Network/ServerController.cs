@@ -1,15 +1,10 @@
-﻿using CollaborationEngine.Base;
-using CollaborationEngine.Steps;
+﻿using CollaborationEngine.Steps;
 using UnityEngine.Networking;
 
 namespace CollaborationEngine.Network
 {
     public class ServerController : NetworkBehaviour
     {
-        private Application Application
-        {
-            get { return FindObjectOfType<Application>(); }
-        }
         private StepModel CurrentStepModel
         {
             get
@@ -29,6 +24,8 @@ namespace CollaborationEngine.Network
         }
 
         private StepModel _currentStepModel;
+        private uint _currentStepOrder;
+        private int _currentImageTargetIndex;
 
         public void Awake()
         {
@@ -41,14 +38,15 @@ namespace CollaborationEngine.Network
 
         private void OnInitialize(NetworkMessage networkMessage)
         {
-            var currentStepParentTask = Application.Model.Tasks.Get(CurrentStepModel.TaskID);
-            var message = new StepModelNetworkMessage(currentStepParentTask.ImageTargetIndex, CurrentStepModel);
+            var message = new StepModelNetworkMessage(_currentImageTargetIndex, _currentStepOrder, CurrentStepModel);
             NetworkServer.SendToAll(NetworkHandles.Initialize, message);
         }
         private void OnPresentStep(NetworkMessage networkMessage)
         {
             var message = networkMessage.ReadMessage<StepModelNetworkMessage>();
+            _currentImageTargetIndex = message.ImageTargetIndex;
             CurrentStepModel = message.Data;
+            _currentStepOrder = message.StepOrder;
 
             NetworkServer.SendToAll(NetworkHandles.PresentStep, message);
         }

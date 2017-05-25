@@ -23,9 +23,12 @@ ModelImporter:
     400014: Lamp
     2300000: ' 1'
     2300002: 3dSolid
+    2300004: //RootNode
     3300000: ' 1'
     3300002: 3dSolid
+    3300004: //RootNode
     4300000: 3dSolid
+    4300002: LEGO-2X4-L
   materials:
     importMaterials: 1
     materialName: 0

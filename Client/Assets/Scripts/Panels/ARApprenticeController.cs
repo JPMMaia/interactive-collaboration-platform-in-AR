@@ -67,10 +67,15 @@ namespace CollaborationEngine.Panels
 
         private void _view_OnNeedMoreInstructionsClicked(object sender, EventArgs e)
         {
+            _view.MoreInstructionsButton.interactable = false;
+
             NetworkManager.singleton.client.Send(NetworkHandles.NeedMoreInstructions, new IDMessage(StepModel.ID));
         }
         private void _view_OnCompletedTheStepClicked(object sender, EventArgs e)
         {
+            _view.MoreInstructionsButton.interactable = false;
+            _view.StepCompletedButton.interactable = false;
+
             NetworkManager.singleton.client.Send(NetworkHandles.StepCompleted, new IDMessage(StepModel.ID));
         }
 
@@ -81,6 +86,12 @@ namespace CollaborationEngine.Panels
             StepModel = message.Data;
 
             UpdateStep();
+
+            // Reenable buttons:
+            _view.MoreInstructionsButton.interactable = true;
+            _view.StepCompletedButton.interactable = true;
+
+            _view.HeaderText.text = String.Format("STEP {0}", message.StepOrder);
         }
         private void OnHintTransformUpdate(NetworkMessage networkMessage)
         {
@@ -89,13 +100,14 @@ namespace CollaborationEngine.Panels
             if (!_hintControllers.ContainsKey(data.ID))
                 return;
 
-            // TODO Update model:
-
             // Update view:
             var hintView = _hintControllers[data.ID].Hint3DView;
             hintView.transform.localPosition = data.Position;
             hintView.transform.localRotation = data.Rotation;
             hintView.transform.localScale = data.Scale;
+
+            // Reenable "more instructions" button:
+            _view.MoreInstructionsButton.interactable = true;
         }
     }
 }
