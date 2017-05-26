@@ -72,16 +72,6 @@ namespace CollaborationEngine.Panels
 
         public void Start()
         {
-            NetworkManager.OnPlayerConnected += NetworkManager_OnPlayerConnected;
-
-            TaskModel.OnStepCreated += TaskModel_OnStepCreated;
-            TaskModel.OnStepDuplicated += TaskModel_OnStepDuplicated;
-            TaskModel.OnStepDeleted += TaskModel_OnStepDeleted;
-
-            // Create step controllers:
-            foreach (var stepModel in TaskModel.Steps)
-                CreateStepController(stepModel.Value);
-
             {
                 // Create directory if it doesn't exist:
                 const string directory = "Sessions/";
@@ -101,6 +91,16 @@ namespace CollaborationEngine.Panels
                     }
                 }
             }
+
+            NetworkManager.OnPlayerConnected += NetworkManager_OnPlayerConnected;
+
+            TaskModel.OnStepCreated += TaskModel_OnStepCreated;
+            TaskModel.OnStepDuplicated += TaskModel_OnStepDuplicated;
+            TaskModel.OnStepDeleted += TaskModel_OnStepDeleted;
+
+            // Create step controllers:
+            foreach (var stepModel in TaskModel.Steps)
+                CreateStepController(stepModel.Value);
 
             if (_stepControllers.Count > 0)
                 ShowingStepID = _stepControllers.First().Key;
