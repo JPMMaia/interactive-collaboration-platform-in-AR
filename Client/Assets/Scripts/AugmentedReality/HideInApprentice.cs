@@ -1,5 +1,4 @@
 ﻿using CollaborationEngine.Base;
-using UnityEngine;
 
 namespace CollaborationEngine.AugmentedReality
 {
@@ -8,7 +7,7 @@ namespace CollaborationEngine.AugmentedReality
         public void Awake()
         {
             if (Application.IsApprentice)
-                GetComponent<Renderer>().gameObject.SetActive(false);
+                gameObject.SetActive(false);
         }
     }
 }

@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace CollaborationEngine.ApprenticeBox
 {
+    [RequireComponent(typeof(AudioSource))]
     public class ApprenticeNetworkStateView : Entity
     {
         public NotificationIcon IconPrefab;
-        public AudioClip NotificationAudioClip;
         public Image Background;
         public Text Text;
 
@@ -71,8 +71,9 @@ namespace CollaborationEngine.ApprenticeBox
         }
         private void PlayNotificationAudioClip()
         {
-            if(NotificationAudioClip)
-                AudioSource.PlayClipAtPoint(NotificationAudioClip, transform.position);
+            var audioSource = GetComponent<AudioSource>();
+            if(audioSource)
+                audioSource.Play();
         }
 
         private void OnNeedMoreInstructions(object sender, EventArgs eventArgs)

@@ -20,11 +20,6 @@ namespace CollaborationEngine.Panels
 
         public InputField IPAddressInputField;
 
-        public void Start()
-        {
-            IPAddressInputField.ActivateInputField();
-        }
-
         public void OnOKClick()
         {
             if (IPAddressInputField.text.Length == 0)
