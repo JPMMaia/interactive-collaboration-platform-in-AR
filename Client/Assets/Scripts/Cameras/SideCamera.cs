@@ -44,7 +44,6 @@ namespace CollaborationEngine.Cameras
             gameObject.SetActive(false);
 
             _camera = GetComponent<Camera>();
-            _camera.orthographic = false;
 
             switch (View)
             {
@@ -137,6 +136,7 @@ namespace CollaborationEngine.Cameras
             writer.Write(UnityCamera.orthographicSize);
             writer.Write(MovementSensibility);
             writer.Write(MouseWheelSensibility);
+            writer.Write(_camera.orthographic);
         }
         public void Deserialize(BinaryReader reader)
         {
@@ -150,6 +150,7 @@ namespace CollaborationEngine.Cameras
             UnityCamera.orthographicSize = reader.ReadSingle();
             MovementSensibility = reader.ReadSingle();
             MouseWheelSensibility = reader.ReadSingle();
+            _camera.orthographic = reader.ReadBoolean();
         }
     }
 }
