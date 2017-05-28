@@ -44,7 +44,7 @@ namespace CollaborationEngine.Cameras
             gameObject.SetActive(false);
 
             _camera = GetComponent<Camera>();
-            _camera.orthographic = true;
+            _camera.orthographic = false;
 
             switch (View)
             {

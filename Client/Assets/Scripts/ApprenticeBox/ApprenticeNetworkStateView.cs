@@ -2,7 +2,6 @@
 using CollaborationEngine.Base;
 using CollaborationEngine.Network;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace CollaborationEngine.ApprenticeBox
@@ -24,9 +23,8 @@ namespace CollaborationEngine.ApprenticeBox
 
             networkManager.OnPlayerConnected += NetworkManager_OnConnectionsChanged;
             networkManager.OnPlayerDisconnected += NetworkManager_OnConnectionsChanged;
-
-            networkManager.client.RegisterHandler(NetworkHandles.NeedMoreInstructions, OnNeedMoreInstructions);
-            networkManager.client.RegisterHandler(NetworkHandles.StepCompleted, OnStepCompleted);
+            networkManager.OnNeedMoreInstructions += OnNeedMoreInstructions;
+            networkManager.OnStepCompleted += OnStepCompleted;
         }
 
         public void Update()
@@ -35,6 +33,11 @@ namespace CollaborationEngine.ApprenticeBox
             {
                 SetNetworkStateMessage();
             }
+        }
+
+        public void Reset()
+        {
+            SetNetworkStateMessage();
         }
 
         private void NetworkManager_OnConnectionsChanged(object sender, EventArgs e)
@@ -72,7 +75,7 @@ namespace CollaborationEngine.ApprenticeBox
                 AudioSource.PlayClipAtPoint(NotificationAudioClip, transform.position);
         }
 
-        private void OnNeedMoreInstructions(NetworkMessage networkMessage)
+        private void OnNeedMoreInstructions(object sender, EventArgs eventArgs)
         {
             Text.text = "The apprentice is requesting more instructions.";
             _notificationTime = DateTime.Now;
@@ -80,7 +83,7 @@ namespace CollaborationEngine.ApprenticeBox
             ChangeIcon(NotificationType.Help);
             PlayNotificationAudioClip();
         }
-        private void OnStepCompleted(NetworkMessage networkMessage)
+        private void OnStepCompleted(object sender, EventArgs eventArgs)
         {
             Text.text = "The apprentice completed step.";
             _notificationTime = DateTime.Now;

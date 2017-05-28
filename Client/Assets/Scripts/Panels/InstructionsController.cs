@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CollaborationEngine.ApprenticeBox;
 using CollaborationEngine.Base;
 using CollaborationEngine.Cameras;
 using CollaborationEngine.Network;
@@ -18,6 +19,7 @@ namespace CollaborationEngine.Panels
         public InstructionsView InstructionsView;
         public InputField AddStepInputField;
         public Text ShowingStepMessageText;
+        public ApprenticeNetworkStateView ApprenticeNetworkStateView;
         #endregion
 
         #region Properties
@@ -44,6 +46,7 @@ namespace CollaborationEngine.Panels
 
                     // Change apprentice box message:
                     ShowingStepMessageText.text = String.Format("Showing Step {0}.", _stepControllers[value].StepOrder);
+                    ApprenticeNetworkStateView.Reset();
 
                     {
                         // Log to file:
@@ -93,6 +96,8 @@ namespace CollaborationEngine.Panels
             }
 
             NetworkManager.OnPlayerConnected += NetworkManager_OnPlayerConnected;
+            NetworkManager.OnNeedMoreInstructions += NetworkManager_OnNeedMoreInstructions;
+            NetworkManager.OnStepCompleted += NetworkManager_OnStepCompleted;
 
             TaskModel.OnStepCreated += TaskModel_OnStepCreated;
             TaskModel.OnStepDuplicated += TaskModel_OnStepDuplicated;
@@ -211,6 +216,28 @@ namespace CollaborationEngine.Panels
         private void StepController_OnHintEditClicked(object sender, StepController.StepHintEventArgs e)
         {
             ShowingStepID = e.Sender.StepModel.ID;
+        }
+        private void NetworkManager_OnNeedMoreInstructions(object sender, EventArgs e)
+        {
+            // Log to file:
+            using (var stream = new FileStream(_sessionFilename, FileMode.Append, FileAccess.Write, FileShare.None))
+            {
+                using (var streamWriter = new StreamWriter(stream))
+                {
+                    streamWriter.WriteLine("Apprentice request more instructions at {0}", DateTime.Now);
+                }
+            }
+        }
+        private void NetworkManager_OnStepCompleted(object sender, EventArgs e)
+        {
+            // Log to file:
+            using (var stream = new FileStream(_sessionFilename, FileMode.Append, FileAccess.Write, FileShare.None))
+            {
+                using (var streamWriter = new StreamWriter(stream))
+                {
+                    streamWriter.WriteLine("Apprentice completed step at {0}", DateTime.Now);
+                }
+            }
         }
         #endregion
     }

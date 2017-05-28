@@ -9,6 +9,8 @@ namespace CollaborationEngine.Network
         #region Events
         public event EventHandler OnPlayerConnected;
         public event EventHandler OnPlayerDisconnected;
+        public event EventHandler OnNeedMoreInstructions;
+        public event EventHandler OnStepCompleted;
         #endregion
 
         #region Properties
@@ -44,6 +46,12 @@ namespace CollaborationEngine.Network
             _connections.Add(connection.connectionId, connection);
             if (OnPlayerConnected != null)
                 OnPlayerConnected(this, EventArgs.Empty);
+
+            if (IsAppreticeConnected)
+            {
+                client.RegisterHandler(NetworkHandles.NeedMoreInstructions, NeedMoreInstructions);
+                client.RegisterHandler(NetworkHandles.StepCompleted, StepCompleted);
+            }
         }
         public override void OnServerDisconnect(NetworkConnection connection)
         {
@@ -55,6 +63,16 @@ namespace CollaborationEngine.Network
             _connections.Remove(connection.connectionId);
             if (OnPlayerDisconnected != null)
                 OnPlayerDisconnected(this, EventArgs.Empty);
+        }
+        private void NeedMoreInstructions(NetworkMessage networkMessage)
+        {
+            if(OnNeedMoreInstructions != null)
+                OnNeedMoreInstructions(this, EventArgs.Empty);
+        }
+        private void StepCompleted(NetworkMessage networkMessage)
+        {
+            if (OnStepCompleted != null)
+                OnStepCompleted(this, EventArgs.Empty);
         }
     }
 }
