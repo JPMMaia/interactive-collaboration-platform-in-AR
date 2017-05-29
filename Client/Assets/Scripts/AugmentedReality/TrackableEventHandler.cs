@@ -33,11 +33,11 @@ namespace CollaborationEngine.AugmentedReality
 
         public void OnTrackingLost()
         {
-            /*var renderers = GetComponentsInChildren<Renderer>();
+            var renderers = GetComponentsInChildren<Renderer>();
             foreach (var component in renderers)
             {
                 component.enabled = false;
-            }*/
+            }
         }
     }
 }

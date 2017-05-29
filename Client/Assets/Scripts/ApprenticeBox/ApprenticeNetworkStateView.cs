@@ -29,10 +29,10 @@ namespace CollaborationEngine.ApprenticeBox
 
         public void Update()
         {
-            if (_notifification && DateTime.Now - _notificationTime > TimeSpan.FromSeconds(10.0f))
+            /*if (_notifification && DateTime.Now - _notificationTime > TimeSpan.FromSeconds(10.0f))
             {
                 SetNetworkStateMessage();
-            }
+            }*/
         }
 
         public void Reset()
