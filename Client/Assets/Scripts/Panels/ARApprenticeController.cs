@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollaborationEngine.AugmentedReality;
 using CollaborationEngine.Base;
 using CollaborationEngine.Hints;
 using CollaborationEngine.Network;
@@ -17,6 +18,7 @@ namespace CollaborationEngine.Panels
 
         private ARApprenticeView _view;
         private readonly Dictionary<uint, Hint3DController> _hintControllers = new Dictionary<uint, Hint3DController>();
+        private uint _stepOrder;
 
         public void Start()
         {
@@ -32,6 +34,10 @@ namespace CollaborationEngine.Panels
             networkClient.RegisterHandler(NetworkHandles.UpdateHintTransform, OnHintTransformUpdate);
 
             UpdateStep();
+
+            var trackableEventHandler = Application.View.ImageTargets.ActivatedImageTarget.GetComponent<TrackableEventHandler>();
+            trackableEventHandler.OnTargetFound += TrackableEventHandler_OnTargetFound;
+            trackableEventHandler.OnTargetLost += TrackableEventHandler_OnTargetLost;
         }
         public void OnDestroy()
         {
@@ -69,14 +75,14 @@ namespace CollaborationEngine.Panels
         {
             _view.MoreInstructionsButton.interactable = false;
 
-            NetworkManager.singleton.client.Send(NetworkHandles.NeedMoreInstructions, new IDMessage(StepModel.ID));
+            NetworkManager.singleton.client.Send(NetworkHandles.NeedMoreInstructions, new IDNetworkMessage(StepModel.ID));
         }
         private void _view_OnCompletedTheStepClicked(object sender, EventArgs e)
         {
             _view.MoreInstructionsButton.interactable = false;
             _view.StepCompletedButton.interactable = false;
 
-            NetworkManager.singleton.client.Send(NetworkHandles.StepCompleted, new IDMessage(StepModel.ID));
+            NetworkManager.singleton.client.Send(NetworkHandles.StepCompleted, new IDNetworkMessage(StepModel.ID));
         }
 
         private void OnPresentStep(NetworkMessage networkMessage)
@@ -91,7 +97,8 @@ namespace CollaborationEngine.Panels
             _view.MoreInstructionsButton.interactable = true;
             _view.StepCompletedButton.interactable = true;
 
-            _view.HeaderText.text = String.Format("STEP {0}", message.StepOrder);
+            _stepOrder = message.StepOrder;
+            _view.HeaderText.text = String.Format("STEP {0}", _stepOrder);
         }
         private void OnHintTransformUpdate(NetworkMessage networkMessage)
         {
@@ -108,6 +115,15 @@ namespace CollaborationEngine.Panels
 
             // Reenable "more instructions" button:
             _view.MoreInstructionsButton.interactable = true;
+        }
+
+        private void TrackableEventHandler_OnTargetFound(object sender, EventArgs e)
+        {
+            _view.HeaderText.text = String.Format("STEP {0}", _stepOrder);
+        }
+        private void TrackableEventHandler_OnTargetLost(object sender, EventArgs e)
+        {
+            _view.HeaderText.text = "TARGET LOST. TRYING TO REACQUIRE";
         }
     }
 }

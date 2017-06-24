@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborationEngine.Panels.StartMentorController">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <Members>
+      <Field Name="_startMentorView" Hidden="true" />
+      <Method Name="OnDestroy" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Method Name="StartMentorView_OnTaskSelected" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Delegate Name="CollaborationEngine.Panels.StartMentorController.EventDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Panels\StartMentorController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACBAAAAAEAAAAAAAAAQAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Panels\StartMentorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Panels.EditorController">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="CollaborationEngine.Panels.EditorController.EventDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Panels\EditorController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAACAAAAgBAAACAAABAAgAAAEAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Panels\EditorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Panels.InstructionsController">
+    <Position X="4.5" Y="2" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>gABACECiICAAEEgAAAICAAAAEAAEUMAEAIQABIAAAQA=</HashCode>
+      <FileName>Assets\Scripts\Panels\InstructionsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

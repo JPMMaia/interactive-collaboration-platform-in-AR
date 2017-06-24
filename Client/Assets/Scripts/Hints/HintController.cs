@@ -190,14 +190,14 @@ namespace CollaborationEngine.Hints
         }
         private void _hintPanelItemView_OnDuplicateClicked(object sender, EventArgs e)
         {
-            var parentTaskModel = Application.Model.Tasks.Get(HintModel.TaskID);
+            var parentTaskModel = Application.Model.Tasks.GetTask(HintModel.TaskID);
             var parentStepModel = parentTaskModel.GetStep(HintModel.StepID);
 
             parentStepModel.DuplicateHint(HintModel.ID);
         }
         private void _hintPanelItemView_OnDeleteClicked(object sender, EventArgs e)
         {
-            var parentTaskModel = Application.Model.Tasks.Get(HintModel.TaskID);
+            var parentTaskModel = Application.Model.Tasks.GetTask(HintModel.TaskID);
             var parentStepModel = parentTaskModel.GetStep(HintModel.StepID);
 
             parentStepModel.DeleteHint(HintModel.ID);

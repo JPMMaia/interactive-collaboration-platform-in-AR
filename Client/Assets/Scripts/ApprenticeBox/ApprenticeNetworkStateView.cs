@@ -21,8 +21,8 @@ namespace CollaborationEngine.ApprenticeBox
         {
             var networkManager = MentorNetworkManager.Instance;
 
-            networkManager.OnPlayerConnected += NetworkManager_OnConnectionsChanged;
-            networkManager.OnPlayerDisconnected += NetworkManager_OnConnectionsChanged;
+            networkManager.OnUserConnected += NetworkManager_OnConnectionsChanged;
+            networkManager.OnUserDisconnected += NetworkManager_OnConnectionsChanged;
             networkManager.OnNeedMoreInstructions += OnNeedMoreInstructions;
             networkManager.OnStepCompleted += OnStepCompleted;
         }

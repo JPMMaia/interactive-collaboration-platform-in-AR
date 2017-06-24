@@ -23,7 +23,7 @@ namespace CollaborationEngine.Experiments
                 Directory.CreateDirectory(directory);
 
             // Write to file:
-            var file = directory + String.Format("{0:yyyy-mm-dd_hh-MM-ss}.data", DateTime.Now);
+            var file = directory + String.Format("{0:yyyy-MM-dd_HH-mm-ss}.data", DateTime.Now);
             using (var stream = File.OpenWrite(file))
             {
                 using (var streamWriter = new StreamWriter(stream))

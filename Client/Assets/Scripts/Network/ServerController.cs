@@ -56,11 +56,11 @@ namespace CollaborationEngine.Network
         }
         private void OnNeedMoreInstructions(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.NeedMoreInstructions, networkMessage.ReadMessage<IDMessage>());
+            NetworkServer.SendToAll(NetworkHandles.NeedMoreInstructions, networkMessage.ReadMessage<IDNetworkMessage>());
         }
         private void OnStepCompleted(NetworkMessage networkMessage)
         {
-            NetworkServer.SendToAll(NetworkHandles.StepCompleted, networkMessage.ReadMessage<IDMessage>());
+            NetworkServer.SendToAll(NetworkHandles.StepCompleted, networkMessage.ReadMessage<IDNetworkMessage>());
         }
     }
 }

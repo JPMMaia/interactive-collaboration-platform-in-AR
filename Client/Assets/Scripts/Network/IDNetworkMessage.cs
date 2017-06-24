@@ -2,14 +2,14 @@
 
 namespace CollaborationEngine.Network
 {
-    public class IDMessage : MessageBase
+    public class IDNetworkMessage : MessageBase
     {
         public uint ID { get; private set; }
 
-        public IDMessage()
+        public IDNetworkMessage()
         {
         }
-        public IDMessage(uint id)
+        public IDNetworkMessage(uint id)
         {
             ID = id;
         }

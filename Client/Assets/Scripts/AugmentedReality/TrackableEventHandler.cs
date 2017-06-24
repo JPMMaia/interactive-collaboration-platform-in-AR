@@ -1,16 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vuforia;
 
 namespace CollaborationEngine.AugmentedReality
 {
     public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
     {
+        public event EventHandler OnTargetFound;
+        public event EventHandler OnTargetLost;
+
         public TrackableBehaviour TrackableBehaviour;
+
+        private Base.Application Application
+        {
+            get { return FindObjectOfType<Base.Application>(); }
+        }
 
         public void Start()
         {
-            TrackableBehaviour.RegisterTrackableEventHandler(this);
+            if (!Application.IsApprentice)
+                return;
 
+            TrackableBehaviour.RegisterTrackableEventHandler(this);
             OnTrackingLost();
         }
 
@@ -29,6 +40,9 @@ namespace CollaborationEngine.AugmentedReality
             {
                 component.enabled = true;
             }
+
+            if(OnTargetFound != null)
+                OnTargetFound(this, EventArgs.Empty);
         }
 
         public void OnTrackingLost()
@@ -38,6 +52,9 @@ namespace CollaborationEngine.AugmentedReality
             {
                 component.enabled = false;
             }
+
+            if (OnTargetLost != null)
+                OnTargetLost(this, EventArgs.Empty);
         }
     }
 }

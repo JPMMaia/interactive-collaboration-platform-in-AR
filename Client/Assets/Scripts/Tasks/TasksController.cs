@@ -115,7 +115,7 @@ namespace CollaborationEngine.Tasks
         private void TasksView_OnCreateTaskClicked(object sender, EventArgs eventArgs)
         {
             // CreateStep task model:
-            var taskModel = TasksModel.Create();
+            var taskModel = TasksModel.CreateTask();
 
             // GetStep corresponding task view:
             TaskView taskView;
@@ -135,16 +135,16 @@ namespace CollaborationEngine.Tasks
         }
         private void TaskView_OnDuplicated(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            TasksModel.Duplicate(eventArgs.ID);
+            TasksModel.DuplicateTask(eventArgs.ID);
         }
         private void TaskView_OnDeleted(TaskView sender, Events.IDEventArgs eventArgs)
         {
-            TasksModel.Delete(eventArgs.ID);
+            TasksModel.DeleteTask(eventArgs.ID);
         }
         private void TaskView_OnEndEdit(TaskView sender, Events.IDEventArgs eventArgs)
         {
             // GetStep task model:
-            var taskModel = TasksModel.Get(eventArgs.ID);
+            var taskModel = TasksModel.GetTask(eventArgs.ID);
 
             // Update name:
             taskModel.Name = sender.TaskName;

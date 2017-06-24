@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborationEngine.Steps.StepController">
+    <Position X="1.25" Y="0.75" Width="2.75" />
+    <Members>
+      <Field Name="_hints" Hidden="true" />
+      <Field Name="_originalHeight" Hidden="true" />
+      <Method Name="HintController_OnEdit" Hidden="true" />
+      <Field Name="HintControllersContainer" Hidden="true" />
+      <Field Name="HintPanelItemViewsContainer" Hidden="true" />
+      <Method Name="NewHintWindowController_OnEndCreate" Hidden="true" />
+      <Method Name="OnAddButtonClick" Hidden="true" />
+      <Method Name="OnDeleteButtonClick" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Class Name="CollaborationEngine.Steps.StepController.StepHintEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Steps\StepController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AkQABAAAAKABQggAASAAABgCIAAAAAAAIoSgAAAEBEk=</HashCode>
+      <FileName>Assets\Scripts\Steps\StepController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Hints.HintController">
+    <Position X="4.5" Y="0.75" Width="3.5" />
+    <Members>
+      <Field Name="_edit" Hidden="true" />
+      <Field Name="_hint3DView" Hidden="true" />
+      <Field Name="_hintPanelItemView" Hidden="true" />
+      <Field Name="_showing" Hidden="true" />
+      <Field Name="_transformPanelController" Hidden="true" />
+      <Property Name="HintPanelItemViewsContainer" Hidden="true" />
+      <Method Name="OnDestroy" Hidden="true" />
+      <Property Name="Position" Hidden="true" />
+      <Property Name="Rotation" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Class Name="CollaborationEngine.Hints.HintController.HintEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Hints\HintController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BFgBBIAAACgoAIIgQAAAKMABABAAA4ACAAAAAEAACAA=</HashCode>
+      <FileName>Assets\Scripts\Hints\HintController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

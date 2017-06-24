@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborationEngine.Core.MentorController">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <Members>
+      <Field Name="_currentTaskID" Hidden="true" />
+      <Field Name="CameraManager" Hidden="true" />
+      <Method Name="Controller_OnGoBack" Hidden="true" />
+      <Method Name="Controller_OnTaskSelected" Hidden="true" />
+      <Method Name="LoadCameraConfigurations" Hidden="true" />
+      <Field Name="NullID" Hidden="true" />
+      <Method Name="OnApplicationQuit" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAABACAKAAgAgAABAAEAEBAAAAAAIABBAAAAAABAI=</HashCode>
+      <FileName>Assets\Scripts\Core\MentorController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="StartMentorControllerPrefab" />
+      <Field Name="EditorControllerPrefab" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CollaborationEngine.Panels.EditorController">
+    <Position X="6.25" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="EditorView_OnGoBack" Hidden="true" />
+      <Method Name="OnDestroy" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Delegate Name="CollaborationEngine.Panels.EditorController.EventDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Panels\EditorController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAACAAAAgBAAACAAABAAgAAAEAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Panels\EditorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Panels.StartMentorController">
+    <Position X="4" Y="1.5" Width="2" />
+    <Members>
+      <Field Name="_startMentorView" Hidden="true" />
+      <Method Name="OnDestroy" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Method Name="StartMentorView_OnTaskSelected" Hidden="true" />
+    </Members>
+    <NestedTypes>
+      <Delegate Name="CollaborationEngine.Panels.StartMentorController.EventDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Panels\StartMentorController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACBAAAAAEAAAAAAAAAQAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Panels\StartMentorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

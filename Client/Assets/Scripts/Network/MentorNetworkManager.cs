@@ -7,8 +7,8 @@ namespace CollaborationEngine.Network
     public class MentorNetworkManager : NetworkManager
     {
         #region Events
-        public event EventHandler OnPlayerConnected;
-        public event EventHandler OnPlayerDisconnected;
+        public event EventHandler OnUserConnected;
+        public event EventHandler OnUserDisconnected;
         public event EventHandler OnNeedMoreInstructions;
         public event EventHandler OnStepCompleted;
         #endregion
@@ -44,8 +44,8 @@ namespace CollaborationEngine.Network
                 return;
 
             _connections.Add(connection.connectionId, connection);
-            if (OnPlayerConnected != null)
-                OnPlayerConnected(this, EventArgs.Empty);
+            if (OnUserConnected != null)
+                OnUserConnected(this, EventArgs.Empty);
 
             if (IsAppreticeConnected)
             {
@@ -61,8 +61,8 @@ namespace CollaborationEngine.Network
                 return;
 
             _connections.Remove(connection.connectionId);
-            if (OnPlayerDisconnected != null)
-                OnPlayerDisconnected(this, EventArgs.Empty);
+            if (OnUserDisconnected != null)
+                OnUserDisconnected(this, EventArgs.Empty);
         }
         private void NeedMoreInstructions(NetworkMessage networkMessage)
         {

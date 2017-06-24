@@ -82,7 +82,7 @@ namespace CollaborationEngine.Panels
                     Directory.CreateDirectory(directory);
 
                 // Set filename:
-                _sessionFilename = directory + String.Format("{0:yyyy-mm-dd_hh-MM-ss}.session", DateTime.Now);
+                _sessionFilename = directory + String.Format("{0:yyyy-MM-dd_HH-mm-ss}.session", DateTime.Now);
 
                 // Write task ID and name:
                 using (var stream = new FileStream(_sessionFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
@@ -95,7 +95,7 @@ namespace CollaborationEngine.Panels
                 }
             }
 
-            NetworkManager.OnPlayerConnected += NetworkManager_OnPlayerConnected;
+            NetworkManager.OnUserConnected += NetworkManagerOnUserConnected;
             NetworkManager.OnNeedMoreInstructions += NetworkManager_OnNeedMoreInstructions;
             NetworkManager.OnStepCompleted += NetworkManager_OnStepCompleted;
 
@@ -184,7 +184,7 @@ namespace CollaborationEngine.Panels
         }
 
         #region Event Handlers
-        private void NetworkManager_OnPlayerConnected(object sender, EventArgs e)
+        private void NetworkManagerOnUserConnected(object sender, EventArgs e)
         {
             if (NetworkManager.IsAppreticeConnected)
             {

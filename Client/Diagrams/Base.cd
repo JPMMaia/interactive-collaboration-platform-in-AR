@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborationEngine.Base.Application">
+    <Position X="3.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAQAAAQAAAAAAAABAAAABAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Base\Application.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Model" />
+      <Field Name="View" />
+      <Field Name="Controller" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CollaborationEngine.Base.Controller" Collapsed="true">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Base\Controller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Base.Entity">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Base\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Base.Model">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Base\Model.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Base.View">
+    <Position X="6.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAACAAQACAAAAAAQAAAAAAgAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Base\View.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

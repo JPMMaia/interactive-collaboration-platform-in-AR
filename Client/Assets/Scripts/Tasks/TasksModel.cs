@@ -31,7 +31,7 @@ namespace CollaborationEngine.Tasks
         private Dictionary<uint, TaskModel> _tasks = new Dictionary<uint, TaskModel>();
         #endregion
 
-        private TaskModel CreateTask()
+        private TaskModel CreateTaskAux()
         {
             // CreateStep new task and assign a unique ID:
             var task = Instantiate(TaskModelPrefab, transform);
@@ -42,9 +42,9 @@ namespace CollaborationEngine.Tasks
 
             return task;
         }
-        public TaskModel Create()
+        public TaskModel CreateTask()
         {
-            var task = CreateTask();
+            var task = CreateTaskAux();
 
             // Raise event:
             if (OnTaskCreated != null)
@@ -52,7 +52,7 @@ namespace CollaborationEngine.Tasks
 
             return task;
         }
-        public TaskModel Duplicate(uint taskID)
+        public TaskModel DuplicateTask(uint taskID)
         {
             // Get task to duplicate:
             var taskToDuplicate = _tasks[taskID];
@@ -67,7 +67,7 @@ namespace CollaborationEngine.Tasks
 
             return duplicatedTask;
         }
-        public void Delete(uint taskID)
+        public void DeleteTask(uint taskID)
         {
             // GetStep task:
             TaskModel task;
@@ -91,7 +91,7 @@ namespace CollaborationEngine.Tasks
             // Destroy task:
             Destroy(task.gameObject);
         }
-        public TaskModel Get(uint taskID)
+        public TaskModel GetTask(uint taskID)
         {
             return _tasks[taskID];
         }
@@ -120,7 +120,7 @@ namespace CollaborationEngine.Tasks
             _tasks = new Dictionary<uint, TaskModel>(directories.Length);
             foreach (var directory in directories)
             {
-                var task = CreateTask();
+                var task = CreateTaskAux();
                 task.Load(String.Format("{0}/", directory));
             }
         }

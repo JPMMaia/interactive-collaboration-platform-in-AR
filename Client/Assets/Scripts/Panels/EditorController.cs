@@ -39,7 +39,7 @@ namespace CollaborationEngine.Panels
             EditorView.OnGoBack += EditorView_OnGoBack;
 
             // Cache task:
-            _task = TasksModel.Get(TaskID);
+            _task = TasksModel.GetTask(TaskID);
             InstructionsController.TaskModel = _task;
             InstructionsController.NetworkManager = NetworkManager;
             InstructionsController.CameraManager = CameraManager;

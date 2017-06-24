@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CollaborationEngine.Core.ApprenticeController">
+    <Position X="0.5" Y="0.75" Width="1.75" />
+    <Members>
+      <Field Name="_curentController" Hidden="true" />
+      <Method Name="Controller_OnConnectToServer" Hidden="true" />
+      <Field Name="NetworkManager" Hidden="true" />
+      <Method Name="NetworkManager_OnDisconnected" Hidden="true" />
+      <Method Name="OnInitialize" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AACIAAAAACAAAAAAACACAAAAAAACQAAAAAQAAAAABgA=</HashCode>
+      <FileName>Assets\Scripts\Core\ApprenticeController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="StartApprenticeControllerPrefab" />
+      <Field Name="ARApprenticeControllerPrefab" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CollaborationEngine.Panels.ARApprenticeController">
+    <Position X="6.75" Y="0.5" Width="2" />
+    <Members>
+      <Field Name="_hintControllers" Hidden="true" />
+      <Field Name="_stepOrder" Hidden="true" />
+      <Field Name="_view" Hidden="true" />
+      <Method Name="_view_OnCompletedTheStepClicked" Hidden="true" />
+      <Method Name="_view_OnNeedMoreInstructionsClicked" Hidden="true" />
+      <Method Name="CreateHintController" Hidden="true" />
+      <Method Name="OnDestroy" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Method Name="TrackableEventHandler_OnTargetFound" Hidden="true" />
+      <Method Name="TrackableEventHandler_OnTargetLost" Hidden="true" />
+      <Method Name="UpdateStep" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AgABAAQkACAAAAgAAAAAAAAAAACQAAIAACCACAAABgI=</HashCode>
+      <FileName>Assets\Scripts\Panels\ARApprenticeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollaborationEngine.Panels.StartApprenticeController">
+    <Position X="3.75" Y="1.5" Width="2" />
+    <Members>
+      <Field Name="_stateFilename" Hidden="true" />
+      <Field Name="_view" Hidden="true" />
+      <Method Name="LoadState" Hidden="true" />
+      <Method Name="OnDestroy" Hidden="true" />
+      <Method Name="SaveState" Hidden="true" />
+      <Method Name="Start" Hidden="true" />
+      <Method Name="View_OnConnectToServer" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AgABAAIAACAAAAAAACgIAAAAAIAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Panels\StartApprenticeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
