@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/82802534.svg)](https://zenodo.org/badge/latestdoi/82802534)
+
 # CooP AR - Interactive Collaboration Platform in Augmented Reality
 
 This project was developed for a thesis at the Faculty of Engineering of the University of Porto. CooP AR is a system that enables asynchronous collaboration between two users (e.g. between a mentor and an apprentice). The following video demonstrates the system in action:
