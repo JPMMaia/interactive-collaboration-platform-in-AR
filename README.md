@@ -39,7 +39,7 @@ In order to deploy the apprentice's application:
 ## Usage
 
 1. Print the markers that are located at "CooP AR/Assets/Editor/QCAR/ImageTargetTextures/RUBIK_Database".
-2. Download the [latest release](/releases/latest) or follow the instructions provided by the Installing and Deployment sections.
+2. Download the [latest release](https://github.com/JPMMaia/interactive-collaboration-platform-in-AR/releases/latest) or follow the instructions provided by the Installing and Deployment sections.
 2. Open the mentor's application and prepare a new task.
 3. Run the apprentice's application and enter the IP address of the device running the mentor's application.
 4. Orient the apprentice's device in order to capture the marker associated with the selected task.
