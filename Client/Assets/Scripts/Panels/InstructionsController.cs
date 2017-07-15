@@ -95,7 +95,7 @@ namespace CollaborationEngine.Panels
                 }
             }
 
-            NetworkManager.OnUserConnected += NetworkManagerOnUserConnected;
+            NetworkManager.OnUserConnected += NetworkManager_OnUserConnected;
             NetworkManager.OnNeedMoreInstructions += NetworkManager_OnNeedMoreInstructions;
             NetworkManager.OnStepCompleted += NetworkManager_OnStepCompleted;
 
@@ -184,7 +184,7 @@ namespace CollaborationEngine.Panels
         }
 
         #region Event Handlers
-        private void NetworkManagerOnUserConnected(object sender, EventArgs e)
+        private void NetworkManager_OnUserConnected(object sender, EventArgs e)
         {
             if (NetworkManager.IsAppreticeConnected)
             {
