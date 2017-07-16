@@ -51,6 +51,7 @@ In order to deploy the apprentice's application:
 
 * [Unity](https://unity3d.com/) - Game engine
 * [Vuforia](https://vuforia.com/) - Augmented reality framework
+* [Unity3DRuntimeTransformGizmo](https://github.com/HiddenMonk/Unity3DRuntimeTransformGizmo) - A runtime transform gizmo for unity
 
 ## Authors
 
@@ -58,3 +59,4 @@ In order to deploy the apprentice's application:
 * **Rui Nóbrega** - *Supervisor*
 * **João Jacob** - *Co-supervisor*
 * **Ana Alves** - *Designer* - [AnaFlipa](https://github.com/AnaFlipa)
+
